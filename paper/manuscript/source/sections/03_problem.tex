@@ -1,0 +1,6 @@
+\section{Problem and Threat Model}
+
+At generation step $t$, let $P_t$ be the declared distribution over canonical 6-mer tokens. A keyed sampler emits $X_t$. The generator has model access and a secret key. The standalone verifier receives DNA, the key, and public configuration, but not the prompt, model, logits, generation seed, or trace.
+
+The detector may search both strand orientations, all six fixed-block phases, and preregistered windows and key offsets. Its reported false-positive rate is calibrated for the maximum statistic over this complete procedure.
+

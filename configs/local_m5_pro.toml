@@ -1,0 +1,45 @@
+schema_version = 1
+profile = "local_m5_pro"
+
+[hardware]
+architecture = "arm64"
+unified_memory_gib = 48
+required_backend = "mps_or_cpu"
+distributed = false
+
+[runtime]
+device = "mps"
+allow_cpu_fallback = true
+batch_size = 1
+seed = 1729
+checkpoint_every_sequences = 10
+retain_dense_logits = false
+max_retained_logit_states = 1000
+
+[generation]
+context_tokens = 512
+lengths_bp = [384, 768, 1536, 3072, 4998]
+temperatures = [0.7, 1.0]
+
+[models.carbon_500m]
+enabled = true
+model_id = "HuggingFaceBio/Carbon-500M"
+revision_source = "sources.yaml"
+mps_dtype = "bfloat16"
+policy_ids = ["C_tok"]
+optional_policy_ids = ["C_bp"]
+open_audit_policy_ids = ["C_deployed"]
+
+[models.generator_v2_1p2b]
+enabled = true
+model_id = "GenerTeam/GENERator-v2-eukaryote-1.2b-base"
+revision_source = "sources.yaml"
+mps_dtype = "float32"
+dtype_reason = "bfloat16 failed the 12-context MPS/CPU parity gate"
+policy_ids = ["G_tok", "G_bp"]
+
+[models.carbon_3b]
+enabled = false
+model_id = "HuggingFaceBio/Carbon-3B"
+policy_ids = ["C_tok"]
+reason = "Optional reduced confirmation after primary gates pass"

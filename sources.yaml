@@ -1,0 +1,50 @@
+schema_version: 1
+audit_date: "2026-08-20"
+sources:
+  - id: ncbi_refseq_eukaryote_windows_v1
+    kind: public_dataset_cohort
+    url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
+    revision: accession-version records and window hashes in data/public_prompt_cohort.yaml
+    usage_policy: https://www.ncbi.nlm.nih.gov/home/about/policies/
+  - id: carbon_code
+    kind: git
+    url: https://github.com/huggingface/carbon
+    revision: 10bbc4b35f6e26d2a8767342576ff65108028bf5
+  - id: carbon_500m_main
+    kind: huggingface_model
+    url: https://huggingface.co/HuggingFaceBio/Carbon-500M
+    revision: 9796b752108258c1d365089f842e62e6c0547704
+  - id: carbon_500m_fns
+    kind: huggingface_model_branch
+    url: https://huggingface.co/HuggingFaceBio/Carbon-500M/tree/fns
+    revision: 974bc8a54e95d72af5c909416f1b0473e11b7bf4
+  - id: carbon_qwen3_base_tokenizer
+    kind: huggingface_model_transitive
+    url: https://huggingface.co/Qwen/Qwen3-4B-Base
+    revision: 906bfd4b4dc7f14ee4320094d8b41684abff8539
+    observed_via: Carbon tokenizer-only audit
+    enforcement_status: upstream Carbon wrapper does not pass this revision
+    local_adapter_status: enforced during tokenizer construction
+  - id: generator_code
+    kind: git
+    url: https://github.com/GenerTeam/GENERator
+    revision: 5132e2c35da5d5e9a7dcec7484901be4de864bf6
+  - id: generator_v2_1p2b
+    kind: huggingface_model
+    url: https://huggingface.co/GenerTeam/GENERator-v2-eukaryote-1.2b-base
+    revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
+  - id: kuditipudi_watermark
+    kind: git_reference_only
+    url: https://github.com/jthickstun/watermark
+    revision: 80d4ec8f4280da2a2cada03adfc8940593d1964c
+    license_status: no_license_file_observed
+  - id: dipmark
+    kind: git_reference_only
+    url: https://github.com/yihwu/DiPmark
+    revision: 34abbeb527243c79bda8043313bb797a731f4ae7
+    license_status: no_license_file_observed
+  - id: protein_watermark
+    kind: git_reference_only
+    url: https://github.com/poseidonchan/ProteinWatermark
+    revision: af959ea4b7d08f796f9cdb104c9521542b660331
+    license_status: license_file_present

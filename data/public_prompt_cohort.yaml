@@ -1,0 +1,128 @@
+schema_version: 1
+cohort_id: ncbi_refseq_eukaryote_windows_v1
+purpose: Small cross-model prompt cohort for Carbon and GENERator integration pilots
+created: "2026-08-20"
+
+source:
+  provider: NCBI
+  database: nuccore_refseq
+  endpoint: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
+  retrieval_type: fasta
+  access_documentation: https://www.ncbi.nlm.nih.gov/books/NBK25499/
+  usage_policy: https://www.ncbi.nlm.nih.gov/home/about/policies/
+  reuse_status: NCBI places no restrictions on molecular data; original submitter rights may apply
+
+selection:
+  organism_scope: Four public eukaryotic model-organism reference chromosomes
+  window_length_bases: 384
+  window_positions: [0.2, 0.5, 0.8]
+  coordinate_system: one_based_inclusive
+  coordinate_rule: floor(position * (record_length - window_length)) + 1
+  strand: forward
+  filters:
+    - exact accession.version required
+    - exactly 384 bases
+    - canonical A/T/C/G only
+    - length divisible by six
+  exclusions:
+    - human or patient sequences
+    - controlled-access data
+    - ambiguous bases
+    - organelle and plasmid records
+
+records:
+  - organism: Saccharomyces cerevisiae S288C
+    taxon_id: 559292
+    accession: NC_001133.9
+    record_length: 230218
+    record_updated: "2026-07-10"
+    assembly: GCF_000146045.2
+    chromosome: I
+    windows:
+      - id: yeast_q20
+        position_fraction: 0.2
+        start: 45967
+        stop: 46350
+        sequence_sha256: c8e2afef4e57b65b559eb7966c2edce097e0526cd5797d69d4f45c1b36aba2e3
+      - id: yeast_q50
+        position_fraction: 0.5
+        start: 114918
+        stop: 115301
+        sequence_sha256: a1e47875da6622344659687d8e638c844d1651c4c262c7434289aee6985703f9
+      - id: yeast_q80
+        position_fraction: 0.8
+        start: 183868
+        stop: 184251
+        sequence_sha256: 8668f8f1be44e067e53e63e221313bb1ade045219ef3685cab12d935811fb99f
+
+  - organism: Arabidopsis thaliana Columbia
+    taxon_id: 3702
+    accession: NC_003070.9
+    record_length: 30427671
+    record_updated: "2022-10-20"
+    assembly: GCF_000001735.4
+    chromosome: "1"
+    windows:
+      - id: arabidopsis_q20
+        position_fraction: 0.2
+        start: 6085458
+        stop: 6085841
+        sequence_sha256: 981d9e84b018d2126766900f050689072c378b01bb474a832a8c76bd5bf8f386
+      - id: arabidopsis_q50
+        position_fraction: 0.5
+        start: 15213644
+        stop: 15214027
+        sequence_sha256: 6dd727124f43571912bf0cdbd069fe4740a9d9e9417d2cc3a5ff00945eea7560
+      - id: arabidopsis_q80
+        position_fraction: 0.8
+        start: 24341830
+        stop: 24342213
+        sequence_sha256: 3ff3baf16a8e269aae1b57d24eaed610a95057ff16a17fb3b9cd1add99e050b7
+
+  - organism: Caenorhabditis elegans Bristol N2
+    taxon_id: 6239
+    accession: NC_003279.8
+    record_length: 15072434
+    record_updated: "2025-12-01"
+    assembly: GCF_000002985.6
+    chromosome: I
+    windows:
+      - id: celegans_q20
+        position_fraction: 0.2
+        start: 3014411
+        stop: 3014794
+        sequence_sha256: 7c0e2eadc1a406eaa1126c97e4cbe917709d20b427458fd196535e6901f2bdee
+      - id: celegans_q50
+        position_fraction: 0.5
+        start: 7536026
+        stop: 7536409
+        sequence_sha256: e501771626ff320df2977bf3d874c7a3869387d2d151a9825b31868c28da9466
+      - id: celegans_q80
+        position_fraction: 0.8
+        start: 12057641
+        stop: 12058024
+        sequence_sha256: fbdb42bdabc0ceffcc23cd42204c54a962542072c077db4f9bb6316736022e9f
+
+  - organism: Drosophila melanogaster
+    taxon_id: 7227
+    accession: NT_033779.5
+    record_length: 23513712
+    record_updated: "2023-12-26"
+    assembly: GCF_000001215.4
+    chromosome: 2L
+    windows:
+      - id: drosophila_q20
+        position_fraction: 0.2
+        start: 4702666
+        stop: 4703049
+        sequence_sha256: e002546344576e64833a5cc537bf8f748ad9071fff09d8df0b7a5a25bf6e662f
+      - id: drosophila_q50
+        position_fraction: 0.5
+        start: 11756665
+        stop: 11757048
+        sequence_sha256: 0f1f8704d268694459ab09d2be028c0b0b1e3e1cf5b741b5672c84cd2560fbc0
+      - id: drosophila_q80
+        position_fraction: 0.8
+        start: 18810663
+        stop: 18811046
+        sequence_sha256: 9e90994e475f5d83d81e2effcc8a2d0af6cab26a0b7a4f3d2b948d98d753c65c

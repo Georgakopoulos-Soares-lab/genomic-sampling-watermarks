@@ -1,0 +1,182 @@
+schema_version: 1
+
+# Admitted E2 channel-capacity measurements. Each value is the mean maximal-coupling watermark
+# information per DNA base that a released generation policy exposes on the frozen public cohort.
+# The metric is I(C; G) = h2(q) - 0.5 * h2(|2q - 1|) for a fair latent bit C and the sampled
+# token's partition group G under maximal coupling, divided by six bases per 6-mer token. The
+# mathematical upper bound is 1/6 bit/base (0.1666666667).
+#
+# These are unwatermarked-path channel measurements. They are not detection results and do not
+# imply that a detector achieves any given TPR at any sequence length.
+
+measurements:
+  - id: e2.capacity.c_tok.mean_information_bits_per_base
+    status: V
+    value: 0.1539508142
+    unit: bit/base
+    quantity: mean maximal-coupling watermark information per DNA base
+    uncertainty:
+      type: equal-weight prompt-cluster percentile bootstrap
+      confidence_level: 0.95
+      lower: 0.1514865528
+      upper: 0.1557924168
+      width: 0.0043058640
+      replicates: 20000
+      seed: 2718
+      scope: >-
+        Prompt-cluster uncertainty over the 24 frozen public prompts, conditional on the 32 fixed
+        public evaluation partitions and the unwatermarked continuation path. Sequential states and
+        partitions are not independent samples.
+    scope:
+      model_policy: C_tok
+      model_id: HuggingFaceBio/Carbon-500M
+      revision: 9796b752108258c1d365089f842e62e6c0547704
+      policy_definition: >-
+        Carbon-500M main revision restricted and renormalized over the 4,096 canonical 6-mers.
+      device: mps
+      dtype: bfloat16
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      prompt_clusters: 24
+      prompt_length_bases: 384
+      sequential_states: 3072
+      states_per_prompt: 128
+      generated_bases_per_prompt: 768
+      partitions_per_state: 32
+      capacity_evaluations: 98304
+      temperature: 1.0
+      truncation: none
+      watermarked: false
+      upper_bound_bits_per_base: 0.1666666667
+    source:
+      analysis_artifact: outputs/carbon_c_tok_e2_cluster_analysis_v3.json
+      analysis_sha256: 47e276baccf4e3735f258d988ba10d43dbdafc36550615b336fb8b2f06baf26b
+      sequential_artifact: outputs/carbon_c_tok_e2_sequential_v2.json
+      sequential_sha256: 7dba1a3e6ce1ad6c5516a9998258d1af65e322a21ce776aefc49a31bda738a41
+      command: >-
+        uv run python scripts/analyze_sequential_capacity.py --input
+        outputs/carbon_c_tok_e2_sequential_v2.json --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --output
+        outputs/carbon_c_tok_e2_cluster_analysis_v3.json
+    notes: >-
+      Model-organism capacity cohort only; not a general biological or cross-organism claim. Each
+      policy uses policy-domain-separated public partition fixtures, so a cross-policy difference
+      is not attributable to watermarking. The evaluation partitions use fixed public material for
+      reproducible measurement and are not deployment keys.
+
+  - id: e2.capacity.g_tok.mean_information_bits_per_base
+    status: V
+    value: 0.1514242405
+    unit: bit/base
+    quantity: mean maximal-coupling watermark information per DNA base
+    uncertainty:
+      type: equal-weight prompt-cluster percentile bootstrap
+      confidence_level: 0.95
+      lower: 0.1397916741
+      upper: 0.1577675454
+      width: 0.0179758713
+      replicates: 20000
+      seed: 2718
+      scope: >-
+        Prompt-cluster uncertainty over the 24 frozen public prompts, conditional on the 32 fixed
+        public evaluation partitions and the unwatermarked continuation path. Sequential states and
+        partitions are not independent samples.
+    scope:
+      model_policy: G_tok
+      model_id: GenerTeam/GENERator-v2-eukaryote-1.2b-base
+      revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
+      policy_definition: >-
+        Direct categorical sample from GENERator-v2's processed canonical 4,096-way distribution;
+        research baseline, not the released base-marginal generation path.
+      device: mps
+      dtype: float32
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      prompt_clusters: 24
+      prompt_length_bases: 384
+      sequential_states: 3072
+      states_per_prompt: 128
+      generated_bases_per_prompt: 768
+      partitions_per_state: 32
+      capacity_evaluations: 98304
+      temperature: 1.0
+      truncation: none
+      watermarked: false
+      upper_bound_bits_per_base: 0.1666666667
+    source:
+      analysis_artifact: outputs/generator_g_tok_e2_cluster_analysis_v3.json
+      analysis_sha256: e140fb389a693f52b96a04e15f4e61c0af5c2874c1cebabcb674d60244798307
+      sequential_artifact: outputs/generator_g_tok_e2_sequential_v2.json
+      sequential_sha256: 794c74512a5bd4c28b5557884124cab51fb1a0db71b804e312a07e6b401a983b
+      command: >-
+        uv run python scripts/analyze_sequential_capacity.py --input
+        outputs/generator_g_tok_e2_sequential_v2.json --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --output
+        outputs/generator_g_tok_e2_cluster_analysis_v3.json
+    notes: >-
+      This policy has the widest prompt-cluster interval of the three. One retained influential
+      prompt cluster (arabidopsis_q50) has a mean near 0.0276 bit/base while the other 23 fall near
+      0.145-0.160 bit/base; it was retained, not removed. The interval still satisfies the frozen
+      stability rule. GENERATOR MPS bfloat16 is not admissible: it failed the 12-context CPU parity
+      gate.
+
+  - id: e2.capacity.g_bp.mean_information_bits_per_base
+    status: V
+    value: 0.1574431300
+    unit: bit/base
+    quantity: mean maximal-coupling watermark information per DNA base
+    uncertainty:
+      type: equal-weight prompt-cluster percentile bootstrap
+      confidence_level: 0.95
+      lower: 0.1547780955
+      upper: 0.1592612245
+      width: 0.0044831290
+      replicates: 20000
+      seed: 2718
+      scope: >-
+        Prompt-cluster uncertainty over the 24 frozen public prompts, conditional on the 32 fixed
+        public evaluation partitions and the unwatermarked continuation path. Sequential states and
+        partitions are not independent samples.
+    scope:
+      model_policy: G_bp
+      model_id: GenerTeam/GENERator-v2-eukaryote-1.2b-base
+      revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
+      policy_definition: >-
+        Product of six independent base marginals reproducing GENERator-v2's released
+        `_BPLogitsProcessor` base-marginal behavior over reconstructed 6-mers.
+      device: mps
+      dtype: float32
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      prompt_clusters: 24
+      prompt_length_bases: 384
+      sequential_states: 3072
+      states_per_prompt: 128
+      generated_bases_per_prompt: 768
+      partitions_per_state: 32
+      capacity_evaluations: 98304
+      temperature: 1.0
+      truncation: none
+      watermarked: false
+      upper_bound_bits_per_base: 0.1666666667
+    source:
+      analysis_artifact: outputs/generator_g_bp_e2_cluster_analysis_v3.json
+      analysis_sha256: 03d18eecfbb1986a3507475393c6ee4e7392a8c5e9ff2dc96cf2477f9e1b925a
+      sequential_artifact: outputs/generator_g_bp_e2_sequential_v2.json
+      sequential_sha256: ab7401cdad72cade37a5d32b908c7adcafce31080b98ab4fc8944f7dddff15cc
+      command: >-
+        uv run python scripts/analyze_sequential_capacity.py --input
+        outputs/generator_g_bp_e2_sequential_v2.json --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --output
+        outputs/generator_g_bp_e2_cluster_analysis_v3.json
+    notes: >-
+      Local G_bp math was checked against pinned upstream `compute_bp_probs` on all 12 v1 prompts
+      on both MPS and CPU. G_bp and G_tok share a checkpoint but sample different declared
+      distributions; the difference between their capacities is a policy difference, not a
+      watermarking effect.

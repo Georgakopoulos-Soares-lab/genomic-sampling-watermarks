@@ -1,0 +1,17 @@
+schema_version = 1
+experiment = "E0"
+profile = "smoke"
+
+[runtime]
+device = "cpu"
+seed = 1729
+workers = 1
+
+[synthetic]
+draws = 20000
+distributions = ["uniform", "peaked", "sparse", "imbalanced_partition"]
+
+[detector]
+orientations = ["forward", "reverse_complement"]
+phases = [0, 1, 2, 3, 4, 5]
+

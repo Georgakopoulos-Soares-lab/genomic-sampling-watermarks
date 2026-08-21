@@ -1,0 +1,225 @@
+schema_version: 1
+cohort_id: ncbi_refseq_eukaryote_windows_v2
+purpose: Output-blind expansion after the frozen G_tok E2 prompt-stability trigger fired
+created: "2026-08-21"
+
+source:
+  provider: NCBI
+  database: nuccore_refseq
+  endpoint: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
+  retrieval_type: fasta
+  access_documentation: https://www.ncbi.nlm.nih.gov/books/NBK25499/
+  usage_policy: https://www.ncbi.nlm.nih.gov/home/about/policies/
+  reuse_status: NCBI places no restrictions on molecular data; original submitter rights may apply
+
+selection:
+  organism_scope: The same four public model organisms, with two reference chromosomes each
+  expansion_rule: Retain v1 and add one different chromosome per organism before model inspection
+  window_length_bases: 384
+  window_positions: [0.2, 0.5, 0.8]
+  coordinate_system: one_based_inclusive
+  coordinate_rule: floor(position * (record_length - window_length)) + 1
+  strand: forward
+  filters:
+    - exact accession.version required
+    - exactly 384 bases
+    - canonical A/T/C/G only
+    - length divisible by six
+  exclusions:
+    - human or patient sequences
+    - controlled-access data
+    - ambiguous bases
+    - organelle and plasmid records
+
+records:
+  - organism: Saccharomyces cerevisiae S288C
+    taxon_id: 559292
+    accession: NC_001133.9
+    record_length: 230218
+    record_updated: "2026-07-10"
+    assembly: GCF_000146045.2
+    chromosome: I
+    windows:
+      - id: yeast_q20
+        position_fraction: 0.2
+        start: 45967
+        stop: 46350
+        sequence_sha256: c8e2afef4e57b65b559eb7966c2edce097e0526cd5797d69d4f45c1b36aba2e3
+      - id: yeast_q50
+        position_fraction: 0.5
+        start: 114918
+        stop: 115301
+        sequence_sha256: a1e47875da6622344659687d8e638c844d1651c4c262c7434289aee6985703f9
+      - id: yeast_q80
+        position_fraction: 0.8
+        start: 183868
+        stop: 184251
+        sequence_sha256: 8668f8f1be44e067e53e63e221313bb1ade045219ef3685cab12d935811fb99f
+
+  - organism: Arabidopsis thaliana Columbia
+    taxon_id: 3702
+    accession: NC_003070.9
+    record_length: 30427671
+    record_updated: "2022-10-20"
+    assembly: GCF_000001735.4
+    chromosome: "1"
+    windows:
+      - id: arabidopsis_q20
+        position_fraction: 0.2
+        start: 6085458
+        stop: 6085841
+        sequence_sha256: 981d9e84b018d2126766900f050689072c378b01bb474a832a8c76bd5bf8f386
+      - id: arabidopsis_q50
+        position_fraction: 0.5
+        start: 15213644
+        stop: 15214027
+        sequence_sha256: 6dd727124f43571912bf0cdbd069fe4740a9d9e9417d2cc3a5ff00945eea7560
+      - id: arabidopsis_q80
+        position_fraction: 0.8
+        start: 24341830
+        stop: 24342213
+        sequence_sha256: 3ff3baf16a8e269aae1b57d24eaed610a95057ff16a17fb3b9cd1add99e050b7
+
+  - organism: Caenorhabditis elegans Bristol N2
+    taxon_id: 6239
+    accession: NC_003279.8
+    record_length: 15072434
+    record_updated: "2025-12-01"
+    assembly: GCF_000002985.6
+    chromosome: I
+    windows:
+      - id: celegans_q20
+        position_fraction: 0.2
+        start: 3014411
+        stop: 3014794
+        sequence_sha256: 7c0e2eadc1a406eaa1126c97e4cbe917709d20b427458fd196535e6901f2bdee
+      - id: celegans_q50
+        position_fraction: 0.5
+        start: 7536026
+        stop: 7536409
+        sequence_sha256: e501771626ff320df2977bf3d874c7a3869387d2d151a9825b31868c28da9466
+      - id: celegans_q80
+        position_fraction: 0.8
+        start: 12057641
+        stop: 12058024
+        sequence_sha256: fbdb42bdabc0ceffcc23cd42204c54a962542072c077db4f9bb6316736022e9f
+
+  - organism: Drosophila melanogaster
+    taxon_id: 7227
+    accession: NT_033779.5
+    record_length: 23513712
+    record_updated: "2023-12-26"
+    assembly: GCF_000001215.4
+    chromosome: 2L
+    windows:
+      - id: drosophila_q20
+        position_fraction: 0.2
+        start: 4702666
+        stop: 4703049
+        sequence_sha256: e002546344576e64833a5cc537bf8f748ad9071fff09d8df0b7a5a25bf6e662f
+      - id: drosophila_q50
+        position_fraction: 0.5
+        start: 11756665
+        stop: 11757048
+        sequence_sha256: 0f1f8704d268694459ab09d2be028c0b0b1e3e1cf5b741b5672c84cd2560fbc0
+      - id: drosophila_q80
+        position_fraction: 0.8
+        start: 18810663
+        stop: 18811046
+        sequence_sha256: 9e90994e475f5d83d81e2effcc8a2d0af6cab26a0b7a4f3d2b948d98d753c65c
+
+  - organism: Saccharomyces cerevisiae S288C
+    taxon_id: 559292
+    accession: NC_001134.8
+    record_length: 813184
+    record_updated: "2026-07-10"
+    assembly: GCF_000146045.2
+    chromosome: II
+    windows:
+      - id: yeast_chr2_q20
+        position_fraction: 0.2
+        start: 162561
+        stop: 162944
+        sequence_sha256: 04fe2538895da6bbbeb345033dde73e6774b51af6f5e7377a997028a5e8e6865
+      - id: yeast_chr2_q50
+        position_fraction: 0.5
+        start: 406401
+        stop: 406784
+        sequence_sha256: 85244cc66bd1e2af5108bb018b13397f0ba776b7e6b668192f8bc1fce87407bf
+      - id: yeast_chr2_q80
+        position_fraction: 0.8
+        start: 650241
+        stop: 650624
+        sequence_sha256: 70548282e8d3976f6a32e625736cb607fa59424ebf669fcfef0d175084b18533
+
+  - organism: Arabidopsis thaliana Columbia
+    taxon_id: 3702
+    accession: NC_003071.7
+    record_length: 19698289
+    record_updated: "2023-04-10"
+    assembly: GCF_000001735.4
+    chromosome: "2"
+    windows:
+      - id: arabidopsis_chr2_q20
+        position_fraction: 0.2
+        start: 3939582
+        stop: 3939965
+        sequence_sha256: 37b6d96dabe37929d6b2cc836ab1b2a6506bab5deaa5b04e9dd4857b8427d144
+      - id: arabidopsis_chr2_q50
+        position_fraction: 0.5
+        start: 9848953
+        stop: 9849336
+        sequence_sha256: 43869b1c26e5c01cbc0be0186c3a8afaf1bcedfdba87876677c68446c535d9a1
+      - id: arabidopsis_chr2_q80
+        position_fraction: 0.8
+        start: 15758325
+        stop: 15758708
+        sequence_sha256: 87d68339790ab82a5d1d7c1d8961eda0e8208adec41f41db64af0dd2e4c8eca8
+
+  - organism: Caenorhabditis elegans Bristol N2
+    taxon_id: 6239
+    accession: NC_003280.10
+    record_length: 15279421
+    record_updated: "2025-12-01"
+    assembly: GCF_000002985.6
+    chromosome: II
+    windows:
+      - id: celegans_chr2_q20
+        position_fraction: 0.2
+        start: 3055808
+        stop: 3056191
+        sequence_sha256: 214734e6111d10a1e2c940bf9583e13693b93c20e974cd8df9f6d7a912c83847
+      - id: celegans_chr2_q50
+        position_fraction: 0.5
+        start: 7639519
+        stop: 7639902
+        sequence_sha256: cfcfbf8e79f4e3b3e189cfcfbeee83af9b25112fd70bd4d6cc5c16a4aa52b1e2
+      - id: celegans_chr2_q80
+        position_fraction: 0.8
+        start: 12223230
+        stop: 12223613
+        sequence_sha256: 4ada742a2f5613f9eaff4195b26dde42dba918fb498e92f37eaca2855e72391d
+
+  - organism: Drosophila melanogaster
+    taxon_id: 7227
+    accession: NT_037436.4
+    record_length: 28110227
+    record_updated: "2023-12-26"
+    assembly: GCF_000001215.4
+    chromosome: 3L
+    windows:
+      - id: drosophila_chr3l_q20
+        position_fraction: 0.2
+        start: 5621969
+        stop: 5622352
+        sequence_sha256: 09aadef4d62ee3cb1153bb5e59eb38d664ba84cdf85801ff0bd399f5e31a33cd
+      - id: drosophila_chr3l_q50
+        position_fraction: 0.5
+        start: 14054922
+        stop: 14055305
+        sequence_sha256: ad46faeb68577a1f3b7669e79a2e06c4b95f1a987870a3d69456a7c3591e3878
+      - id: drosophila_chr3l_q80
+        position_fraction: 0.8
+        start: 22487875
+        stop: 22488258
+        sequence_sha256: c3f9479aa6371b07289ade97b77736d5d3d9c91bf6cc2e8083e8418d3c3b5bc3

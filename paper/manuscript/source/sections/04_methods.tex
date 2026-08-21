@@ -1,0 +1,25 @@
+\section{Methods}
+
+\subsection{Partition maximal coupling}
+
+Let a keyed partition divide tokens into groups zero and one, and let $q_t$ be the group-one mass under $P_t$. For a fair latent bit $C_t$, maximal coupling selects group $G_t$ according to
+\[
+\Pr(G_t=1\mid C_t=1)=\min(1,2q_t),\qquad
+\Pr(G_t=1\mid C_t=0)=\max(0,2q_t-1).
+\]
+Sampling from $P_t$ conditioned on $G_t$ preserves $P_t$ after averaging over $C_t$. The group channel carries
+\[
+I(C_t;G_t)=h_2(q_t)-\tfrac{1}{2}h_2(|2q_t-1|)
+\]
+bits per 6-mer.
+
+\subsection{Model generation policies}
+
+We separately evaluate direct categorical sampling and audited base-marginal policies. No effect is attributed to watermarking across unmatched generation policies.
+
+\subsection{Standalone detection and edits}
+
+The verifier scores every declared orientation and phase. Substitutions, insertions, deletions, crops, and reverse complementation are applied by a frozen edit protocol. Null calibration repeats all data-dependent selection and synchronization.
+
+% TODO(methods): Add ITS/EXP, statistical calibration, and proofs after Gate 1.
+

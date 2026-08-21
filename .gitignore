@@ -1,0 +1,32 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+dist/
+build/
+*.egg-info/
+
+# Local model and dataset caches are never repository artifacts.
+/.cache/
+/models/
+/data/raw/
+/data/processed/
+
+# Generated experiment outputs stay local until a small result summary is selected for the paper.
+/outputs/
+/paper/manuscript/build/
+/paper/figures/generated/
+
+# Secrets and local overrides.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+secrets*
+*token*
