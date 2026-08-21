@@ -30,6 +30,10 @@ Gate: no model integration until every exact-marginal method passes.
 
 Gate: stop or redesign if the measured signal cannot plausibly support detection within 5 kbp.
 
+Frozen shapes, results, and admission records live in the per-experiment protocol documents:
+`docs/research/e2_capacity_protocol.md`, `docs/research/e3_distribution_preservation_protocol.md`,
+and `docs/research/e4_clean_detection_protocol.md`.
+
 ### E3 — Distribution preservation
 
 - fixed-state categorical goodness-of-fit;

@@ -147,6 +147,12 @@ preregistered cluster rule stops expansion at 24 prompts. Evidence-admission rev
 policy with its prompt-cluster interval and full provenance. The `partition_mc` watermarked
 generation loop, its matched ordinary control, and model-free keyed recomputation are implemented
 and verified against real model generations. E3 stage-1 fixed-state goodness of fit passes for all
-three policies with the watermarked arm indistinguishable from the ordinary size control. E3
-stage-2 sequence proxies, ITS/EXP, calibrated detector statistics, and later paper experiments
-remain open.
+three policies with the watermarked arm indistinguishable from the ordinary size control. E4 clean
+detection is measured and admitted: a model-free verifier searching two strands, six phases, and
+eight key-stream offsets detects every watermarked sequence at 384 bases and above, at a
+false-positive rate calibrated over that complete search, with real public genomic DNA behaving like
+the other nulls. E5 measures substitution robustness: detection stays at 1.0 through 5% per-base
+substitution at every length and through 20% at 3,072 bases for two of three policies, with the
+transition matching an analytic channel prediction stated before the run. Thirty-three numbers are
+admitted to the ledger. Crops, reverse complementation, insertions and deletions, a key-averaged
+sequence-proxy comparison, ITS/EXP baselines, and adversarial experiments remain open.

@@ -18,13 +18,16 @@ Read them in order:
 11. [What the first full capacity result taught us](11_first_full_capacity_result.md) — why one unusual prompt caused a fair, output-blind cohort expansion.
 12. [From capacity to detection](12_from_capacity_to_detection.md) — why a promising channel estimate still needs generated sequences and a calibrated standalone detector.
 13. [What "admitted evidence" means](13_what_admitted_evidence_means.md) — how a validated result becomes a citable number, and what the capacity numbers still do not claim.
+14. [Writing the watermark into real DNA](14_writing_the_watermark.md) — the generation loop, why the distribution stays honest, and what a single fixed key can still hide.
+15. [The detector, and what an honest threshold costs](15_the_detector_and_honest_thresholds.md) — a model-free verifier searching 96 alignments, and why calibrating the maximum is the whole problem.
+16. [How much damage it survives](16_how_much_damage_it_survives.md) — substitution robustness, a prediction written down before the measurement, and why 6-mer tokens decay six times faster than bases.
 
 The short version is this: the model assigns probabilities to possible next DNA blocks. A secret
 key changes *how we draw* from those probabilities, not what the probabilities are on average. The
 detector later looks for a key-dependent pattern using only the DNA, the key, and public settings.
 
 No result enters the paper automatically. We have implemented and tested the foundation, audited
-the real tokenizers, completed the sequential capacity gate for Carbon and both GENERator-v2
-policies, and admitted exactly three numbers from it to the evidence ledger. The next gate is
-watermarked generation, distribution preservation, and converting capacity into actual
+the real tokenizers, completed the sequential capacity gate, built and verified the watermarked
+generation path, and passed the fixed-state distribution-preservation gate. Nine numbers are
+admitted to the evidence ledger. The next gate is converting all of this into calibrated
 standalone-detector performance.

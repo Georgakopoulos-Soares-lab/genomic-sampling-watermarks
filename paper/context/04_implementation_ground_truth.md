@@ -40,15 +40,31 @@
   from DNA alone reproduced the generator's agreement pattern exactly;
 - a parametric Monte Carlo categorical goodness-of-fit test with a negative control proving it
   rejects a plausible within-group sampling bug;
-- a frozen E3 stage-1 distribution-preservation protocol and its runner.
+- a frozen E3 stage-1 distribution-preservation protocol, its runner, its strict validator, and a
+  provenance-binding analyzer;
+- six admitted E3 stage-1 family summaries in `evidence/measurements.yaml`;
+- E3 stage-2 sequence proxies with an exact paired sign-flip permutation test, run under one fixed
+  key and deliberately not admitted;
+- the standalone model-free detector: a declared strand/phase/window/offset search, the standardized
+  keyed-agreement statistic, a keyed-partition cache, empirical threshold calibration, and empirical
+  global p-values;
+- a matched generated corpus of 3,072 bases per prompt and arm for all three policies;
+- the E4 clean-detection pilot, its strict validator that recomputes every aggregate from stored
+  per-trial rows, and its provenance-binding analyzer;
+- twelve admitted E4 clean-detection rates with their calibration and null-exceedance numbers;
+- a shared keyed-partition cache across sequences, verified to reproduce the admitted E4 artifact
+  trial for trial while running 15.6 times faster;
+- the E5 substitution-robustness sweep, its strict validator, its provenance-binding analyzer, and
+  twelve admitted entries carrying the complete rate-versus-detection curves;
+- an empirical confirmation that the null statistic distribution does not depend on the edit rate.
 
 ## Not yet implemented
 
 - Carbon's `C_deployed` processor inventory;
 - ITS and EXP samplers and matched detectors;
-- E3 stage-2 matched sequence-level proxy comparison;
-- the paper-facing detector search and global null calibration over strands, phases, windows,
-  offsets, and synchronization;
+- a key-averaged E3 stage-2 design and its admission;
+- sliding-window search and its calibration, needed for crops and synchronization;
+- insertion, deletion, crop, and reverse-complement robustness;
 - learned unkeyed distinguishers;
 - biological proxy suite;
 - ECC or PRC layer.

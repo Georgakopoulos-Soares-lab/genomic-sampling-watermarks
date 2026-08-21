@@ -57,9 +57,77 @@ evidence of sequence-level indistinguishability. Do not describe it as such.
 
 ## Stage 2 — matched sequence-level proxies
 
-Not yet run. Stage 2 compares matched ordinary and watermarked continuations on declared
-sequence-level proxy metrics from `docs/baseline_definition.md`. It requires the generation pilot at
-paper lengths and is reported separately, with its own frozen shape.
+Stage 2 compares matched ordinary and watermarked continuations on sequence-level proxy metrics.
+
+| Item | Frozen choice |
+|---|---|
+| Policies | `C_tok`, `G_tok`, `G_bp` |
+| Prompts | the eight `q20` and `q80` windows of the v1 records |
+| Corpus | the E4 generation corpus, 3,072 bases per prompt and arm |
+| Metrics | GC fraction, purine fraction, CpG fraction, base/dinucleotide/trinucleotide entropy, distinct-hexamer fraction, longest and mean homopolymer run |
+| Comparison | paired per prompt: watermarked minus ordinary from the same prompt |
+| Test | exact two-sided sign-flip permutation on the paired differences, statistic = absolute mean difference, all 256 sign assignments enumerated |
+| Level | 0.05 nominal, Bonferroni 0.05/9 = 0.00556 across the nine metrics |
+| Also reported | Jensen-Shannon divergence between arms at k = 1, 2, 3, and each arm against its prompt |
+
+The metric list, the test, and the level were fixed in `src/genomic_watermarks/sequence_proxies.py`
+before the first comparison was run, and the corpus was generated for E4 before stage 2 existed, so
+neither the metrics nor the corpus were chosen after seeing a stage-2 result. The exact permutation
+null is used because eight pairs is far too few for an asymptotic approximation.
+
+### Preregistered reading
+
+Stage 2 passes if no metric is rejected at the Bonferroni level for any policy. Nominal rejections
+are reported with their direction and effect size; with nine metrics per policy, 0.45 nominal
+rejections are expected under the null.
+
+Stage 2 is a limited test and must be reported as one. Its power at eight prompts is low, and it is
+*not* the reason to believe the construction preserves the distribution — the analytic argument and
+stage 1 are. Stage 2 can only catch a gross sequence-level artifact.
+
+### Stage-2 result (2026-08-21)
+
+| Policy | Nominal rejections of 9 | Bonferroni rejections | Minimum p | Mean 3-mer divergence between arms (bit) |
+|---|---:|---:|---:|---:|
+| `C_tok` | 2 | 0 | 0.0078 | 0.0224 |
+| `G_tok` | 0 | 0 | 0.3750 | 0.0171 |
+| `G_bp` | 0 | 0 | 0.1562 | 0.0228 |
+
+No metric is rejected at the Bonferroni level for any policy, so the preregistered rule passes.
+
+`C_tok` is worth stating plainly rather than rounding off. Its two nominal rejections are CpG
+fraction (0.0333 watermarked against 0.0256 ordinary, p = 0.0078) and distinct-hexamer fraction
+(0.606 against 0.577, p = 0.039), and the remaining seven metrics lean the same way: slightly higher
+entropies, slightly shorter homopolymer runs. That is a coherent direction, not obviously noise, and
+it should not be reported as "no difference".
+
+Two things bound the interpretation:
+
+1. **This cannot be a marginal-preservation failure.** Conditioned on the emitted prefix, the
+   construction samples exactly the declared conditional law, which makes the joint law of the whole
+   sequence exactly the model's joint law *when the key is unknown or random*. Stage 1 confirms the
+   one-step law empirically at real states.
+2. **This experiment holds the key fixed.** One key was used for every watermarked sequence. A
+   fixed-key realization can show a systematic sequence-level shift even when the construction is
+   exact in expectation over keys, and eight prompts do not average that away.
+
+The follow-up is therefore a key-averaged stage-2 design: regenerate the watermarked arm under
+several independent keys per prompt and test the difference averaged over keys. That requires
+another generation pass per key per policy, roughly 22 minutes each on the M5 Pro, so it is deferred
+with this justification recorded rather than run opportunistically. Until it is run, the honest
+statement is that stage 2 finds no Bonferroni-level sequence-level artifact and that a fixed-key
+directional pattern in `C_tok` remains unresolved.
+
+Stage-2 artifact digests:
+
+| Policy | Artifact | SHA-256 |
+|---|---|---|
+| `C_tok` | `outputs/carbon_c_tok_e3_stage2_proxies_v1.json` | `d626b3aa3fa4122f6092908cc57f72622d15ac833d71247fdaa0fc20bc0d2708` |
+| `G_tok` | `outputs/generator_g_tok_e3_stage2_proxies_v1.json` | `aa32d216ec3d4763e43a1633c3e14a0b43dd09f40c659d11f5bb6b19b8d67633` |
+| `G_bp` | `outputs/generator_g_bp_e3_stage2_proxies_v1.json` | `ff87a0110b8c24a3c4668444065569e0306cbec6d82e36eeb77d50e19b7050ad` |
+
+Nothing from stage 2 is admitted. Admission waits for the key-averaged design, because admitting a
+fixed-key proxy comparison would invite exactly the over-reading the result cannot support.
 
 ## Implementation status
 
@@ -140,7 +208,43 @@ Artifact digests:
 | `G_tok` | `outputs/generator_g_tok_e3_preservation_v1.json` | `63674eb2fbaeb19ca9771b5e044e46db3795a54326c5091e38bfb9be86e3f889` |
 | `G_bp` | `outputs/generator_g_bp_e3_preservation_v1.json` | `e0eab907198464d7d5b80ed1142183c034e1cdd1ba2a447539de4303aae538ae` |
 
+## Stage-1 evidence-admission review (2026-08-21)
+
+Reviewed and admitted. The stage-1 reports were validated by
+`src/genomic_watermarks/preservation_report.py`, which checks schema, classification, pinned
+policy/revision/device/dtype, temperature and truncation, the declared fixture-key source, cohort
+membership and per-state prompt checksums, the frozen draws/replicates/seed, p-value bounds and
+Monte Carlo lattice values, and recomputes both family summaries from the per-state p-values. Raw
+key, logit, probability, token, and sequence fields are absent.
+
+Provenance was bound the same way as E2: `scripts/analyze_preservation.py` reads the immutable
+report, validates it, and writes a new analysis artifact carrying the cohort content and manifest
+digests, the model scope, the protocol block, and explicit test, control, and multiplicity scope.
+No model inference was repeated and no completed file was edited.
+
+Admitted to `evidence/measurements.yaml`, six entries — one per policy and arm:
+
+- `e3.preservation.{c_tok,g_tok,g_bp}.watermarked_minimum_p_value`
+- `e3.preservation.{c_tok,g_tok,g_bp}.ordinary_minimum_p_value`
+
+Each entry's value is the smallest p-value over the four tested states for that arm. Rejection
+counts at the nominal 0.05 and Bonferroni 0.0125 levels are admitted alongside it under
+`admitted_counts`.
+
+**Deliberate granularity decision.** The per-state p-value table is *not* admitted. The paper
+reports the family summary for each policy and arm, not the 12-row state table. If a later draft
+needs the state table, those values require their own admission.
+
+Analysis artifact digests:
+
+| Policy | Analysis artifact | SHA-256 |
+|---|---|---|
+| `C_tok` | `outputs/carbon_c_tok_e3_preservation_analysis_v1.json` | `2de589db9f31753973d52b8b52f115e97224b87416591ee259996768ce02de13` |
+| `G_tok` | `outputs/generator_g_tok_e3_preservation_analysis_v1.json` | `154784eea96ddfa23ad737abbe1c16ce81433d332ceb553549f5494d6bd43165` |
+| `G_bp` | `outputs/generator_g_bp_e3_preservation_analysis_v1.json` | `bcbfb20a47d306aaea2a5b4985e46f8ccd9a8db8e47ddc793292cb90347af857` |
+
 ## Evidence boundary
 
-Stage-1 reports are engineering artifacts in ignored `outputs/`. No number moves into
-`evidence/measurements.yaml` without explicit evidence-admission review.
+Stage-1 reports are engineering artifacts in ignored `outputs/`. Only the six admitted family
+summaries above are paper-printable; nothing else from these runs is. Stage-2 has not been run and
+has no admitted numbers.

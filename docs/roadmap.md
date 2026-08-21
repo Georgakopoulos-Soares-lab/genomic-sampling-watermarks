@@ -51,10 +51,16 @@
 - [x] Implement model-free keyed recomputation and verify it on real model generations
 - [x] Freeze the E3 stage-1 distribution-preservation protocol
 - [x] Run E3 stage-1 fixed-state goodness of fit for all three primary policies
-- [ ] E3 stage-1 evidence-admission review
-- [ ] E3 stage-2 matched sequence-level proxy comparison
-- [ ] Globally calibrated clean detector
-- [ ] Substitution, indel, crop, phase, and strand curves
+- [x] E3 stage-1 evidence-admission review
+- [x] E3 stage-2 matched sequence-level proxy comparison, fixed key
+- [ ] E3 stage-2 key-averaged redesign and admission
+- [x] Implement the standalone detector, declared search, and empirical calibration
+- [x] Run the E4 clean-detection pilot for all three policies
+- [x] E4 evidence-admission review
+- [ ] Extend the clean curve below 384 bases from the existing corpus
+- [x] Substitution robustness curves and admission
+- [ ] Crop, phase, and strand curves
+- [ ] Insertion and deletion curves with resynchronization
 - [ ] Resynchronization ablation
 - [ ] Wrong-key, public-DNA, and unwatermarked nulls
 

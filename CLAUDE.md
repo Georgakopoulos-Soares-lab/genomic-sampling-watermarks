@@ -33,18 +33,19 @@ selection, real tokenizer audits, and weight-backed model integration exist. Loc
 matches the pinned upstream helper on MPS and CPU. E2 collected and validated 3,072 sequential
 states per policy on a frozen 24-prompt public RefSeq cohort. The initial 12-prompt `G_tok` result
 triggered the preregistered expansion; all three policies pass the final stability rule. The three
-E2 mean-capacity aggregates have passed evidence-admission review and are the first `[V]` entries in
-`evidence/measurements.yaml`. The `partition_mc` generation path, its matched ordinary control, and
-model-free keyed recomputation are implemented and verified on real model generations, and E3
-stage-1 fixed-state goodness of fit passes for all three policies. Remaining work begins with:
+E2 capacity, E3 stage-1 preservation, E4 clean-detection, and E5 substitution-robustness results
+have passed evidence-admission review; `evidence/measurements.yaml` holds 33 `[V]` entries. The `partition_mc` generation path, its
+matched ordinary control, model-free keyed recomputation, and the standalone calibrated detector are
+implemented and verified on real model generations. Remaining work begins with:
 
-- E3 stage-1 evidence-admission review;
-- E3 stage-2 matched sequence-level proxy comparison;
-- translate measured capacity into detector-backed sequence-length requirements;
+- crop and reverse-complement robustness, which need sliding-window search and its own calibration;
+- insertion and deletion robustness with resynchronization;
+- a key-averaged E3 stage-2 sequence-proxy design, since the current one holds the key fixed;
+- sliding-window search and its own calibration, required before crop and synchronization claims;
 - resolution of the main-revision `C_deployed` processor stack;
 - optional Carbon `fns`-revision `C_bp` control;
 - remaining tokenizer edge cases and broader MPS/CPU parity;
-- globally calibrated standalone detection.
+- ITS and EXP matched baselines.
 
 GENERATOR-v2 must use MPS `float32` for current work. Its `bfloat16` path failed the 12-context
 MPS/CPU parity gate; it is not a permitted optimization unless a later revision passes that gate.
@@ -117,6 +118,9 @@ Do not compare different policies and attribute the difference solely to waterma
 | Public prompt provenance and pilot boundary | `docs/research/public_prompt_cohort.md`, `data/public_prompt_cohort.yaml`, `data/public_prompt_cohort_v2.yaml` |
 | E2 pilot shape and expansion rule | `docs/research/e2_capacity_protocol.md` |
 | E3 distribution-preservation shape | `docs/research/e3_distribution_preservation_protocol.md` |
+| E4 clean-detection shape | `docs/research/e4_clean_detection_protocol.md` |
+| E5 substitution shape | `docs/research/e5_substitution_robustness_protocol.md` |
+| When drafting may start | `paper/context/05_drafting_readiness_plan.md` |
 | Literature roles and primary links | `docs/research/literature_map.md` |
 | M5 Pro budgets and execution tiers | `docs/research/local_feasibility.md`, `configs/local_m5_pro.toml` |
 | Generator, verifier, and attacker | `docs/threat_model.md` |
