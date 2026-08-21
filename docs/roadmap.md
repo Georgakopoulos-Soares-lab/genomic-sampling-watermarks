@@ -47,7 +47,12 @@
 
 ## Gate 4 — E3-E9 core paper evidence
 
-- [ ] Distribution-preservation audit
+- [x] Implement the `partition_mc` generation loop and its matched ordinary control
+- [x] Implement model-free keyed recomputation and verify it on real model generations
+- [x] Freeze the E3 stage-1 distribution-preservation protocol
+- [x] Run E3 stage-1 fixed-state goodness of fit for all three primary policies
+- [ ] E3 stage-1 evidence-admission review
+- [ ] E3 stage-2 matched sequence-level proxy comparison
 - [ ] Globally calibrated clean detector
 - [ ] Substitution, indel, crop, phase, and strand curves
 - [ ] Resynchronization ablation

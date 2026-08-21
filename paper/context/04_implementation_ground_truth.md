@@ -32,14 +32,23 @@
 - a shared cohort content digest used by both the cohort builder and the capacity analyzer;
 - provenance-binding analysis artifacts that record policy, revision, device, dtype, cohort
   content and manifest digests, metric definition, and uncertainty scope;
-- three admitted E2 capacity measurements in `evidence/measurements.yaml`.
+- three admitted E2 capacity measurements in `evidence/measurements.yaml`;
+- the `partition_mc` autoregressive generation loop, its matched ordinary control, a keyed
+  position-indexed partition/latent-bit stream, and model-free keyed recomputation from DNA;
+- a runtime-only key path with a published non-secret fixture key for smoke runs;
+- real-model matched generation smokes for `C_tok` and `G_bp` on MPS in which keyed recomputation
+  from DNA alone reproduced the generator's agreement pattern exactly;
+- a parametric Monte Carlo categorical goodness-of-fit test with a negative control proving it
+  rejects a plausible within-group sampling bug;
+- a frozen E3 stage-1 distribution-preservation protocol and its runner.
 
 ## Not yet implemented
 
-- the watermarked `partition_mc` generation loop and its matched ordinary control;
 - Carbon's `C_deployed` processor inventory;
 - ITS and EXP samplers and matched detectors;
-- global null calibration over windows, offsets, and synchronization;
+- E3 stage-2 matched sequence-level proxy comparison;
+- the paper-facing detector search and global null calibration over strands, phases, windows,
+  offsets, and synchronization;
 - learned unkeyed distinguishers;
 - biological proxy suite;
 - ECC or PRC layer.

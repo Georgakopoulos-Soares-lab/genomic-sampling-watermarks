@@ -144,5 +144,9 @@ pinned upstream base-marginal helper on MPS and CPU. The sequential E2 collector
 three-policy run on 24 prompts: 3,072 states per policy and 9,216 states overall. The
 preregistered cluster rule stops expansion at 24 prompts. Evidence-admission review is complete:
 `evidence/measurements.yaml` now holds one admitted mean information bit/base value per primary
-policy with its prompt-cluster interval and full provenance. Watermarked generation, ITS/EXP,
-calibrated detector statistics, and later paper experiments remain open.
+policy with its prompt-cluster interval and full provenance. The `partition_mc` watermarked
+generation loop, its matched ordinary control, and model-free keyed recomputation are implemented
+and verified against real model generations. E3 stage-1 fixed-state goodness of fit passes for all
+three policies with the watermarked arm indistinguishable from the ordinary size control. E3
+stage-2 sequence proxies, ITS/EXP, calibrated detector statistics, and later paper experiments
+remain open.
