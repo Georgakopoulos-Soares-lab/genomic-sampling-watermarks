@@ -238,7 +238,7 @@ def validate_detection_report(
             f"detection rate does not match the stored trials at length {length}",
         )
         indicators = {
-            str(row["case_id"]): (float(float(row["statistic"]) >= calibration.threshold),)
+            str(row["case_id"]): (float(float(row["statistic"]) > calibration.threshold),)
             for row in grouped[(length, POSITIVE_FAMILY)]
         }
         bootstrap = report["lengths"][token_lengths.index(length)]["positive"][

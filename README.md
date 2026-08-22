@@ -153,6 +153,19 @@ eight key-stream offsets detects every watermarked sequence at 384 bases and abo
 false-positive rate calibrated over that complete search, with real public genomic DNA behaving like
 the other nulls. E5 measures substitution robustness: detection stays at 1.0 through 5% per-base
 substitution at every length and through 20% at 3,072 bases for two of three policies, with the
-transition matching an analytic channel prediction stated before the run. Thirty-three numbers are
-admitted to the ledger. Crops, reverse complementation, insertions and deletions, a key-averaged
-sequence-proxy comparison, ITS/EXP baselines, and adversarial experiments remain open.
+transition matching an analytic channel prediction stated before the run. E6 shows that every crop
+or strand condition whose required key-stream offset lies inside the declared search is detected in
+every prompt, that widening that search sixteen-fold raises the calibrated threshold by 0.3 to 0.5 in
+`z` units without measurable power loss at 1,536 bases, and that conditions outside the search fail
+as they must. E7 stage 1 is the synchronization-limited finding: the unwindowed detector tolerates
+per-base indel rates of only 0.0005 to 0.002, which is 50 to 150 times below its substitution
+tolerance at matched lengths, although the declared phase and offset search turns out to perform
+implicit resynchronization and most detections under indels come from post-indel segments rather than
+the intact prefix. E7 stage 2 adds a declared sliding-window search that moves the indel wall five- to
+tenfold, to about rate 0.01, before meeting a second wall near 0.02 to 0.05 that no window size can
+pass. The `C_tok` sequence-proxy anomaly is resolved as realization noise once both arms are averaged
+over independent draws. Sixty-eight entries are admitted to the ledger, including a runtime envelope
+that deliberately omits peak memory because no recorded field supports a residency claim. Three cheap unkeyed
+distinguishers fail to separate the arms for `C_tok` under matched per-draw pairing and an exact
+cluster test. Sixty-nine entries are admitted. ITS/EXP baselines, key reuse and adaptive removal, and
+the decision on a coding layer remain open.

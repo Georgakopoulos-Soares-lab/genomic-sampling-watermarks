@@ -2,6 +2,7 @@
 
 from .hypotheses import PartitionScore, score_partition_agreement, search_orientation_and_phase
 from .search import (
+    DECISION_RULE,
     FORWARD,
     ORIENTATIONS,
     REVERSE_COMPLEMENT,
@@ -10,9 +11,13 @@ from .search import (
     DetectorConfig,
     DetectorHypothesis,
     PartitionCache,
+    WindowedDetectionResult,
+    WindowedHypothesis,
+    WindowedSearchConfig,
     calibrate_threshold,
     detect,
     detect_aligned,
+    detect_windowed,
     detection_rate,
     empirical_p_value,
     enumerate_search,
@@ -20,6 +25,7 @@ from .search import (
 )
 
 __all__ = [
+    "DECISION_RULE",
     "FORWARD",
     "ORIENTATIONS",
     "REVERSE_COMPLEMENT",
@@ -29,9 +35,13 @@ __all__ = [
     "DetectorHypothesis",
     "PartitionCache",
     "PartitionScore",
+    "WindowedDetectionResult",
+    "WindowedHypothesis",
+    "WindowedSearchConfig",
     "calibrate_threshold",
     "detect",
     "detect_aligned",
+    "detect_windowed",
     "detection_rate",
     "empirical_p_value",
     "enumerate_search",

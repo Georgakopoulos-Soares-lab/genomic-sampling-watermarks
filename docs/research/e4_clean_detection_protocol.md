@@ -235,6 +235,28 @@ Generated-corpus digests:
 | `G_tok` | `4c2ba3c9f7b372c8dd2202a8055dd0f6416e5b7bd01db64d03e17454e70ba348` | `0660ed273ebd758fd794f3bf91fef9d65ddb0efa51fdec47d82deb0954d85e21` |
 | `G_bp` | `277253e83f9f0573de71480e6f2b0a1a8fb3296c7aa60762ff586831f8e672bd` | `3e716fa3a3771534902cf7d1a1bb73d893a125f1cb6bdb1fff284942c8dce061` |
 
+## Decision-rule correction (2026-08-21)
+
+The first admitted revision of this experiment used a calibration that counted null exceedances
+strictly above the threshold while applying a greater-than-or-equal decision rule. With a discrete
+statistic and a threshold that is itself a null order statistic, ties at the threshold were counted
+as detections, so the realized false-positive rate exceeded the reported one: 0.0125 against a
+reported 0.009375 and a target of 0.01.
+
+The rule is now strictly greater than the threshold everywhere, including the bootstrap indicators
+in every runner and validator, with a regression test over tied statistics. The experiment was
+re-run: **no detection rate, threshold, or achieved false-positive rate changed.** The reported
+achieved rate had already used the strict count, and now the rule that is applied matches it. Twelve
+measurement IDs were reissued with a `.v2` suffix and the supersession is recorded in the ledger.
+
+Cited artifact digests, corrected revision:
+
+| Policy | Detection report | Analysis |
+|---|---|---|
+| `C_tok` | `1ea2e9023e0fecea006ad5c6e12b3cc6c31703e03e84fd46d84d715ad29fe1a0` | `24cafb1da1b65515955091896d4b8f5eb8bd20562d32befca4a647d3278128ea` |
+| `G_tok` | `ba28bb5f2e18e04c3e81549c9b97e60d71d5f2e6fb141ef2f55873b4863c8c45` | `8a7eac7dde379f82ec8b26bf2de1ac6e4258827495b42d74fb15b050e63e0cbe` |
+| `G_bp` | `4a256e912238eb60cd8b5791c11abbbcb4335993c7820a455aeda0f2f48f590b` | `f8e57b57303029b4f51b63229c8dd5003e592d23fdff5d79cf1b5ee34050d4e4` |
+
 ## Evidence boundary
 
 Generation and detection reports are engineering artifacts in ignored `outputs/`. Only the twelve

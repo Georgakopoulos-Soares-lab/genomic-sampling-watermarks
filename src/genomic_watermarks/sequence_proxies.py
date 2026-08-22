@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import itertools
 import math
+import statistics
 from collections.abc import Mapping, Sequence
 
 from genomic_watermarks.dna import BASES, normalize_dna
@@ -144,6 +145,133 @@ def exact_sign_flip_test(differences: Sequence[float]) -> dict[str, float]:
         "permutations": float(total),
         "exact": 1.0,
     }
+
+
+def key_averaged_proxy_comparison(
+    watermarked_by_key: Mapping[str, Mapping[str, str]],
+    ordinary: Mapping[str, str],
+) -> dict[str, dict[str, float]]:
+    """Compare arms after averaging each proxy over independent keys.
+
+    A single key produces one realization of the watermarked arm. Because the
+    construction is exact only in expectation over keys, a fixed key can drift
+    systematically in bulk statistics while the construction is correct. Averaging
+    each prompt's proxy over several independent keys removes that drift, and the
+    spread across keys says how large it was.
+
+    ``watermarked_by_key`` maps a key label to that key's prompt-to-sequence map.
+    Every key must cover the same prompts as the ordinary arm.
+    """
+
+    if len(watermarked_by_key) < 2:
+        raise ValueError("at least two keys are required to average over keys")
+    case_ids = tuple(sorted(ordinary))
+    if len(case_ids) < 2:
+        raise ValueError("at least two prompts are required")
+    for label, arm in watermarked_by_key.items():
+        if set(arm) != set(case_ids):
+            raise ValueError(f"key {label} does not cover the same prompts as the control")
+        for case_id in case_ids:
+            if len(normalize_dna(arm[case_id])) != len(normalize_dna(ordinary[case_id])):
+                raise ValueError(f"arms must have equal length for {case_id} under key {label}")
+
+    key_labels = tuple(sorted(watermarked_by_key))
+    per_key = {
+        label: {case_id: proxy_metrics(watermarked_by_key[label][case_id]) for case_id in case_ids}
+        for label in key_labels
+    }
+    ordinary_metrics = {case_id: proxy_metrics(ordinary[case_id]) for case_id in case_ids}
+
+    comparison: dict[str, dict[str, float]] = {}
+    for metric in PROXY_METRICS:
+        averaged = {
+            case_id: math.fsum(per_key[label][case_id][metric] for label in key_labels)
+            / len(key_labels)
+            for case_id in case_ids
+        }
+        differences = [
+            averaged[case_id] - ordinary_metrics[case_id][metric] for case_id in case_ids
+        ]
+        spreads = [
+            statistics.pstdev([per_key[label][case_id][metric] for label in key_labels])
+            for case_id in case_ids
+        ]
+        test = exact_sign_flip_test(differences)
+        comparison[metric] = {
+            **test,
+            "keys": float(len(key_labels)),
+            "watermarked_key_averaged_mean": math.fsum(averaged.values()) / len(case_ids),
+            "ordinary_mean": math.fsum(ordinary_metrics[case_id][metric] for case_id in case_ids)
+            / len(case_ids),
+            "mean_within_prompt_spread_over_keys": math.fsum(spreads) / len(spreads),
+        }
+    return comparison
+
+
+def symmetric_averaged_proxy_comparison(
+    watermarked_by_draw: Mapping[str, Mapping[str, str]],
+    ordinary_by_draw: Mapping[str, Mapping[str, str]],
+) -> dict[str, dict[str, float]]:
+    """Compare arms after averaging each proxy over independent draws of **both** arms.
+
+    Averaging only the watermarked side cannot isolate a watermark effect, because
+    the control is a realization too. This averages both sides over the same number
+    of independent draws and reports each side's across-draw spread, so a reader can
+    see whether a residual difference is larger than the noise on either arm.
+
+    Draws must be independent: distinct keys alone are not enough if the residual
+    randomness is seeded identically, so each draw must differ in whatever the
+    generator feeds its replay seed.
+    """
+
+    if len(watermarked_by_draw) < 2 or len(ordinary_by_draw) < 2:
+        raise ValueError("at least two draws of each arm are required")
+    if len(watermarked_by_draw) != len(ordinary_by_draw):
+        raise ValueError("both arms must be averaged over the same number of draws")
+    case_ids = tuple(sorted(next(iter(ordinary_by_draw.values()))))
+    if len(case_ids) < 2:
+        raise ValueError("at least two prompts are required")
+    for label, arm in {**watermarked_by_draw, **ordinary_by_draw}.items():
+        if set(arm) != set(case_ids):
+            raise ValueError(f"draw {label} does not cover the same prompts")
+
+    def metrics_by_draw(arms: Mapping[str, Mapping[str, str]]):
+        return {
+            label: {case_id: proxy_metrics(arm[case_id]) for case_id in case_ids}
+            for label, arm in arms.items()
+        }
+
+    watermarked = metrics_by_draw(watermarked_by_draw)
+    ordinary = metrics_by_draw(ordinary_by_draw)
+
+    def averaged(side, metric):
+        return {
+            case_id: math.fsum(side[label][case_id][metric] for label in side) / len(side)
+            for case_id in case_ids
+        }
+
+    def spread(side, metric):
+        values = [
+            statistics.pstdev([side[label][case_id][metric] for label in side])
+            for case_id in case_ids
+        ]
+        return math.fsum(values) / len(values)
+
+    comparison: dict[str, dict[str, float]] = {}
+    for metric in PROXY_METRICS:
+        left = averaged(watermarked, metric)
+        right = averaged(ordinary, metric)
+        differences = [left[case_id] - right[case_id] for case_id in case_ids]
+        test = exact_sign_flip_test(differences)
+        comparison[metric] = {
+            **test,
+            "draws_per_arm": float(len(watermarked_by_draw)),
+            "watermarked_averaged_mean": math.fsum(left.values()) / len(case_ids),
+            "ordinary_averaged_mean": math.fsum(right.values()) / len(case_ids),
+            "watermarked_spread_over_draws": spread(watermarked, metric),
+            "ordinary_spread_over_draws": spread(ordinary, metric),
+        }
+    return comparison
 
 
 def paired_proxy_comparison(

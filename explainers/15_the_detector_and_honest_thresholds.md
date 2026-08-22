@@ -53,6 +53,16 @@ You searched 96 times; you were *fishing* for a large value, and you found one.
 The honest procedure is to calibrate the maximum itself: run the identical 96-alignment search on
 sequences the key did *not* write, and see how large the maximum gets purely by chance.
 
+There is a second, subtler trap hiding inside that. The threshold you pick from the null trials is
+itself one of those null values, and the statistic `(2m − n)/√n` is *discrete* — it can only land on
+`n + 1` possible values. So ties at the threshold are not rare, they are common. If you choose the
+threshold by counting nulls *strictly above* a candidate but then call a sequence watermarked when
+its statistic is *at or above* the threshold, the ties get counted as detections and the real
+false-positive rate quietly exceeds the one you reported. That is not hypothetical: an earlier
+revision of this work did exactly that, reporting 0.0094 while the rule as applied achieved 0.0125
+against a 0.01 target. The rule is now strictly greater than the threshold everywhere, and a test
+constructs deliberate ties to keep it that way.
+
 The measured answer in this pilot: the null maximum reaches `z ≈ 3.7` to `4.6`. So a
 threshold of about 2.33 — the textbook one-sided 1% cutoff for a *single* test — would be badly
 wrong here. Calibration is not a formality; it moves the threshold by well over a full standard

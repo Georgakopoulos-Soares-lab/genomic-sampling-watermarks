@@ -41,6 +41,7 @@ DEFAULT_COHORT = ROOT / "data/processed/ncbi_refseq_eukaryote_windows_v2/prompts
 DEFAULT_DTYPES = {"C_tok": "bfloat16", "G_tok": "float32", "G_bp": "float32"}
 DEFAULT_KEY_ENV = "GENOMIC_WATERMARK_KEY"
 PUBLIC_FIXTURE_KEY = b"genomic-sampling-watermarks/public-generation-fixture/v1"
+FIXTURE_KEY_LABEL = "genomic-sampling-watermarks/public-generation-fixture/v1/index"
 
 
 def parse_args() -> argparse.Namespace:
@@ -61,6 +62,21 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="use the published non-secret fixture key for a smoke run",
     )
+    parser.add_argument(
+        "--fixture-key-index",
+        type=int,
+        default=0,
+        help=(
+            "which published fixture key to use; 0 is the original one and any positive index "
+            "derives an independent published key, so a study can average over keys"
+        ),
+    )
+    parser.add_argument(
+        "--arms",
+        choices=("both", "watermarked"),
+        default="both",
+        help="generate both arms, or only the watermarked arm when the control already exists",
+    )
     parser.add_argument("--device", choices=("mps", "cpu"), default="mps")
     parser.add_argument("--dtype", choices=("bfloat16", "float16", "float32"))
     parser.add_argument("--cache-dir", default=".cache/huggingface")
@@ -80,7 +96,14 @@ def resolve_key(args: argparse.Namespace) -> tuple[bytes, str]:
     """Return runtime key material and a non-reversible description of its source."""
 
     if args.public_fixture_key:
-        return PUBLIC_FIXTURE_KEY, "public_fixture"
+        if args.fixture_key_index < 0:
+            raise RuntimeError("fixture-key-index must be non-negative")
+        if args.fixture_key_index == 0:
+            return PUBLIC_FIXTURE_KEY, "public_fixture"
+        derived = hashlib.sha256(
+            f"{FIXTURE_KEY_LABEL}/{args.fixture_key_index:04d}".encode()
+        ).digest()
+        return derived, f"public_fixture_index_{args.fixture_key_index}"
     raw = os.environ.get(args.key_env)
     if not raw:
         raise RuntimeError(
@@ -174,16 +197,18 @@ def main() -> int:
         watermarked_seconds += time.perf_counter() - watermarked_started
 
         ordinary_started = time.perf_counter()
-        ordinary = generate_ordinary(
-            next_distribution,
-            case.sequence,
-            steps=args.steps,
-            rng=random.Random(
-                public_replay_seed(
-                    args.experiment_label, args.policy, case.case_id, ORDINARY_SCHEME
-                )
-            ),
-        )
+        ordinary = None
+        if args.arms == "both":
+            ordinary = generate_ordinary(
+                next_distribution,
+                case.sequence,
+                steps=args.steps,
+                rng=random.Random(
+                    public_replay_seed(
+                        args.experiment_label, args.policy, case.case_id, ORDINARY_SCHEME
+                    )
+                ),
+            )
         ordinary_seconds += time.perf_counter() - ordinary_started
 
         recovered = stream_agreements(
@@ -205,9 +230,11 @@ def main() -> int:
                 "watermarked_sequence_sha256": hashlib.sha256(
                     watermarked.dna.encode("ascii")
                 ).hexdigest(),
-                "ordinary_sequence_sha256": hashlib.sha256(
-                    ordinary.dna.encode("ascii")
-                ).hexdigest(),
+                "ordinary_sequence_sha256": (
+                    hashlib.sha256(ordinary.dna.encode("ascii")).hexdigest()
+                    if ordinary is not None
+                    else None
+                ),
                 "agreement_count": watermarked.agreement_count,
                 "agreement_rate": watermarked.agreement_rate,
                 "expected_agreement_rate": watermarked.expected_agreement_rate,
@@ -217,7 +244,10 @@ def main() -> int:
                 ),
             }
         )
-        for scheme, result in ((PARTITION_MC_SCHEME, watermarked), (ORDINARY_SCHEME, ordinary)):
+        emitted = [(PARTITION_MC_SCHEME, watermarked)]
+        if ordinary is not None:
+            emitted.append((ORDINARY_SCHEME, ordinary))
+        for scheme, result in emitted:
             sequence_records.append(
                 {
                     "case_id": case.case_id,
@@ -256,6 +286,8 @@ def main() -> int:
         "control_method": ORDINARY_SCHEME,
         "experiment_label": args.experiment_label,
         "key_source": key_source,
+        "fixture_key_index": args.fixture_key_index,
+        "arms": args.arms,
         "stream_domain": stream_domain,
         "stream_offset": args.stream_offset,
         "generated_tokens_per_case": args.steps,

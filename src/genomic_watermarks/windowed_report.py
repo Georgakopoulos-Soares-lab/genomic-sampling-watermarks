@@ -1,8 +1,10 @@
-"""Validation of edit-robustness reports before evidence review.
+"""Validation of E7 stage-2 windowed detector reports before evidence review.
 
-Every reported aggregate is recomputed from the report's stored per-trial rows.
-The validator also returns the per-rate null summaries needed to check the
-claim that the null statistic distribution does not depend on the edit rate.
+Every reported aggregate is recomputed from the stored per-trial rows. The
+validator also enforces the two structural properties the comparison depends on:
+the windowed search must contain the full-read window, so that it is a superset
+of the unwindowed comparator rather than a different statistic, and both searches
+must have scored the identical set of trials, so that the comparison is paired.
 """
 
 from __future__ import annotations
@@ -20,17 +22,19 @@ from genomic_watermarks.detector.search import (
     standardized_agreement,
 )
 from genomic_watermarks.dna import KMER_SIZE
-from genomic_watermarks.pilot import ContextCase, numeric_summary
+from genomic_watermarks.pilot import ContextCase
 from genomic_watermarks.watermark import ORDINARY_SCHEME, PARTITION_MC_SCHEME
 
 POOLED_FAMILIES = ("wrong_key_watermarked", "any_key_ordinary")
 FAMILIES = ("positive", *POOLED_FAMILIES)
-EDIT_CHANNELS = ("substitution", "insertion", "deletion")
+SEARCH_IDS = ("windowed", "unwindowed")
+EDIT_CHANNELS = ("insertion", "deletion")
 
 _POLICIES = ("C_tok", "G_tok", "G_bp")
 _FORBIDDEN_RAW_FIELDS = {
     "generated_dna",
     "edited_dna",
+    "observed_dna",
     "key",
     "logits",
     "probabilities",
@@ -63,16 +67,15 @@ def _close(left: float, right: float) -> bool:
     return math.isclose(left, right, rel_tol=1e-11, abs_tol=1e-12)
 
 
-def validate_edit_report(
+def validate_windowed_report(
     report: Mapping[str, Any],
     cohort_cases: Sequence[ContextCase],
     *,
-    expected_offsets: int = 8,
     expected_null_keys: int = 8,
     expected_replicates: int = 5,
     expected_target_fpr: float = 0.01,
 ) -> dict[str, Any]:
-    """Validate the declared search, the edit grid, and every reported aggregate."""
+    """Validate the paired windowed and unwindowed searches and every aggregate."""
 
     forbidden = _find_forbidden_fields(report)
     _require(not forbidden, f"report contains forbidden raw field(s): {', '.join(forbidden)}")
@@ -97,21 +100,35 @@ def validate_edit_report(
     edit = str(report.get("edit"))
     _require(edit in EDIT_CHANNELS, f"unknown edit channel {edit}")
 
-    search = report.get("detector_search")
-    _require(isinstance(search, Mapping), "detector_search must be an object")
+    observed_bases = int(report.get("observed_bases"))
     _require(
-        list(search.get("orientations")) == list(ORIENTATIONS), "both strands must be searched"
+        observed_bases > 0 and observed_bases % KMER_SIZE == 0,
+        "observed_bases must be a positive multiple of six",
     )
+    observed_tokens = observed_bases // KMER_SIZE
+
+    searches = report.get("searches")
+    _require(isinstance(searches, Mapping), "searches must be an object")
+    _require(set(searches) == set(SEARCH_IDS), "a windowed and an unwindowed search are required")
+    windowed = searches["windowed"]["search"]
+    _require(windowed.get("kind") == "windowed", "the windowed search must declare its kind")
+    _require(bool(windowed.get("drift_is_signed")) is True, "drift must be declared as signed")
+    window_tokens = [int(value) for value in windowed["window_tokens"]]
     _require(
-        list(search.get("phases")) == list(range(KMER_SIZE)), "all six phases must be searched"
+        observed_tokens in window_tokens,
+        "the windowed search must include the full-read window so it contains the comparator",
     )
+    drifts = [int(value) for value in windowed["drift_offsets"]]
+    _require(min(drifts) < 0 < max(drifts), "the drift range must be signed in both directions")
     _require(
-        search.get("window_tokens") == "full_sequence_only",
-        "this experiment declares no sliding windows",
+        list(searches["unwindowed"]["search"]["orientations"]) == list(ORIENTATIONS),
+        "the comparator must search both strands",
     )
-    offsets = list(search.get("stream_offsets"))
-    _require(offsets == list(range(expected_offsets)), "stream offsets are inconsistent")
-    expected_hypotheses = len(ORIENTATIONS) * KMER_SIZE * len(offsets)
+    hypotheses = {search_id: int(searches[search_id]["hypotheses"]) for search_id in SEARCH_IDS}
+    _require(
+        hypotheses["windowed"] > hypotheses["unwindowed"],
+        "the windowed search must score more hypotheses than the comparator",
+    )
 
     cohort_ids = {case.cohort_id for case in cohort_cases}
     _require(len(cohort_ids) == 1, "cohort cases must share one cohort_id")
@@ -119,25 +136,19 @@ def validate_edit_report(
     known = {case.case_id for case in cohort_cases}
     case_ids = tuple(str(case_id) for case_id in report.get("case_ids", ()))
     _require(case_ids, "report must declare at least one prompt")
-    _require(len(set(case_ids)) == len(case_ids), "case_ids must be unique")
     _require(all(case_id in known for case_id in case_ids), "report contains an unknown case")
     _require(int(report.get("case_count")) == len(case_ids), "case_count is inconsistent")
 
     rates = tuple(float(value) for value in report.get("edit_rates", ()))
-    _require(rates, "at least one edit rate is required")
-    _require(list(rates) == sorted(set(rates)), "edit rates must be sorted and unique")
-    _require(all(0.0 <= rate <= 1.0 for rate in rates), "edit rates must lie in [0, 1]")
-    token_lengths = tuple(int(value) for value in report.get("token_lengths", ()))
-    _require(token_lengths, "at least one evaluated length is required")
-    _require(list(token_lengths) == sorted(set(token_lengths)), "evaluated lengths must be sorted")
+    _require(rates and list(rates) == sorted(set(rates)), "edit rates must be sorted and unique")
 
     trials = report.get("trials")
     _require(isinstance(trials, list) and trials, "trials must be a non-empty list")
     _require(int(report.get("trial_count")) == len(trials), "trial_count is inconsistent")
-    grouped: dict[tuple[float, int, str], list[Mapping[str, Any]]] = {
-        (rate, length, family): []
+    grouped: dict[tuple[float, str, str], list[Mapping[str, Any]]] = {
+        (rate, search_id, family): []
         for rate in rates
-        for length in token_lengths
+        for search_id in SEARCH_IDS
         for family in FAMILIES
     }
     for row in trials:
@@ -147,107 +158,75 @@ def validate_edit_report(
         _require(str(row.get("case_id")) in case_ids, "trial references an undeclared prompt")
         rate = float(row.get("edit_rate"))
         _require(rate in rates, "trial uses an undeclared edit rate")
-        length = int(row.get("token_length"))
-        _require(length in token_lengths, "trial uses an undeclared length")
+        search_id = str(row.get("search_id"))
+        _require(search_id in SEARCH_IDS, "trial uses an undeclared search")
         _require(
-            int(row.get("base_length")) == length * KMER_SIZE,
-            "trial base length is inconsistent",
-        )
-        _require(
-            int(row.get("hypotheses_searched")) == expected_hypotheses,
+            int(row.get("hypotheses_searched")) == hypotheses[search_id],
             "trial did not search the declared hypothesis count",
         )
         phase = int(row.get("phase"))
         _require(0 <= phase < KMER_SIZE, "trial phase is invalid")
         total = int(row.get("total"))
         matches = int(row.get("matches"))
-        _require(
-            total == (length if phase == 0 else length - 1),
-            "trial token total does not match its length and phase",
-        )
+        if search_id == "windowed":
+            _require(total in window_tokens, "a windowed trial must score a declared window length")
+            _require(
+                int(row.get("window_start")) + int(row.get("drift")) >= 0,
+                "a windowed trial may not use a negative key start",
+            )
+        else:
+            _require(
+                total == (observed_tokens if phase == 0 else observed_tokens - 1),
+                "an unwindowed trial must score the whole read",
+            )
         _require(0 <= matches <= total, "invalid match count")
         _require(
             _close(float(row.get("statistic")), standardized_agreement(matches, total)),
             "trial statistic does not match its match count",
         )
         _require(row.get("orientation") in ORIENTATIONS, "trial orientation is invalid")
-        _require(int(row.get("stream_offset")) in offsets, "trial offset is outside the search")
-        replicate = int(row.get("replicate"))
-        key_index = row.get("key_index")
-        if family == "positive":
-            _require(key_index is None, "positive trials must not carry a null key index")
-            _require(
-                0 <= replicate < expected_replicates,
-                "positive replicate index is outside the declared count",
-            )
-        else:
-            _require(replicate == 0, "null trials use the first edit replicate only")
-            _require(
-                isinstance(key_index, int) and 0 <= key_index < expected_null_keys,
-                "null trial key index is outside the declared key set",
-            )
-        grouped[(rate, length, family)].append(row)
+        grouped[(rate, search_id, family)].append(row)
 
     for rate in rates:
-        for length in token_lengths:
+        counts = {
+            search_id: {family: len(grouped[(rate, search_id, family)]) for family in FAMILIES}
+            for search_id in SEARCH_IDS
+        }
+        _require(
+            counts["windowed"] == counts["unwindowed"],
+            f"the two searches must score the same trials at rate {rate}",
+        )
+        _require(
+            counts["windowed"]["positive"] == len(case_ids) * expected_replicates,
+            f"positive trial count is inconsistent at rate {rate}",
+        )
+        for family in POOLED_FAMILIES:
             _require(
-                len(grouped[(rate, length, "positive")]) == len(case_ids) * expected_replicates,
-                f"positive trial count is inconsistent at rate {rate}, length {length}",
+                counts["windowed"][family] == len(case_ids) * expected_null_keys,
+                f"{family} trial count is inconsistent at rate {rate}",
             )
-            for family in POOLED_FAMILIES:
-                _require(
-                    len(grouped[(rate, length, family)]) == len(case_ids) * expected_null_keys,
-                    f"{family} trial count is inconsistent at rate {rate}, length {length}",
-                )
 
     conditions = report.get("conditions")
-    _require(isinstance(conditions, list) and conditions, "conditions must be a non-empty list")
+    _require(isinstance(conditions, list), "conditions must be a list")
     _require(
-        len(conditions) == len(rates) * len(token_lengths),
-        "one condition per rate and length is required",
+        len(conditions) == len(rates) * len(SEARCH_IDS),
+        "one condition entry per rate and search is required",
     )
 
     summary: list[dict[str, Any]] = []
-    null_invariance: dict[int, dict[str, Any]] = {}
-    for length in token_lengths:
-        per_rate_null_max: dict[str, float] = {}
-        per_rate_null_mean: dict[str, float] = {}
-        for rate in rates:
-            nulls = [
-                float(row["statistic"])
-                for family in POOLED_FAMILIES
-                for row in grouped[(rate, length, family)]
-            ]
-            per_rate_null_max[f"{rate:g}"] = max(nulls)
-            per_rate_null_mean[f"{rate:g}"] = numeric_summary(nulls)["mean"]
-        null_invariance[length] = {
-            "per_rate_null_maximum": per_rate_null_max,
-            "per_rate_null_mean": per_rate_null_mean,
-            "null_mean_spread": max(per_rate_null_mean.values()) - min(per_rate_null_mean.values()),
-            "null_maximum_spread": max(per_rate_null_max.values())
-            - min(per_rate_null_max.values()),
-        }
-
     for entry in conditions:
         rate = float(entry["edit_rate"])
-        length = int(entry["token_length"])
-        _require(
-            rate in rates and length in token_lengths, "condition is outside the declared grid"
-        )
-        _require(str(entry["edit"]) == edit, "condition declares a different edit channel")
+        search_id = str(entry["search_id"])
+        _require(rate in rates and search_id in SEARCH_IDS, "condition is outside the grid")
         nulls = [
             float(row["statistic"])
             for family in POOLED_FAMILIES
-            for row in grouped[(rate, length, family)]
+            for row in grouped[(rate, search_id, family)]
         ]
-        positives_rows = grouped[(rate, length, "positive")]
-        positives = [float(row["statistic"]) for row in positives_rows]
+        positive_rows = grouped[(rate, search_id, "positive")]
+        positives = [float(row["statistic"]) for row in positive_rows]
         calibration = calibrate_threshold(nulls, expected_target_fpr)
         reported = entry["calibration"]
-        _require(
-            int(reported["pooled_null_trials"]) == len(nulls),
-            "pooled null trial count is inconsistent",
-        )
         for name, expected_value in (
             ("threshold", calibration.threshold),
             ("achieved_false_positive_rate", calibration.achieved_false_positive_rate),
@@ -261,22 +240,34 @@ def validate_edit_report(
             calibration.achieved_false_positive_rate <= expected_target_fpr,
             "the calibrated threshold does not meet its target",
         )
-
         positive = entry["positive"]
         expected_rate = detection_rate(positives, calibration.threshold)
-        _require(int(positive["trials"]) == len(positives), "positive trial count is inconsistent")
         _require(
             _close(float(positive["detection_rate"]), expected_rate),
-            f"detection rate does not match the stored trials at rate {rate}, length {length}",
+            f"detection rate does not match the stored trials at rate {rate}, {search_id}",
         )
-        indicators: dict[str, list[float]] = {case_id: [] for case_id in case_ids}
-        for row in positives_rows:
+        detected = [row for row in positive_rows if float(row["statistic"]) > calibration.threshold]
+        _require(
+            int(positive["detected_trials"]) == len(detected),
+            "detected trial count is inconsistent",
+        )
+        _require(
+            list(positive["recovered_drift"]) == sorted({int(row["drift"]) for row in detected}),
+            "recovered drift set does not match the stored trials",
+        )
+        _require(
+            list(positive["recovered_window_tokens"])
+            == sorted({int(row["window_tokens"]) for row in detected}),
+            "recovered window set does not match the stored trials",
+        )
+        indicators = {str(row["case_id"]): [] for row in positive_rows}
+        for row in positive_rows:
             indicators[str(row["case_id"])].append(
                 float(float(row["statistic"]) > calibration.threshold)
             )
         bootstrap = positive["detection_rate_prompt_cluster_bootstrap"]
         cluster = analyze_prompt_clusters(
-            {case_id: tuple(values) for case_id, values in indicators.items()},
+            {k: tuple(v) for k, v in indicators.items()},
             bootstrap_replicates=int(bootstrap["replicates"]),
             bootstrap_seed=int(bootstrap["seed"]),
         )
@@ -301,9 +292,8 @@ def validate_edit_report(
             "minimum global p-value does not match the stored trials",
         )
         for family in POOLED_FAMILIES:
-            rows = grouped[(rate, length, family)]
+            rows = grouped[(rate, search_id, family)]
             observed = entry["null_families"][family]
-            _require(int(observed["trials"]) == len(rows), f"{family} trial count is inconsistent")
             _require(
                 _close(
                     float(observed["exceedance_rate_at_threshold"]),
@@ -311,20 +301,14 @@ def validate_edit_report(
                         [float(row["statistic"]) for row in rows], calibration.threshold
                     ),
                 ),
-                f"{family} exceedance rate does not match the stored trials at rate {rate}",
+                f"{family} exceedance rate does not match the stored trials",
             )
-        separation = entry["separation"]
-        _require(
-            _close(float(separation["minimum_positive_statistic"]), min(positives))
-            and _close(float(separation["maximum_pooled_null_statistic"]), max(nulls)),
-            "separation summary does not match the stored trials",
-        )
         summary.append(
             {
                 "edit": edit,
                 "edit_rate": rate,
-                "token_length": length,
-                "base_length": length * KMER_SIZE,
+                "search_id": search_id,
+                "hypotheses_searched": hypotheses[search_id],
                 "threshold": calibration.threshold,
                 "achieved_false_positive_rate": calibration.achieved_false_positive_rate,
                 "attainable_false_positive_rate": calibration.attainable_false_positive_rate,
@@ -333,88 +317,74 @@ def validate_edit_report(
                 "detection_rate_upper": cluster.interval_upper,
                 "positive_trials": len(positives),
                 "pooled_null_trials": len(nulls),
+                "detected_trials": len(detected),
+                "recovered_drift": sorted({int(row["drift"]) for row in detected}),
+                "recovered_window_tokens": sorted({int(row["window_tokens"]) for row in detected}),
+                "minimum_positive_statistic": min(positives),
+                "maximum_pooled_null_statistic": max(nulls),
                 "wrong_key_watermarked_exceedance": detection_rate(
                     [
                         float(row["statistic"])
-                        for row in grouped[(rate, length, "wrong_key_watermarked")]
+                        for row in grouped[(rate, search_id, "wrong_key_watermarked")]
                     ],
                     calibration.threshold,
                 ),
                 "any_key_ordinary_exceedance": detection_rate(
                     [
                         float(row["statistic"])
-                        for row in grouped[(rate, length, "any_key_ordinary")]
+                        for row in grouped[(rate, search_id, "any_key_ordinary")]
                     ],
                     calibration.threshold,
                 ),
-                "minimum_positive_statistic": min(positives),
-                "maximum_pooled_null_statistic": max(nulls),
             }
         )
 
-    # Where a detected positive actually aligned. For an indel channel this is the direct evidence
-    # that the phase and offset search resynchronizes: a detection away from phase 0 and offset 0
-    # recovered a segment after an indel, not the intact prefix.
-    resynchronization: dict[str, dict[str, Any]] = {}
-    for length in token_lengths:
-        per_rate: dict[str, Any] = {}
-        for rate in rates:
-            entry = next(
-                row
-                for row in conditions
-                if float(row["edit_rate"]) == rate and int(row["token_length"]) == length
-            )
-            threshold = float(entry["calibration"]["threshold"])
-            detected = [
-                row
-                for row in grouped[(rate, length, "positive")]
-                if float(row["statistic"]) > threshold
-            ]
-            if not detected:
-                per_rate[f"{rate:g}"] = {
-                    "detected_trials": 0,
-                    "fraction_at_origin_alignment": None,
-                    "distinct_phases": [],
-                    "distinct_stream_offsets": [],
-                }
-                continue
-            at_origin = sum(
-                1 for row in detected if int(row["phase"]) == 0 and int(row["stream_offset"]) == 0
-            )
-            per_rate[f"{rate:g}"] = {
-                "detected_trials": len(detected),
-                "fraction_at_origin_alignment": at_origin / len(detected),
-                "distinct_phases": sorted({int(row["phase"]) for row in detected}),
-                "distinct_stream_offsets": sorted({int(row["stream_offset"]) for row in detected}),
+    by_key = {(row["edit_rate"], row["search_id"]): row for row in summary}
+    paired = []
+    for rate in rates:
+        win = by_key[(rate, "windowed")]
+        flat = by_key[(rate, "unwindowed")]
+        paired.append(
+            {
+                "edit_rate": rate,
+                "windowed_detection_rate": win["detection_rate"],
+                "unwindowed_detection_rate": flat["detection_rate"],
+                "detection_rate_gain": win["detection_rate"] - flat["detection_rate"],
+                "windowed_threshold": win["threshold"],
+                "unwindowed_threshold": flat["threshold"],
+                "threshold_cost": win["threshold"] - flat["threshold"],
+                "windowed_recovered_drift": win["recovered_drift"],
             }
-        resynchronization[str(length)] = per_rate
+        )
 
-    maximum_fully_detected: dict[int, float | None] = {}
-    for length in token_lengths:
-        detected = [
-            row["edit_rate"]
-            for row in summary
-            if row["token_length"] == length and row["detection_rate"] >= 1.0
-        ]
-        maximum_fully_detected[length] = max(detected) if detected else None
-
+    detected_rates = [
+        row["edit_rate"]
+        for row in summary
+        if row["search_id"] == "windowed" and row["detection_rate"] >= 1.0
+    ]
+    comparator_rates = [
+        row["edit_rate"]
+        for row in summary
+        if row["search_id"] == "unwindowed" and row["detection_rate"] >= 1.0
+    ]
     return {
         "valid": True,
         "policy_id": report["policy_id"],
         "cohort_id": report["cohort_id"],
         "edit": edit,
         "edit_rates": list(rates),
+        "observed_bases": observed_bases,
         "prompt_count": len(case_ids),
         "positive_replicates_per_prompt": expected_replicates,
         "null_keys": expected_null_keys,
-        "hypotheses_searched": expected_hypotheses,
         "target_false_positive_rate": expected_target_fpr,
+        "hypotheses_by_search": hypotheses,
         "trial_count": len(trials),
         "raw_fields_absent": True,
         "conditions": summary,
-        "null_invariance_by_length": {str(k): v for k, v in null_invariance.items()},
-        "recovered_alignment_by_length": resynchronization,
-        "maximum_fully_detected_rate_by_length": {
-            str(length): value for length, value in maximum_fully_detected.items()
-        },
+        "paired_comparison": paired,
+        "windowed_maximum_fully_detected_rate": max(detected_rates) if detected_rates else None,
+        "unwindowed_maximum_fully_detected_rate": (
+            max(comparator_rates) if comparator_rates else None
+        ),
     }

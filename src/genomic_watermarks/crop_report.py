@@ -1,0 +1,439 @@
+"""Validation of E6 crop, strand, and phase reports before evidence review.
+
+Every reported aggregate is recomputed from the report's stored per-trial rows.
+The validator independently recomputes the phase and key-stream offset each
+condition requires, so a mislabelled condition cannot pass, and it checks that
+the recovered alignment of a detected positive is the required one.
+"""
+
+from __future__ import annotations
+
+import math
+from collections.abc import Mapping, Sequence
+from typing import Any
+
+from genomic_watermarks.cluster_analysis import analyze_prompt_clusters
+from genomic_watermarks.detector.search import (
+    FORWARD,
+    ORIENTATIONS,
+    REVERSE_COMPLEMENT,
+    calibrate_threshold,
+    detection_rate,
+    empirical_p_value,
+    standardized_agreement,
+)
+from genomic_watermarks.dna import KMER_SIZE
+from genomic_watermarks.pilot import ContextCase
+from genomic_watermarks.watermark import ORDINARY_SCHEME, PARTITION_MC_SCHEME
+
+POOLED_FAMILIES = ("wrong_key_watermarked", "any_key_ordinary")
+FAMILIES = ("positive", *POOLED_FAMILIES)
+SEARCH_IDS = ("narrow", "wide")
+
+_POLICIES = ("C_tok", "G_tok", "G_bp")
+_FORBIDDEN_RAW_FIELDS = {
+    "generated_dna",
+    "observed_dna",
+    "key",
+    "logits",
+    "probabilities",
+    "sampled_token",
+    "secret_key",
+    "sequence",
+}
+
+
+def _require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ValueError(message)
+
+
+def _find_forbidden_fields(value: Any, path: str = "report") -> list[str]:
+    found: list[str] = []
+    if isinstance(value, Mapping):
+        for key, child in value.items():
+            child_path = f"{path}.{key}"
+            if str(key) in _FORBIDDEN_RAW_FIELDS:
+                found.append(child_path)
+            found.extend(_find_forbidden_fields(child, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            found.extend(_find_forbidden_fields(child, f"{path}[{index}]"))
+    return found
+
+
+def _close(left: float, right: float) -> bool:
+    return math.isclose(left, right, rel_tol=1e-11, abs_tol=1e-12)
+
+
+def required_alignment(front_crop: int, complement: bool) -> tuple[int, int, str]:
+    """Return the phase, key-stream offset, and orientation branch a verifier must reach."""
+
+    if front_crop < 0:
+        raise ValueError("front crop must be non-negative")
+    return (
+        (-front_crop) % KMER_SIZE,
+        math.ceil(front_crop / KMER_SIZE),
+        REVERSE_COMPLEMENT if complement else FORWARD,
+    )
+
+
+def validate_crop_report(
+    report: Mapping[str, Any],
+    cohort_cases: Sequence[ContextCase],
+    *,
+    expected_null_keys: int = 8,
+    expected_target_fpr: float = 0.01,
+) -> dict[str, Any]:
+    """Validate the declared searches, the condition grid, and every reported aggregate."""
+
+    forbidden = _find_forbidden_fields(report)
+    _require(not forbidden, f"report contains forbidden raw field(s): {', '.join(forbidden)}")
+
+    _require(report.get("schema_version") == 1, "unsupported report schema_version")
+    _require(
+        report.get("classification") == "engineering_pilot_not_paper_evidence",
+        "unexpected report classification",
+    )
+    _require(report.get("complete") is True, "report is not marked complete")
+    _require(report.get("policy_id") in _POLICIES, "report policy is not a primary policy")
+    _require(report.get("watermark_method") == PARTITION_MC_SCHEME, "unexpected watermark method")
+    _require(report.get("control_method") == ORDINARY_SCHEME, "unexpected control method")
+    _require(report.get("key_source") == "public_fixture", "unexpected key source")
+    _require(report.get("null_key_source") == "public_fixture_labels", "unexpected null key source")
+    _require(int(report.get("null_keys")) == expected_null_keys, "null key count is inconsistent")
+    _require(int(report.get("support_size")) == 4096, "the declared support must be 4,096 tokens")
+
+    observed_bases = int(report.get("observed_bases"))
+    _require(
+        observed_bases > 0 and observed_bases % KMER_SIZE == 0,
+        "observed_bases must be a positive multiple of six",
+    )
+    _require(
+        int(report.get("observed_tokens")) == observed_bases // KMER_SIZE,
+        "observed_tokens is inconsistent with observed_bases",
+    )
+
+    searches = report.get("searches")
+    _require(isinstance(searches, Mapping), "searches must be an object")
+    _require(tuple(searches) == SEARCH_IDS, "exactly a narrow and a wide search are required")
+    offsets_by_search: dict[str, list[int]] = {}
+    hypotheses_by_search: dict[str, int] = {}
+    for search_id in SEARCH_IDS:
+        search = searches[search_id]["search"]
+        _require(
+            list(search["orientations"]) == list(ORIENTATIONS), "both strands must be searched"
+        )
+        _require(
+            list(search["phases"]) == list(range(KMER_SIZE)), "all six phases must be searched"
+        )
+        _require(
+            search["window_tokens"] == "full_sequence_only",
+            "this experiment declares no sliding windows",
+        )
+        offsets = list(search["stream_offsets"])
+        _require(offsets == list(range(len(offsets))), "offsets must be a contiguous range from 0")
+        offsets_by_search[search_id] = offsets
+        expected = len(ORIENTATIONS) * KMER_SIZE * len(offsets)
+        _require(int(searches[search_id]["hypotheses"]) == expected, "hypothesis count is wrong")
+        _require(
+            int(searches[search_id]["searched_offsets"]) == len(offsets),
+            "searched offset count is inconsistent",
+        )
+        hypotheses_by_search[search_id] = expected
+    _require(
+        len(offsets_by_search["wide"]) > len(offsets_by_search["narrow"]),
+        "the wide search must contain more offsets than the narrow search",
+    )
+
+    cohort_ids = {case.cohort_id for case in cohort_cases}
+    _require(len(cohort_ids) == 1, "cohort cases must share one cohort_id")
+    _require(report.get("cohort_id") == next(iter(cohort_ids)), "cohort_id does not match the file")
+    known = {case.case_id for case in cohort_cases}
+    case_ids = tuple(str(case_id) for case_id in report.get("case_ids", ()))
+    _require(case_ids, "report must declare at least one prompt")
+    _require(len(set(case_ids)) == len(case_ids), "case_ids must be unique")
+    _require(all(case_id in known for case_id in case_ids), "report contains an unknown case")
+    _require(int(report.get("case_count")) == len(case_ids), "case_count is inconsistent")
+
+    definitions = report.get("condition_definitions")
+    _require(isinstance(definitions, list) and definitions, "condition_definitions is required")
+    condition_ids = tuple(str(value) for value in report.get("condition_ids", ()))
+    _require(
+        tuple(str(row["condition_id"]) for row in definitions) == condition_ids,
+        "condition_definitions must match condition_ids in order",
+    )
+    _require(len(set(condition_ids)) == len(condition_ids), "condition ids must be unique")
+    required: dict[str, tuple[int, int, str]] = {}
+    for row in definitions:
+        condition_id = str(row["condition_id"])
+        front_crop = int(row["front_crop_bases"])
+        complement = bool(row["reverse_complemented"])
+        phase, offset, orientation = required_alignment(front_crop, complement)
+        _require(
+            int(row["required_phase"]) == phase,
+            f"declared required phase is wrong for {condition_id}",
+        )
+        _require(
+            int(row["required_stream_offset"]) == offset,
+            f"declared required offset is wrong for {condition_id}",
+        )
+        _require(
+            row["order_of_operations"] == "crop first, then reverse complement",
+            f"order of operations must be declared for {condition_id}",
+        )
+        required[condition_id] = (phase, offset, orientation)
+
+    trials = report.get("trials")
+    _require(isinstance(trials, list) and trials, "trials must be a non-empty list")
+    _require(int(report.get("trial_count")) == len(trials), "trial_count is inconsistent")
+    grouped: dict[tuple[str, str, str], list[Mapping[str, Any]]] = {
+        (condition_id, search_id, family): []
+        for condition_id in condition_ids
+        for search_id in SEARCH_IDS
+        for family in FAMILIES
+    }
+    for row in trials:
+        _require(isinstance(row, Mapping), "each trial must be an object")
+        family = str(row.get("family"))
+        _require(family in FAMILIES, f"unknown trial family {family}")
+        _require(str(row.get("case_id")) in case_ids, "trial references an undeclared prompt")
+        condition_id = str(row.get("condition_id"))
+        _require(condition_id in condition_ids, "trial uses an undeclared condition")
+        search_id = str(row.get("search_id"))
+        _require(search_id in SEARCH_IDS, "trial uses an undeclared search")
+        _require(
+            int(row.get("observed_bases")) == observed_bases,
+            "every trial must observe the declared length",
+        )
+        _require(
+            int(row.get("hypotheses_searched")) == hypotheses_by_search[search_id],
+            "trial did not search the declared hypothesis count",
+        )
+        phase = int(row.get("phase"))
+        _require(0 <= phase < KMER_SIZE, "trial phase is invalid")
+        total = int(row.get("total"))
+        matches = int(row.get("matches"))
+        tokens = observed_bases // KMER_SIZE
+        _require(
+            total == (tokens if phase == 0 else tokens - 1),
+            "trial token total does not match the observed length and phase",
+        )
+        _require(0 <= matches <= total, "invalid match count")
+        _require(
+            _close(float(row.get("statistic")), standardized_agreement(matches, total)),
+            "trial statistic does not match its match count",
+        )
+        _require(row.get("orientation") in ORIENTATIONS, "trial orientation is invalid")
+        _require(
+            int(row.get("stream_offset")) in offsets_by_search[search_id],
+            "trial offset is outside its declared search",
+        )
+        key_index = row.get("key_index")
+        if family == "positive":
+            _require(key_index is None, "positive trials must not carry a null key index")
+        else:
+            _require(
+                isinstance(key_index, int) and 0 <= key_index < expected_null_keys,
+                "null trial key index is outside the declared key set",
+            )
+        grouped[(condition_id, search_id, family)].append(row)
+
+    for condition_id in condition_ids:
+        for search_id in SEARCH_IDS:
+            _require(
+                len(grouped[(condition_id, search_id, "positive")]) == len(case_ids),
+                f"one positive trial per prompt is required for {condition_id}/{search_id}",
+            )
+            for family in POOLED_FAMILIES:
+                _require(
+                    len(grouped[(condition_id, search_id, family)])
+                    == len(case_ids) * expected_null_keys,
+                    f"{family} trial count is inconsistent for {condition_id}/{search_id}",
+                )
+
+    conditions = report.get("conditions")
+    _require(isinstance(conditions, list), "conditions must be a list")
+    _require(
+        len(conditions) == len(condition_ids) * len(SEARCH_IDS),
+        "one condition entry per condition and search is required",
+    )
+
+    summary: list[dict[str, Any]] = []
+    for entry in conditions:
+        condition_id = str(entry["condition_id"])
+        search_id = str(entry["search_id"])
+        _require(condition_id in condition_ids, "condition entry is outside the declared grid")
+        _require(search_id in SEARCH_IDS, "condition entry uses an undeclared search")
+        phase, offset, orientation = required[condition_id]
+        _require(int(entry["required_phase"]) == phase, "entry required phase is inconsistent")
+        _require(
+            int(entry["required_stream_offset"]) == offset,
+            "entry required offset is inconsistent",
+        )
+        in_search = offset in offsets_by_search[search_id]
+        _require(
+            bool(entry["required_offset_inside_search"]) is in_search,
+            "entry in-search flag is inconsistent with the declared offsets",
+        )
+
+        nulls = [
+            float(row["statistic"])
+            for family in POOLED_FAMILIES
+            for row in grouped[(condition_id, search_id, family)]
+        ]
+        positives_rows = grouped[(condition_id, search_id, "positive")]
+        positives = [float(row["statistic"]) for row in positives_rows]
+        calibration = calibrate_threshold(nulls, expected_target_fpr)
+        reported = entry["calibration"]
+        _require(
+            int(reported["pooled_null_trials"]) == len(nulls),
+            "pooled null trial count is inconsistent",
+        )
+        for name, expected_value in (
+            ("threshold", calibration.threshold),
+            ("achieved_false_positive_rate", calibration.achieved_false_positive_rate),
+            ("attainable_false_positive_rate", calibration.attainable_false_positive_rate),
+        ):
+            _require(
+                _close(float(reported[name]), expected_value),
+                f"calibration {name} does not match the stored trials for {condition_id}",
+            )
+        _require(
+            calibration.achieved_false_positive_rate <= expected_target_fpr,
+            "the calibrated threshold does not meet its target",
+        )
+
+        positive = entry["positive"]
+        expected_rate = detection_rate(positives, calibration.threshold)
+        _require(int(positive["trials"]) == len(positives), "positive trial count is inconsistent")
+        _require(
+            _close(float(positive["detection_rate"]), expected_rate),
+            f"detection rate does not match the stored trials for {condition_id}/{search_id}",
+        )
+        detected_rows = [
+            row for row in positives_rows if float(row["statistic"]) > calibration.threshold
+        ]
+        if detected_rows and in_search:
+            _require(
+                all(str(row["orientation"]) == orientation for row in detected_rows),
+                f"a detected positive used the wrong orientation for {condition_id}",
+            )
+            _require(
+                all(int(row["phase"]) == phase for row in detected_rows),
+                f"a detected positive used the wrong phase for {condition_id}",
+            )
+            _require(
+                all(int(row["stream_offset"]) == offset for row in detected_rows),
+                f"a detected positive used the wrong offset for {condition_id}",
+            )
+        indicators = {
+            str(row["case_id"]): (float(float(row["statistic"]) > calibration.threshold),)
+            for row in positives_rows
+        }
+        bootstrap = positive["detection_rate_prompt_cluster_bootstrap"]
+        cluster = analyze_prompt_clusters(
+            indicators,
+            bootstrap_replicates=int(bootstrap["replicates"]),
+            bootstrap_seed=int(bootstrap["seed"]),
+        )
+        for name, expected_value in (
+            ("mean", cluster.overall_mean),
+            ("lower", cluster.interval_lower),
+            ("upper", cluster.interval_upper),
+        ):
+            _require(
+                _close(float(bootstrap[name]), expected_value),
+                f"bootstrap {name} does not match the stored trials for {condition_id}",
+            )
+        _require(
+            int(bootstrap["clusters"]) == len(case_ids),
+            "the bootstrap must resample prompts, one cluster per prompt",
+        )
+        _require(
+            _close(
+                float(positive["minimum_empirical_global_p_value"]),
+                min(empirical_p_value(value, nulls) for value in positives),
+            ),
+            "minimum global p-value does not match the stored trials",
+        )
+        for family in POOLED_FAMILIES:
+            rows = grouped[(condition_id, search_id, family)]
+            observed = entry["null_families"][family]
+            _require(int(observed["trials"]) == len(rows), f"{family} trial count is inconsistent")
+            _require(
+                _close(
+                    float(observed["exceedance_rate_at_threshold"]),
+                    detection_rate(
+                        [float(row["statistic"]) for row in rows], calibration.threshold
+                    ),
+                ),
+                f"{family} exceedance rate does not match the stored trials",
+            )
+        summary.append(
+            {
+                "condition_id": condition_id,
+                "search_id": search_id,
+                "front_crop_bases": int(entry["front_crop_bases"]),
+                "reverse_complemented": bool(entry["reverse_complemented"]),
+                "required_phase": phase,
+                "required_stream_offset": offset,
+                "required_orientation": orientation,
+                "required_offset_inside_search": in_search,
+                "searched_offsets": len(offsets_by_search[search_id]),
+                "hypotheses_searched": hypotheses_by_search[search_id],
+                "threshold": calibration.threshold,
+                "achieved_false_positive_rate": calibration.achieved_false_positive_rate,
+                "attainable_false_positive_rate": calibration.attainable_false_positive_rate,
+                "detection_rate": expected_rate,
+                "detection_rate_lower": cluster.interval_lower,
+                "detection_rate_upper": cluster.interval_upper,
+                "positive_trials": len(positives),
+                "pooled_null_trials": len(nulls),
+                "minimum_positive_statistic": min(positives),
+                "maximum_pooled_null_statistic": max(nulls),
+                "wrong_key_watermarked_exceedance": detection_rate(
+                    [
+                        float(row["statistic"])
+                        for row in grouped[(condition_id, search_id, "wrong_key_watermarked")]
+                    ],
+                    calibration.threshold,
+                ),
+                "any_key_ordinary_exceedance": detection_rate(
+                    [
+                        float(row["statistic"])
+                        for row in grouped[(condition_id, search_id, "any_key_ordinary")]
+                    ],
+                    calibration.threshold,
+                ),
+            }
+        )
+
+    multiplicity = {}
+    for search_id in SEARCH_IDS:
+        rows = [row for row in summary if row["search_id"] == search_id]
+        multiplicity[search_id] = {
+            "searched_offsets": len(offsets_by_search[search_id]),
+            "hypotheses_searched": hypotheses_by_search[search_id],
+            "mean_threshold": sum(row["threshold"] for row in rows) / len(rows),
+            "maximum_threshold": max(row["threshold"] for row in rows),
+            "maximum_null_statistic": max(row["maximum_pooled_null_statistic"] for row in rows),
+            "conditions_detected": sum(1 for row in rows if row["detection_rate"] >= 1.0),
+            "conditions_with_offset_in_search": sum(
+                1 for row in rows if row["required_offset_inside_search"]
+            ),
+        }
+
+    return {
+        "valid": True,
+        "policy_id": report["policy_id"],
+        "cohort_id": report["cohort_id"],
+        "observed_bases": observed_bases,
+        "prompt_count": len(case_ids),
+        "null_keys": expected_null_keys,
+        "target_false_positive_rate": expected_target_fpr,
+        "trial_count": len(trials),
+        "raw_fields_absent": True,
+        "conditions": summary,
+        "multiplicity_by_search": multiplicity,
+    }

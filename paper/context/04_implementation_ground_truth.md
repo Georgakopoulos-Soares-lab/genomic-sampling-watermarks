@@ -56,15 +56,37 @@
   trial for trial while running 15.6 times faster;
 - the E5 substitution-robustness sweep, its strict validator, its provenance-binding analyzer, and
   twelve admitted entries carrying the complete rate-versus-detection curves;
-- an empirical confirmation that the null statistic distribution does not depend on the edit rate.
+- an empirical confirmation that the null statistic distribution does not depend on the edit rate;
+- a strict decision rule, `statistic > threshold`, consistent with how the calibration counts null
+  exceedances, with a regression test over tied statistics; a prior non-strict rule inflated the
+  realized false-positive rate above its target and its measurements were superseded;
+- the E6 crop, strand, and phase sweep under two declared offset searches, its strict validator that
+  independently recomputes each condition's required alignment, its analyzer, and six admitted
+  entries carrying the full condition grid and the offset-multiplicity cost;
+- E7 stage-1 insertion and deletion sweeps for the unwindowed detector, a validator addition that
+  records where each detected positive actually aligned, and eighteen admitted entries;
+- an empirical demonstration that the declared phase and offset search performs implicit
+  resynchronization, covering drift up to about 47 bases without code written for that purpose;
+- a declared sliding-window detector with signed drift, its strict validator enforcing that the
+  windowed search contains the unwindowed comparator and that both scored identical trials, and six
+  admitted E7 stage-2 entries with the full paired comparison;
+- multi-key and single-arm generation, symmetric draw-averaged proxy comparison, and the admitted
+  resolution of the C_tok sequence-proxy anomaly as draw noise;
+- three unkeyed distinguishers with leave-one-prompt-out forced choice, matched per-draw pairing, an
+  exact cluster sign-flip test, and an admitted `C_tok` result showing no separation;
+- inverse-transform and exponential baseline samplers with matched model-free detector statistics,
+  a shared keyed stream, and an invariant suite covering exact marginals, detector recomputation,
+  null distributions, determinism, and two deliberately broken variants;
+- a runtime envelope assembled from digest-verified artifacts, with peak memory deliberately excluded
+  because no recorded field supports a residency claim.
 
 ## Not yet implemented
 
 - Carbon's `C_deployed` processor inventory;
-- ITS and EXP samplers and matched detectors;
+- the E8/E9 generation and comparison runners, and any admitted baseline comparison;
 - a key-averaged E3 stage-2 design and its admission;
 - sliding-window search and its calibration, needed for crops and synchronization;
-- insertion, deletion, crop, and reverse-complement robustness;
+- any error-correcting or synchronization-string layer;
 - learned unkeyed distinguishers;
 - biological proxy suite;
 - ECC or PRC layer.

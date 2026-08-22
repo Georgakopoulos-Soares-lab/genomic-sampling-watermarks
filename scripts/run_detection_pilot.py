@@ -249,7 +249,7 @@ def main() -> int:
         calibration = calibrate_threshold(pooled, args.target_fpr)
         positives = [trial["statistic"] for trial in groups["positive"]]
         detected_by_case = {
-            trial["case_id"]: float(trial["statistic"] >= calibration.threshold)
+            trial["case_id"]: float(trial["statistic"] > calibration.threshold)
             for trial in groups["positive"]
         }
         family_rates = {

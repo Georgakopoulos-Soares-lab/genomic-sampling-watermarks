@@ -259,9 +259,210 @@ def detect_aligned(
     )
 
 
+DECISION_RULE = "statistic > threshold"
+
+
+@dataclass(frozen=True, slots=True)
+class WindowedSearchConfig:
+    """A declared sliding-window search for resynchronizing after insertions or deletions.
+
+    The key insight this encodes: after `D` net inserted or deleted bases, an
+    observed token at read index `i` corresponds to original token `i + (phase +
+    D) / 6`. The key position a window needs is therefore its own start index plus
+    a small *drift* term, not an arbitrary absolute position. Searching window
+    start and absolute key position independently would multiply the hypothesis
+    count by the sequence length for no gain; searching start and drift keeps the
+    multiplicity proportional to the drift a channel can actually produce.
+
+    Drift is **signed**. Deletions move content left, so a segment after `D`
+    deletions needs a positive drift of about `D / 6`. Insertions move content
+    right, so a segment after `I` insertions needs a *negative* drift of about
+    `-I / 6`. A drift range restricted to non-negative values cannot reach any
+    post-insertion segment at all, which is a silent and total failure on the
+    insertion channel rather than a loss of power. A hypothesis whose key start
+    would be negative is not scorable and is skipped.
+
+    ``window_tokens`` is the set of window lengths scored. Each length uses a
+    stride of half its own length, so longer windows cost fewer starts. A window
+    length equal to the token count reproduces the unwindowed search, which is why
+    the full length should be included to make the windowed search a superset.
+    """
+
+    orientations: tuple[str, ...] = ORIENTATIONS
+    phases: tuple[int, ...] = (0, 1, 2, 3, 4, 5)
+    window_tokens: tuple[int, ...] = (32, 64, 128)
+    drift_offsets: tuple[int, ...] = tuple(range(16))
+
+    def __post_init__(self) -> None:
+        if not self.orientations:
+            raise ValueError("at least one orientation must be searched")
+        if any(orientation not in ORIENTATIONS for orientation in self.orientations):
+            raise ValueError("unknown orientation")
+        if len(set(self.orientations)) != len(self.orientations):
+            raise ValueError("orientations must be unique")
+        if not self.phases:
+            raise ValueError("at least one phase must be searched")
+        if any(not 0 <= phase < KMER_SIZE for phase in self.phases):
+            raise ValueError(f"phases must lie in [0, {KMER_SIZE - 1}]")
+        if len(set(self.phases)) != len(self.phases):
+            raise ValueError("phases must be unique")
+        if not self.window_tokens:
+            raise ValueError("at least one window length must be declared")
+        if any(length < 2 for length in self.window_tokens):
+            raise ValueError("window lengths must be at least two tokens")
+        if len(set(self.window_tokens)) != len(self.window_tokens):
+            raise ValueError("window lengths must be unique")
+        if not self.drift_offsets:
+            raise ValueError("at least one drift offset must be searched")
+        if len(set(self.drift_offsets)) != len(self.drift_offsets):
+            raise ValueError("drift offsets must be unique")
+
+    def window_starts(self, token_count: int, window: int) -> tuple[int, ...]:
+        """Return the start indices scored for one window length."""
+
+        if window > token_count:
+            return ()
+        stride = max(1, window // 2)
+        return tuple(range(0, token_count - window + 1, stride))
+
+    def hypothesis_count(self, base_length: int) -> int:
+        """Return the number of hypotheses this search scores for a sequence length.
+
+        Counted per phase rather than once, because a non-zero phase drops the
+        final incomplete k-mer and therefore yields one fewer token, which can
+        change how many window starts fit.
+        """
+
+        if base_length < 0:
+            raise ValueError("base length must be non-negative")
+        total = 0
+        for _orientation in self.orientations:
+            for phase in self.phases:
+                token_count = max(0, (base_length - phase) // KMER_SIZE)
+                for window in self.window_tokens:
+                    for start in self.window_starts(token_count, window):
+                        total += sum(1 for drift in self.drift_offsets if start + drift >= 0)
+        return total
+
+    def describe(self) -> dict[str, object]:
+        return {
+            "kind": "windowed",
+            "orientations": list(self.orientations),
+            "phases": list(self.phases),
+            "window_tokens": list(self.window_tokens),
+            "window_stride_rule": "half of each window length",
+            "drift_offsets": list(self.drift_offsets),
+            "drift_is_signed": True,
+            "key_position_rule": (
+                "window start index plus signed drift; a negative key start is not scorable "
+                "and is skipped"
+            ),
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class WindowedHypothesis:
+    """One fully specified windowed alignment."""
+
+    orientation: str
+    phase: int
+    window_start: int
+    window_tokens: int
+    drift: int
+
+    @property
+    def key_start(self) -> int:
+        return self.window_start + self.drift
+
+
+@dataclass(frozen=True, slots=True)
+class WindowedDetectionResult:
+    """The maximum statistic over a complete declared windowed search."""
+
+    statistic: float
+    matches: int
+    total: int
+    hypothesis: WindowedHypothesis
+    hypotheses_searched: int
+
+    @property
+    def agreement_rate(self) -> float:
+        return self.matches / self.total if self.total else 0.0
+
+
+def detect_windowed(
+    sequence: str,
+    support: Sequence[str],
+    stream: KeyedPartitionStream,
+    config: WindowedSearchConfig,
+    *,
+    cache: PartitionCache | None = None,
+) -> WindowedDetectionResult:
+    """Score a declared sliding-window search and return its maximum statistic.
+
+    A window sitting inside an aligned segment is scored on its own tokens only,
+    so it is not diluted by the misaligned remainder of the sequence. That is the
+    whole point: an indel-corrupted read has short aligned runs, and the
+    unwindowed statistic averages them away.
+    """
+
+    partitions = cache if cache is not None else PartitionCache(stream, support)
+    best: WindowedDetectionResult | None = None
+    scored = 0
+    for orientation in config.orientations:
+        oriented = _oriented_sequence(sequence, orientation)
+        for phase in config.phases:
+            tokens = tokenize_fixed(oriented, phase=phase)
+            token_count = len(tokens)
+            for window in config.window_tokens:
+                for start in config.window_starts(token_count, window):
+                    span = tokens[start : start + window]
+                    for drift in config.drift_offsets:
+                        key_start = start + drift
+                        if key_start < 0:
+                            continue
+                        matches = sum(
+                            partitions.agrees(key_start + index, token)
+                            for index, token in enumerate(span)
+                        )
+                        scored += 1
+                        statistic = standardized_agreement(matches, window)
+                        if best is None or statistic > best.statistic:
+                            best = WindowedDetectionResult(
+                                statistic=statistic,
+                                matches=matches,
+                                total=window,
+                                hypothesis=WindowedHypothesis(
+                                    orientation=orientation,
+                                    phase=phase,
+                                    window_start=start,
+                                    window_tokens=window,
+                                    drift=drift,
+                                ),
+                                hypotheses_searched=0,
+                            )
+    if best is None:
+        raise ValueError("the declared windowed search scored no hypothesis for this sequence")
+    return WindowedDetectionResult(
+        statistic=best.statistic,
+        matches=best.matches,
+        total=best.total,
+        hypothesis=best.hypothesis,
+        hypotheses_searched=scored,
+    )
+
+
 @dataclass(frozen=True, slots=True)
 class Calibration:
-    """An empirical decision threshold from null trials of the identical search."""
+    """An empirical decision threshold from null trials of the identical search.
+
+    The decision rule is strict: a sequence is called watermarked when its
+    statistic is *greater than* the threshold. The threshold itself is a null
+    order statistic, and the statistic lives on a discrete lattice, so ties at
+    the threshold are common. Applying a non-strict rule to a threshold chosen by
+    a strict criterion would report a smaller false-positive rate than the rule
+    actually achieves.
+    """
 
     threshold: float
     target_false_positive_rate: float
@@ -281,9 +482,12 @@ def calibrate_threshold(
 ) -> Calibration:
     """Choose the smallest threshold whose empirical null exceedance meets the target.
 
-    The threshold is a null order statistic, so the achieved rate is a multiple of
-    ``1 / trials``. A target below ``1 / trials`` is not attainable with this many
-    trials and the calibration says so instead of pretending otherwise.
+    Exceedance is counted with the same strict rule the detector applies,
+    ``statistic > threshold``, so the achieved rate is exactly the rate the rule
+    delivers on these trials. The threshold is a null order statistic, so the
+    achieved rate is a multiple of ``1 / trials``. A target below ``1 / trials``
+    is not attainable with this many trials and the calibration says so instead
+    of pretending otherwise.
     """
 
     if not null_statistics:
@@ -322,8 +526,15 @@ def empirical_p_value(statistic: float, null_statistics: Sequence[float]) -> flo
 
 
 def detection_rate(statistics: Sequence[float], threshold: float) -> float:
-    """Return the fraction of trials at or above a calibrated threshold."""
+    """Return the fraction of trials the decision rule calls watermarked.
+
+    The rule is strict, ``statistic > threshold``, matching how
+    ``calibrate_threshold`` counted null exceedances. Using ``>=`` here would
+    call ties at the threshold detections and would therefore exceed the
+    calibrated false-positive rate, because the threshold is itself a null value
+    on a discrete lattice.
+    """
 
     if not statistics:
         raise ValueError("detection rate requires at least one trial")
-    return sum(float(value) >= threshold for value in statistics) / len(statistics)
+    return sum(float(value) > threshold for value in statistics) / len(statistics)

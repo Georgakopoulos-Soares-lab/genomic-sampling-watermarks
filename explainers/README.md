@@ -20,7 +20,8 @@ Read them in order:
 13. [What "admitted evidence" means](13_what_admitted_evidence_means.md) — how a validated result becomes a citable number, and what the capacity numbers still do not claim.
 14. [Writing the watermark into real DNA](14_writing_the_watermark.md) — the generation loop, why the distribution stays honest, and what a single fixed key can still hide.
 15. [The detector, and what an honest threshold costs](15_the_detector_and_honest_thresholds.md) — a model-free verifier searching 96 alignments, and why calibrating the maximum is the whole problem.
-16. [How much damage it survives](16_how_much_damage_it_survives.md) — substitution robustness, a prediction written down before the measurement, and why 6-mer tokens decay six times faster than bases.
+16. [How much damage it survives](16_how_much_damage_it_survives.md) — substitution robustness, crops and the other strand, what a wider search costs, and a correction worth reading.
+17. [The synchronization wall](17_the_synchronization_wall.md) — why one deleted base breaks everything after it, two predictions that were wrong in useful ways, and the wall that a windowed detector moves but cannot remove.
 
 The short version is this: the model assigns probabilities to possible next DNA blocks. A secret
 key changes *how we draw* from those probabilities, not what the probabilities are on average. The

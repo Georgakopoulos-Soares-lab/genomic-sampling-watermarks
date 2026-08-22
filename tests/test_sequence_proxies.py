@@ -8,11 +8,13 @@ from genomic_watermarks.sequence_proxies import (
     PROXY_METRICS,
     exact_sign_flip_test,
     homopolymer_runs,
+    key_averaged_proxy_comparison,
     kmer_counts,
     kmer_distribution,
     kmer_divergence_bits,
     paired_proxy_comparison,
     proxy_metrics,
+    symmetric_averaged_proxy_comparison,
 )
 
 
@@ -136,6 +138,68 @@ class PairedComparisonTest(unittest.TestCase):
         comparison = paired_proxy_comparison(watermarked, ordinary)
         self.assertLess(comparison["base_entropy_bits"]["p_value"], 0.01)
         self.assertLess(comparison["purine_fraction"]["p_value"], 0.01)
+
+    def test_key_averaging_reports_spread_and_validates_inputs(self) -> None:
+        ordinary = {f"case_{i}": random_dna(700 + i, 1200) for i in range(4)}
+        by_key = {
+            f"key_{k}": {f"case_{i}": random_dna(800 + 10 * k + i, 1200) for i in range(4)}
+            for k in range(3)
+        }
+        comparison = key_averaged_proxy_comparison(by_key, ordinary)
+        self.assertEqual(set(comparison), set(PROXY_METRICS))
+        for metric in PROXY_METRICS:
+            self.assertEqual(comparison[metric]["keys"], 3.0)
+            self.assertGreaterEqual(comparison[metric]["mean_within_prompt_spread_over_keys"], 0.0)
+        with self.assertRaisesRegex(ValueError, "at least two keys"):
+            key_averaged_proxy_comparison({"key_0": by_key["key_0"]}, ordinary)
+        with self.assertRaisesRegex(ValueError, "same prompts as the control"):
+            key_averaged_proxy_comparison(
+                {"key_0": by_key["key_0"], "key_1": {"case_0": random_dna(1, 1200)}}, ordinary
+            )
+
+    def test_key_averaging_flags_a_systematic_shift(self) -> None:
+        ordinary = {f"case_{i}": random_dna(900 + i, 1800) for i in range(6)}
+        by_key = {
+            f"key_{k}": {
+                f"case_{i}": random_dna(1000 + 10 * k + i, 1800, weights=(0.55, 0.15, 0.15, 0.15))
+                for i in range(6)
+            }
+            for k in range(3)
+        }
+        comparison = key_averaged_proxy_comparison(by_key, ordinary)
+        self.assertLess(comparison["base_entropy_bits"]["p_value"], 0.05)
+
+    def test_symmetric_averaging_reports_both_spreads(self) -> None:
+        wm = {
+            f"draw_{k}": {f"case_{i}": random_dna(2000 + 10 * k + i, 1500) for i in range(5)}
+            for k in range(3)
+        }
+        ord_ = {
+            f"draw_{k}": {f"case_{i}": random_dna(3000 + 10 * k + i, 1500) for i in range(5)}
+            for k in range(3)
+        }
+        comparison = symmetric_averaged_proxy_comparison(wm, ord_)
+        self.assertEqual(set(comparison), set(PROXY_METRICS))
+        for metric in PROXY_METRICS:
+            row = comparison[metric]
+            self.assertEqual(row["draws_per_arm"], 3.0)
+            self.assertGreaterEqual(row["watermarked_spread_over_draws"], 0.0)
+            self.assertGreaterEqual(row["ordinary_spread_over_draws"], 0.0)
+
+    def test_symmetric_averaging_requires_equal_and_multiple_draws(self) -> None:
+        one = {"draw_0": {f"case_{i}": random_dna(4000 + i, 900) for i in range(3)}}
+        two = {
+            f"draw_{k}": {f"case_{i}": random_dna(5000 + 10 * k + i, 900) for i in range(3)}
+            for k in range(2)
+        }
+        with self.assertRaisesRegex(ValueError, "at least two draws"):
+            symmetric_averaged_proxy_comparison(one, two)
+        three = {
+            f"draw_{k}": {f"case_{i}": random_dna(6000 + 10 * k + i, 900) for i in range(3)}
+            for k in range(3)
+        }
+        with self.assertRaisesRegex(ValueError, "same number of draws"):
+            symmetric_averaged_proxy_comparison(three, two)
 
     def test_comparison_validates_its_inputs(self) -> None:
         watermarked = {"a": random_dna(1, 600), "b": random_dna(2, 600)}

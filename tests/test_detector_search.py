@@ -222,10 +222,25 @@ class CalibrationTest(unittest.TestCase):
         self.assertEqual(calibration.null_trials, 100)
         self.assertAlmostEqual(calibration.attainable_false_positive_rate, 0.01)
         self.assertTrue(calibration.is_attainable)
+        # The decision rule and the calibration must count exceedances the same way.
         self.assertAlmostEqual(
             detection_rate(nulls, calibration.threshold),
-            calibration.achieved_false_positive_rate + 1 / 100,
+            calibration.achieved_false_positive_rate,
         )
+
+    def test_ties_at_the_threshold_are_not_counted_as_detections(self) -> None:
+        """The statistic is discrete, so ties at a null-order-statistic threshold are common."""
+
+        nulls = [1.0] * 50 + [2.0] * 40 + [3.0] * 10
+        calibration = calibrate_threshold(nulls, 0.10)
+        self.assertEqual(calibration.threshold, 2.0)
+        self.assertAlmostEqual(calibration.achieved_false_positive_rate, 0.10)
+        self.assertAlmostEqual(
+            detection_rate(nulls, calibration.threshold),
+            calibration.achieved_false_positive_rate,
+        )
+        self.assertAlmostEqual(detection_rate([2.0], calibration.threshold), 0.0)
+        self.assertAlmostEqual(detection_rate([3.0], calibration.threshold), 1.0)
 
     def test_unattainable_targets_are_flagged_not_hidden(self) -> None:
         calibration = calibrate_threshold([1.0, 2.0, 3.0], 0.001)

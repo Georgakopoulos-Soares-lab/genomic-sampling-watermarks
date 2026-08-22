@@ -34,8 +34,8 @@ would suggest. The 6-mer tokenization is the vulnerability.
 ## The measurement
 
 Seven rates, four lengths, three policies, 40 watermarked trials per cell, each threshold recalibrated
-on nulls that went through the *same* edit process — 4,704 detector runs per policy, 46 seconds each,
-no GPU and no model.
+on nulls that went through the *same* edit process — 4,704 detector runs per policy, under a minute
+each, no GPU and no model.
 
 Largest rate at which every single sequence is still detected:
 
@@ -70,8 +70,8 @@ because it licenses comparing rates to each other at all.
 
 ## Reading the noise honestly
 
-Two cells look non-monotone: `C_tok` at 384 bases reports the same 0.075 at 20% and 30%, and `G_tok`
-reports 0.000 at 768 bases but 0.050 at 1,536 bases for 30%. Those are not findings. With 40 trials
+A couple of cells look non-monotone: at 30% substitution `G_tok` reports 0.000 at 768 bases but 0.050
+at 1,536, and `G_bp` reports 0.000 at 768 and 0.025 at 1,536. Those are not findings. With 40 trials
 per cell the resolution is 0.025, and the thresholds are order statistics of 128 null trials. In the
 collapsed tail, cells are not distinguishable from each other. Reporting them as a trend would be
 inventing structure.
@@ -84,18 +84,57 @@ One table per key therefore serves every sequence, every edit rate, and every le
 
 Fixing that took the clean detection pilot from 826 seconds to 53, and it reproduced every stored
 trial byte for byte against the already-admitted result, which is how we know the optimization
-changed only speed. It is why a seven-rate sweep costs 46 seconds instead of two hours.
+changed only speed. It is why a seven-rate sweep costs under a minute instead of two hours.
+
+## Crops and the other strand
+
+Substitutions damage tokens in place. A crop does something different: it moves the whole token grid.
+Cut `k` bases off the front and the verifier must read at phase `(−k) mod 6` *and* start at key-stream
+position `ceil(k/6)`. Those are two different unknowns, and only the first is cheap — there are six
+phases but arbitrarily many offsets.
+
+So the crop experiment asks a near-binary question: is the required offset inside the search the
+verifier declared? Eleven conditions, two declared searches — one covering offsets 0–7, one covering
+0–127.
+
+The answer is exactly as clean as the arithmetic predicts. Every condition whose required offset is
+inside the search is found in every prompt: the identity control, a fully reverse-complemented
+fragment, sub-token shifts of 1 and 3 bases, whole-token crops, and a 3-base crop *composed with*
+reverse complementation. Every condition outside the search fails. Nothing in between.
+
+The interesting part is the price. Widening from 8 offsets to 128 multiplies the scored hypotheses
+from 96 to 1,536, and the maximum of more hypotheses is bigger by chance, so the calibrated threshold
+has to rise — measured at 0.32 to 0.53 in `z` units, with the null maximum climbing from about 4.2 to
+about 5.0. At 1,536 bases the positives sit near `z = 15`, so nothing is lost. At a shorter length,
+where positives sit closer to the threshold, the same widening would cost real power. Which means the
+offset range a deployment declares should match the crops it actually expects, rather than being made
+large "just in case".
 
 ## Still not established
 
-- **Indels.** An insertion or deletion shifts every downstream token's phase. The offset search
-  exists for exactly this, but nothing here measures whether it is enough.
-- **Crops.** A cropped fragment needs sliding-window search, which this experiment deliberately does
-  not declare, and windows need their own calibration.
+- **Indels.** An insertion or deletion shifts every downstream token's phase, so a single indel in
+  the middle splits a sequence into two differently-aligned halves. No offset alone fixes that. This
+  is the open question.
+- **Spliced watermarks.** Finding a watermarked fragment *inside* unwatermarked DNA needs a sliding
+  window over the observed sequence — a different search axis from the key-stream offset, and one
+  these experiments deliberately do not declare.
 - **An adversary.** This is a *random* channel. Someone who knows the construction and chooses where
   to edit is a different and harder problem.
 - **Biology.** A uniform independent per-base substitution process is a statistical channel. It is
   not a model of mutation, of sequencing error, or of synthesis error, and nothing here says how a
   real sequence degrades.
+
+## A correction worth reading
+
+The first version of these robustness numbers was admitted and then superseded, because the
+calibration and the decision rule disagreed about ties — explainer 15 has the details. Re-running with
+the rule fixed changed no headline: every largest-fully-detected rate is identical, and only one to
+three cells per policy moved, all downward, all deep in the collapsed tail where detection had already
+failed.
+
+The reason to mention it at all is that this is what the immutability rule is for. The old artifacts
+still sit on disk untouched, the old measurement IDs are recorded as superseded with the reason, and
+the new numbers cite new files. A correction that quietly overwrote the old numbers would have looked
+tidier and been worth much less.
 
 Return to the [explainer index](README.md).

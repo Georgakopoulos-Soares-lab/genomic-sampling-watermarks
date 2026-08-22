@@ -10,7 +10,7 @@
 
 ## Gate 1 — E0 sampler correctness
 
-- [ ] Extend fixed-distribution tests to ITS and EXP
+- [x] Extend fixed-distribution tests to ITS and EXP
 - [ ] Add analytic proofs to paper context
 - [ ] Add high-draw Monte Carlo evidence with uncertainty bounds
 - [ ] Freeze sampler API v1
@@ -53,23 +53,34 @@
 - [x] Run E3 stage-1 fixed-state goodness of fit for all three primary policies
 - [x] E3 stage-1 evidence-admission review
 - [x] E3 stage-2 matched sequence-level proxy comparison, fixed key
-- [ ] E3 stage-2 key-averaged redesign and admission
+- [x] E3 stage-2 symmetric draw-averaged redesign, run, and admission for C_tok
+- [x] E10 unkeyed distinguisher with matched per-draw controls, admitted for C_tok
+- [ ] E10 for G_tok and G_bp once their matched draws exist
 - [x] Implement the standalone detector, declared search, and empirical calibration
 - [x] Run the E4 clean-detection pilot for all three policies
 - [x] E4 evidence-admission review
 - [ ] Extend the clean curve below 384 bases from the existing corpus
 - [x] Substitution robustness curves and admission
-- [ ] Crop, phase, and strand curves
-- [ ] Insertion and deletion curves with resynchronization
-- [ ] Resynchronization ablation
+- [x] Crop, phase, and strand conditions with the offset-multiplicity cost, and admission
+- [ ] Sliding observed-window search for spliced or partial watermarking
+- [x] Insertion and deletion curves for the unwindowed detector, and admission
+- [x] E7 stage 2: declared sliding observed window, its calibration, and admission
+- [ ] Decide whether a coding layer is justified now that the edit channel is measured
+- [x] Resynchronization measured: implicit via phase and offset, then explicit via windows
 - [ ] Wrong-key, public-DNA, and unwatermarked nulls
 
 ## Gate 5 — E10-E12 adversarial and comparative evidence
 
-- [ ] Held-out unkeyed distinguishers
+- [x] Held-out unkeyed distinguishers for C_tok
 - [ ] Key-reuse and many-output audit
 - [ ] Detector-query removal
-- [ ] Matched literature baselines
+- [x] ITS and EXP samplers, detectors, and invariants implemented
+- [ ] E8/E9 matched baseline comparison run and admission
+
+## Gate 5b — feasibility
+
+- [x] Runtime envelope assembled from cited artifacts and admitted
+- [ ] Sampled high-water memory instrumentation before any memory claim
 
 ## Gate 6 — Optional coding and manuscript
 

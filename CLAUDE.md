@@ -33,13 +33,22 @@ selection, real tokenizer audits, and weight-backed model integration exist. Loc
 matches the pinned upstream helper on MPS and CPU. E2 collected and validated 3,072 sequential
 states per policy on a frozen 24-prompt public RefSeq cohort. The initial 12-prompt `G_tok` result
 triggered the preregistered expansion; all three policies pass the final stability rule. The three
-E2 capacity, E3 stage-1 preservation, E4 clean-detection, and E5 substitution-robustness results
-have passed evidence-admission review; `evidence/measurements.yaml` holds 33 `[V]` entries. The `partition_mc` generation path, its
+E2 capacity, E3 stage-1 preservation, E4 clean detection, E5 substitution robustness, and E6 crop,
+strand, and phase, and E7 stage-1 indel results have passed evidence-admission review;
+`evidence/measurements.yaml` holds 69 entries plus a `superseded_measurements` record. The E3
+stage-2 sequence-proxy anomaly is resolved: it was realization noise on both arms, found by averaging
+the control side that earlier designs left un-averaged. E7 is
+the project's synchronization result: the unwindowed detector tolerates indel rates 50 to 150 times
+below its substitution tolerance, and a declared sliding-window search moves that limit five- to
+tenfold before meeting a second, information-theoretic wall near rate 0.02 to 0.05. The detector decision rule is strictly
+greater than the calibrated threshold; a prior revision applied a non-strict rule and was
+superseded. The `partition_mc` generation path, its
 matched ordinary control, model-free keyed recomputation, and the standalone calibrated detector are
 implemented and verified on real model generations. Remaining work begins with:
 
-- crop and reverse-complement robustness, which need sliding-window search and its own calibration;
-- insertion and deletion robustness with resynchronization;
+- whether a coding layer is justified now that the edit channel is measured; the project rule is
+  that PRC and ECC work begins only after that measurement, which now exists;
+- E10 for `G_tok` and `G_bp`, whose matched per-draw generation is in progress;
 - a key-averaged E3 stage-2 sequence-proxy design, since the current one holds the key fixed;
 - sliding-window search and its own calibration, required before crop and synchronization claims;
 - resolution of the main-revision `C_deployed` processor stack;
@@ -120,6 +129,11 @@ Do not compare different policies and attribute the difference solely to waterma
 | E3 distribution-preservation shape | `docs/research/e3_distribution_preservation_protocol.md` |
 | E4 clean-detection shape | `docs/research/e4_clean_detection_protocol.md` |
 | E5 substitution shape | `docs/research/e5_substitution_robustness_protocol.md` |
+| E6 crop, strand, and phase shape | `docs/research/e6_crop_and_strand_protocol.md` |
+| E7 indel and synchronization shape | `docs/research/e7_indel_synchronization_protocol.md` |
+| E8/E9 matched baseline shape | `docs/research/e8_e9_matched_baseline_protocol.md` |
+| E10 unkeyed distinguisher shape | `docs/research/e10_unkeyed_distinguisher_protocol.md` |
+| Runtime envelope and memory exclusion | `docs/research/e14_runtime_envelope_protocol.md` |
 | When drafting may start | `paper/context/05_drafting_readiness_plan.md` |
 | Literature roles and primary links | `docs/research/literature_map.md` |
 | M5 Pro budgets and execution tiers | `docs/research/local_feasibility.md`, `configs/local_m5_pro.toml` |

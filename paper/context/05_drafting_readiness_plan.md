@@ -38,24 +38,25 @@ search whose nominal tail is not a p-value.
 | Realized channel capacity per policy | `e2.capacity.*` | **admitted** |
 | One-step marginal preservation at real states | `e3.preservation.*` | **admitted** |
 | Clean detection versus length, with calibrated FPR | `e4.clean_detection.*` | **admitted** |
-| Runtime and memory envelope | runtime measurements admission | pending |
+| Runtime envelope | `e14.runtime.*` | **admitted**; peak memory deliberately excluded |
 
-Every Wave-2 row except the runtime envelope is admitted, so the channel, preservation, and clean
-detection subsections are all draftable now. This is the point at which the paper has a spine: a
+Every Wave-2 row is now admitted, so the channel, preservation, clean detection, and feasibility
+subsections are all draftable. This is the point at which the paper has a spine: a
 measured channel, a preserved distribution, and a calibrated detector.
 
 ## Wave 3 — robustness, adversarial, and headline claims (open)
 
 | Section content | Required admitted evidence | Status |
 |---|---|---|
-| Sequence-level proxy comparison | key-averaged E3 stage-2 admission | pending; fixed-key run done and deliberately unadmitted |
+| Sequence-level proxy comparison | `e3.stage2.c_tok.*` | **admitted** for `C_tok`; the other policies deliberately not run |
 | Substitution robustness curves | `e5.substitution.*` | **admitted** |
-| Crop, phase, and strand robustness | E6 admission | not started |
-| Insertion, deletion, and synchronization | E7 admission | not started |
+| Crop, phase, and strand robustness | `e6.crop_strand.*` | **admitted** |
+| Insertion and deletion, unwindowed detector | `e7.deletion.*`, `e7.insertion.*` | **admitted** |
+| Windowed detector and resynchronization | `e7.stage2.*` | **admitted** |
 | Wrong-key and public-DNA nulls | admitted with `e4.clean_detection.*` | **admitted** |
 | Many-output and key-reuse nulls | E10/E11 admission | not started |
 | ITS and EXP matched baselines | E8/E9 admission | not started |
-| Held-out unkeyed distinguishers | E10 admission | not started |
+| Held-out unkeyed distinguishers | `e10.unkeyed_distinguisher.c_tok.*` | **admitted** for `C_tok`; other policies pending generation |
 | Key reuse and detector-query removal | E11/E12 admission | not started |
 | Abstract, contribution list, conclusion | every row above | blocked |
 
@@ -82,9 +83,13 @@ planned minimum set:
 3. calibrated threshold and null-family exceedance rates per length (evidence admitted; the
    per-trial statistic distributions are *not* admitted, so a violin or histogram of them would
    need its own admission);
-4. detection rate versus substitution rate per length and policy (evidence admitted); the other
-   edit classes are pending E6-E7;
-5. runtime and peak memory per experiment stage (pending runtime admission).
+4. detection rate versus substitution rate per length and policy (evidence admitted);
+5. detection by crop condition under the narrow and wide offset searches, with the threshold rise
+   annotated (evidence admitted);
+6. detection versus indel rate per channel and length, with the substitution curve overlaid to show
+   the two-order-of-magnitude gap (evidence admitted);
+7. wall-clock time per experiment stage (evidence admitted; no memory panel, because no memory
+   figure is admitted).
 
 A figure whose evidence is pending is not stubbed in the manuscript.
 

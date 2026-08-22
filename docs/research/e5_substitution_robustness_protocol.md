@@ -117,7 +117,9 @@ Repeat for `G_tok` and `G_bp` with policy-specific names.
 
 ## Result (2026-08-21)
 
-Run after the shape above was frozen. 4,704 trials per policy in 46-47 seconds each, model-free.
+Run after the shape above was frozen. 4,704 trials per policy in 47-48 seconds each, model-free.
+The values below are the corrected revision described under "Decision-rule correction" at the end
+of this document.
 
 Detection rate, 40 positive trials per cell, threshold calibrated per rate and length at target
 FPR 0.01 (attainable granularity 1/128 = 0.0078):
@@ -128,21 +130,21 @@ FPR 0.01 (attainable granularity 1/128 = 0.0078):
 | `C_tok` | 0.01 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `C_tok` | 0.05 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `C_tok` | 0.10 | 0.775 | 1.000 | 1.000 | 1.000 |
-| `C_tok` | 0.15 | 0.150 | 0.775 | 1.000 | 1.000 |
+| `C_tok` | 0.15 | 0.150 | 0.700 | 1.000 | 1.000 |
 | `C_tok` | 0.20 | 0.075 | 0.100 | 0.550 | 0.975 |
-| `C_tok` | 0.30 | 0.075 | 0.050 | 0.000 | 0.175 |
+| `C_tok` | 0.30 | 0.000 | 0.050 | 0.000 | 0.175 |
 | `G_tok` | 0.00 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `G_tok` | 0.01 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `G_tok` | 0.05 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `G_tok` | 0.10 | 0.950 | 1.000 | 1.000 | 1.000 |
 | `G_tok` | 0.15 | 0.150 | 0.825 | 1.000 | 1.000 |
-| `G_tok` | 0.20 | 0.050 | 0.275 | 0.750 | 1.000 |
-| `G_tok` | 0.30 | 0.025 | 0.000 | 0.050 | 0.175 |
+| `G_tok` | 0.20 | 0.050 | 0.250 | 0.750 | 1.000 |
+| `G_tok` | 0.30 | 0.000 | 0.000 | 0.050 | 0.150 |
 | `G_bp` | 0.00 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `G_bp` | 0.01 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `G_bp` | 0.05 | 1.000 | 1.000 | 1.000 | 1.000 |
 | `G_bp` | 0.10 | 0.750 | 1.000 | 1.000 | 1.000 |
-| `G_bp` | 0.15 | 0.200 | 0.525 | 1.000 | 1.000 |
+| `G_bp` | 0.15 | 0.150 | 0.525 | 1.000 | 1.000 |
 | `G_bp` | 0.20 | 0.025 | 0.400 | 0.800 | 1.000 |
 | `G_bp` | 0.30 | 0.000 | 0.000 | 0.025 | 0.050 |
 
@@ -172,10 +174,10 @@ Reading against the preregistered rule:
    0.15-0.20 at `r = 0.15`. The analytic channel model therefore predicts the empirical curve
    without fitting.
 
-One non-monotonicity is visible and is sampling noise, not a finding: `C_tok` at 384 bases reports
-0.075 at both `r = 0.20` and `r = 0.30`, and `G_tok` at 768 bases reports 0.000 at `r = 0.30` while
-1,536 bases reports 0.050. At 40 trials per cell the resolution is 0.025 and the thresholds are 128-trial
-order statistics, so cells in the collapsed tail are not distinguishable from each other.
+One non-monotonicity is visible and is sampling noise, not a finding: `G_tok` at `r = 0.30` reports
+0.000 at 768 bases but 0.050 at 1,536 bases, and `G_bp` reports 0.000 at 768 bases and 0.025 at
+1,536 bases. At 40 trials per cell the resolution is 0.025 and the thresholds are 128-trial order
+statistics, so cells in the collapsed tail are not distinguishable from each other.
 
 ## Evidence-admission review (2026-08-21)
 
@@ -202,13 +204,34 @@ admitted inside each entry under `admitted_curve`, with per-point detection rate
 threshold, achieved FPR, both null exceedances, and separation statistics, plus the null-invariance
 spreads under `admitted_null_invariance`. Per-trial statistics are not admitted.
 
-Artifact digests:
+Cited artifact digests, corrected revision:
 
 | Policy | Report | Analysis |
 |---|---|---|
-| `C_tok` | `052d057851e5a50377c9f6bb39100eff89c5f29b320c374d529ddb37ec066f00` | `ada98b027c4e7c5071ed4adfecd027687fc7b2e25d62febbf6aeb8a39d18a26d` |
-| `G_tok` | `96b2bf62dddc812170d1e569bb183ed67265f22dcac4d78622a55555f344a06b` | `ecd0ad0061e4ca84c556595916a6a5cde4a855e531cf06a2a812db02057e5671` |
-| `G_bp` | `14e3b5ced86539d9aeb2f893251d678744f062c50d69e2a723cbee194eb4d113` | `eaef7f112a307231cb7dd372e13294322823c4a53291bc739410ae7eb0b7317d` |
+| `C_tok` | `7547ad2ec49fdb58fa0e8f6797fd68c36de18b74e31ae165b2592ed7ebe49264` | `4f1255ec7d9943a6bd1ea7ee56f3f57d0dd86d1b6e9197fd342bc360de93621d` |
+| `G_tok` | `95a27d9270e8f34bd647084eaeb0762b534924eb7b5ee928cec5a0ab73162b6f` | `13509c0ab6a82fcea69e126732a657f2f25d1850935b02d79a62842aca2de3cd` |
+| `G_bp` | `f40b7df954d50783410f16aae5769a2f5b5cb36344c4b8d65093917f8268a18a` | `23104f323138211552bdfc69759853d2105c52563d6817054aaab1fea3c6fcfd` |
+
+## Decision-rule correction (2026-08-21)
+
+A first revision of this experiment was admitted and then superseded. The calibration chose its
+threshold by counting null statistics **strictly above** a candidate, but the decision applied to a
+trial was **greater than or equal to** the threshold. The statistic is discrete and the threshold is
+itself a null order statistic, so ties at the threshold were common and were counted as detections.
+The realized false-positive rate therefore exceeded the reported one: at 3,072 bases in the clean
+pilot the reported rate was 0.009375 against a target of 0.01, while the rule as applied achieved
+0.0125.
+
+The rule is now strictly greater than the threshold everywhere, including the bootstrap indicators
+inside every runner and validator, and `src/genomic_watermarks/detector/search.py` states the rule
+and documents why the two must agree. A regression test constructs tied statistics and asserts that
+the calibration and the decision rule count identically.
+
+The experiment was re-run with the same edit seeds, so the only difference is the rule. Thresholds
+are identical. Every headline value, the largest fully detected rate, is unchanged. Of 28 curve cells
+per policy, one to three moved, all downward, all inside the collapsed tail: `C_tok` 0.775 to 0.700
+at rate 0.15 and 768 bases and 0.075 to 0.000 at rate 0.30 and 384 bases; `G_tok` three cells;
+`G_bp` one cell. The superseded artifacts remain on disk unmodified and are no longer cited.
 
 ## Runtime note
 

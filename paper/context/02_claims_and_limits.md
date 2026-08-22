@@ -17,6 +17,8 @@
 - Low proxy distance does not establish biological equivalence.
 - Training with FNS does not imply that the released Carbon checkpoint uses base-marginal sampling.
 - Robustness to random edits does not establish robustness to adaptive removal.
+- Failure of cheap unkeyed distinguishers does not establish undetectability, and no interval is
+  valid beyond the exchangeability it assumes: resample the unit that actually varies.
 
 ## Required qualifiers
 

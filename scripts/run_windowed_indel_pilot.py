@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Run an edit-robustness pilot with the unchanged declared detector search.
+"""Run E7 stage 2: the windowed detector against an indel channel.
 
-Model-free. Applies one edit channel at a grid of rates to the generated corpus,
-repeats the identical search for positives and nulls, and calibrates a threshold
-per rate and length. Prefixes are taken from the edited sequence, so every
-evaluated length sees the same edit process.
+Model-free. For every trial it scores two declared searches on the *same* edited
+sequence — the windowed search and the unwindowed comparator from stage 1 — so the
+comparison is paired rather than across experiments. Each search is calibrated
+separately, on nulls that went through the same edit process.
 """
 
 from __future__ import annotations
@@ -26,13 +26,15 @@ from genomic_watermarks.cluster_analysis import analyze_prompt_clusters  # noqa:
 from genomic_watermarks.detector.search import (  # noqa: E402
     DetectorConfig,
     PartitionCache,
+    WindowedSearchConfig,
     calibrate_threshold,
     detect,
+    detect_windowed,
     detection_rate,
     empirical_p_value,
 )
 from genomic_watermarks.dna import KMER_SIZE, canonical_kmers  # noqa: E402
-from genomic_watermarks.edits import delete_bases, insert_bases, substitute_bases  # noqa: E402
+from genomic_watermarks.edits import delete_bases, insert_bases  # noqa: E402
 from genomic_watermarks.pilot import (  # noqa: E402
     cohort_case_digest,
     load_context_cases_jsonl,
@@ -48,13 +50,10 @@ from genomic_watermarks.watermark import (  # noqa: E402
 DEFAULT_COHORT = ROOT / "data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl"
 PUBLIC_FIXTURE_KEY = b"genomic-sampling-watermarks/public-generation-fixture/v1"
 NULL_KEY_LABEL = "genomic-sampling-watermarks/public-null-key/v1"
-EDIT_CHANNELS = {
-    "substitution": substitute_bases,
-    "insertion": insert_bases,
-    "deletion": delete_bases,
-}
+EDIT_CHANNELS = {"insertion": insert_bases, "deletion": delete_bases}
 POOLED_FAMILIES = ("wrong_key_watermarked", "any_key_ordinary")
 FAMILIES = ("positive", *POOLED_FAMILIES)
+SEARCH_IDS = ("windowed", "unwindowed")
 
 
 def parse_args() -> argparse.Namespace:
@@ -64,8 +63,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cohort-manifest", type=Path)
     parser.add_argument("--edit", choices=tuple(EDIT_CHANNELS), required=True)
     parser.add_argument("--rates", type=float, nargs="+", required=True)
-    parser.add_argument("--token-lengths", type=int, nargs="+", default=(64, 128, 256, 512))
-    parser.add_argument("--stream-offsets", type=int, default=8)
+    parser.add_argument("--observed-bases", type=int, default=1536)
+    parser.add_argument("--window-tokens", type=int, nargs="+", default=(32, 64, 128, 256))
+    parser.add_argument(
+        "--drift-radius",
+        type=int,
+        default=15,
+        help="signed drift range searched, from -radius to +radius; insertions need negative drift",
+    )
+    parser.add_argument("--unwindowed-offsets", type=int, default=8)
     parser.add_argument("--null-keys", type=int, default=8)
     parser.add_argument("--positive-replicates", type=int, default=5)
     parser.add_argument("--target-fpr", type=float, default=0.01)
@@ -80,68 +86,21 @@ def null_key(index: int) -> bytes:
     return hashlib.sha256(f"{NULL_KEY_LABEL}/{index:04d}".encode()).digest()
 
 
-def edited(
-    dna: str,
-    *,
-    channel: str,
-    rate: float,
-    label: str,
-    policy_id: str,
-    case_id: str,
-    arm: str,
-    replicate: int,
-) -> str:
-    """Apply the declared edit channel with a public, reproducible seed."""
-
-    if rate <= 0.0:
-        return dna
-    seed = public_replay_seed(
-        label, policy_id, case_id, arm, channel, f"{rate:.6f}", f"replicate-{replicate}"
-    )
-    return EDIT_CHANNELS[channel](dna, rate, random.Random(seed))
-
-
-def cluster_bootstrap(
-    values_by_cluster: dict[str, list[float]],
-    *,
-    replicates: int,
-    seed: int,
-) -> dict[str, float]:
-    analysis = analyze_prompt_clusters(
-        {case_id: tuple(values) for case_id, values in values_by_cluster.items()},
-        bootstrap_replicates=replicates,
-        bootstrap_seed=seed,
-    )
-    return {
-        "mean": analysis.overall_mean,
-        "lower": analysis.interval_lower,
-        "upper": analysis.interval_upper,
-        "width": analysis.interval_width,
-        "clusters": float(len(values_by_cluster)),
-        "confidence_level": 0.95,
-        "replicates": float(replicates),
-        "seed": float(seed),
-    }
-
-
 def main() -> int:
     args = parse_args()
     if args.output.exists():
         raise FileExistsError(f"refusing to replace existing output: {args.output}")
-    if args.stream_offsets <= 0:
-        raise ValueError("stream-offsets must be positive")
-    if args.null_keys <= 0:
-        raise ValueError("null-keys must be positive")
-    if args.positive_replicates <= 0:
-        raise ValueError("positive-replicates must be positive")
+    if args.observed_bases <= 0 or args.observed_bases % KMER_SIZE:
+        raise ValueError("observed-bases must be a positive multiple of six")
+    if args.drift_radius < 0 or args.unwindowed_offsets <= 0:
+        raise ValueError("drift radius must be non-negative and offset counts positive")
+    if args.null_keys <= 0 or args.positive_replicates <= 0:
+        raise ValueError("null-keys and positive-replicates must be positive")
     if not 0.0 < args.target_fpr < 1.0:
         raise ValueError("target-fpr must lie in (0, 1)")
     rates = tuple(sorted(set(round(float(rate), 6) for rate in args.rates)))
     if any(not 0.0 <= rate <= 1.0 for rate in rates):
         raise ValueError("rates must lie in [0, 1]")
-    token_lengths = tuple(sorted(set(int(value) for value in args.token_lengths)))
-    if any(length <= 0 for length in token_lengths):
-        raise ValueError("token lengths must be positive")
 
     sequence_bytes = args.sequences.read_bytes()
     records = [
@@ -155,36 +114,30 @@ def main() -> int:
     generation_label = records[0]["experiment_label"]
     cohort_id = records[0]["cohort_id"]
     watermarked = {
-        record["case_id"]: record["generated_dna"]
-        for record in records
-        if record["scheme"] == PARTITION_MC_SCHEME
+        r["case_id"]: r["generated_dna"] for r in records if r["scheme"] == PARTITION_MC_SCHEME
     }
-    ordinary = {
-        record["case_id"]: record["generated_dna"]
-        for record in records
-        if record["scheme"] == ORDINARY_SCHEME
-    }
+    ordinary = {r["case_id"]: r["generated_dna"] for r in records if r["scheme"] == ORDINARY_SCHEME}
     if not watermarked or set(watermarked) != set(ordinary):
         raise ValueError("both arms must cover the same prompts")
     case_ids = tuple(watermarked)
 
     cohort_bytes = args.cohort_jsonl.read_bytes()
     cases = load_context_cases_jsonl(args.cohort_jsonl)
-    missing = [case_id for case_id in case_ids if case_id not in {c.case_id for c in cases}]
+    known = {case.case_id for case in cases}
+    missing = [case_id for case_id in case_ids if case_id not in known]
     if missing:
         raise ValueError(f"sequences reference unknown prompt(s): {', '.join(missing)}")
-    generated_tokens = min(len(dna) // KMER_SIZE for dna in watermarked.values())
-    if max(token_lengths) > generated_tokens:
-        raise ValueError("an evaluated length exceeds the generated length")
 
     stream_domain = f"{generation_label}/{cohort_id}/{policy_id}"
-    config = DetectorConfig(stream_offsets=tuple(range(args.stream_offsets)))
+    windowed = WindowedSearchConfig(
+        window_tokens=tuple(sorted(set(int(w) for w in args.window_tokens))),
+        drift_offsets=tuple(range(-args.drift_radius, args.drift_radius + 1)),
+    )
+    unwindowed = DetectorConfig(stream_offsets=tuple(range(args.unwindowed_offsets)))
     support = canonical_kmers()
 
     run_started = time.perf_counter()
     trials: list[dict[str, Any]] = []
-    # A keyed partition depends on the key, the domain, and the stream position, never on the
-    # observed DNA. One cache per key therefore serves every sequence, rate, and length.
     streams: dict[bytes, tuple[KeyedPartitionStream, PartitionCache]] = {}
 
     def keyed(key: bytes) -> tuple[KeyedPartitionStream, PartitionCache]:
@@ -194,6 +147,22 @@ def main() -> int:
             cached = (stream, PartitionCache(stream, support))
             streams[key] = cached
         return cached
+
+    def edited(dna: str, *, rate: float, case_id: str, arm: str, replicate: int) -> str:
+        if rate > 0.0:
+            seed = public_replay_seed(
+                args.experiment_label,
+                policy_id,
+                case_id,
+                arm,
+                args.edit,
+                f"{rate:.6f}",
+                f"replicate-{replicate}",
+            )
+            dna = EDIT_CHANNELS[args.edit](dna, rate, random.Random(seed))
+        if len(dna) < args.observed_bases:
+            raise ValueError("an edited sequence is shorter than the observed length")
+        return dna[: args.observed_bases]
 
     def score(
         dna: str,
@@ -206,11 +175,28 @@ def main() -> int:
         key_index: int | None,
     ) -> None:
         stream, cache = keyed(key)
-        available = len(dna) // KMER_SIZE
-        for length in token_lengths:
-            if length > available:
-                continue
-            result = detect(dna[: length * KMER_SIZE], support, stream, config, cache=cache)
+        win = detect_windowed(dna, support, stream, windowed, cache=cache)
+        flat = detect(dna, support, stream, unwindowed, cache=cache)
+        for search_id, result, extra in (
+            (
+                "windowed",
+                win,
+                {
+                    "window_tokens": win.hypothesis.window_tokens,
+                    "window_start": win.hypothesis.window_start,
+                    "drift": win.hypothesis.drift,
+                },
+            ),
+            (
+                "unwindowed",
+                flat,
+                {
+                    "window_tokens": flat.hypothesis.window_tokens,
+                    "window_start": flat.hypothesis.window_start,
+                    "drift": flat.hypothesis.stream_offset,
+                },
+            ),
+        ):
             trials.append(
                 {
                     "family": family,
@@ -218,15 +204,14 @@ def main() -> int:
                     "edit_rate": rate,
                     "replicate": replicate,
                     "key_index": key_index,
-                    "token_length": length,
-                    "base_length": length * KMER_SIZE,
+                    "search_id": search_id,
                     "statistic": result.statistic,
                     "matches": result.matches,
                     "total": result.total,
                     "orientation": result.hypothesis.orientation,
                     "phase": result.hypothesis.phase,
-                    "stream_offset": result.hypothesis.stream_offset,
                     "hypotheses_searched": result.hypotheses_searched,
+                    **extra,
                 }
             )
 
@@ -236,10 +221,7 @@ def main() -> int:
                 score(
                     edited(
                         watermarked[case_id],
-                        channel=args.edit,
                         rate=rate,
-                        label=args.experiment_label,
-                        policy_id=policy_id,
                         case_id=case_id,
                         arm=PARTITION_MC_SCHEME,
                         replicate=replicate,
@@ -251,30 +233,20 @@ def main() -> int:
                     replicate=replicate,
                     key_index=None,
                 )
-            null_watermarked = edited(
+            null_wm = edited(
                 watermarked[case_id],
-                channel=args.edit,
                 rate=rate,
-                label=args.experiment_label,
-                policy_id=policy_id,
                 case_id=case_id,
                 arm=PARTITION_MC_SCHEME,
                 replicate=0,
             )
-            null_ordinary = edited(
-                ordinary[case_id],
-                channel=args.edit,
-                rate=rate,
-                label=args.experiment_label,
-                policy_id=policy_id,
-                case_id=case_id,
-                arm=ORDINARY_SCHEME,
-                replicate=0,
+            null_or = edited(
+                ordinary[case_id], rate=rate, case_id=case_id, arm=ORDINARY_SCHEME, replicate=0
             )
             for index in range(args.null_keys):
                 key = null_key(index)
                 score(
-                    null_watermarked,
+                    null_wm,
                     key,
                     family="wrong_key_watermarked",
                     case_id=case_id,
@@ -283,7 +255,7 @@ def main() -> int:
                     key_index=index,
                 )
                 score(
-                    null_ordinary,
+                    null_or,
                     key,
                     family="any_key_ordinary",
                     case_id=case_id,
@@ -292,49 +264,48 @@ def main() -> int:
                     key_index=index,
                 )
 
-    grouped: dict[tuple[float, int, str], list[dict[str, Any]]] = {
-        (rate, length, family): []
+    grouped: dict[tuple[float, str, str], list[dict[str, Any]]] = {
+        (rate, search_id, family): []
         for rate in rates
-        for length in token_lengths
+        for search_id in SEARCH_IDS
         for family in FAMILIES
     }
     for row in trials:
-        grouped[(row["edit_rate"], row["token_length"], row["family"])].append(row)
-
-    pooled_by_length: dict[int, list[float]] = {length: [] for length in token_lengths}
-    for (_rate, length, family), rows in grouped.items():
-        if family in POOLED_FAMILIES:
-            pooled_by_length[length].extend(float(row["statistic"]) for row in rows)
+        grouped[(row["edit_rate"], row["search_id"], row["family"])].append(row)
 
     conditions: list[dict[str, Any]] = []
-    for length in token_lengths:
-        pooled_all_rates = pooled_by_length[length]
-        pooled_calibration = calibrate_threshold(pooled_all_rates, args.target_fpr)
-        for rate in rates:
+    for rate in rates:
+        for search_id in SEARCH_IDS:
             nulls = [
                 float(row["statistic"])
                 for family in POOLED_FAMILIES
-                for row in grouped[(rate, length, family)]
+                for row in grouped[(rate, search_id, family)]
             ]
-            positives_rows = grouped[(rate, length, "positive")]
-            if not nulls or not positives_rows:
-                continue
+            positive_rows = grouped[(rate, search_id, "positive")]
+            positives = [float(row["statistic"]) for row in positive_rows]
             calibration = calibrate_threshold(nulls, args.target_fpr)
-            positives = [float(row["statistic"]) for row in positives_rows]
             by_cluster: dict[str, list[float]] = {case_id: [] for case_id in case_ids}
-            for row in positives_rows:
+            for row in positive_rows:
                 by_cluster[row["case_id"]].append(
                     float(float(row["statistic"]) > calibration.threshold)
                 )
+            cluster = analyze_prompt_clusters(
+                {k: tuple(v) for k, v in by_cluster.items()},
+                bootstrap_replicates=args.bootstrap_replicates,
+                bootstrap_seed=args.bootstrap_seed,
+            )
+            detected = [
+                row for row in positive_rows if float(row["statistic"]) > calibration.threshold
+            ]
             conditions.append(
                 {
                     "edit": args.edit,
                     "edit_rate": rate,
-                    "token_length": length,
-                    "base_length": length * KMER_SIZE,
-                    "hypotheses_searched": positives_rows[0]["hypotheses_searched"],
+                    "search_id": search_id,
+                    "observed_bases": args.observed_bases,
+                    "hypotheses_searched": positive_rows[0]["hypotheses_searched"],
                     "calibration": {
-                        "scope": "per rate and length, pooled N1 and N2",
+                        "scope": "per rate and search, pooled N1 and N2",
                         "pooled_null_families": list(POOLED_FAMILIES),
                         "pooled_null_trials": calibration.null_trials,
                         "target_false_positive_rate": calibration.target_false_positive_rate,
@@ -342,50 +313,43 @@ def main() -> int:
                         "attainable_false_positive_rate": (
                             calibration.attainable_false_positive_rate
                         ),
-                        "target_is_attainable": calibration.is_attainable,
                         "threshold": calibration.threshold,
-                    },
-                    "all_rate_pooled_calibration": {
-                        "scope": "nulls pooled across every rate at this length; sensitivity check",
-                        "pooled_null_trials": pooled_calibration.null_trials,
-                        "achieved_false_positive_rate": (
-                            pooled_calibration.achieved_false_positive_rate
-                        ),
-                        "attainable_false_positive_rate": (
-                            pooled_calibration.attainable_false_positive_rate
-                        ),
-                        "threshold": pooled_calibration.threshold,
-                        "detection_rate": detection_rate(positives, pooled_calibration.threshold),
                     },
                     "positive": {
                         "trials": len(positives),
-                        "replicates_per_prompt": args.positive_replicates,
                         "detection_rate": detection_rate(positives, calibration.threshold),
                         "statistic": numeric_summary(positives),
                         "minimum_empirical_global_p_value": min(
                             empirical_p_value(value, nulls) for value in positives
                         ),
-                        "maximum_empirical_global_p_value": max(
-                            empirical_p_value(value, nulls) for value in positives
+                        "detection_rate_prompt_cluster_bootstrap": {
+                            "mean": cluster.overall_mean,
+                            "lower": cluster.interval_lower,
+                            "upper": cluster.interval_upper,
+                            "clusters": float(len(by_cluster)),
+                            "confidence_level": 0.95,
+                            "replicates": float(args.bootstrap_replicates),
+                            "seed": float(args.bootstrap_seed),
+                        },
+                        "recovered_window_tokens": sorted(
+                            {int(row["window_tokens"]) for row in detected}
                         ),
-                        "detection_rate_prompt_cluster_bootstrap": cluster_bootstrap(
-                            by_cluster,
-                            replicates=args.bootstrap_replicates,
-                            seed=args.bootstrap_seed,
-                        ),
+                        "recovered_drift": sorted({int(row["drift"]) for row in detected}),
+                        "detected_trials": len(detected),
                     },
                     "null_families": {
                         family: {
-                            "trials": len(grouped[(rate, length, family)]),
+                            "trials": len(grouped[(rate, search_id, family)]),
                             "exceedance_rate_at_threshold": detection_rate(
                                 [
                                     float(row["statistic"])
-                                    for row in grouped[(rate, length, family)]
+                                    for row in grouped[(rate, search_id, family)]
                                 ],
                                 calibration.threshold,
                             ),
                             "statistic": numeric_summary(
-                                float(row["statistic"]) for row in grouped[(rate, length, family)]
+                                float(row["statistic"])
+                                for row in grouped[(rate, search_id, family)]
                             ),
                         }
                         for family in POOLED_FAMILIES
@@ -393,7 +357,6 @@ def main() -> int:
                     "separation": {
                         "minimum_positive_statistic": min(positives),
                         "maximum_pooled_null_statistic": max(nulls),
-                        "positives_strictly_above_all_pooled_nulls": min(positives) > max(nulls),
                     },
                 }
             )
@@ -413,14 +376,25 @@ def main() -> int:
         "null_keys": args.null_keys,
         "edit": args.edit,
         "edit_rates": list(rates),
-        "edit_seed_scheme": "public replay seed over label, policy, prompt, arm, rate, replicate",
         "positive_replicates_per_prompt": args.positive_replicates,
-        "stream_domain": stream_domain,
+        "observed_bases": args.observed_bases,
+        "paired_comparison": (
+            "both searches score the identical edited sequence in the same process, so the "
+            "comparison is paired; the windowed search includes the full-read window, so it "
+            "contains the unwindowed search as a special case"
+        ),
+        "searches": {
+            "windowed": {
+                "search": windowed.describe(),
+                "hypotheses": windowed.hypothesis_count(args.observed_bases),
+            },
+            "unwindowed": {
+                "search": unwindowed.describe(),
+                "hypotheses": 2 * KMER_SIZE * len(unwindowed.stream_offsets),
+            },
+        },
         "case_count": len(case_ids),
         "case_ids": list(case_ids),
-        "generated_tokens_per_case": generated_tokens,
-        "token_lengths": list(token_lengths),
-        "detector_search": config.describe(),
         "support_size": len(support),
         "sequences": {
             "path": str(args.sequences),
@@ -445,15 +419,21 @@ def main() -> int:
         "conditions": conditions,
         "trials": trials,
         "boundary": (
-            "One edit channel only, under a published fixture key, with the detector search "
-            "unchanged from the clean pilot. Thresholds are calibrated per rate and length by "
-            "repeating the identical search on nulls that went through the same edit process. A "
-            "uniform independent per-base channel is a statistical model, not a model of mutation, "
-            "sequencing, or synthesis error."
+            "One indel channel, one observed length, under a published fixture key. Thresholds "
+            "are calibrated per rate and per search by repeating the identical declared search on "
+            "nulls that went through the same edit process. The windowed search declares no "
+            "absolute "
+            "key-position sweep, so a watermarked fragment spliced at an unknown position inside a "
+            "longer sequence is out of scope. No error-correcting or synchronization code is used."
         ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    summary = {}
+    for entry in conditions:
+        summary.setdefault(f"r{entry['edit_rate']}", {})[entry["search_id"]] = entry["positive"][
+            "detection_rate"
+        ]
     print(
         json.dumps(
             {
@@ -462,12 +442,7 @@ def main() -> int:
                 "edit": args.edit,
                 "trial_count": len(trials),
                 "wall_seconds": report["wall_seconds"],
-                "detection_rate_by_rate_and_length": {
-                    f"{entry['base_length']}b/r{entry['edit_rate']}": entry["positive"][
-                        "detection_rate"
-                    ]
-                    for entry in conditions
-                },
+                "detection_rate": summary,
             },
             indent=2,
             sort_keys=True,

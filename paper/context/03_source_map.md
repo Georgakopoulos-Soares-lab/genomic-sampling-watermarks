@@ -12,6 +12,11 @@
 | Frozen E3 shape and admission | `../docs/research/e3_distribution_preservation_protocol.md` |
 | Frozen E4 shape and admission | `../docs/research/e4_clean_detection_protocol.md` |
 | Frozen E5 shape and admission | `../docs/research/e5_substitution_robustness_protocol.md` |
+| Frozen E6 shape and admission | `../docs/research/e6_crop_and_strand_protocol.md` |
+| Frozen E7 shape and admission | `../docs/research/e7_indel_synchronization_protocol.md` |
+| Frozen E8/E9 shape and prediction | `../docs/research/e8_e9_matched_baseline_protocol.md` |
+| Frozen E10 shape and its amendment | `../docs/research/e10_unkeyed_distinguisher_protocol.md` |
+| Runtime envelope and the memory exclusion | `../docs/research/e14_runtime_envelope_protocol.md` |
 | Watermark construction and detector definition | `../src/genomic_watermarks/watermark.py`, `../src/genomic_watermarks/detector/search.py` |
 | When each section may be drafted | `05_drafting_readiness_plan.md` |
 | Empirical values | `../evidence/measurements.yaml` |
