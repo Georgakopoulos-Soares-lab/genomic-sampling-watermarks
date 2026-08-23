@@ -92,51 +92,73 @@ the symmetric draws but not for `G_tok` or `G_bp`.
 Status: distinguishers implemented and unit-tested, protocol frozen, single-key smoke recorded above
 as motivation. The experiment itself is **not run** and nothing from it is admitted.
 
-## Result and admission for `C_tok` (2026-08-21)
+## Result and admission, revision 2 (2026-08-22)
 
-Four matched draws, 8 prompts, 32 decisions per distinguisher, chance exactly 0.5.
+Four matched draws per policy, 8 prompts, 32 decisions per distinguisher, chance exactly 0.5,
+calibrated against a two-sided permute-and-refit null with 1,999 replicates.
 
-| Distinguisher | Correct | Accuracy | Exact cluster p | Descriptive bootstrap |
-|---|---:|---:|---:|---|
-| `compression` | 12/32 | 0.3750 | 0.3125 | [0.219, 0.531] |
-| `proxy_centroid` | 19/32 | 0.5938 | 0.2500 | [0.531, 0.688] |
-| `trimer_centroid` | 17/32 | 0.5312 | 1.0000 | [0.375, 0.688] |
+| Policy | Distinguisher | Correct | Accuracy | p | Null accuracy range |
+|---|---|---:|---:|---:|---|
+| `C_tok` | `compression` | 12/32 | 0.3750 | 0.3835 | [0.156, 0.781] |
+| `C_tok` | `proxy_centroid` | 19/32 | 0.5938 | 0.5355 | [0.125, 0.812] |
+| `C_tok` | `trimer_centroid` | 17/32 | 0.5312 | 0.8935 | [0.094, 0.812] |
+| `G_tok` | `compression` | 14/32 | 0.4375 | 0.7265 | [0.156, 0.750] |
+| `G_tok` | `proxy_centroid` | 17/32 | 0.5312 | 0.9005 | [0.125, 0.781] |
+| `G_tok` | `trimer_centroid` | 15/32 | 0.4688 | 0.8980 | [0.125, 0.781] |
+| `G_bp` | `compression` | 10/32 | 0.3125 | 0.1405 | [0.156, 0.812] |
+| `G_bp` | `proxy_centroid` | 7/32 | 0.2188 | 0.0195 ** | [0.125, 0.812] |
+| `G_bp` | `trimer_centroid` | 6/32 | 0.1875 | 0.0090 ** | [0.094, 0.812] |
 
-**No distinguisher separates the arms.** The exact cluster sign-flip p-values are 0.31, 0.25, and
-1.00, and the strongest accuracy is 0.594 on 32 decisions.
+Nine tests. The Bonferroni threshold is 0.0056 and **no test clears it**. Two tests are nominally
+significant at 0.05, both on `G_bp`, against 0.45 expected under the null.
 
-The prediction holds. Compression fell from **0.875** under a single key against a shared control to
-**0.375** with matched per-draw pairs — below chance. The single-key smoke was the shared-control
-artifact the amendment anticipated, and it is now resolved rather than left as an open worry.
+### `C_tok` and `G_tok`: no separation
 
-### A statistical defect found while reading this result
+Every p-value is between 0.38 and 0.90. The single-key compression smoke of 0.875 that motivated this
+experiment is fully explained: with matched per-draw pairs it falls to 0.375, and the correct null
+puts that comfortably inside chance.
 
-The first version of this run reported a prompt-cluster bootstrap and a flag for whether its interval
-covered chance. For `proxy_centroid` that interval was [0.531, 0.688] and therefore *excluded* chance,
-which reads as a finding. It is not one. The pooled count is 19 of 32, whose two-sided binomial
-p-value is 0.38.
+### `G_bp`: unresolved, and not claimed either way
 
-The bootstrap resamples eight per-prompt accuracies **as if each were known**, when each is estimated
-from only four decisions. Every prompt happened to land at 0.5 or 0.75 — exactly what chance produces
-with four draws — so the resampled mean almost never fell below 0.53. The scheme ignored
-within-prompt noise entirely.
+Two of three distinguishers on `G_bp` land at p = 0.0195 and p = 0.0090, both in the **below-chance**
+direction — the held-out pair's difference runs opposite to the direction fitted on other prompts.
+A distinguisher that is reliably wrong can be inverted into one that is reliably right, which is why
+the test is two-sided and why this is not dismissed as "worse than chance, therefore fine".
 
-The admitted test is now an **exact two-sided sign-flip over prompt clusters**: under the null the
-two members of a pair are exchangeable, so relabelling a whole prompt maps `k` correct to `draws - k`,
-and enumerating all `2^8` relabellings gives an exact p-value that keeps decisions inside a prompt
-together. The bootstrap is retained in the artifact as a descriptive interval, carrying its own
-caveat, and is not admitted.
+What can be said: neither clears Bonferroni across the nine tests, so this is **not** a
+distinguishability finding. What must not be said: that `G_bp` is indistinguishable. Two nominal
+rejections in one policy, in a consistent direction, is exactly the pattern that either resolves as
+noise or turns out to be real, and 32 decisions cannot tell which.
 
-This is the third resampling scheme in this project that had to be replaced because it did not match
-the actual noise structure. The pattern is worth naming: an interval is only as valid as the
-exchangeability it assumes, and every one of these was caught by a number that looked too good rather
-than by inspection.
+`G_bp` is the base-marginal policy, whose 4,096-way law is a product of six independent base
+marginals rather than a general categorical. That is a structural difference from the other two
+policies and the obvious place to look. It is a hypothesis, not a finding.
 
-Admitted: one entry, `e10.unkeyed_distinguisher.c_tok.minimum_exact_p_value`, carrying all three
-distinguishers with accuracies, counts, and exact p-values, plus an explicit record of the resolution
-against the single-key smoke. Report digest `839b3745e0f6dc1a31a0f1313b9d7f61cced39f9ad936fb29d01b55b0be673e8`.
+Owed next: more draws for `G_bp`, which is the only way to move the resolution. The design is already
+in place; it needs generation time.
 
-`G_tok` and `G_bp` are not admitted: their matched per-draw generation is not complete.
+### The calibration that had to be replaced
+
+Revision 1 used an exact sign-flip over prompt clusters. That test assumes prompts can be relabelled
+independently. They cannot: every decision uses a direction fitted from the **other prompts' labels**,
+so all decisions share a fitted quantity and the sign-flip null is too narrow.
+
+The defect was caught by the `G_bp` numbers looking wrong rather than merely surprising — accuracies
+*below* chance with small p-values. Replicating the entire procedure on true-null synthetic data
+settled it: accuracy ranged from 0.156 to 0.750 across 40 replications with a mean at 0.49. The
+procedure is unbiased; its null is simply very wide. A sign-flip null that ignores the shared fit
+cannot see that width, so its p-values were anti-conservative.
+
+Under the corrected null the observed null ranges above confirm the width directly: roughly 0.09 to
+0.81 in every cell.
+
+Cited artifact digests:
+
+| Policy | Report |
+|---|---|
+| `C_tok` | `6e8d37a13848d15d890fb27087ccfd5dad1e5acc071ab53167e7bbde4a3e812d` |
+| `G_tok` | `be3a934f539bf763dd266f353fd2050fb989591a1412e7916e5ab10e4e5db20e` |
+| `G_bp` | `b0d787c0c958392708f6ad9293e51e6546579ef7ecde5775cc8533109ebc3338` |
 
 ## Boundary
 

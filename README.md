@@ -166,6 +166,8 @@ tenfold, to about rate 0.01, before meeting a second wall near 0.02 to 0.05 that
 pass. The `C_tok` sequence-proxy anomaly is resolved as realization noise once both arms are averaged
 over independent draws. Sixty-eight entries are admitted to the ledger, including a runtime envelope
 that deliberately omits peak memory because no recorded field supports a residency claim. Three cheap unkeyed
-distinguishers fail to separate the arms for `C_tok` under matched per-draw pairing and an exact
-cluster test. Sixty-nine entries are admitted. ITS/EXP baselines, key reuse and adaptive removal, and
-the decision on a coding layer remain open.
+distinguishers fail to separate the arms for `C_tok` and `G_tok` under matched per-draw pairing and a
+permute-and-refit null; `G_bp` shows two nominal rejections that do not clear Bonferroni across the
+nine tests and are recorded as unresolved. Inverse-transform and exponential baseline samplers are
+implemented with their invariants, and their matched comparison is frozen but not run. Seventy-three
+entries are admitted. Key reuse, adaptive removal, and the decision on a coding layer remain open.

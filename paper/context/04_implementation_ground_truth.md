@@ -72,8 +72,8 @@
   admitted E7 stage-2 entries with the full paired comparison;
 - multi-key and single-arm generation, symmetric draw-averaged proxy comparison, and the admitted
   resolution of the C_tok sequence-proxy anomaly as draw noise;
-- three unkeyed distinguishers with leave-one-prompt-out forced choice, matched per-draw pairing, an
-  exact cluster sign-flip test, and an admitted `C_tok` result showing no separation;
+- three unkeyed distinguishers with leave-one-prompt-out forced choice, matched per-draw pairing, and
+  a permute-and-refit null that re-runs the fitting, admitted for all three policies;
 - inverse-transform and exponential baseline samplers with matched model-free detector statistics,
   a shared keyed stream, and an invariant suite covering exact marginals, detector recomputation,
   null distributions, determinism, and two deliberately broken variants;

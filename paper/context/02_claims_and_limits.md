@@ -17,8 +17,11 @@
 - Low proxy distance does not establish biological equivalence.
 - Training with FNS does not imply that the released Carbon checkpoint uses base-marginal sampling.
 - Robustness to random edits does not establish robustness to adaptive removal.
-- Failure of cheap unkeyed distinguishers does not establish undetectability, and no interval is
-  valid beyond the exchangeability it assumes: resample the unit that actually varies.
+- Failure of cheap unkeyed distinguishers does not establish undetectability, and no interval or test
+  is valid beyond the exchangeability it assumes. If a decision depends on a quantity fitted from
+  other units, permute and refit; do not flip labels on a fixed fit.
+- Preserving the distribution is not evidence of a working watermark. A sampler that ignores the key
+  entirely can have an exactly correct marginal.
 
 ## Required qualifiers
 

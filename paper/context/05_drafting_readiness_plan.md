@@ -48,15 +48,15 @@ measured channel, a preserved distribution, and a calibrated detector.
 
 | Section content | Required admitted evidence | Status |
 |---|---|---|
-| Sequence-level proxy comparison | `e3.stage2.c_tok.*` | **admitted** for `C_tok`; the other policies deliberately not run |
+| Sequence-level proxy comparison | `e3.stage2.*` | **admitted** for all three policies |
 | Substitution robustness curves | `e5.substitution.*` | **admitted** |
 | Crop, phase, and strand robustness | `e6.crop_strand.*` | **admitted** |
 | Insertion and deletion, unwindowed detector | `e7.deletion.*`, `e7.insertion.*` | **admitted** |
 | Windowed detector and resynchronization | `e7.stage2.*` | **admitted** |
 | Wrong-key and public-DNA nulls | admitted with `e4.clean_detection.*` | **admitted** |
 | Many-output and key-reuse nulls | E10/E11 admission | not started |
-| ITS and EXP matched baselines | E8/E9 admission | not started |
-| Held-out unkeyed distinguishers | `e10.unkeyed_distinguisher.c_tok.*` | **admitted** for `C_tok`; other policies pending generation |
+| ITS and EXP matched baselines | E8/E9 admission | samplers and invariants implemented; comparison run not started |
+| Held-out unkeyed distinguishers | `e10.unkeyed_distinguisher.*` | **admitted** for all three; `G_bp` has two unresolved nominal rejections |
 | Key reuse and detector-query removal | E11/E12 admission | not started |
 | Abstract, contribution list, conclusion | every row above | blocked |
 

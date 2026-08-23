@@ -23,9 +23,9 @@ sys.path.insert(0, str(ROOT / "src"))
 from genomic_watermarks.cluster_analysis import analyze_prompt_clusters  # noqa: E402
 from genomic_watermarks.distinguishers import (  # noqa: E402
     DISTINGUISHERS,
-    exact_cluster_sign_flip_p_value,
     leave_one_prompt_out_forced_choice,
     matched_draw_forced_choice,
+    permutation_null_forced_choice,
 )
 from genomic_watermarks.pilot import (  # noqa: E402
     cohort_case_digest,
@@ -51,6 +51,8 @@ def parse_args() -> argparse.Namespace:
             "because a shared control lets a distinguisher learn that control's realization"
         ),
     )
+    parser.add_argument("--permutation-replicates", type=int, default=1999)
+    parser.add_argument("--permutation-seed", type=int, default=2718)
     parser.add_argument("--bootstrap-replicates", type=int, default=20_000)
     parser.add_argument("--bootstrap-seed", type=int, default=2718)
     parser.add_argument("--output", type=Path, required=True)
@@ -138,13 +140,16 @@ def main() -> int:
             if args.matched_draws
             else leave_one_prompt_out_forced_choice(watermarked_by_key, ordinary, name)
         )
-        draws_per_prompt = outcome.decisions // len(outcome.accuracy_by_prompt)
-        exact = exact_cluster_sign_flip_p_value(
-            {
-                case_id: round(value * draws_per_prompt)
-                for case_id, value in outcome.accuracy_by_prompt.items()
-            },
-            draws_per_prompt,
+        if not args.matched_draws:
+            raise ValueError(
+                "the amended protocol requires --matched-draws; a shared control cannot be "
+                "calibrated by the permute-and-refit null"
+            )
+        calibration = permutation_null_forced_choice(
+            pairs_by_draw,
+            name,
+            replicates=args.permutation_replicates,
+            seed=args.permutation_seed,
         )
         cluster = analyze_prompt_clusters(
             {case_id: (value,) for case_id, value in outcome.accuracy_by_prompt.items()},
@@ -158,12 +163,13 @@ def main() -> int:
                 "correct": outcome.correct,
                 "accuracy": outcome.accuracy,
                 "accuracy_by_prompt": dict(outcome.accuracy_by_prompt),
-                "exact_cluster_test": exact,
+                "permutation_null_test": calibration,
                 "descriptive_prompt_cluster_bootstrap": {
                     "caveat": (
-                        "descriptive only, and not a test: it resamples per-prompt accuracies as "
-                        "if they were known, so it ignores within-prompt noise and can exclude "
-                        "chance when the pooled count is unremarkable. Read exact_cluster_test."
+                        "descriptive only, and not a test. It resamples per-prompt accuracies as "
+                        "if they were known, ignoring within-prompt noise, and it also ignores "
+                        "that every decision shares a fitted direction. Read "
+                        "permutation_null_test."
                     ),
                     "mean": cluster.overall_mean,
                     "lower": cluster.interval_lower,
@@ -200,8 +206,9 @@ def main() -> int:
         "task": {
             "name": "paired two-alternative forced choice with leave-one-prompt-out fitting",
             "test": (
-                "exact two-sided sign-flip over prompt clusters; a bootstrap over per-prompt "
-                "accuracies is reported descriptively only and is not a valid test here"
+                "two-sided permute-and-refit null: labels are permuted within each pair and the "
+                "whole procedure including the fitting is re-run, because decisions are not "
+                "independently exchangeable across prompts when they share a fitted direction"
             ),
             "chance_accuracy": 0.5,
             "tie_rule": "a tie counts as a miss, never as a coin flip",
@@ -238,8 +245,15 @@ def main() -> int:
                 "policy_id": policy_id,
                 "keys": len(watermarked_by_key),
                 "accuracy": {r["distinguisher"]: r["accuracy"] for r in results},
-                "exact_p_value": {
-                    r["distinguisher"]: r["exact_cluster_test"]["p_value"] for r in results
+                "permutation_p_value": {
+                    r["distinguisher"]: r["permutation_null_test"]["p_value"] for r in results
+                },
+                "null_accuracy_range": {
+                    r["distinguisher"]: [
+                        r["permutation_null_test"]["null_minimum_accuracy"],
+                        r["permutation_null_test"]["null_maximum_accuracy"],
+                    ]
+                    for r in results
                 },
             },
             indent=2,

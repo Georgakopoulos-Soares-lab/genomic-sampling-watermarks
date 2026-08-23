@@ -35,7 +35,7 @@ states per policy on a frozen 24-prompt public RefSeq cohort. The initial 12-pro
 triggered the preregistered expansion; all three policies pass the final stability rule. The three
 E2 capacity, E3 stage-1 preservation, E4 clean detection, E5 substitution robustness, and E6 crop,
 strand, and phase, and E7 stage-1 indel results have passed evidence-admission review;
-`evidence/measurements.yaml` holds 69 entries plus a `superseded_measurements` record. The E3
+`evidence/measurements.yaml` holds 73 entries plus a `superseded_measurements` record. The E3
 stage-2 sequence-proxy anomaly is resolved: it was realization noise on both arms, found by averaging
 the control side that earlier designs left un-averaged. E7 is
 the project's synchronization result: the unwindowed detector tolerates indel rates 50 to 150 times
@@ -48,19 +48,26 @@ implemented and verified on real model generations. Remaining work begins with:
 
 - whether a coding layer is justified now that the edit channel is measured; the project rule is
   that PRC and ECC work begins only after that measurement, which now exists;
-- E10 for `G_tok` and `G_bp`, whose matched per-draw generation is in progress;
-- a key-averaged E3 stage-2 sequence-proxy design, since the current one holds the key fixed;
-- sliding-window search and its own calibration, required before crop and synchronization claims;
+- more `G_bp` draws, to resolve two nominal unkeyed-distinguisher rejections that do not clear
+  Bonferroni across nine tests;
+- the E8/E9 matched baseline comparison, whose samplers and invariants are implemented;
+- key reuse, many-output analysis, and detector-query removal, the remaining threat-model goals;
 - resolution of the main-revision `C_deployed` processor stack;
 - optional Carbon `fns`-revision `C_bp` control;
 - remaining tokenizer edge cases and broader MPS/CPU parity;
-- ITS and EXP matched baselines.
+- a sampled high-water memory measurement, without which no peak-memory figure may be claimed.
 
 GENERATOR-v2 must use MPS `float32` for current work. Its `bfloat16` path failed the 12-context
 MPS/CPU parity gate; it is not a permitted optimization unless a later revision passes that gate.
 
-ITS, EXP, complete detector calibration, model-backed evidence, and paper results remain open. Do
-not describe planned work as implemented.
+Manuscript prose and figures remain unwritten. `paper/context/05_drafting_readiness_plan.md` records
+which sections are unblocked. Do not describe planned work as implemented.
+
+Four pieces of statistical machinery have been replaced after a result looked wrong rather than merely
+surprising: a non-strict detector decision rule, an unsigned drift range, a bootstrap that ignored
+within-prompt noise, and a sign-flip null that ignored a shared fitted direction. Treat every new
+resampling scheme as suspect until its null has been reproduced on synthetic data whose truth is
+known.
 
 ## Locked decisions
 

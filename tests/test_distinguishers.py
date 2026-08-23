@@ -9,6 +9,7 @@ from genomic_watermarks.distinguishers import (
     exact_cluster_sign_flip_p_value,
     leave_one_prompt_out_forced_choice,
     matched_draw_forced_choice,
+    permutation_null_forced_choice,
     proxy_features,
     trimer_features,
 )
@@ -69,6 +70,86 @@ class ExactClusterTest(unittest.TestCase):
             exact_cluster_sign_flip_p_value({f"c{i}": 1 for i in range(21)}, 4)
         with self.assertRaisesRegex(ValueError, r"lie in \[0, draws\]"):
             exact_cluster_sign_flip_p_value({"a": 9}, 4)
+
+
+class PermutationNullTest(unittest.TestCase):
+    """The null must reproduce the fitting, or its p-values are anti-conservative."""
+
+    def pairs(self, prompts=8, draws=4, biased=False):
+        return {
+            f"draw_{k}": {
+                f"case_{i}": (
+                    random_dna(
+                        20_000 + 100 * k + i,
+                        1500,
+                        weights=(0.7, 0.1, 0.1, 0.1) if biased else None,
+                    ),
+                    random_dna(70_000 + 100 * k + i, 1500),
+                )
+                for i in range(prompts)
+            }
+            for k in range(draws)
+        }
+
+    def test_matched_arms_are_not_significant_and_the_null_is_wide(self) -> None:
+        pairs = self.pairs()
+        for name in DISTINGUISHERS:
+            result = permutation_null_forced_choice(pairs, name, replicates=199, seed=3)
+            self.assertGreater(result["p_value"], 0.05, name)
+            # The null spread is the whole point: independent prompt flips would be far narrower.
+            self.assertLess(result["null_minimum_accuracy"], 0.35, name)
+            self.assertGreater(result["null_maximum_accuracy"], 0.65, name)
+            self.assertAlmostEqual(result["null_mean_accuracy"], 0.5, delta=0.08)
+
+    def test_a_gross_bias_is_still_detected(self) -> None:
+        result = permutation_null_forced_choice(
+            self.pairs(biased=True), "trimer_centroid", replicates=199, seed=5
+        )
+        self.assertAlmostEqual(result["accuracy"], 1.0)
+        self.assertLessEqual(result["p_value"], 0.01)
+
+    def test_a_global_relabel_leaves_accuracy_unchanged(self) -> None:
+        """Swapping which arm is called watermarked also swaps the fitted direction.
+
+        So the procedure is invariant under a *global* relabel, and accuracy does
+        not flip to its complement. That is why the null statistic is the absolute
+        deviation from chance rather than a one-sided excess: a real anti-correlated
+        signal shows up as accuracy below one half on held-out prompts, and that has
+        to count as evidence too.
+        """
+
+        pairs = self.pairs(biased=True)
+        inverted = {
+            label: {case_id: pair[::-1] for case_id, pair in arm.items()}
+            for label, arm in pairs.items()
+        }
+        forward = permutation_null_forced_choice(pairs, "trimer_centroid", replicates=99, seed=5)
+        backward = permutation_null_forced_choice(
+            inverted, "trimer_centroid", replicates=99, seed=5
+        )
+        self.assertAlmostEqual(backward["accuracy"], forward["accuracy"])
+        self.assertAlmostEqual(
+            forward["absolute_deviation_from_chance"], abs(forward["accuracy"] - 0.5)
+        )
+
+    def test_reported_accuracy_matches_the_unpermuted_procedure(self) -> None:
+        pairs = self.pairs()
+        for name in DISTINGUISHERS:
+            self.assertAlmostEqual(
+                permutation_null_forced_choice(pairs, name, replicates=19, seed=1)["accuracy"],
+                matched_draw_forced_choice(pairs, name).accuracy,
+            )
+
+    def test_inputs_are_validated(self) -> None:
+        pairs = self.pairs(prompts=4, draws=2)
+        with self.assertRaisesRegex(ValueError, "unknown distinguisher"):
+            permutation_null_forced_choice(pairs, "phrenology", replicates=9, seed=0)
+        with self.assertRaisesRegex(ValueError, "replicates must be positive"):
+            permutation_null_forced_choice(pairs, "compression", replicates=0, seed=0)
+        with self.assertRaisesRegex(ValueError, "seed must be non-negative"):
+            permutation_null_forced_choice(pairs, "compression", replicates=9, seed=-1)
+        with self.assertRaisesRegex(ValueError, "at least one draw"):
+            permutation_null_forced_choice({}, "compression", replicates=9, seed=0)
 
 
 class ForcedChoiceTest(unittest.TestCase):

@@ -53,9 +53,10 @@
 - [x] Run E3 stage-1 fixed-state goodness of fit for all three primary policies
 - [x] E3 stage-1 evidence-admission review
 - [x] E3 stage-2 matched sequence-level proxy comparison, fixed key
-- [x] E3 stage-2 symmetric draw-averaged redesign, run, and admission for C_tok
+- [x] E3 stage-2 symmetric draw-averaged redesign, run, and admission for all three policies
 - [x] E10 unkeyed distinguisher with matched per-draw controls, admitted for C_tok
-- [ ] E10 for G_tok and G_bp once their matched draws exist
+- [x] E10 for G_tok and G_bp with a permute-and-refit null
+- [ ] More G_bp draws to resolve its two nominal distinguisher rejections
 - [x] Implement the standalone detector, declared search, and empirical calibration
 - [x] Run the E4 clean-detection pilot for all three policies
 - [x] E4 evidence-admission review

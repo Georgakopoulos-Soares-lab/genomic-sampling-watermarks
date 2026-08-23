@@ -259,9 +259,10 @@ Admitted: one entry, `e3.stage2.c_tok.symmetric_minimum_p_value`, carrying the f
 with both arms' spreads, the family counts, and an explicit record of the resolution against the
 fixed-key numbers. Report digest `9151ec55ba5732547ae8e244304f81b5bcea192a20bcc66240dd7050acfd34af`.
 
-`G_tok` and `G_bp` are **not** admitted. Neither showed a directional pattern under one key, and
-generating symmetric independent draws for them would cost about two and a half hours against no open
-question. That restriction is recorded rather than presented as a full re-run.
+`G_tok` and `G_bp` were subsequently generated and run under the identical symmetric design, once the
+draws existed for the unkeyed-distinguisher experiment. Both show **zero rejections** at the nominal
+0.05 level: minimum p = 0.086 for `G_tok` and 0.383 for `G_bp`. All three policies are therefore
+admitted, and the earlier note that they would be skipped no longer applies.
 
 What this still does not establish: four draws cannot certify the absence of a small real effect, and
 a proxy comparison is not a test of sequence-level indistinguishability. It says the previously

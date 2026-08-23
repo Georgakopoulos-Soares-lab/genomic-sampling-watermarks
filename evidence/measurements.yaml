@@ -10586,55 +10586,56 @@ measurements:
       pattern is not distinguishable from draw noise. It is not a test of sequence-level
       indistinguishability, which would require a different and stronger design.
 
-# E10 held-out unkeyed distinguishers for C_tok. An observer without the key attempts a paired
+# E10 held-out unkeyed distinguishers, revision 2. An observer without the key attempts a paired
 # forced choice between a watermarked and an ordinary sequence from the same generation draw. The
-# admitted test is an exact sign-flip over prompt clusters; a bootstrap over per-prompt accuracies
-# is not a valid test here and is not admitted.
+# admitted test is a two-sided permute-and-refit null: labels are permuted within each pair and the
+# whole procedure including the fitting is re-run. Revision 1 used an exact prompt sign-flip, which
+# is anti-conservative here because every decision shares a fitted direction.
 
-  - id: e10.unkeyed_distinguisher.c_tok.minimum_exact_p_value
+  - id: e10.unkeyed_distinguisher.c_tok.minimum_permutation_p_value
     status: V
-    value: 0.25
+    revision: 2
+    supersedes: e10.unkeyed_distinguisher.c_tok.minimum_exact_p_value
+    value: 0.3835
     unit: p-value
     quantity: >-
-      smallest exact cluster sign-flip p-value across the three declared unkeyed distinguishers on
-      the paired forced-choice task
+      smallest two-sided permute-and-refit p-value across the three declared unkeyed distinguishers
+      on the paired forced-choice task
     admitted_table:
       note: >-
         every distinguisher below is admitted; chance accuracy is exactly 0.5 because the two
-        alternatives come from the same prompt and the same generation draw
+        alternatives come from the same prompt and the same generation draw. The null accuracy range
+        is wide by construction, which is why a narrower resampling scheme was anti-conservative.
       chance_accuracy: 0.5
       prompts: 8
       draws_per_prompt: 4
-      relabellings_enumerated: 256
+      permutation_replicates: 1999
+      permutation_seed: 2718
       rows:
       - distinguisher: compression
         accuracy: 0.375
         correct: 12
         decisions: 32
-        exact_cluster_p_value: 0.3125
+        permutation_p_value: 0.3835
+        null_minimum_accuracy: 0.15625
+        null_maximum_accuracy: 0.78125
+        null_mean_accuracy: 0.4874624812406203
       - distinguisher: proxy_centroid
         accuracy: 0.59375
         correct: 19
         decisions: 32
-        exact_cluster_p_value: 0.25
+        permutation_p_value: 0.5355
+        null_minimum_accuracy: 0.125
+        null_maximum_accuracy: 0.8125
+        null_mean_accuracy: 0.49978114057028517
       - distinguisher: trimer_centroid
         accuracy: 0.53125
         correct: 17
         decisions: 32
-        exact_cluster_p_value: 1.0
-      strongest_distinguisher: proxy_centroid
-      strongest_accuracy: 0.59375
-    admitted_resolution:
-      note: >-
-        resolves the single-key smoke recorded in the protocol, where the compression distinguisher
-        reached 0.875 against a single shared control
-      single_key_shared_control_compression_accuracy: 0.875
-      matched_draw_compression_accuracy: 0.375
-      matched_draw_compression_exact_p_value: 0.3125
-      conclusion: >-
-        the single-key result came from pairing every watermarked sequence against one shared
-        control, which lets a distinguisher learn that control's realization; with matched per-draw
-        pairs no distinguisher separates the arms
+        permutation_p_value: 0.8935
+        null_minimum_accuracy: 0.09375
+        null_maximum_accuracy: 0.8125
+        null_mean_accuracy: 0.495403951975988
     scope:
       model_policy: C_tok
       observer_has_key: false
@@ -10645,8 +10646,12 @@ measurements:
       pairing: each watermarked sequence is paired with the ordinary sequence from its own draw
       fitting: leave-one-prompt-out; no distinguisher scores a prompt it was fit to
       tie_rule: a tie counts as a miss, never as a coin flip
+      test: >-
+        two-sided permute-and-refit null on the absolute deviation from chance; the whole procedure
+        including the fitted direction is re-run under each permutation
+      statistic_is_two_sided_because: >-
+        a distinguisher that is reliably wrong can be inverted into one that is reliably right
       distinguishers: ['compression', 'proxy_centroid', 'trimer_centroid']
-      test: exact two-sided sign-flip over prompt clusters
       draws_per_arm: 4
       draw_independence: >-
         each draw uses a distinct experiment label, so no two draws share a stream domain or a
@@ -10656,12 +10661,12 @@ measurements:
       cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
       cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
       key_material: published non-secret fixture keys with distinct indices
-      policies_not_covered: >-
-        G_tok and G_bp require matched per-draw generation that is not complete; they are not
-        admitted here
+      multiplicity: >-
+        nine tests across three policies and three distinguishers; the Bonferroni threshold is
+        0.0056 and no test clears it
     source:
-      report_artifact: outputs/carbon_c_tok_e10_unkeyed_distinguisher_v2.json
-      report_sha256: 839b3745e0f6dc1a31a0f1313b9d7f61cced39f9ad936fb29d01b55b0be673e8
+      report_artifact: outputs/carbon_c_tok_e10_unkeyed_distinguisher_v3.json
+      report_sha256: 6e8d37a13848d15d890fb27087ccfd5dad1e5acc071ab53167e7bbde4a3e812d
       draw_sequences:
         - {key_label: key_00, sha256: 21859f133a1b8517f5ddd4f7fa767c36d0bb6678df71cfa9e5eb9820c2fba71d}
         - {key_label: key_01, sha256: 01d4cb04b974c4e7a5aa24aeb4e86de706d0bf3982e5acf46687e6b7f618ddf0}
@@ -10674,14 +10679,411 @@ measurements:
         outputs/carbon_c_tok_e3_symmetric_sequences_k5_v1.jsonl
         outputs/carbon_c_tok_e3_symmetric_sequences_k6_v1.jsonl --cohort-jsonl
         data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
-        data/public_prompt_cohort_v2.yaml --matched-draws --bootstrap-replicates 20000
-        --bootstrap-seed 2718 --output outputs/carbon_c_tok_e10_unkeyed_distinguisher_v2.json
+        data/public_prompt_cohort_v2.yaml --matched-draws --permutation-replicates 1999
+        --permutation-seed 2718 --output outputs/carbon_c_tok_e10_unkeyed_distinguisher_v3.json
     notes: >-
-      Three cheap distinguishers, one output per draw per prompt, 32 decisions, no adaptivity.
-      Failing to distinguish rules out these crude attacks and does **not** establish
-      undetectability: a stronger learned classifier, many outputs under one key, or an observer who
-      chooses the prompts are all out of scope, and nothing here is a security proof. With 32
-      decisions this test cannot separate 0.5 from about 0.7.
+      Three cheap distinguishers, 32 decisions, no adaptivity. Failing to separate rules out these
+      crude attacks and does **not** establish undetectability; nothing here is a security proof, and
+      32 decisions cannot separate 0.5 from about 0.75. For `G_bp` two of the three distinguishers
+      are nominally significant in the below-chance direction and neither clears the Bonferroni
+      threshold across the nine tests; that is recorded as unresolved, not as a distinguishability
+      claim and not as its absence.
+  - id: e10.unkeyed_distinguisher.g_tok.minimum_permutation_p_value
+    status: V
+    revision: 2
+    value: 0.7265
+    unit: p-value
+    quantity: >-
+      smallest two-sided permute-and-refit p-value across the three declared unkeyed distinguishers
+      on the paired forced-choice task
+    admitted_table:
+      note: >-
+        every distinguisher below is admitted; chance accuracy is exactly 0.5 because the two
+        alternatives come from the same prompt and the same generation draw. The null accuracy range
+        is wide by construction, which is why a narrower resampling scheme was anti-conservative.
+      chance_accuracy: 0.5
+      prompts: 8
+      draws_per_prompt: 4
+      permutation_replicates: 1999
+      permutation_seed: 2718
+      rows:
+      - distinguisher: compression
+        accuracy: 0.4375
+        correct: 14
+        decisions: 32
+        permutation_p_value: 0.7265
+        null_minimum_accuracy: 0.15625
+        null_maximum_accuracy: 0.75
+        null_mean_accuracy: 0.4844609804902451
+      - distinguisher: proxy_centroid
+        accuracy: 0.53125
+        correct: 17
+        decisions: 32
+        permutation_p_value: 0.9005
+        null_minimum_accuracy: 0.125
+        null_maximum_accuracy: 0.78125
+        null_mean_accuracy: 0.49987493746873435
+      - distinguisher: trimer_centroid
+        accuracy: 0.46875
+        correct: 15
+        decisions: 32
+        permutation_p_value: 0.898
+        null_minimum_accuracy: 0.125
+        null_maximum_accuracy: 0.78125
+        null_mean_accuracy: 0.49521635817908954
+    scope:
+      model_policy: G_tok
+      observer_has_key: false
+      observer_has_model: false
+      watermark_method: partition-mc-v1
+      control_method: ordinary-categorical-v1
+      task: paired two-alternative forced choice, chance 0.5
+      pairing: each watermarked sequence is paired with the ordinary sequence from its own draw
+      fitting: leave-one-prompt-out; no distinguisher scores a prompt it was fit to
+      tie_rule: a tie counts as a miss, never as a coin flip
+      test: >-
+        two-sided permute-and-refit null on the absolute deviation from chance; the whole procedure
+        including the fitted direction is re-run under each permutation
+      statistic_is_two_sided_because: >-
+        a distinguisher that is reliably wrong can be inverted into one that is reliably right
+      distinguishers: ['compression', 'proxy_centroid', 'trimer_centroid']
+      draws_per_arm: 4
+      draw_independence: >-
+        each draw uses a distinct experiment label, so no two draws share a stream domain or a
+        residual-randomness seed
+      generated_bases_per_case: 3072
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      key_material: published non-secret fixture keys with distinct indices
+      multiplicity: >-
+        nine tests across three policies and three distinguishers; the Bonferroni threshold is
+        0.0056 and no test clears it
+    source:
+      report_artifact: outputs/generator_g_tok_e10_unkeyed_distinguisher_v3.json
+      report_sha256: be3a934f539bf763dd266f353fd2050fb989591a1412e7916e5ab10e4e5db20e
+      draw_sequences:
+        - {key_label: key_00, sha256: 0660ed273ebd758fd794f3bf91fef9d65ddb0efa51fdec47d82deb0954d85e21}
+        - {key_label: key_01, sha256: d43a90cc6a1fec92948539d4e7b13a5bc34127f0b91dca2334c11c3edfcc5e10}
+        - {key_label: key_02, sha256: ca7462df93c8bdcb2a1b51428acdf7dd4e4a35aa14493a93689682eadfaafa3b}
+        - {key_label: key_03, sha256: 6d1d41e2a138da036003ab3edd9be5d21efcdc44e31dcc8259dc4cc2f855cd8c}
+      command: >-
+        uv run python scripts/run_unkeyed_distinguisher_pilot.py --base-sequences
+        outputs/generator_g_tok_e4_sequences_v1.jsonl --additional-sequences
+        outputs/generator_g_tok_e3_symmetric_sequences_k4_v1.jsonl
+        outputs/generator_g_tok_e3_symmetric_sequences_k5_v1.jsonl
+        outputs/generator_g_tok_e3_symmetric_sequences_k6_v1.jsonl --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --matched-draws --permutation-replicates 1999
+        --permutation-seed 2718 --output outputs/generator_g_tok_e10_unkeyed_distinguisher_v3.json
+    notes: >-
+      Three cheap distinguishers, 32 decisions, no adaptivity. Failing to separate rules out these
+      crude attacks and does **not** establish undetectability; nothing here is a security proof, and
+      32 decisions cannot separate 0.5 from about 0.75. For `G_bp` two of the three distinguishers
+      are nominally significant in the below-chance direction and neither clears the Bonferroni
+      threshold across the nine tests; that is recorded as unresolved, not as a distinguishability
+      claim and not as its absence.
+  - id: e10.unkeyed_distinguisher.g_bp.minimum_permutation_p_value
+    status: V
+    revision: 2
+    value: 0.009
+    unit: p-value
+    quantity: >-
+      smallest two-sided permute-and-refit p-value across the three declared unkeyed distinguishers
+      on the paired forced-choice task
+    admitted_table:
+      note: >-
+        every distinguisher below is admitted; chance accuracy is exactly 0.5 because the two
+        alternatives come from the same prompt and the same generation draw. The null accuracy range
+        is wide by construction, which is why a narrower resampling scheme was anti-conservative.
+      chance_accuracy: 0.5
+      prompts: 8
+      draws_per_prompt: 4
+      permutation_replicates: 1999
+      permutation_seed: 2718
+      rows:
+      - distinguisher: compression
+        accuracy: 0.3125
+        correct: 10
+        decisions: 32
+        permutation_p_value: 0.1405
+        null_minimum_accuracy: 0.15625
+        null_maximum_accuracy: 0.8125
+        null_mean_accuracy: 0.4968734367183592
+      - distinguisher: proxy_centroid
+        accuracy: 0.21875
+        correct: 7
+        decisions: 32
+        permutation_p_value: 0.0195
+        null_minimum_accuracy: 0.125
+        null_maximum_accuracy: 0.8125
+        null_mean_accuracy: 0.4999843671835918
+      - distinguisher: trimer_centroid
+        accuracy: 0.1875
+        correct: 6
+        decisions: 32
+        permutation_p_value: 0.009
+        null_minimum_accuracy: 0.09375
+        null_maximum_accuracy: 0.8125
+        null_mean_accuracy: 0.49724862431215605
+    scope:
+      model_policy: G_bp
+      observer_has_key: false
+      observer_has_model: false
+      watermark_method: partition-mc-v1
+      control_method: ordinary-categorical-v1
+      task: paired two-alternative forced choice, chance 0.5
+      pairing: each watermarked sequence is paired with the ordinary sequence from its own draw
+      fitting: leave-one-prompt-out; no distinguisher scores a prompt it was fit to
+      tie_rule: a tie counts as a miss, never as a coin flip
+      test: >-
+        two-sided permute-and-refit null on the absolute deviation from chance; the whole procedure
+        including the fitted direction is re-run under each permutation
+      statistic_is_two_sided_because: >-
+        a distinguisher that is reliably wrong can be inverted into one that is reliably right
+      distinguishers: ['compression', 'proxy_centroid', 'trimer_centroid']
+      draws_per_arm: 4
+      draw_independence: >-
+        each draw uses a distinct experiment label, so no two draws share a stream domain or a
+        residual-randomness seed
+      generated_bases_per_case: 3072
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      key_material: published non-secret fixture keys with distinct indices
+      multiplicity: >-
+        nine tests across three policies and three distinguishers; the Bonferroni threshold is
+        0.0056 and no test clears it
+    source:
+      report_artifact: outputs/generator_g_bp_e10_unkeyed_distinguisher_v3.json
+      report_sha256: b0d787c0c958392708f6ad9293e51e6546579ef7ecde5775cc8533109ebc3338
+      draw_sequences:
+        - {key_label: key_00, sha256: 3e716fa3a3771534902cf7d1a1bb73d893a125f1cb6bdb1fff284942c8dce061}
+        - {key_label: key_01, sha256: cc6d50611c6e576a5d2bc8e6da6121c8f6f7bd61ae310537893aa904d4e442d5}
+        - {key_label: key_02, sha256: 18143a3d28268aa1c43f986cfe84b4dda5537fbab68716792f1108e91ce5d2dd}
+        - {key_label: key_03, sha256: 81d5f78bf871a9299e8f49f74dbfa9087c9250fd48a7e5576ed24b1d82f2a031}
+      command: >-
+        uv run python scripts/run_unkeyed_distinguisher_pilot.py --base-sequences
+        outputs/generator_g_bp_e4_sequences_v1.jsonl --additional-sequences
+        outputs/generator_g_bp_e3_symmetric_sequences_k4_v1.jsonl
+        outputs/generator_g_bp_e3_symmetric_sequences_k5_v1.jsonl
+        outputs/generator_g_bp_e3_symmetric_sequences_k6_v1.jsonl --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --matched-draws --permutation-replicates 1999
+        --permutation-seed 2718 --output outputs/generator_g_bp_e10_unkeyed_distinguisher_v3.json
+    notes: >-
+      Three cheap distinguishers, 32 decisions, no adaptivity. Failing to separate rules out these
+      crude attacks and does **not** establish undetectability; nothing here is a security proof, and
+      32 decisions cannot separate 0.5 from about 0.75. For `G_bp` two of the three distinguishers
+      are nominally significant in the below-chance direction and neither clears the Bonferroni
+      threshold across the nine tests; that is recorded as unresolved, not as a distinguishability
+      claim and not as its absence.
+
+# E3 stage 2, symmetric draw-averaged sequence proxies for the GENERATOR policies. Both arms are
+# averaged over four independent draws, matching the C_tok entry above.
+
+  - id: e3.stage2.g_tok.symmetric_minimum_p_value
+    status: V
+    value: 0.0859375
+    unit: p-value
+    quantity: >-
+      smallest exact sign-flip permutation p-value across the nine declared sequence proxies, after
+      averaging both arms over four independent draws
+    admitted_counts:
+      metrics: 9
+      alpha: 0.05
+      bonferroni_alpha: 0.005555555555555556
+      rejections_at_alpha: 0
+      rejections_at_bonferroni: 0
+    admitted_metric_table:
+      note: >-
+        the spreads are each arm's own variation across draws and are the scale against which a mean
+        difference must be read
+      draws_per_arm: 4
+      prompts: 8
+      permutations: 256
+      rows:
+      - metric: gc_fraction
+        mean_difference: 0.006703694661458343
+        p_value: 0.46875
+        watermarked_spread_over_draws: 0.035454352668005874
+        ordinary_spread_over_draws: 0.02581680673225997
+      - metric: base_entropy_bits
+        mean_difference: 0.004317156788947979
+        p_value: 0.4609375
+        watermarked_spread_over_draws: 0.026158493193273437
+        ordinary_spread_over_draws: 0.01727886020720073
+      - metric: dinucleotide_entropy_bits
+        mean_difference: 0.00899327858527893
+        p_value: 0.4453125
+        watermarked_spread_over_draws: 0.051465063802730866
+        ordinary_spread_over_draws: 0.034555773444574604
+      - metric: trinucleotide_entropy_bits
+        mean_difference: 0.013223225331840172
+        p_value: 0.4140625
+        watermarked_spread_over_draws: 0.07542989549944452
+        ordinary_spread_over_draws: 0.051533545393024786
+      - metric: distinct_hexamer_fraction
+        mean_difference: 0.0049111509618519344
+        p_value: 0.484375
+        watermarked_spread_over_draws: 0.03025773957624658
+        ordinary_spread_over_draws: 0.022012970940356317
+      - metric: longest_homopolymer_run
+        mean_difference: -0.25
+        p_value: 0.328125
+        watermarked_spread_over_draws: 1.0296673906338003
+        ordinary_spread_over_draws: 1.1474442057393002
+      - metric: mean_homopolymer_run
+        mean_difference: -0.0066314509226104434
+        p_value: 0.0859375
+        watermarked_spread_over_draws: 0.025085243073475698
+        ordinary_spread_over_draws: 0.022625504243939436
+      - metric: purine_fraction
+        mean_difference: 0.0011088053385416435
+        p_value: 0.890625
+        watermarked_spread_over_draws: 0.020229111904504538
+        ordinary_spread_over_draws: 0.01806275645168189
+      - metric: cpg_fraction
+        mean_difference: 0.0019334093129273872
+        p_value: 0.53125
+        watermarked_spread_over_draws: 0.008730207285288585
+        ordinary_spread_over_draws: 0.006585050963387275
+    scope:
+      model_policy: G_tok
+      watermark_method: partition-mc-v1
+      control_method: ordinary-categorical-v1
+      draws_per_arm: 4
+      draw_independence: >-
+        each draw uses a distinct experiment label, so no two draws share a stream domain or a
+        residual-randomness seed
+      prompts: 8
+      generated_bases_per_case: 3072
+      test: exact two-sided sign-flip permutation on averaged paired differences
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      key_material: published non-secret fixture keys with distinct indices
+    source:
+      report_artifact: outputs/generator_g_tok_e3_stage2_symmetric_v1.json
+      report_sha256: d8d2796a5bb325d2681bc3783a9aaa8145dae98ab3aed72240bf2a65b3d348f8
+      draw_sequences:
+        - {key_label: key_00, sha256: 0660ed273ebd758fd794f3bf91fef9d65ddb0efa51fdec47d82deb0954d85e21}
+        - {key_label: key_01, sha256: d43a90cc6a1fec92948539d4e7b13a5bc34127f0b91dca2334c11c3edfcc5e10}
+        - {key_label: key_02, sha256: ca7462df93c8bdcb2a1b51428acdf7dd4e4a35aa14493a93689682eadfaafa3b}
+        - {key_label: key_03, sha256: 6d1d41e2a138da036003ab3edd9be5d21efcdc44e31dcc8259dc4cc2f855cd8c}
+      command: >-
+        uv run python scripts/audit_key_averaged_proxies.py --base-sequences
+        outputs/generator_g_tok_e4_sequences_v1.jsonl --additional-sequences
+        outputs/generator_g_tok_e3_symmetric_sequences_k4_v1.jsonl
+        outputs/generator_g_tok_e3_symmetric_sequences_k5_v1.jsonl
+        outputs/generator_g_tok_e3_symmetric_sequences_k6_v1.jsonl --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --symmetric --output outputs/generator_g_tok_e3_stage2_symmetric_v1.json
+    notes: >-
+      Sequence composition and complexity proxies only. Closeness is not biological equivalence and
+      supports no functional, viability, or safety inference. Four draws per arm cannot certify the
+      absence of a small real effect. Not a test of sequence-level indistinguishability.
+  - id: e3.stage2.g_bp.symmetric_minimum_p_value
+    status: V
+    value: 0.3828125
+    unit: p-value
+    quantity: >-
+      smallest exact sign-flip permutation p-value across the nine declared sequence proxies, after
+      averaging both arms over four independent draws
+    admitted_counts:
+      metrics: 9
+      alpha: 0.05
+      bonferroni_alpha: 0.005555555555555556
+      rejections_at_alpha: 0
+      rejections_at_bonferroni: 0
+    admitted_metric_table:
+      note: >-
+        the spreads are each arm's own variation across draws and are the scale against which a mean
+        difference must be read
+      draws_per_arm: 4
+      prompts: 8
+      permutations: 256
+      rows:
+      - metric: gc_fraction
+        mean_difference: -0.003824869791666685
+        p_value: 0.7109375
+        watermarked_spread_over_draws: 0.03550851510986915
+        ordinary_spread_over_draws: 0.04158068165392122
+      - metric: base_entropy_bits
+        mean_difference: 0.0008648421610093493
+        p_value: 0.9296875
+        watermarked_spread_over_draws: 0.025734050744468995
+        ordinary_spread_over_draws: 0.030075739839970247
+      - metric: dinucleotide_entropy_bits
+        mean_difference: 0.0016908664553759722
+        p_value: 0.921875
+        watermarked_spread_over_draws: 0.051418479262847885
+        ordinary_spread_over_draws: 0.060619090493521446
+      - metric: trinucleotide_entropy_bits
+        mean_difference: 0.0027129054874722724
+        p_value: 0.9140625
+        watermarked_spread_over_draws: 0.07710078557548118
+        ordinary_spread_over_draws: 0.09128307967866345
+      - metric: distinct_hexamer_fraction
+        mean_difference: -0.0015691229214215424
+        p_value: 0.90625
+        watermarked_spread_over_draws: 0.0318269192989692
+        ordinary_spread_over_draws: 0.036992812860591154
+      - metric: longest_homopolymer_run
+        mean_difference: 0.0625
+        p_value: 0.90625
+        watermarked_spread_over_draws: 1.1756431268920273
+        ordinary_spread_over_draws: 0.9068276662245928
+      - metric: mean_homopolymer_run
+        mean_difference: 0.0008291610249746562
+        p_value: 0.8984375
+        watermarked_spread_over_draws: 0.02203773612270441
+        ordinary_spread_over_draws: 0.026225642737333736
+      - metric: purine_fraction
+        mean_difference: -0.003814697265624979
+        p_value: 0.5078125
+        watermarked_spread_over_draws: 0.013079593812673006
+        ordinary_spread_over_draws: 0.015976371119433296
+      - metric: cpg_fraction
+        mean_difference: -0.0019639368283946588
+        p_value: 0.3828125
+        watermarked_spread_over_draws: 0.0069037978995793725
+        ordinary_spread_over_draws: 0.008213422291708043
+    scope:
+      model_policy: G_bp
+      watermark_method: partition-mc-v1
+      control_method: ordinary-categorical-v1
+      draws_per_arm: 4
+      draw_independence: >-
+        each draw uses a distinct experiment label, so no two draws share a stream domain or a
+        residual-randomness seed
+      prompts: 8
+      generated_bases_per_case: 3072
+      test: exact two-sided sign-flip permutation on averaged paired differences
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      key_material: published non-secret fixture keys with distinct indices
+    source:
+      report_artifact: outputs/generator_g_bp_e3_stage2_symmetric_v1.json
+      report_sha256: b6e40c7f665f0cac0d39150c0ed80ee70415e57b12edd764a6113386a92ab516
+      draw_sequences:
+        - {key_label: key_00, sha256: 3e716fa3a3771534902cf7d1a1bb73d893a125f1cb6bdb1fff284942c8dce061}
+        - {key_label: key_01, sha256: cc6d50611c6e576a5d2bc8e6da6121c8f6f7bd61ae310537893aa904d4e442d5}
+        - {key_label: key_02, sha256: 18143a3d28268aa1c43f986cfe84b4dda5537fbab68716792f1108e91ce5d2dd}
+        - {key_label: key_03, sha256: 81d5f78bf871a9299e8f49f74dbfa9087c9250fd48a7e5576ed24b1d82f2a031}
+      command: >-
+        uv run python scripts/audit_key_averaged_proxies.py --base-sequences
+        outputs/generator_g_bp_e4_sequences_v1.jsonl --additional-sequences
+        outputs/generator_g_bp_e3_symmetric_sequences_k4_v1.jsonl
+        outputs/generator_g_bp_e3_symmetric_sequences_k5_v1.jsonl
+        outputs/generator_g_bp_e3_symmetric_sequences_k6_v1.jsonl --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --symmetric --output outputs/generator_g_bp_e3_stage2_symmetric_v1.json
+    notes: >-
+      Sequence composition and complexity proxies only. Closeness is not biological equivalence and
+      supports no functional, viability, or safety inference. Four draws per arm cannot certify the
+      absence of a small real effect. Not a test of sequence-level indistinguishability.
 
 # Corrections. Superseded measurement IDs are recorded here so an audit can see what changed and
 # why. The superseded artifacts remain on disk unmodified but are no longer cited by any entry.
@@ -10707,3 +11109,18 @@ superseded_measurements:
       Every headline value, that is the largest fully detected substitution rate, is unchanged. Of
       28 curve cells per policy, one to three moved, all downward, and all inside the collapsed tail
       where detection was already far below 1.0.
+  - measurement_id_prefix: e10.unkeyed_distinguisher
+    superseded_ids: 1
+    replaced_by_suffix: .minimum_permutation_p_value
+    reason: >-
+      The p-value came from an exact sign-flip over prompt clusters, which assumes prompts are
+      independently relabellable. They are not: every decision uses a direction fitted from the other
+      prompts' labels, so the decisions share a fitted quantity and the sign-flip null is too narrow.
+      Replicating the whole procedure on true-null synthetic data showed accuracies from 0.16 to 0.75,
+      a far wider spread than the sign-flip null admits, so its p-values were anti-conservative. The
+      admitted test now permutes labels within each pair and re-runs the fitting.
+    effect_on_values: >-
+      The C_tok conclusion is unchanged, and no distinguisher separates the arms for C_tok or G_tok.
+      Under the corrected null two G_bp distinguishers are nominally significant in the below-chance
+      direction, neither clearing the Bonferroni threshold across the nine tests; that is recorded as
+      unresolved.

@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import itertools
 import math
+import random
 import zlib
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
@@ -180,6 +181,117 @@ def exact_cluster_sign_flip_p_value(
     }
 
 
+def _forced_choice_from_vectors(
+    vectors: Mapping[str, Mapping[str, tuple[tuple[float, ...], tuple[float, ...]]]],
+    case_ids: Sequence[str],
+    draw_labels: Sequence[str],
+) -> tuple[int, int, dict[str, float]]:
+    """Leave-one-prompt-out decisions over already-extracted feature vectors."""
+
+    correct = 0
+    decisions = 0
+    per_prompt: dict[str, float] = {}
+    for held_out in case_ids:
+        training = [case_id for case_id in case_ids if case_id != held_out]
+        train_watermarked = [
+            vectors[label][case_id][0] for label in draw_labels for case_id in training
+        ]
+        train_ordinary = [
+            vectors[label][case_id][1] for label in draw_labels for case_id in training
+        ]
+        means, scales, direction = _direction(train_watermarked, train_ordinary)
+        prompt_correct = 0
+        for label in draw_labels:
+            watermarked_vector, ordinary_vector = vectors[label][held_out]
+            if _score(watermarked_vector, means, scales, direction) > _score(
+                ordinary_vector, means, scales, direction
+            ):
+                prompt_correct += 1
+        correct += prompt_correct
+        decisions += len(draw_labels)
+        per_prompt[held_out] = prompt_correct / len(draw_labels)
+    return correct, decisions, per_prompt
+
+
+def permutation_null_forced_choice(
+    pairs_by_draw: Mapping[str, Mapping[str, tuple[str, str]]],
+    distinguisher: str,
+    *,
+    replicates: int,
+    seed: int,
+) -> dict[str, float]:
+    """Calibrate forced-choice accuracy against a permute-and-refit null.
+
+    The decisions produced by ``matched_draw_forced_choice`` are **not**
+    independently exchangeable across prompts, because every decision uses a
+    direction fitted from the other prompts' labels. A sign-flip test that treats
+    prompts as independently flippable therefore understates the variance and is
+    anti-conservative.
+
+    This permutes the labels within each pair and **re-runs the whole procedure**,
+    fitting included, so the null carries every dependency the real procedure has.
+    The statistic is two-sided in ``|accuracy - 1/2|``, because a distinguisher that
+    is reliably wrong can be inverted into one that is reliably right.
+    """
+
+    if distinguisher not in DISTINGUISHERS:
+        raise ValueError(f"unknown distinguisher {distinguisher}")
+    if replicates <= 0:
+        raise ValueError("replicates must be positive")
+    if seed < 0:
+        raise ValueError("seed must be non-negative")
+    draw_labels = tuple(sorted(pairs_by_draw))
+    if not draw_labels:
+        raise ValueError("at least one draw is required")
+    case_ids = tuple(sorted(pairs_by_draw[draw_labels[0]]))
+    features = DISTINGUISHERS[distinguisher]
+    vectors = {
+        label: {
+            case_id: (
+                features(pairs_by_draw[label][case_id][0]),
+                features(pairs_by_draw[label][case_id][1]),
+            )
+            for case_id in case_ids
+        }
+        for label in draw_labels
+    }
+    observed_correct, decisions, _ = _forced_choice_from_vectors(vectors, case_ids, draw_labels)
+    observed = abs(observed_correct / decisions - 0.5)
+
+    rng = random.Random(seed)
+    exceedances = 0
+    null_accuracies: list[float] = []
+    for _ in range(replicates):
+        permuted = {
+            label: {
+                case_id: (
+                    vectors[label][case_id][::-1] if rng.random() < 0.5 else vectors[label][case_id]
+                )
+                for case_id in case_ids
+            }
+            for label in draw_labels
+        }
+        null_correct, null_decisions, _ = _forced_choice_from_vectors(
+            permuted, case_ids, draw_labels
+        )
+        accuracy = null_correct / null_decisions
+        null_accuracies.append(accuracy)
+        if abs(accuracy - 0.5) >= observed - 1e-12:
+            exceedances += 1
+    null_accuracies.sort()
+    return {
+        "accuracy": observed_correct / decisions,
+        "absolute_deviation_from_chance": observed,
+        "p_value": (1 + exceedances) / (1 + replicates),
+        "replicates": float(replicates),
+        "seed": float(seed),
+        "null_mean_accuracy": math.fsum(null_accuracies) / len(null_accuracies),
+        "null_minimum_accuracy": null_accuracies[0],
+        "null_maximum_accuracy": null_accuracies[-1],
+        "decisions": float(decisions),
+    }
+
+
 def matched_draw_forced_choice(
     pairs_by_draw: Mapping[str, Mapping[str, tuple[str, str]]],
     distinguisher: str,
@@ -221,28 +333,7 @@ def matched_draw_forced_choice(
         for label in draw_labels
     }
 
-    correct = 0
-    decisions = 0
-    per_prompt: dict[str, float] = {}
-    for held_out in case_ids:
-        training = [case_id for case_id in case_ids if case_id != held_out]
-        train_watermarked = [
-            vectors[label][case_id][0] for label in draw_labels for case_id in training
-        ]
-        train_ordinary = [
-            vectors[label][case_id][1] for label in draw_labels for case_id in training
-        ]
-        means, scales, direction = _direction(train_watermarked, train_ordinary)
-        prompt_correct = 0
-        for label in draw_labels:
-            watermarked_vector, ordinary_vector = vectors[label][held_out]
-            if _score(watermarked_vector, means, scales, direction) > _score(
-                ordinary_vector, means, scales, direction
-            ):
-                prompt_correct += 1
-        correct += prompt_correct
-        decisions += len(draw_labels)
-        per_prompt[held_out] = prompt_correct / len(draw_labels)
+    correct, decisions, per_prompt = _forced_choice_from_vectors(vectors, case_ids, draw_labels)
     return ForcedChoiceResult(
         distinguisher=distinguisher,
         decisions=decisions,
