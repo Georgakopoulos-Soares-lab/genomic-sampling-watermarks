@@ -60,7 +60,7 @@
 - [x] Implement the standalone detector, declared search, and empirical calibration
 - [x] Run the E4 clean-detection pilot for all three policies
 - [x] E4 evidence-admission review
-- [ ] Extend the clean curve below 384 bases from the existing corpus
+- [x] Extend the clean curve below 384 bases: detection holds to 96 bases, strict margin from 144
 - [x] Substitution robustness curves and admission
 - [x] Crop, phase, and strand conditions with the offset-multiplicity cost, and admission
 - [ ] Sliding observed-window search for spliced or partial watermarking

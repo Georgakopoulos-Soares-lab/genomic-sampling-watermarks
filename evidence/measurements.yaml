@@ -1722,6 +1722,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -1755,8 +1762,8 @@ measurements:
         maximum_pooled_null_statistic: 3.9056328877620143
       - edit_rate: 0.1
         detection_rate: 0.775
-        detection_rate_lower: 0.625
-        detection_rate_upper: 0.925
+        detection_rate_lower: 0.6
+        detection_rate_upper: 0.9
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -1765,8 +1772,8 @@ measurements:
         maximum_pooled_null_statistic: 3.75
       - edit_rate: 0.15
         detection_rate: 0.15
-        detection_rate_lower: 0.05
-        detection_rate_upper: 0.275
+        detection_rate_lower: 0.025
+        detection_rate_upper: 0.425
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -1775,7 +1782,7 @@ measurements:
         maximum_pooled_null_statistic: 4.0
       - edit_rate: 0.2
         detection_rate: 0.075
-        detection_rate_lower: 0.025
+        detection_rate_lower: 0.0
         detection_rate_upper: 0.15000000000000002
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
@@ -1786,7 +1793,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.125
         threshold: 3.25
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -1886,6 +1893,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -1929,8 +1943,8 @@ measurements:
         maximum_pooled_null_statistic: 3.8156329904892896
       - edit_rate: 0.15
         detection_rate: 0.7
-        detection_rate_lower: 0.575
-        detection_rate_upper: 0.85
+        detection_rate_lower: 0.525
+        detection_rate_upper: 0.9
         threshold: 3.5355339059327373
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -1939,8 +1953,8 @@ measurements:
         maximum_pooled_null_statistic: 3.7123106012293743
       - edit_rate: 0.2
         detection_rate: 0.1
-        detection_rate_lower: 0.025
-        detection_rate_upper: 0.2
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -2050,6 +2064,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -2093,7 +2114,7 @@ measurements:
         maximum_pooled_null_statistic: 3.875
       - edit_rate: 0.15
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.875
         detection_rate_upper: 1.0
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0078125
@@ -2104,7 +2125,7 @@ measurements:
       - edit_rate: 0.2
         detection_rate: 0.55
         detection_rate_lower: 0.4
-        detection_rate_upper: 0.7000000000000001
+        detection_rate_upper: 0.8250000000000001
         threshold: 3.819968175619412
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -2114,7 +2135,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.07500000000000001
         threshold: 3.819968175619412
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -2214,6 +2235,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -2277,8 +2305,8 @@ measurements:
         maximum_pooled_null_statistic: 4.114077783395422
       - edit_rate: 0.3
         detection_rate: 0.175
-        detection_rate_lower: 0.1
-        detection_rate_upper: 0.25
+        detection_rate_lower: 0.05
+        detection_rate_upper: 0.275
         threshold: 3.49475424611009
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -2378,6 +2406,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -2411,7 +2446,7 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.1
         detection_rate: 0.95
-        detection_rate_lower: 0.875
+        detection_rate_lower: 0.55
         detection_rate_upper: 1.0
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
@@ -2421,8 +2456,8 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.15
         detection_rate: 0.15
-        detection_rate_lower: 0.05
-        detection_rate_upper: 0.30000000000000004
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.4
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -2432,7 +2467,7 @@ measurements:
       - edit_rate: 0.2
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.15000000000000002
+        detection_rate_upper: 0.22499999999999998
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -2442,7 +2477,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.1
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -2542,6 +2577,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -2575,7 +2617,7 @@ measurements:
         maximum_pooled_null_statistic: 3.993104292372512
       - edit_rate: 0.1
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.95
         detection_rate_upper: 1.0
         threshold: 3.993104292372512
         achieved_false_positive_rate: 0.0078125
@@ -2586,7 +2628,7 @@ measurements:
       - edit_rate: 0.15
         detection_rate: 0.825
         detection_rate_lower: 0.725
-        detection_rate_upper: 0.925
+        detection_rate_upper: 0.95
         threshold: 3.460690386722844
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -2595,7 +2637,7 @@ measurements:
         maximum_pooled_null_statistic: 3.460690386722844
       - edit_rate: 0.2
         detection_rate: 0.25
-        detection_rate_lower: 0.15000000000000002
+        detection_rate_lower: 0.025
         detection_rate_upper: 0.35000000000000003
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
@@ -2606,7 +2648,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.07500000000000001
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -2706,6 +2748,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -2759,7 +2808,7 @@ measurements:
         maximum_pooled_null_statistic: 3.945213033836442
       - edit_rate: 0.2
         detection_rate: 0.75
-        detection_rate_lower: 0.65
+        detection_rate_lower: 0.47500000000000003
         detection_rate_upper: 0.875
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
@@ -2770,7 +2819,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.125
+        detection_rate_upper: 0.15000000000000002
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -2870,6 +2919,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -2933,8 +2989,8 @@ measurements:
         maximum_pooled_null_statistic: 3.848653410273137
       - edit_rate: 0.3
         detection_rate: 0.15
-        detection_rate_lower: 0.025
-        detection_rate_upper: 0.3
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.30000000000000004
         threshold: 3.5832290371508515
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -3034,6 +3090,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -3067,8 +3130,8 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.1
         detection_rate: 0.75
-        detection_rate_lower: 0.625
-        detection_rate_upper: 0.8500000000000001
+        detection_rate_lower: 0.55
+        detection_rate_upper: 0.9
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -3077,8 +3140,8 @@ measurements:
         maximum_pooled_null_statistic: 3.9056328877620143
       - edit_rate: 0.15
         detection_rate: 0.15
-        detection_rate_lower: 0.07500000000000001
-        detection_rate_upper: 0.25
+        detection_rate_lower: 0.05
+        detection_rate_upper: 0.35000000000000003
         threshold: 3.75
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -3088,7 +3151,7 @@ measurements:
       - edit_rate: 0.2
         detection_rate: 0.025
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.07500000000000001
+        detection_rate_upper: 0.1
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -3198,6 +3261,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -3231,7 +3301,7 @@ measurements:
         maximum_pooled_null_statistic: 4.065863991822648
       - edit_rate: 0.1
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.95
         detection_rate_upper: 1.0
         threshold: 3.3587572106361003
         achieved_false_positive_rate: 0.0078125
@@ -3241,8 +3311,8 @@ measurements:
         maximum_pooled_null_statistic: 3.8156329904892896
       - edit_rate: 0.15
         detection_rate: 0.525
-        detection_rate_lower: 0.375
-        detection_rate_upper: 0.675
+        detection_rate_lower: 0.4
+        detection_rate_upper: 0.875
         threshold: 4.170575594255735
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -3251,8 +3321,8 @@ measurements:
         maximum_pooled_null_statistic: 4.170575594255735
       - edit_rate: 0.2
         detection_rate: 0.4
-        detection_rate_lower: 0.25
-        detection_rate_upper: 0.55
+        detection_rate_lower: 0.225
+        detection_rate_upper: 0.625
         threshold: 3.460690386722844
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -3362,6 +3432,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -3416,7 +3493,7 @@ measurements:
       - edit_rate: 0.2
         detection_rate: 0.8
         detection_rate_lower: 0.7
-        detection_rate_upper: 0.9
+        detection_rate_upper: 0.925
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -3426,7 +3503,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.025
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.07500000000000001
+        detection_rate_upper: 0.1
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -3526,6 +3603,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -3590,7 +3674,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.125
+        detection_rate_upper: 0.17500000000000002
         threshold: 4.025602992354661
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -3695,6 +3779,13 @@ measurements:
       pooled_null_trials_per_condition: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       grid:
       - condition_id: identity
         front_crop_bases: 0
@@ -3969,6 +4060,13 @@ measurements:
       pooled_null_trials_per_condition: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       grid:
       - condition_id: identity
         front_crop_bases: 0
@@ -4243,6 +4341,13 @@ measurements:
       pooled_null_trials_per_condition: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       grid:
       - condition_id: identity
         front_crop_bases: 0
@@ -4349,7 +4454,7 @@ measurements:
         required_offset_inside_search: false
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.25
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -4365,7 +4470,7 @@ measurements:
         required_offset_inside_search: false
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.25
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -4381,7 +4486,7 @@ measurements:
         required_offset_inside_search: false
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.25
         threshold: 3.4442336009683223
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -4517,6 +4622,13 @@ measurements:
       pooled_null_trials_per_condition: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       grid:
       - condition_id: identity
         front_crop_bases: 0
@@ -4671,7 +4783,7 @@ measurements:
         required_offset_inside_search: false
         detection_rate: 0.0
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.0
+        detection_rate_upper: 0.25
         threshold: 4.446192466704561
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -4791,6 +4903,13 @@ measurements:
       pooled_null_trials_per_condition: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       grid:
       - condition_id: identity
         front_crop_bases: 0
@@ -5065,6 +5184,13 @@ measurements:
       pooled_null_trials_per_condition: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       grid:
       - condition_id: identity
         front_crop_bases: 0
@@ -5343,6 +5469,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -5377,7 +5510,7 @@ measurements:
       - edit_rate: 0.002
         detection_rate: 0.9
         detection_rate_lower: 0.8
-        detection_rate_upper: 0.975
+        detection_rate_upper: 1.0
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -5386,8 +5519,8 @@ measurements:
         maximum_pooled_null_statistic: 3.9056328877620143
       - edit_rate: 0.005
         detection_rate: 0.675
-        detection_rate_lower: 0.525
-        detection_rate_upper: 0.825
+        detection_rate_lower: 0.55
+        detection_rate_upper: 0.85
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -5396,7 +5529,7 @@ measurements:
         maximum_pooled_null_statistic: 3.9056328877620143
       - edit_rate: 0.01
         detection_rate: 0.575
-        detection_rate_lower: 0.4
+        detection_rate_lower: 0.375
         detection_rate_upper: 0.75
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
@@ -5406,8 +5539,8 @@ measurements:
         maximum_pooled_null_statistic: 3.6536565724225296
       - edit_rate: 0.02
         detection_rate: 0.075
-        detection_rate_lower: 0.025
-        detection_rate_upper: 0.15000000000000002
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.30000000000000004
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -5419,6 +5552,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -5554,6 +5694,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -5597,7 +5744,7 @@ measurements:
         maximum_pooled_null_statistic: 3.6381616886060666
       - edit_rate: 0.005
         detection_rate: 0.9
-        detection_rate_lower: 0.8250000000000001
+        detection_rate_lower: 0.775
         detection_rate_upper: 0.975
         threshold: 3.460690386722844
         achieved_false_positive_rate: 0.0078125
@@ -5608,7 +5755,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.575
         detection_rate_lower: 0.375
-        detection_rate_upper: 0.75
+        detection_rate_upper: 0.8
         threshold: 3.283219084839621
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -5617,8 +5764,8 @@ measurements:
         maximum_pooled_null_statistic: 3.283219084839621
       - edit_rate: 0.02
         detection_rate: 0.325
-        detection_rate_lower: 0.175
-        detection_rate_upper: 0.475
+        detection_rate_lower: 0.15
+        detection_rate_upper: 0.6
         threshold: 3.283219084839621
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -5630,6 +5777,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -5765,6 +5919,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -5809,7 +5970,7 @@ measurements:
       - edit_rate: 0.005
         detection_rate: 0.725
         detection_rate_lower: 0.65
-        detection_rate_upper: 0.775
+        detection_rate_upper: 0.925
         threshold: 3.819968175619412
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -5818,7 +5979,7 @@ measurements:
         maximum_pooled_null_statistic: 3.945213033836442
       - edit_rate: 0.01
         detection_rate: 0.6
-        detection_rate_lower: 0.35000000000000003
+        detection_rate_lower: 0.375
         detection_rate_upper: 0.8
         threshold: 3.4442336009683223
         achieved_false_positive_rate: 0.0
@@ -5829,7 +5990,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.175
         detection_rate_lower: 0.05
-        detection_rate_upper: 0.325
+        detection_rate_upper: 0.4
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -5841,6 +6002,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -5976,6 +6144,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -5989,7 +6164,7 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.0005
         detection_rate: 0.95
-        detection_rate_lower: 0.875
+        detection_rate_lower: 0.9
         detection_rate_upper: 1.0
         threshold: 3.75
         achieved_false_positive_rate: 0.0078125
@@ -5999,7 +6174,7 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.001
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.85
         detection_rate_upper: 1.0
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
@@ -6019,8 +6194,8 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.005
         detection_rate: 0.85
-        detection_rate_lower: 0.75
-        detection_rate_upper: 0.925
+        detection_rate_lower: 0.725
+        detection_rate_upper: 0.95
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -6030,7 +6205,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.525
         detection_rate_lower: 0.42500000000000004
-        detection_rate_upper: 0.625
+        detection_rate_upper: 0.8
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -6052,6 +6227,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -6187,6 +6369,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -6220,7 +6409,7 @@ measurements:
         maximum_pooled_null_statistic: 4.170575594255735
       - edit_rate: 0.002
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.95
         detection_rate_upper: 1.0
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
@@ -6231,7 +6420,7 @@ measurements:
       - edit_rate: 0.005
         detection_rate: 0.875
         detection_rate_lower: 0.75
-        detection_rate_upper: 0.975
+        detection_rate_upper: 1.0
         threshold: 3.5355339059327373
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -6240,8 +6429,8 @@ measurements:
         maximum_pooled_null_statistic: 3.6381616886060666
       - edit_rate: 0.01
         detection_rate: 0.725
-        detection_rate_lower: 0.6
-        detection_rate_upper: 0.875
+        detection_rate_lower: 0.575
+        detection_rate_upper: 0.85
         threshold: 3.283219084839621
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -6250,8 +6439,8 @@ measurements:
         maximum_pooled_null_statistic: 3.460690386722844
       - edit_rate: 0.02
         detection_rate: 0.175
-        detection_rate_lower: 0.07500000000000001
-        detection_rate_upper: 0.275
+        detection_rate_lower: 0.025
+        detection_rate_upper: 0.30000000000000004
         threshold: 3.460690386722844
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -6263,6 +6452,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -6398,6 +6594,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -6442,7 +6645,7 @@ measurements:
       - edit_rate: 0.005
         detection_rate: 0.825
         detection_rate_lower: 0.675
-        detection_rate_upper: 0.95
+        detection_rate_upper: 1.0
         threshold: 3.819968175619412
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -6452,7 +6655,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.55
         detection_rate_lower: 0.475
-        detection_rate_upper: 0.65
+        detection_rate_upper: 0.725
         threshold: 3.4442336009683223
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -6462,7 +6665,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.125
+        detection_rate_upper: 0.4
         threshold: 3.945213033836442
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -6474,6 +6677,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -6609,6 +6819,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -6622,7 +6839,7 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.0005
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.925
         detection_rate_upper: 1.0
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0078125
@@ -6642,7 +6859,7 @@ measurements:
         maximum_pooled_null_statistic: 3.9056328877620143
       - edit_rate: 0.002
         detection_rate: 0.975
-        detection_rate_lower: 0.925
+        detection_rate_lower: 0.8250000000000001
         detection_rate_upper: 1.0
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
@@ -6652,8 +6869,8 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.005
         detection_rate: 0.7
-        detection_rate_lower: 0.55
-        detection_rate_upper: 0.85
+        detection_rate_lower: 0.525
+        detection_rate_upper: 0.925
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -6662,8 +6879,8 @@ measurements:
         maximum_pooled_null_statistic: 4.0
       - edit_rate: 0.01
         detection_rate: 0.675
-        detection_rate_lower: 0.47500000000000003
-        detection_rate_upper: 0.85
+        detection_rate_lower: 0.425
+        detection_rate_upper: 0.875
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -6672,7 +6889,7 @@ measurements:
         maximum_pooled_null_statistic: 4.0
       - edit_rate: 0.02
         detection_rate: 0.25
-        detection_rate_lower: 0.2
+        detection_rate_lower: 0.125
         detection_rate_upper: 0.325
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
@@ -6685,6 +6902,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -6820,6 +7044,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -6873,8 +7104,8 @@ measurements:
         maximum_pooled_null_statistic: 3.6381616886060666
       - edit_rate: 0.01
         detection_rate: 0.675
-        detection_rate_lower: 0.5
-        detection_rate_upper: 0.85
+        detection_rate_lower: 0.475
+        detection_rate_upper: 0.8250000000000001
         threshold: 3.3587572106361003
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -6884,7 +7115,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.25
         detection_rate_lower: 0.1
-        detection_rate_upper: 0.42500000000000004
+        detection_rate_upper: 0.47500000000000003
         threshold: 3.7123106012293743
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -6896,6 +7127,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -7031,6 +7269,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -7075,7 +7320,7 @@ measurements:
       - edit_rate: 0.005
         detection_rate: 0.85
         detection_rate_lower: 0.75
-        detection_rate_upper: 0.925
+        detection_rate_upper: 0.95
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -7084,8 +7329,8 @@ measurements:
         maximum_pooled_null_statistic: 3.694723317402382
       - edit_rate: 0.01
         detection_rate: 0.55
-        detection_rate_lower: 0.42500000000000004
-        detection_rate_upper: 0.7
+        detection_rate_lower: 0.375
+        detection_rate_upper: 0.875
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7094,8 +7339,8 @@ measurements:
         maximum_pooled_null_statistic: 3.945213033836442
       - edit_rate: 0.02
         detection_rate: 0.125
-        detection_rate_lower: 0.05
-        detection_rate_upper: 0.17500000000000002
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -7107,6 +7352,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -7242,6 +7494,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -7285,8 +7544,8 @@ measurements:
         maximum_pooled_null_statistic: 3.6536565724225296
       - edit_rate: 0.005
         detection_rate: 0.875
-        detection_rate_lower: 0.775
-        detection_rate_upper: 0.975
+        detection_rate_lower: 0.8
+        detection_rate_upper: 1.0
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -7295,8 +7554,8 @@ measurements:
         maximum_pooled_null_statistic: 3.5
       - edit_rate: 0.01
         detection_rate: 0.525
-        detection_rate_lower: 0.375
-        detection_rate_upper: 0.675
+        detection_rate_lower: 0.325
+        detection_rate_upper: 0.7000000000000001
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7306,7 +7565,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.15
         detection_rate_lower: 0.05
-        detection_rate_upper: 0.275
+        detection_rate_upper: 0.30000000000000004
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7318,6 +7577,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -7453,6 +7719,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -7476,7 +7749,7 @@ measurements:
         maximum_pooled_null_statistic: 4.170575594255735
       - edit_rate: 0.001
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.95
         detection_rate_upper: 1.0
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
@@ -7496,7 +7769,7 @@ measurements:
         maximum_pooled_null_statistic: 3.7123106012293743
       - edit_rate: 0.005
         detection_rate: 0.85
-        detection_rate_lower: 0.7000000000000001
+        detection_rate_lower: 0.675
         detection_rate_upper: 0.975
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
@@ -7506,7 +7779,7 @@ measurements:
         maximum_pooled_null_statistic: 3.8156329904892896
       - edit_rate: 0.01
         detection_rate: 0.3
-        detection_rate_lower: 0.175
+        detection_rate_lower: 0.17500000000000002
         detection_rate_upper: 0.45
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
@@ -7517,7 +7790,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.125
+        detection_rate_upper: 0.15000000000000002
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7529,6 +7802,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -7664,6 +7944,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -7697,7 +7984,7 @@ measurements:
         maximum_pooled_null_statistic: 3.625
       - edit_rate: 0.002
         detection_rate: 1.0
-        detection_rate_lower: 1.0
+        detection_rate_lower: 0.95
         detection_rate_upper: 1.0
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0078125
@@ -7708,7 +7995,7 @@ measurements:
       - edit_rate: 0.005
         detection_rate: 0.725
         detection_rate_lower: 0.55
-        detection_rate_upper: 0.875
+        detection_rate_upper: 0.9
         threshold: 3.819968175619412
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7717,8 +8004,8 @@ measurements:
         maximum_pooled_null_statistic: 3.875
       - edit_rate: 0.01
         detection_rate: 0.175
-        detection_rate_lower: 0.1
-        detection_rate_upper: 0.25
+        detection_rate_lower: 0.05
+        detection_rate_upper: 0.375
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -7728,7 +8015,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.025
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.07500000000000001
+        detection_rate_upper: 0.125
         threshold: 3.819968175619412
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -7740,6 +8027,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -7875,6 +8169,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -7898,7 +8199,7 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.001
         detection_rate: 0.975
-        detection_rate_lower: 0.925
+        detection_rate_lower: 0.875
         detection_rate_upper: 1.0
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
@@ -7918,7 +8219,7 @@ measurements:
         maximum_pooled_null_statistic: 3.5
       - edit_rate: 0.005
         detection_rate: 0.85
-        detection_rate_lower: 0.7
+        detection_rate_lower: 0.675
         detection_rate_upper: 0.975
         threshold: 3.5
         achieved_false_positive_rate: 0.0078125
@@ -7938,8 +8239,8 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.02
         detection_rate: 0.225
-        detection_rate_lower: 0.125
-        detection_rate_upper: 0.325
+        detection_rate_lower: 0.1
+        detection_rate_upper: 0.42500000000000004
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7951,6 +8252,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -8086,6 +8394,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -8119,8 +8434,8 @@ measurements:
         maximum_pooled_null_statistic: 4.170575594255735
       - edit_rate: 0.002
         detection_rate: 0.925
-        detection_rate_lower: 0.8500000000000001
-        detection_rate_upper: 0.975
+        detection_rate_lower: 0.875
+        detection_rate_upper: 1.0
         threshold: 4.170575594255735
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -8130,7 +8445,7 @@ measurements:
       - edit_rate: 0.005
         detection_rate: 0.8
         detection_rate_lower: 0.7
-        detection_rate_upper: 0.9
+        detection_rate_upper: 0.925
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -8140,7 +8455,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.375
         detection_rate_lower: 0.25
-        detection_rate_upper: 0.525
+        detection_rate_upper: 0.625
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -8150,7 +8465,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.125
+        detection_rate_upper: 0.25
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -8162,6 +8477,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -8297,6 +8619,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -8351,7 +8680,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.1
         detection_rate_lower: 0.025
-        detection_rate_upper: 0.17500000000000002
+        detection_rate_upper: 0.2
         threshold: 3.945213033836442
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -8360,7 +8689,7 @@ measurements:
         maximum_pooled_null_statistic: 4.070457892053472
       - edit_rate: 0.02
         detection_rate: 0.1
-        detection_rate_lower: 0.025
+        detection_rate_lower: 0.0
         detection_rate_upper: 0.2
         threshold: 3.3189887427512925
         achieved_false_positive_rate: 0.0078125
@@ -8373,6 +8702,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -8508,6 +8844,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -8541,8 +8884,8 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.002
         detection_rate: 0.875
-        detection_rate_lower: 0.775
-        detection_rate_upper: 0.975
+        detection_rate_lower: 0.7000000000000001
+        detection_rate_upper: 1.0
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -8551,8 +8894,8 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.005
         detection_rate: 0.775
-        detection_rate_lower: 0.6000000000000001
-        detection_rate_upper: 0.925
+        detection_rate_lower: 0.625
+        detection_rate_upper: 0.95
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -8561,7 +8904,7 @@ measurements:
         maximum_pooled_null_statistic: 3.9056328877620143
       - edit_rate: 0.01
         detection_rate: 0.65
-        detection_rate_lower: 0.45
+        detection_rate_lower: 0.325
         detection_rate_upper: 0.8250000000000001
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
@@ -8571,8 +8914,8 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.02
         detection_rate: 0.275
-        detection_rate_lower: 0.1
-        detection_rate_upper: 0.475
+        detection_rate_lower: 0.125
+        detection_rate_upper: 0.6
         threshold: 3.75
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -8584,6 +8927,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -8719,6 +9069,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -8762,8 +9119,8 @@ measurements:
         maximum_pooled_null_statistic: 3.993104292372512
       - edit_rate: 0.005
         detection_rate: 0.85
-        detection_rate_lower: 0.675
-        detection_rate_upper: 1.0
+        detection_rate_lower: 0.7
+        detection_rate_upper: 0.975
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -8772,8 +9129,8 @@ measurements:
         maximum_pooled_null_statistic: 3.6381616886060666
       - edit_rate: 0.01
         detection_rate: 0.475
-        detection_rate_lower: 0.325
-        detection_rate_upper: 0.575
+        detection_rate_lower: 0.3
+        detection_rate_upper: 0.625
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -8795,6 +9152,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -8930,6 +9294,13 @@ measurements:
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
       attainable_false_positive_rate: 0.0078125
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detection_rate: 1.0
@@ -8984,7 +9355,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.15
         detection_rate_lower: 0.07500000000000001
-        detection_rate_upper: 0.25
+        detection_rate_upper: 0.45
         threshold: 4.0
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -8994,7 +9365,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.1
         detection_rate_lower: 0.025
-        detection_rate_upper: 0.2
+        detection_rate_upper: 0.225
         threshold: 3.375
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -9006,6 +9377,13 @@ measurements:
         alignment actually recovered by detected positives; a detection away from phase 0 and offset
         0 recovered a segment after an indel, not the intact prefix, so the declared phase and offset
         search performs implicit resynchronization
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         detected_trials: 40
@@ -9151,6 +9529,13 @@ measurements:
       positive_trials_per_point: 40
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         windowed_detection_rate: 1.0
@@ -9206,8 +9591,8 @@ measurements:
         windowed_recovered_window_tokens: [32, 64]
       - edit_rate: 0.02
         windowed_detection_rate: 0.7
-        windowed_detection_rate_lower: 0.5
-        windowed_detection_rate_upper: 0.9
+        windowed_detection_rate_lower: 0.475
+        windowed_detection_rate_upper: 0.875
         unwindowed_detection_rate: 0.15
         detection_rate_gain: 0.5499999999999999
         windowed_threshold: 4.5
@@ -9339,6 +9724,13 @@ measurements:
       positive_trials_per_point: 40
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         windowed_detection_rate: 1.0
@@ -9394,7 +9786,7 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.02
         windowed_detection_rate: 0.8
-        windowed_detection_rate_lower: 0.65
+        windowed_detection_rate_lower: 0.575
         windowed_detection_rate_upper: 0.925
         unwindowed_detection_rate: 0.05
         detection_rate_gain: 0.75
@@ -9408,7 +9800,7 @@ measurements:
       - edit_rate: 0.05
         windowed_detection_rate: 0.05
         windowed_detection_rate_lower: 0.0
-        windowed_detection_rate_upper: 0.125
+        windowed_detection_rate_upper: 0.1
         unwindowed_detection_rate: 0.0
         detection_rate_gain: 0.05
         windowed_threshold: 4.25
@@ -9527,6 +9919,13 @@ measurements:
       positive_trials_per_point: 40
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         windowed_detection_rate: 1.0
@@ -9582,8 +9981,8 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.02
         windowed_detection_rate: 0.525
-        windowed_detection_rate_lower: 0.35000000000000003
-        windowed_detection_rate_upper: 0.7000000000000001
+        windowed_detection_rate_lower: 0.25
+        windowed_detection_rate_upper: 0.8
         unwindowed_detection_rate: 0.05
         detection_rate_gain: 0.47500000000000003
         windowed_threshold: 4.596194077712559
@@ -9715,6 +10114,13 @@ measurements:
       positive_trials_per_point: 40
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         windowed_detection_rate: 1.0
@@ -9757,7 +10163,7 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.01
         windowed_detection_rate: 0.975
-        windowed_detection_rate_lower: 0.925
+        windowed_detection_rate_lower: 0.875
         windowed_detection_rate_upper: 1.0
         unwindowed_detection_rate: 0.1
         detection_rate_gain: 0.875
@@ -9770,8 +10176,8 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.02
         windowed_detection_rate: 0.575
-        windowed_detection_rate_lower: 0.4
-        windowed_detection_rate_upper: 0.75
+        windowed_detection_rate_lower: 0.3
+        windowed_detection_rate_upper: 0.7250000000000001
         unwindowed_detection_rate: 0.05
         detection_rate_gain: 0.5249999999999999
         windowed_threshold: 4.5
@@ -9784,7 +10190,7 @@ measurements:
       - edit_rate: 0.05
         windowed_detection_rate: 0.025
         windowed_detection_rate_lower: 0.0
-        windowed_detection_rate_upper: 0.07500000000000001
+        windowed_detection_rate_upper: 0.125
         unwindowed_detection_rate: 0.025
         detection_rate_gain: 0.0
         windowed_threshold: 4.596194077712559
@@ -9903,6 +10309,13 @@ measurements:
       positive_trials_per_point: 40
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         windowed_detection_rate: 1.0
@@ -9945,8 +10358,8 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.01
         windowed_detection_rate: 0.925
-        windowed_detection_rate_lower: 0.8500000000000001
-        windowed_detection_rate_upper: 0.975
+        windowed_detection_rate_lower: 0.875
+        windowed_detection_rate_upper: 1.0
         unwindowed_detection_rate: 0.2
         detection_rate_gain: 0.7250000000000001
         windowed_threshold: 4.596194077712559
@@ -9958,8 +10371,8 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.02
         windowed_detection_rate: 0.6
-        windowed_detection_rate_lower: 0.47500000000000003
-        windowed_detection_rate_upper: 0.7250000000000001
+        windowed_detection_rate_lower: 0.375
+        windowed_detection_rate_upper: 0.725
         unwindowed_detection_rate: 0.1
         detection_rate_gain: 0.5
         windowed_threshold: 4.25
@@ -9972,7 +10385,7 @@ measurements:
       - edit_rate: 0.05
         windowed_detection_rate: 0.05
         windowed_detection_rate_lower: 0.0
-        windowed_detection_rate_upper: 0.125
+        windowed_detection_rate_upper: 0.275
         unwindowed_detection_rate: 0.0
         detection_rate_gain: 0.05
         windowed_threshold: 4.596194077712559
@@ -10091,6 +10504,13 @@ measurements:
       positive_trials_per_point: 40
       pooled_null_trials_per_point: 128
       target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
       points:
       - edit_rate: 0.0
         windowed_detection_rate: 1.0
@@ -10133,7 +10553,7 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128, 256]
       - edit_rate: 0.01
         windowed_detection_rate: 0.975
-        windowed_detection_rate_lower: 0.925
+        windowed_detection_rate_lower: 0.9
         windowed_detection_rate_upper: 1.0
         unwindowed_detection_rate: 0.225
         detection_rate_gain: 0.75
@@ -10146,8 +10566,8 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.02
         windowed_detection_rate: 0.625
-        windowed_detection_rate_lower: 0.42500000000000004
-        windowed_detection_rate_upper: 0.825
+        windowed_detection_rate_lower: 0.45
+        windowed_detection_rate_upper: 0.875
         unwindowed_detection_rate: 0.075
         detection_rate_gain: 0.55
         windowed_threshold: 4.596194077712559
@@ -11085,6 +11505,412 @@ measurements:
       supports no functional, viability, or safety inference. Four draws per arm cannot certify the
       absence of a small real effect. Not a test of sequence-level indistinguishability.
 
+# E4 short-length extension. The main run showed 384 bases separates with margin; this measures how
+# far down clean detection survives, using prefixes of the same corpus. The value is the shortest
+# evaluated length at which every watermarked sequence is still detected; the shortest length with a
+# strict margin over every null is admitted alongside it, because at the very shortest length the
+# detection rate is 1.0 while the positive and null distributions touch.
+
+  - id: e4.short_detection.c_tok.shortest_fully_detected_bases
+    status: V
+    value: 96
+    unit: bases
+    quantity: >-
+      shortest evaluated generated length at which every clean watermarked sequence is detected, at a
+      false-positive rate calibrated over the complete declared search
+    admitted_margin:
+      note: >-
+        at the shortest length the detection rate is 1.0 but the positive and null distributions can
+        touch, so the length at which positives sit strictly above every null is admitted separately
+      shortest_length_with_strict_separation_bases: 144
+      shortest_evaluated_length_bases: 96
+      shortest_evaluated_is_a_search_bound: >-
+        the declared search sets a minimum window of 16 tokens, so 96 bases is the floor of this
+        experiment rather than a measured limit
+    admitted_curve:
+      note: >-
+        every point below is admitted; the paper's length figure is drawn from these values
+      decision_rule: statistic > threshold, matching how null exceedances were counted
+      positive_trials_per_point: 8
+      pooled_null_trials_per_point: 320
+      target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
+      points:
+      - base_length: 96
+        token_length: 16
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.0
+        achieved_false_positive_rate: 0.003125
+        minimum_positive_statistic: 3.5
+        maximum_pooled_null_statistic: 3.5
+        positives_strictly_above_all_nulls: false
+      - base_length: 144
+        token_length: 24
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.5447450389702713
+        achieved_false_positive_rate: 0.003125
+        minimum_positive_statistic: 4.4907311951024935
+        maximum_pooled_null_statistic: 3.9617738670844207
+        positives_strictly_above_all_nulls: true
+      - base_length: 192
+        token_length: 32
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.771711342562273
+        achieved_false_positive_rate: 0.0
+        minimum_positive_statistic: 5.303300858899106
+        maximum_pooled_null_statistic: 3.771711342562273
+        positives_strictly_above_all_nulls: true
+      - base_length: 288
+        token_length: 48
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.354894804451575
+        achieved_false_positive_rate: 0.009375
+        minimum_positive_statistic: 6.3508529610858835
+        maximum_pooled_null_statistic: 3.646624787447364
+        positives_strictly_above_all_nulls: true
+      - base_length: 384
+        token_length: 64
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.6536565724225296
+        achieved_false_positive_rate: 0.009375
+        minimum_positive_statistic: 7.5
+        maximum_pooled_null_statistic: 3.9056328877620143
+        positives_strictly_above_all_nulls: true
+    uncertainty:
+      type: equal-weight prompt-cluster percentile bootstrap
+      confidence_level: 0.95
+      replicates: 20000
+      seed: 2718
+      scope: >-
+        Resamples the 8 prompt clusters. With a unanimous outcome the interval is degenerate by
+        construction. Per-point intervals are in admitted_curve.
+    scope:
+      model_policy: C_tok
+      watermark_method: partition-mc-v1
+      control_method: ordinary-categorical-v1
+      edit_condition: none, clean generated sequence
+      evaluated_as: prefix of the generated sequence
+      evaluated_base_lengths: [96, 144, 192, 288, 384]
+      detector_inputs: DNA, runtime key, and public configuration only
+      detector_search:
+        orientations: 2
+        phases: 6
+        windows: full evaluated prefix only
+        key_stream_offsets: 8
+        hypotheses_scored: 96
+        minimum_window_tokens: 16
+      statistic_lattice: >-
+        the statistic is (2m - n) / sqrt(n), so at n = 16 tokens it takes only 17 distinct values in
+        steps of 0.5; the maximum over 96 hypotheses saturates, which lowers the calibrated threshold
+        at short lengths
+      prompt_clusters: 8
+      null_keys: 20
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      key_material: published non-secret fixture
+    source:
+      report_artifact: outputs/carbon_c_tok_e4_short_detection_v1.json
+      report_sha256: 05f95370ca2b6f8607aed3f3bdebc176be596a17d2946fab66423a2e3d27c10e
+      generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      generation_sha256: e5d3fe68bc021014d850f3e9b9a01a28ae6f4a4ce4c808d1e89f9550fe6df631
+      sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      sequences_sha256: 21859f133a1b8517f5ddd4f7fa767c36d0bb6678df71cfa9e5eb9820c2fba71d
+      command: >-
+        uv run python scripts/run_detection_pilot.py --sequences outputs/carbon_c_tok_e4_sequences_v1.jsonl --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --token-lengths 16 24 32 48 64 --stream-offsets 8
+        --null-keys 20 --target-fpr 0.01 --bootstrap-replicates 20000 --bootstrap-seed 2718
+        --output outputs/carbon_c_tok_e4_short_detection_v1.json
+    notes: >-
+      Clean sequences only, under a published non-secret fixture key. A detection rate of 1.0 at the
+      shortest length is not the same as a usable margin: at 96 bases the smallest positive statistic
+      equals the largest null statistic for two of the three policies, so a single unlucky null would
+      have crossed. The margin figure is the one to quote for a deployment. Lengths below 96 bases are
+      not measured, because they need a different declared search and its own calibration.
+  - id: e4.short_detection.g_tok.shortest_fully_detected_bases
+    status: V
+    value: 96
+    unit: bases
+    quantity: >-
+      shortest evaluated generated length at which every clean watermarked sequence is detected, at a
+      false-positive rate calibrated over the complete declared search
+    admitted_margin:
+      note: >-
+        at the shortest length the detection rate is 1.0 but the positive and null distributions can
+        touch, so the length at which positives sit strictly above every null is admitted separately
+      shortest_length_with_strict_separation_bases: 144
+      shortest_evaluated_length_bases: 96
+      shortest_evaluated_is_a_search_bound: >-
+        the declared search sets a minimum window of 16 tokens, so 96 bases is the floor of this
+        experiment rather than a measured limit
+    admitted_curve:
+      note: >-
+        every point below is admitted; the paper's length figure is drawn from these values
+      decision_rule: statistic > threshold, matching how null exceedances were counted
+      positive_trials_per_point: 8
+      pooled_null_trials_per_point: 320
+      target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
+      points:
+      - base_length: 96
+        token_length: 16
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.0
+        achieved_false_positive_rate: 0.003125
+        minimum_positive_statistic: 4.0
+        maximum_pooled_null_statistic: 4.0
+        positives_strictly_above_all_nulls: false
+      - base_length: 144
+        token_length: 24
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.5447450389702713
+        achieved_false_positive_rate: 0.009375
+        minimum_positive_statistic: 4.4907311951024935
+        maximum_pooled_null_statistic: 3.9617738670844207
+        positives_strictly_above_all_nulls: true
+      - base_length: 192
+        token_length: 32
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.412500738508723
+        achieved_false_positive_rate: 0.00625
+        minimum_positive_statistic: 5.303300858899106
+        maximum_pooled_null_statistic: 3.771711342562273
+        positives_strictly_above_all_nulls: true
+      - base_length: 288
+        token_length: 48
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.646624787447364
+        achieved_false_positive_rate: 0.0
+        minimum_positive_statistic: 6.639528095680697
+        maximum_pooled_null_statistic: 3.646624787447364
+        positives_strictly_above_all_nulls: true
+      - base_length: 384
+        token_length: 64
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.6536565724225296
+        achieved_false_positive_rate: 0.009375
+        minimum_positive_statistic: 7.75
+        maximum_pooled_null_statistic: 4.25
+        positives_strictly_above_all_nulls: true
+    uncertainty:
+      type: equal-weight prompt-cluster percentile bootstrap
+      confidence_level: 0.95
+      replicates: 20000
+      seed: 2718
+      scope: >-
+        Resamples the 8 prompt clusters. With a unanimous outcome the interval is degenerate by
+        construction. Per-point intervals are in admitted_curve.
+    scope:
+      model_policy: G_tok
+      watermark_method: partition-mc-v1
+      control_method: ordinary-categorical-v1
+      edit_condition: none, clean generated sequence
+      evaluated_as: prefix of the generated sequence
+      evaluated_base_lengths: [96, 144, 192, 288, 384]
+      detector_inputs: DNA, runtime key, and public configuration only
+      detector_search:
+        orientations: 2
+        phases: 6
+        windows: full evaluated prefix only
+        key_stream_offsets: 8
+        hypotheses_scored: 96
+        minimum_window_tokens: 16
+      statistic_lattice: >-
+        the statistic is (2m - n) / sqrt(n), so at n = 16 tokens it takes only 17 distinct values in
+        steps of 0.5; the maximum over 96 hypotheses saturates, which lowers the calibrated threshold
+        at short lengths
+      prompt_clusters: 8
+      null_keys: 20
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      key_material: published non-secret fixture
+    source:
+      report_artifact: outputs/generator_g_tok_e4_short_detection_v1.json
+      report_sha256: ae57c6ec5d4d355fee8cccd8578a89ee4435c46d25613e8b217b91871dc65276
+      generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      generation_sha256: 4c2ba3c9f7b372c8dd2202a8055dd0f6416e5b7bd01db64d03e17454e70ba348
+      sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      sequences_sha256: 0660ed273ebd758fd794f3bf91fef9d65ddb0efa51fdec47d82deb0954d85e21
+      command: >-
+        uv run python scripts/run_detection_pilot.py --sequences outputs/generator_g_tok_e4_sequences_v1.jsonl --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --token-lengths 16 24 32 48 64 --stream-offsets 8
+        --null-keys 20 --target-fpr 0.01 --bootstrap-replicates 20000 --bootstrap-seed 2718
+        --output outputs/generator_g_tok_e4_short_detection_v1.json
+    notes: >-
+      Clean sequences only, under a published non-secret fixture key. A detection rate of 1.0 at the
+      shortest length is not the same as a usable margin: at 96 bases the smallest positive statistic
+      equals the largest null statistic for two of the three policies, so a single unlucky null would
+      have crossed. The margin figure is the one to quote for a deployment. Lengths below 96 bases are
+      not measured, because they need a different declared search and its own calibration.
+  - id: e4.short_detection.g_bp.shortest_fully_detected_bases
+    status: V
+    value: 96
+    unit: bases
+    quantity: >-
+      shortest evaluated generated length at which every clean watermarked sequence is detected, at a
+      false-positive rate calibrated over the complete declared search
+    admitted_margin:
+      note: >-
+        at the shortest length the detection rate is 1.0 but the positive and null distributions can
+        touch, so the length at which positives sit strictly above every null is admitted separately
+      shortest_length_with_strict_separation_bases: 96
+      shortest_evaluated_length_bases: 96
+      shortest_evaluated_is_a_search_bound: >-
+        the declared search sets a minimum window of 16 tokens, so 96 bases is the floor of this
+        experiment rather than a measured limit
+    admitted_curve:
+      note: >-
+        every point below is admitted; the paper's length figure is drawn from these values
+      decision_rule: statistic > threshold, matching how null exceedances were counted
+      positive_trials_per_point: 8
+      pooled_null_trials_per_point: 320
+      target_false_positive_rate: 0.01
+      interval_method: >-
+        every detection-rate interval below is a joint resample: each replicate resamples the null
+        trials, recalibrates the threshold from that resample, and independently resamples the prompt
+        clusters. Resampling only the clusters would treat an estimated threshold as known and can
+        report a degenerate interval on a unanimous cell.
+      interval_replicates: 2000
+      interval_seed: 2718
+      points:
+      - base_length: 96
+        token_length: 16
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.0
+        achieved_false_positive_rate: 0.00625
+        minimum_positive_statistic: 4.0
+        maximum_pooled_null_statistic: 3.5
+        positives_strictly_above_all_nulls: true
+      - base_length: 144
+        token_length: 24
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.5447450389702713
+        achieved_false_positive_rate: 0.00625
+        minimum_positive_statistic: 4.898979485566357
+        maximum_pooled_null_statistic: 3.9617738670844207
+        positives_strictly_above_all_nulls: true
+      - base_length: 192
+        token_length: 32
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.771711342562273
+        achieved_false_positive_rate: 0.003125
+        minimum_positive_statistic: 5.65685424949238
+        maximum_pooled_null_statistic: 3.8890872965260113
+        positives_strictly_above_all_nulls: true
+      - base_length: 288
+        token_length: 48
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.646624787447364
+        achieved_false_positive_rate: 0.009375
+        minimum_positive_statistic: 6.92820323027551
+        maximum_pooled_null_statistic: 4.230084753438942
+        positives_strictly_above_all_nulls: true
+      - base_length: 384
+        token_length: 64
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        threshold: 3.9056328877620143
+        achieved_false_positive_rate: 0.009375
+        minimum_positive_statistic: 8.0
+        maximum_pooled_null_statistic: 4.409585518440984
+        positives_strictly_above_all_nulls: true
+    uncertainty:
+      type: equal-weight prompt-cluster percentile bootstrap
+      confidence_level: 0.95
+      replicates: 20000
+      seed: 2718
+      scope: >-
+        Resamples the 8 prompt clusters. With a unanimous outcome the interval is degenerate by
+        construction. Per-point intervals are in admitted_curve.
+    scope:
+      model_policy: G_bp
+      watermark_method: partition-mc-v1
+      control_method: ordinary-categorical-v1
+      edit_condition: none, clean generated sequence
+      evaluated_as: prefix of the generated sequence
+      evaluated_base_lengths: [96, 144, 192, 288, 384]
+      detector_inputs: DNA, runtime key, and public configuration only
+      detector_search:
+        orientations: 2
+        phases: 6
+        windows: full evaluated prefix only
+        key_stream_offsets: 8
+        hypotheses_scored: 96
+        minimum_window_tokens: 16
+      statistic_lattice: >-
+        the statistic is (2m - n) / sqrt(n), so at n = 16 tokens it takes only 17 distinct values in
+        steps of 0.5; the maximum over 96 hypotheses saturates, which lowers the calibrated threshold
+        at short lengths
+      prompt_clusters: 8
+      null_keys: 20
+      cohort_id: ncbi_refseq_eukaryote_windows_v2
+      cohort_content_sha256: 1bb980d4be5dad5769e9ccc18a78133d7638e0bf78ebd2df2dcfdcf0d2a254ed
+      cohort_manifest_sha256: 539b5b9a304ac0d901e70712a2f97cd7667ccff0b2f3f15f9b6efa9c28b4ca8e
+      key_material: published non-secret fixture
+    source:
+      report_artifact: outputs/generator_g_bp_e4_short_detection_v1.json
+      report_sha256: 3350a34c458ecdc314bb1197e1f99b76dcfc556b841cb85209988fdeb8a8d61e
+      generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      generation_sha256: 277253e83f9f0573de71480e6f2b0a1a8fb3296c7aa60762ff586831f8e672bd
+      sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      sequences_sha256: 3e716fa3a3771534902cf7d1a1bb73d893a125f1cb6bdb1fff284942c8dce061
+      command: >-
+        uv run python scripts/run_detection_pilot.py --sequences outputs/generator_g_bp_e4_sequences_v1.jsonl --cohort-jsonl
+        data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl --cohort-manifest
+        data/public_prompt_cohort_v2.yaml --token-lengths 16 24 32 48 64 --stream-offsets 8
+        --null-keys 20 --target-fpr 0.01 --bootstrap-replicates 20000 --bootstrap-seed 2718
+        --output outputs/generator_g_bp_e4_short_detection_v1.json
+    notes: >-
+      Clean sequences only, under a published non-secret fixture key. A detection rate of 1.0 at the
+      shortest length is not the same as a usable margin: at 96 bases the smallest positive statistic
+      equals the largest null statistic for two of the three policies, so a single unlucky null would
+      have crossed. The margin figure is the one to quote for a deployment. Lengths below 96 bases are
+      not measured, because they need a different declared search and its own calibration.
+
 # Corrections. Superseded measurement IDs are recorded here so an audit can see what changed and
 # why. The superseded artifacts remain on disk unmodified but are no longer cited by any entry.
 superseded_measurements:
@@ -11124,3 +11950,20 @@ superseded_measurements:
       Under the corrected null two G_bp distinguishers are nominally significant in the below-chance
       direction, neither clearing the Bonferroni threshold across the nine tests; that is recorded as
       unresolved.
+  - measurement_id_prefix: e5.substitution, e6.crop_strand, e7.deletion, e7.insertion, e7.stage2
+    superseded_ids: interval fields only, 624 values across 312 curve points
+    replaced_by_suffix: same ids, interval fields recomputed
+    reason: >-
+      Detection-rate intervals resampled only the positive prompt clusters, which treats the
+      calibrated threshold as known when it is estimated from the null trials. On cells where the
+      positive and null statistics are close this understates the interval by up to about 3.6 times,
+      and on a unanimous cell it reported a degenerate interval that claimed more certainty than the
+      data supports. Intervals are now a joint resample of the nulls, which recalibrates the
+      threshold, and the prompt clusters.
+    effect_on_values: >-
+      No point estimate changed: not one detection rate, threshold, achieved false-positive rate,
+      largest fully detected rate, or separation flag. Only interval bounds moved, on 29 of 84 E5
+      cells and similarly elsewhere. Eight previously degenerate unanimous intervals now carry honest
+      bounds, for example C_tok substitution at rate 0.15 and 1,536 bases moving from [1.000, 1.000]
+      to [0.875, 1.000]. The E4 clean-detection and short-length intervals were checked the same way
+      and are unchanged, because their margins are large.

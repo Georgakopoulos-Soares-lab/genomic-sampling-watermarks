@@ -169,5 +169,6 @@ that deliberately omits peak memory because no recorded field supports a residen
 distinguishers fail to separate the arms for `C_tok` and `G_tok` under matched per-draw pairing and a
 permute-and-refit null; `G_bp` shows two nominal rejections that do not clear Bonferroni across the
 nine tests and are recorded as unresolved. Inverse-transform and exponential baseline samplers are
-implemented with their invariants, and their matched comparison is frozen but not run. Seventy-three
-entries are admitted. Key reuse, adaptive removal, and the decision on a coding layer remain open.
+implemented with their invariants, and their matched comparison is frozen but not run. Clean detection holds at 1.0 down to 96 bases, though the
+positive and null distributions touch there for two policies, so 144 bases is the shortest length with
+a strict margin. Seventy-six entries are admitted. Key reuse, adaptive removal, and the decision on a coding layer remain open.

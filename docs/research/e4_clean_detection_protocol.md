@@ -235,6 +235,118 @@ Generated-corpus digests:
 | `G_tok` | `4c2ba3c9f7b372c8dd2202a8055dd0f6416e5b7bd01db64d03e17454e70ba348` | `0660ed273ebd758fd794f3bf91fef9d65ddb0efa51fdec47d82deb0954d85e21` |
 | `G_bp` | `277253e83f9f0573de71480e6f2b0a1a8fb3296c7aa60762ff586831f8e672bd` | `3e716fa3a3771534902cf7d1a1bb73d893a125f1cb6bdb1fff284942c8dce061` |
 
+## Short-length extension, frozen (2026-08-22)
+
+The main run showed that 384 bases already separates cleanly, with the smallest positive statistic at
+7.50 to 8.00 against a null maximum near 4. That leaves the minimum viable length unmeasured, which is
+the number a deployment actually needs. Shorter lengths are prefixes of the existing corpus, so this
+costs no generation.
+
+| Item | Frozen choice |
+|---|---|
+| Policies | `C_tok`, `G_tok`, `G_bp` |
+| Corpus | the E4 generated corpus, unchanged |
+| Evaluated lengths | 96, 144, 192, 288, and 384 observed bases, that is 16, 24, 32, 48, and 64 tokens |
+| Detector search | unchanged: 2 orientations x 6 phases x full prefix x 8 offsets = 96 hypotheses |
+| Positives, nulls, calibration | unchanged from the main run: 8 positives, 20 null keys, target FPR 0.01 |
+| Decision rule | `statistic > threshold` |
+
+The shortest length is 16 tokens because the declared search sets a minimum window of 16 tokens.
+Going below that is a different declared search and would need its own calibration; it is not done
+here by quietly lowering a bound.
+
+### Predicted outcome, stated before the run
+
+A clean watermarked sequence of `n` tokens scores about `z = 0.98 * sqrt(n)`, and the calibrated
+threshold over 96 hypotheses sits near 3.5 to 4.6. Detection therefore needs roughly
+
+```text
+n > (tau / 0.98)^2  =  13 to 23 tokens  =  78 to 138 bases
+```
+
+| Tokens | Bases | Predicted z |
+|---:|---:|---:|
+| 16 | 96 | 3.92 |
+| 24 | 144 | 4.80 |
+| 32 | 192 | 5.54 |
+| 48 | 288 | 6.79 |
+| 64 | 384 | 7.84 |
+
+So the prediction is: detection at 1.0 from 192 bases upward, marginal at 144, and at or below the
+threshold at 96. If detection is perfect at 96 bases the statistic is stronger than the model says and
+the discrepancy needs explaining; if it fails at 384 the main run is contradicted.
+
+## Short-length result and admission (2026-08-22)
+
+| Policy | Bases | Threshold | Achieved FPR | TPR | Min positive z | Max null z | Predicted z | Strict margin |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| `C_tok` | 96 | 3.00 | 0.00313 | 1.000 | 3.50 | 3.50 | 3.92 | **no** |
+| `C_tok` | 144 | 3.54 | 0.00313 | 1.000 | 4.49 | 3.96 | 4.80 | yes |
+| `C_tok` | 192 | 3.77 | 0.00000 | 1.000 | 5.30 | 3.77 | 5.54 | yes |
+| `C_tok` | 288 | 3.35 | 0.00937 | 1.000 | 6.35 | 3.65 | 6.79 | yes |
+| `C_tok` | 384 | 3.65 | 0.00937 | 1.000 | 7.50 | 3.91 | 7.84 | yes |
+| `G_tok` | 96 | 3.00 | 0.00313 | 1.000 | 4.00 | 4.00 | 3.92 | **no** |
+| `G_tok` | 144 | 3.54 | 0.00937 | 1.000 | 4.49 | 3.96 | 4.80 | yes |
+| `G_tok` | 192 | 3.41 | 0.00625 | 1.000 | 5.30 | 3.77 | 5.54 | yes |
+| `G_tok` | 288 | 3.65 | 0.00000 | 1.000 | 6.64 | 3.65 | 6.79 | yes |
+| `G_tok` | 384 | 3.65 | 0.00937 | 1.000 | 7.75 | 4.25 | 7.84 | yes |
+| `G_bp` | 96 | 3.00 | 0.00625 | 1.000 | 4.00 | 3.50 | 3.92 | yes |
+| `G_bp` | 144 | 3.54 | 0.00625 | 1.000 | 4.90 | 3.96 | 4.80 | yes |
+| `G_bp` | 192 | 3.77 | 0.00313 | 1.000 | 5.66 | 3.89 | 5.54 | yes |
+| `G_bp` | 288 | 3.65 | 0.00937 | 1.000 | 6.93 | 4.23 | 6.79 | yes |
+| `G_bp` | 384 | 3.91 | 0.00937 | 1.000 | 8.00 | 4.41 | 7.84 | yes |
+
+**Detection is 1.000 at every evaluated length, down to 96 bases, for all three policies**, at
+achieved false-positive rates between 0.0000 and 0.0094 against a 0.01 target.
+
+### The prediction was wrong, and the reason is worth keeping
+
+The prediction was that 96 bases would be marginal, because the predicted statistic there is 3.92
+against an assumed threshold of 3.5 to 4.6. The statistic came out as predicted — 3.50 to 4.00 — but
+the **threshold** fell to 3.00, well below the assumed range, so detection held.
+
+The threshold fell because the statistic lives on a lattice. With `z = (2m - n) / sqrt(n)` and
+`n = 16` tokens there are only 17 achievable values, spaced 0.5 apart. The maximum over 96 hypotheses
+therefore saturates: it cannot exceed what 16 tokens can express. Short sequences give the detector
+less signal *and* give the null less room, and at these lengths the second effect wins.
+
+That was not in the model, and it is the second time a discreteness effect has mattered here; the
+first was ties at the calibrated threshold.
+
+### Why the headline number is 144 bases, not 96
+
+A detection rate of 1.0 is not the same as a usable margin. At 96 bases:
+
+- `C_tok`: smallest positive statistic 3.50, largest null statistic 3.50 — **equal**.
+- `G_tok`: smallest positive 4.00, largest null 4.00 — **equal**.
+- `G_bp`: smallest positive 4.00 against largest null 3.50 — separated.
+
+So for two of three policies the positive and null distributions touch at 96 bases. Detection is 1.0
+only because the calibrated threshold sits below both. One unlucky null draw would have crossed.
+
+From 144 bases upward, every positive sits strictly above every null for all three policies. **144
+bases is the length to quote for a deployment**; 96 bases is the length at which the measured
+detection rate is still 1.0, and the two are different claims.
+
+### The floor is a search bound, not a measurement
+
+96 bases is 16 tokens, which is the minimum window the declared search allows. Shorter sequences are
+not measured because they require a different declared search and their own calibration, and lowering
+that bound quietly would invalidate the comparison with every other result in this project.
+
+Admitted: three entries, `e4.short_detection.{c_tok,g_tok,g_bp}.shortest_fully_detected_bases`, each
+carrying the five-point curve with thresholds, achieved false-positive rates, both extreme statistics,
+and the per-point separation flag, plus the shortest length with a strict margin under
+`admitted_margin`.
+
+Cited artifact digests:
+
+| Policy | Report |
+|---|---|
+| `C_tok` | `05f95370ca2b6f8607aed3f3bdebc176be596a17d2946fab66423a2e3d27c10e` |
+| `G_tok` | `ae57c6ec5d4d355fee8cccd8578a89ee4435c46d25613e8b217b91871dc65276` |
+| `G_bp` | `3350a34c458ecdc314bb1197e1f99b76dcfc556b841cb85209988fdeb8a8d61e` |
+
 ## Decision-rule correction (2026-08-21)
 
 The first admitted revision of this experiment used a calibration that counted null exceedances

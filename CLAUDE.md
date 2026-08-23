@@ -35,7 +35,7 @@ states per policy on a frozen 24-prompt public RefSeq cohort. The initial 12-pro
 triggered the preregistered expansion; all three policies pass the final stability rule. The three
 E2 capacity, E3 stage-1 preservation, E4 clean detection, E5 substitution robustness, and E6 crop,
 strand, and phase, and E7 stage-1 indel results have passed evidence-admission review;
-`evidence/measurements.yaml` holds 73 entries plus a `superseded_measurements` record. The E3
+`evidence/measurements.yaml` holds 76 entries plus a `superseded_measurements` record. The E3
 stage-2 sequence-proxy anomaly is resolved: it was realization noise on both arms, found by averaging
 the control side that earlier designs left un-averaged. E7 is
 the project's synchronization result: the unwindowed detector tolerates indel rates 50 to 150 times
@@ -147,6 +147,7 @@ Do not compare different policies and attribute the difference solely to waterma
 | Generator, verifier, and attacker | `docs/threat_model.md` |
 | Model and watermark baseline IDs | `docs/baseline_definition.md` |
 | E0-E13 plan and gates | `docs/experiments.md` |
+| Whole-project audit and open gaps | `docs/research/audit_2026_08_23.md` |
 | Result admission rules | `evidence/README.md` |
 | Paper-printable values | `evidence/measurements.yaml` |
 | Manuscript rules and implementation status | `paper/AGENTS.md`, `paper/context/` |

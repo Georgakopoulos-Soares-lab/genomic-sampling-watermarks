@@ -21,6 +21,7 @@ from .search import (
     detection_rate,
     empirical_p_value,
     enumerate_search,
+    joint_detection_rate_interval,
     standardized_agreement,
 )
 
@@ -45,6 +46,7 @@ __all__ = [
     "detection_rate",
     "empirical_p_value",
     "enumerate_search",
+    "joint_detection_rate_interval",
     "score_partition_agreement",
     "search_orientation_and_phase",
     "standardized_agreement",

@@ -18,7 +18,7 @@ null trials that repeat the identical search.
 from __future__ import annotations
 
 import math
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 
 from genomic_watermarks.dna import KMER_SIZE, normalize_dna, reverse_complement, tokenize_fixed
@@ -538,3 +538,77 @@ def detection_rate(statistics: Sequence[float], threshold: float) -> float:
     if not statistics:
         raise ValueError("detection rate requires at least one trial")
     return sum(float(value) > threshold for value in statistics) / len(statistics)
+
+
+def joint_detection_rate_interval(
+    positives_by_cluster: Mapping[str, Sequence[float]],
+    null_statistics: Sequence[float],
+    target_false_positive_rate: float,
+    *,
+    replicates: int,
+    seed: int,
+    confidence_level: float = 0.95,
+) -> dict[str, float]:
+    """Interval for a detection rate that also carries the threshold's uncertainty.
+
+    A detection rate is measured against a threshold *estimated* from null trials.
+    Resampling only the positive clusters treats that threshold as known, which
+    understates the uncertainty — badly when the positive and null distributions
+    are close, and not at all when the margin is large.
+
+    Each replicate therefore resamples the null trials, recalibrates the threshold
+    from that resample, and independently resamples the clusters of positives. The
+    clustering is preserved: a cluster contributes the mean of its own trials, so
+    replicate trials inside a cluster are never treated as independent.
+    """
+
+    if not positives_by_cluster:
+        raise ValueError("at least one positive cluster is required")
+    if len(positives_by_cluster) < 2:
+        raise ValueError("at least two positive clusters are required")
+    if not null_statistics:
+        raise ValueError("null trials are required to recalibrate the threshold")
+    if replicates <= 0:
+        raise ValueError("replicates must be positive")
+    if seed < 0:
+        raise ValueError("seed must be non-negative")
+    if not 0.0 < confidence_level < 1.0:
+        raise ValueError("confidence_level must lie in (0, 1)")
+
+    import random as _random
+    import statistics as _statistics
+
+    clusters = tuple(sorted(positives_by_cluster))
+    values = {name: tuple(float(v) for v in positives_by_cluster[name]) for name in clusters}
+    if any(not v for v in values.values()):
+        raise ValueError("every positive cluster must hold at least one trial")
+    nulls = [float(value) for value in null_statistics]
+    point = calibrate_threshold(nulls, target_false_positive_rate)
+    rng = _random.Random(seed)
+    rates: list[float] = []
+    for _ in range(replicates):
+        resampled_nulls = [nulls[rng.randrange(len(nulls))] for _ in nulls]
+        threshold = calibrate_threshold(resampled_nulls, target_false_positive_rate).threshold
+        picked = [clusters[rng.randrange(len(clusters))] for _ in clusters]
+        rates.append(
+            _statistics.fmean(
+                _statistics.fmean([float(v > threshold) for v in values[name]]) for name in picked
+            )
+        )
+    rates.sort()
+    tail = (1.0 - confidence_level) / 2.0
+    observed = _statistics.fmean(
+        _statistics.fmean([float(v > point.threshold) for v in values[name]]) for name in clusters
+    )
+    return {
+        "detection_rate": observed,
+        "lower": rates[int(tail * (len(rates) - 1))],
+        "upper": rates[int((1.0 - tail) * (len(rates) - 1))],
+        "clusters": float(len(clusters)),
+        "null_trials": float(len(nulls)),
+        "replicates": float(replicates),
+        "seed": float(seed),
+        "confidence_level": confidence_level,
+        "threshold": point.threshold,
+        "resamples_the_threshold": 1.0,
+    }
