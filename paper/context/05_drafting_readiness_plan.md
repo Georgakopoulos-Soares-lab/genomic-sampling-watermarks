@@ -54,14 +54,39 @@ measured channel, a preserved distribution, and a calibrated detector.
 | Insertion and deletion, unwindowed detector | `e7.deletion.*`, `e7.insertion.*` | **admitted** |
 | Windowed detector and resynchronization | `e7.stage2.*` | **admitted** |
 | Wrong-key and public-DNA nulls | admitted with `e4.clean_detection.*` | **admitted** |
-| Many-output and key-reuse nulls | E10/E11 admission | not started |
-| ITS and EXP matched baselines | E8/E9 admission | samplers and invariants implemented; comparison run not started |
-| Held-out unkeyed distinguishers | `e10.unkeyed_distinguisher.*` | **admitted** for all three; `G_bp` has two unresolved nominal rejections |
-| Key reuse and detector-query removal | E11/E12 admission | not started |
-| Abstract, contribution list, conclusion | every row above | blocked |
+| Many-output and key-reuse nulls | `e11.key_reuse.*` | **admitted** for all three policies |
+| ITS and EXP matched baselines | `e8.e9.matched_baseline.*` | **admitted** for all three policies |
+| Held-out unkeyed distinguishers | `e10.unkeyed_distinguisher.*` | **admitted** for all three; `G_bp` has two unresolved nominal rejections; the additional draws that would sharpen the null require mains power and have not been run |
+| Calibration transfer to natural DNA | `e8.e9.matched_baseline.*.public_dna_exceedance` | **admitted**; an unplanned finding, reported as an observation |
+| Key reuse and detector-query removal | `e11.spoofing.*`, `e12.removal.*` | **admitted** for all three policies |
+| Spoofing under key reuse | `e11.spoofing.*` | **admitted**; a negative security result, see the sign rule below |
+| Pricing the removal attack | `e15.structure_proxies.*` | **admitted as a negative**: both declared order-sensitive instruments are blind to a bounded 6-mer rearrangement |
+| Abstract, contribution list, conclusion | every row above | **unblocked**: every required row is admitted |
 
 The abstract is written last. Its claim strength is whatever the admitted evidence supports, which
 includes the negative and synchronization-limited outcomes listed in `context/01_contribution.md`.
+
+Every Wave-3 row is now admitted, so the manuscript is evidence-complete for a first full draft. What
+remains before submission is prose, figures, citation checking, and the reviews listed below — not
+more experiments. Two experiments are still *desirable* and neither gates drafting: additional `G_bp`
+draws to resolve two nominal distinguisher rejections, and the ORF and independent-model-likelihood
+proxies that would price the removal attack.
+
+### Two sign rules that a draft can silently violate
+
+1. **`e11.spoofing.*` reports a detection rate of 1.000 and that is a vulnerability.** It is the only
+   detection rate in the ledger whose sign is inverted. It may not appear on the same axis, in the
+   same table column, or in the same sentence pattern as the intended-detection rates, and it may
+   never be averaged with them.
+2. **`e12.removal.*` reports a detection rate of 0.000 and that is a successful attack.** It must be
+   presented beside its utility column, because a rearrangement that destroys the sequence is not a
+   useful attack — and the admitted utility numbers are small mainly because every implemented proxy
+   is blind to a 6-mer permutation, which the text must say.
+3. **`e15.structure_proxies.*` relative shifts must never be quoted without their paired p-value.**
+   The relative shift of the longest reading frame is large and directionless; quoting the magnitude
+   alone would assert an effect the data denies. The admitted value in that family is the *count of
+   conditions with a directional effect*, which is 0 or 1 of 8, precisely so a reader cannot pick up
+   the magnitude by accident.
 
 ## Section-by-section evidence contract
 
@@ -75,23 +100,53 @@ draft needs a number that is not admitted, the fix is an admission review, not a
 
 ## Figures
 
-Figures are generated from the ledger by `paper-figures`, never hand-drawn or hand-edited. The
-planned minimum set:
+Figures are generated from the ledger by `paper/scripts/make_figures.py`, never hand-drawn or
+hand-edited. Every plotted value is read from `../evidence/measurements.yaml`; nothing is computed in
+the figure script, read from a result artifact, or hand-entered, and a missing measurement raises
+rather than falling back to a default. Regenerate with:
 
-1. realized channel capacity per policy, with prompt-cluster intervals (evidence admitted);
-2. detection rate versus generated length at the calibrated FPR, per policy (evidence admitted);
-3. calibrated threshold and null-family exceedance rates per length (evidence admitted; the
-   per-trial statistic distributions are *not* admitted, so a violin or histogram of them would
-   need its own admission);
-4. detection rate versus substitution rate per length and policy (evidence admitted);
-5. detection by crop condition under the narrow and wide offset searches, with the threshold rise
-   annotated (evidence admitted);
-6. detection versus indel rate per channel and length, with the substitution curve overlaid to show
-   the two-order-of-magnitude gap (evidence admitted);
-7. wall-clock time per experiment stage (evidence admitted; no memory panel, because no memory
-   figure is admitted).
+```bash
+.venv/bin/python paper/scripts/make_figures.py
+```
 
-A figure whose evidence is pending is not stubbed in the manuscript.
+`paper/figures/manifest.json` records, per figure, the measurement ids it drew from, the caption claim
+it supports, and the direction its axis points. That manifest is what `evidence-auditor` checks
+against the ledger, so a figure cannot quietly drift from an admitted number.
+
+### Built and visually inspected, 9 figures from 57 admitted measurements
+
+1. `fig01_capacity.pdf` — Realized maximal-coupling watermark information per DNA base for the three released generation policies, with equal-weight prompt-cluster percentile intervals over 24 frozen public prompts. **Sign:** higher is more channel
+2. `fig02_clean_detection.pdf` — Left: correct-key detection rate on clean watermarked DNA against generated length, at a false-positive rate calibrated by repeating the identical declared search on null trials. **Sign:** higher is intended detection; on the right, a wider gap is a stronger result
+3. `fig03_calibration.pdf` — Top: the decision threshold chosen empirically from null trials that repeat the complete declared search of two orientations, six phases, and eight key-stream offsets. **Sign:** lower achieved FPR is stricter
+4. `fig04_substitution.pdf` — Detection rate against per-base substitution rate, by policy and generated length, at the calibrated false-positive rate. **Sign:** higher is more robust
+5. `fig05_crop_strand.pdf` — Detection rate per crop, phase, and reverse-complement condition under the narrow and the wide declared key-offset search. **Sign:** higher is more robust; a shaded failure is a search-coverage limit, not a fragility
+6. `fig06_indel_synchronization.pdf` — Detection against per-base edit rate at 1,536 bases, the longest length the indel experiments evaluated. **Sign:** higher is more robust
+7. `fig07_runtime.pdf` — Wall-clock time per stage for one policy on one Apple M5 Pro laptop, from single observations under uncontrolled desktop load. **Sign:** lower is faster
+8. `fig08_baseline_signal_per_token.pdf` — Standardized signal per 6-mer token for the three exact-marginal constructions, each in units of its own null standard deviation, as a band across the evaluated lengths. **Sign:** higher is more signal per token; the dashed line is a structural cap, not a target
+9. `fig09_key_reuse_attacks.pdf` — Left: a sequence spliced position-wise from two watermarked outputs under the same key scores indistinguishably from genuine output at every length, so the verifier accepts it every time. **Sign:** INVERTED. Left panel: high is bad. Right panel: low means the attack succeeded. Neither may share an axis with the intended-detection figures.
+
+### Deliberately not plotted
+
+- no peak-memory panel, because no memory figure is admitted;
+- no detection-rate panel for the baseline comparison, because it is 1.000 in every cell and would
+  present a null result as agreement;
+- no per-trial statistic distributions, because they are not admitted evidence.
+
+### The two inverted-sign figures
+
+`fig09` is the only figure whose axes point the other way, and it carries both directions at once: a
+high spoofing statistic is a vulnerability and a low removal detection rate is a successful attack.
+It must never share an axis or a panel with the intended-detection figures, and its caption must say
+which direction is which. The figure script marks forgeries with a distinct colour and marker for
+exactly this reason.
+
+## Draft status, 2026-08-24
+
+A first evidence-complete draft exists and builds. Written: abstract, introduction with contribution
+bullets, methods, experimental design, results, discussion, limitations, and the figure floats. Not
+written: nothing that the evidence supports. The remaining work is checking, not drafting.
+
+Dated review at `../reviews/2026-08-24_first_full_draft.md`.
 
 ## Pre-submission checklist
 

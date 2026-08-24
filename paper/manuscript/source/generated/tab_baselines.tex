@@ -1,0 +1,16 @@
+% GENERATED FILE -- do not edit. Regenerate with paper/scripts/make_tables.py
+\begin{table}[t]
+  \centering
+  \small
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Policy & ours & inverse transform & exponential & fully detected (b) & natural-DNA exceedance \\
+    \midrule
+    \policyCtok & 0.94--0.97 & 1.38--1.39 & 7.19--7.86 & 96 & 0.069 \\
+    \policyGtok & 0.98--1.00 & 1.38--1.39 & 7.43--8.02 & 96 & 0.044 \\
+    \policyGbp & 0.99--1.00 & 1.39--1.39 & 7.29--7.62 & 96 & 0.019 \\
+    \bottomrule
+  \end{tabular}
+  \caption{The three exact-marginal constructions on one corpus and one calibrated detector, each calibrated on its own nulls at the same target rate and searching the identical hypothesis set. Signal per token is standardized in units of each method's own null, which is the only sense in which the three are comparable. Detection rate is not tabulated because it is $1.000$ for all three methods at every evaluated length, so the shortest fully detected length is identical and uninformative. The last column is the largest rate at which natural public DNA under a wrong key exceeds a threshold calibrated on model-generated nulls.}
+  \label{tab:baselines}
+\end{table}

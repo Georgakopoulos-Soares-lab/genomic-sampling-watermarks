@@ -1,5 +1,61 @@
 \section{Experimental Design}
 
-The primary evaluation uses Carbon-500M and GENERator-v2 1.2B on a single Apple M5 Pro system with 48~GB unified memory. Carbon-3B is an optional reduced confirmation. We first measure real next-token entropy, effective support, keyed partition balance, and information per base. Detection experiments then use paired prompts and edit seeds, globally calibrated nulls, and confidence intervals over independent sequences and keys.
+All experiments run in a single process on one Apple M5 Pro laptop with 48~GB of unified memory, with
+Metal acceleration and a CPU fallback. No distributed runtime, hosted inference endpoint, or remote
+accelerator is required. Carbon-3B remains an optional reduced confirmation and is not part of any
+claim below.
 
-% TODO(evidence): Insert frozen cohort definitions and result IDs.
+\subsection{Model policies}
+
+We evaluate three released generation policies and never attribute a difference between them to
+watermarking. \policyCtok{} is Carbon-500M's main revision restricted and renormalized over the
+$4{,}096$ canonical 6-mers. \policyGtok{} samples GENERator-v2's processed $4{,}096$-way categorical
+distribution directly. \policyGbp{} reproduces the released model's own logits processor, which
+converts that distribution into six independent base marginals and reassembles a 6-mer; it is the
+policy a user of the released checkpoint actually obtains. Every model, tokenizer, and reference-code
+revision is pinned before any evidence is collected.
+
+An audit note that shapes the rest of the paper: Carbon's factorised nucleotide supervision is a
+training objective and does not imply a special sampler on the main branch. A separate revision does
+contain a base-marginal generator, and we treat it as an optional revision-pinned control rather than
+as default Carbon generation.
+
+\subsection{Cohort}
+
+Prompts come from a frozen cohort of public RefSeq eukaryote windows, content-addressed by digest so a
+reviewer can confirm they were not reselected after seeing a result. The channel measurement uses all
+$24$ prompts. Every detection and robustness experiment uses a declared subset of $8$ prompts across
+four organisms, chosen before any detector was run; that narrowing is why several intervals below are
+coarse, and it is stated with each result rather than left to inference.
+
+\subsection{The detector and what calibration must cover}
+
+The verifier receives DNA, a runtime key, and public configuration. It has no model, no prompt, no
+logits, no generation seed, and no reference sequence. For one aligned hypothesis it computes the
+standardized keyed group agreement, and it reports the \emph{maximum} over the complete declared
+search: two strand orientations, all six fixed-block phases, and eight key-stream offsets, for
+$\hypothesesSearched{}$ hypotheses at the lengths where every phase is scorable.
+
+Because the reported statistic is a maximum over a search, its nominal normal tail is not a
+$p$-value. Every threshold, false-positive rate, and $p$-value in this paper comes from null trials
+that repeat the identical search, and the decision rule is strictly greater than the threshold,
+matching how null exceedances are counted. The null families are wrong keys on watermarked output and
+any key on matched ordinary output. Natural public DNA under wrong keys is scored and reported but
+never pooled into a threshold, and Section~\ref{sec:results} shows why that separation earned its
+keep.
+
+\subsection{Uncertainty}
+
+A detection rate is measured against a threshold \emph{estimated} from null trials, so resampling only
+the prompt clusters would treat an estimated quantity as known. Every detection-rate interval is a
+joint resample: each replicate resamples the pooled nulls, recalibrates the threshold from that
+resample, and independently resamples the prompt clusters, with a cluster contributing the mean of its
+own trials.
+
+\subsection{Edit and adversarial channels}
+
+Substitutions, insertions, deletions, crops, and reverse complementation are applied by a frozen edit
+protocol. The two published exact-marginal alternatives, inverse transform and exponential sampling,
+are implemented here and scored by the identical search so the comparison does not run across papers.
+The adversarial experiments give the attacker generated DNA and the public configuration and nothing
+else: no model access, no probabilities, and no key.

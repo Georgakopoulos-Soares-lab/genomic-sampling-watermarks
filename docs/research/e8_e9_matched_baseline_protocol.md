@@ -95,6 +95,39 @@ may degrade very differently under substitution and indels, and nothing about th
 from a clean comparison. Also out of scope: `dipmark`, green-list biasing, and any method that is not
 exact-marginal.
 
+## Amendment, 2026-08-23: a declared short-length extension
+
+Declared before the extension was run, and recorded here rather than by editing the frozen shape
+above.
+
+A reduced smoke run of the comparison runner on `C_tok` (one length, three null keys) showed all
+three methods detecting **every** sequence at 384 bases, the shortest length the frozen grid
+evaluates. E4 already established that `partition_mc` reaches a detection rate of 1.0 at 96 bases,
+which is the detector's own floor: `minimum_window_tokens` is 16, so 96 bases is the shortest
+sequence the declared search will score at all.
+
+So the frozen grid cannot separate the three methods, and neither can any grid, because the floor of
+the declared search is already above every method's detection length. That is a property of the
+question, not a defect in the run, and the frozen grid is still executed and admitted exactly as
+declared.
+
+Two things follow, both declared now:
+
+1. **A short extension**, at 16, 24, 32, 48, and 64 tokens — the same lengths E4's short-length
+   companion run used, the same declared search, and calibrated on its own nulls. Its purpose is to
+   confirm that saturation persists all the way to the detector's floor rather than to find a
+   separating length.
+2. **The preregistered reading is amended.** "The shortest evaluated length at which each method
+   detects every sequence" is expected to be identical for all three, so it is reported as a null
+   finding rather than as the headline. The quantity that does separate the methods is the
+   standardized signal **per token**, in units of each method's *own* null standard deviation. That
+   is a derived quantity, it is not a detection rate, and the boundary on it is stated with it: it
+   compares each method against its own null, never one method's statistic against another's.
+
+This does not relax the fairness conditions. All three methods still search the same 96 hypotheses,
+each is still calibrated on its own nulls at the same target rate, and the prompts, lengths, policy,
+and control are still shared.
+
 ## Implementation status
 
 - `src/genomic_watermarks/baselines.py` implements both samplers, both detector statistics, the keyed
@@ -107,7 +140,83 @@ exact-marginal.
   declared order instead of the keyed order leaves the marginal **exactly correct** while removing
   the watermark entirely. A distribution-preservation test cannot catch it; only the detector can.
   That is the sharpest available argument for why E3 alone was never sufficient evidence.
-- The generation runner and the comparison runner are not yet written.
+- `src/genomic_watermarks/detector/baseline_search.py` implements both standalone detectors. They
+  reuse `DetectorConfig` and `enumerate_search` from the partition detector unchanged, so the
+  identical-search condition is structural rather than a claim; `tests/test_baseline_detector.py`
+  asserts that all three methods report the same hypothesis count on the same sequence.
+- `scripts/generate_baseline_arms.py` generates the `its` and `exp` arms and deliberately does not
+  regenerate the control.
+- `scripts/run_baseline_comparison.py` scores all three methods, calibrates each on its own nulls,
+  and stores every per-trial statistic so intervals can be recomputed without rerunning inference.
+- Detection-rate intervals use the joint resample established by the 2026-08-23 audit: each
+  replicate resamples the pooled nulls, recalibrates the threshold, and independently resamples the
+  prompt clusters.
+
+## Result, 2026-08-23
+
+Three policies, eight prompts, 512 tokens per prompt per method, the same 96-hypothesis search for
+all three methods, each calibrated on its own nulls at a target false-positive rate of 0.01.
+Validated by `validate_baseline_comparison_report`, which recomputes every aggregate from the stored
+per-trial rows and re-derives each statistic from the primitive it was built from.
+
+An independent check that the comparison is scoring the shared arm correctly: the partition arm's
+calibrated thresholds in this run reproduce the E4 short-length run exactly — 3.000, 3.545, 3.772,
+3.355, 3.654 for `C_tok` at 96 to 384 bases.
+
+### The preregistered headline is a null result
+
+Every method, every policy, every evaluated length from 96 to 3,072 bases: **detection rate 1.000**,
+joint interval [1.000, 1.000]. The shortest length at which each method detects every sequence is 96
+bases for all nine method-policy pairs, and 96 bases is the detector's own floor rather than a
+measured limit. So the quantity the protocol nominated as the headline cannot distinguish the three
+constructions on clean sequences, and the amendment above anticipated this.
+
+### The per-token signal does separate them, exactly as predicted
+
+Mean standardized signal per 6-mer token, in units of each method's own null standard deviation:
+
+| Policy | `partition_mc` | `its` | `exp` |
+|---|---|---|---|
+| `C_tok` | 0.963 – 0.969 | 1.377 – 1.393 | 7.19 – 7.86 |
+| `G_tok` | 0.977 – 1.000 | 1.380 – 1.389 | 7.43 – 8.02 |
+| `G_bp` | 0.993 – 1.000 | 1.388 – 1.391 | 7.29 – 7.62 |
+
+`exp` carries about **7.5 times** the per-token signal of partition coupling and `its` about **1.4
+times**. The prediction stated before the run was about 7.9 for `exp`; the measurement is 7.2 to 8.0.
+
+### Why partition coupling loses, and why that is not an implementation defect
+
+Partition coupling is at its ceiling, not below it. It couples one bit per token, so its per-token
+standardized signal cannot exceed 1.0, and the measured values are the coupling loss away from that
+cap: agreement rates of 0.984, 0.992, and 0.997 give `2p - 1` of 0.968, 0.983, and 0.994, which is
+what the detector reports to three decimals. `exp` is not capped at one bit, and that is the whole
+of the difference.
+
+So the honest reading is the third outcome listed in `../../paper/context/01_contribution.md`:
+partition coupling is **not** the strongest of the three constructions on high-entropy genomic
+states. What this project contributes is the measurement — on real released policies, with one
+shared calibrated detector, and with the fairness conditions checked rather than asserted.
+
+### An unplanned finding: calibration does not transfer to natural DNA equally
+
+Thresholds are calibrated on model-generated nulls. The public-DNA family, which is never pooled into
+any threshold, exceeds those thresholds at rates above the 0.01 target, and unequally by method. At
+192 bases: `C_tok` `its` 0.069 and `exp` 0.050 against `partition_mc` 0.000; `G_tok` `its` 0.044.
+Partition coupling's worst cell across all three policies is 0.025, and for `G_bp` it is 0.000
+everywhere.
+
+Each cell has 160 trials, so the granularity is 0.00625 and 0.069 is 11 of 160 — small but not noise
+at the 0.01 level. The reading is that a threshold calibrated on generated sequences is not valid on
+natural genomic DNA at a 1% target, and that the two baselines are more exposed to this than
+partition coupling at short lengths. This is a limitation of calibration transfer, it was not
+preregistered, and it is reported as an observation rather than as a tested hypothesis.
+
+### Boundary on this result
+
+Clean sequences only. Nothing here bears on how the three methods degrade under substitution,
+indels, cropping, or adaptive removal, and the per-token signal ordering must not be read as a
+robustness ordering. Measured under a published non-secret fixture key, so it is a power measurement
+and not a security claim.
 
 ## Evidence boundary
 

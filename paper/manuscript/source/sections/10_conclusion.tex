@@ -1,0 +1,35 @@
+\section{Conclusion}
+
+We asked whether an exact-marginal keyed sampler can carry provenance through a fixed 6-mer genomic
+language model to a standalone verifier, and measured the answer on three released generation policies.
+
+It can, within limits that we can now state precisely rather than estimate. Detection is complete from
+$\shortestDetectedBases{}$ bases at a false-positive rate calibrated over every alignment the detector
+searches, and it survives roughly one base in five being substituted, arbitrary cropping, and reverse
+complementation. The channel that carries it is $\capacityLow{}$ to $\capacityHigh{}$ bit per base,
+bounded at $\capacityCeiling{}$ by the construction rather than by the models.
+
+Three limits are sharper than the capability. Insertions and deletions defeat the detector one to two
+orders of magnitude below its substitution tolerance, because a fixed-block tokenizer turns one edited
+base into a corrupted remainder; a declared windowed search moves that limit and then meets a wall no
+search can move. Measured against the two published exact-marginal alternatives on identical footing,
+our construction is the weaker one, and structurally so: it couples one bit per token and is already at
+that ceiling. And key reuse defeats it outright --- $\forgeryDonorsRequired{}$ outputs under one key
+suffice to mint a sequence the verifier accepts, because the statistic is content-blind at every
+position.
+
+The last of those is the one that should shape what comes next. A watermark that authenticates a
+distribution rather than a sequence is useful for asking "did this come from a keyed generator" and
+useless for asking "did this particular sequence come from me". Closing that gap needs a construction
+that binds the mark to the content, and this paper does not offer one.
+
+We also report where our own instruments run out. A bounded rearrangement removes the watermark, and
+after implementing both order-sensitive measures we specified for the purpose, neither prices it: the
+independent-model score barely moves, and the reading-frame measure moves without direction, because a
+long frame in high-entropy DNA is a chance event that permutation re-rolls. That is an open measurement
+problem, not a solved one.
+
+What we would keep from the method rather than the result is the discipline. Every printable number
+passed through a ledger, every figure and table is generated from it, and seven times an unsigned
+magnitude looked like an effect until a paired test dissolved it. Two of this paper's four main results
+are negative, and both were found by looking for them.

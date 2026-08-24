@@ -192,3 +192,37 @@ Repeat for `G_tok` and `G_bp`.
 
 Reports are engineering artifacts in ignored `outputs/`. No number moves into
 `evidence/measurements.yaml` without explicit evidence-admission review.
+
+## Note on the additional draws, 2026-08-23
+
+The two unresolved nominal `G_bp` rejections need more matched draws to sharpen the permutation null
+from 32 decisions to 80. Eighteen draws were queued — six new published fixture keys for each of the
+three policies, both arms, 512 tokens, the same eight prompts — and the run was **stopped without
+producing any artifact**, so nothing partial entered the repository.
+
+The reason is worth recording, because it is a reproducibility constraint on this hardware rather than
+an experiment problem. On battery power the MPS device is power-limited: the same generation job that
+ran at essentially one full core when the machine was on mains advanced at about 11% of a core on
+battery, roughly a tenfold slowdown, while a pure CPU benchmark on the same machine ran at full speed.
+Eighteen draws would have taken tens of hours instead of about five, and the battery had under three
+hours left.
+
+**The additional draws require mains power.** The command is unchanged:
+
+```bash
+for i in 7 8 9 10 11 12; do
+  .venv/bin/python scripts/generate_watermarked.py --policy G_bp \
+    --case-id arabidopsis_q20 --case-id arabidopsis_q80 \
+    --case-id celegans_q20 --case-id celegans_q80 \
+    --case-id drosophila_q20 --case-id drosophila_q80 \
+    --case-id yeast_q20 --case-id yeast_q80 \
+    --steps 512 --arms both --experiment-label "e10-extra-draw-k${i}" \
+    --public-fixture-key --fixture-key-index "$i" --local-files-only \
+    --output "outputs/generator_g_bp_e10_extra_generation_k${i}_v1.json" \
+    --sequences-output "outputs/generator_g_bp_e10_extra_sequences_k${i}_v1.jsonl"
+done
+```
+
+This also means no runtime figure may be quoted without stating the power state it was measured in.
+The admitted E14 wall times were all collected on mains power; that is now recorded rather than
+assumed.

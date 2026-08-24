@@ -104,7 +104,24 @@ def validate_detection_report(
     )
     offsets = list(search.get("stream_offsets"))
     _require(offsets == list(range(expected_offsets)), "stream offsets are inconsistent")
-    expected_hypotheses = len(ORIENTATIONS) * KMER_SIZE * len(offsets)
+    minimum_window = int(search.get("minimum_window_tokens", 16))
+    _require(minimum_window > 0, "minimum_window_tokens must be positive")
+
+    def expected_hypotheses_at(token_length: int) -> int:
+        """How many hypotheses the declared search scores for a prefix of this length.
+
+        Not a constant. A non-zero phase drops the final incomplete k-mer, so at the
+        detector's own floor of 16 tokens only phase zero is long enough to score and
+        the count is 16 rather than 96. Treating it as constant made this validator
+        reject the short-length run it was supposed to check.
+        """
+
+        scorable = sum(
+            1
+            for phase in range(KMER_SIZE)
+            if (token_length if phase == 0 else token_length - 1) >= minimum_window
+        )
+        return len(ORIENTATIONS) * scorable * len(offsets)
 
     cohort_ids = {case.cohort_id for case in cohort_cases}
     _require(len(cohort_ids) == 1, "cohort cases must share one cohort_id")
@@ -141,7 +158,7 @@ def validate_detection_report(
             "trial base length is inconsistent",
         )
         _require(
-            int(row.get("hypotheses_searched")) == expected_hypotheses,
+            int(row.get("hypotheses_searched")) == expected_hypotheses_at(length),
             "trial did not search the declared hypothesis count",
         )
         total = int(row.get("total"))
@@ -341,7 +358,9 @@ def validate_detection_report(
         "cohort_id": report["cohort_id"],
         "prompt_count": len(case_ids),
         "null_keys": expected_null_keys,
-        "hypotheses_searched": expected_hypotheses,
+        "hypotheses_searched": {
+            str(length * KMER_SIZE): expected_hypotheses_at(length) for length in token_lengths
+        },
         "target_false_positive_rate": expected_target_fpr,
         "trial_count": len(trials),
         "raw_fields_absent": True,

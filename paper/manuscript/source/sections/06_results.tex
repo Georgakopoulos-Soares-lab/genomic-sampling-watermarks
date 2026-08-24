@@ -1,6 +1,176 @@
 \section{Results}
+\label{sec:results}
 
-No results have been admitted to the evidence ledger. This section remains intentionally empty until the sequential experiment gates pass.
+Every number below resolves to an entry in the evidence ledger, and every table and figure is
+generated from it rather than transcribed.
 
-% TODO(evidence): Generate tables and figures from evidence/measurements.yaml.
+\subsection{The channel is real, and it is capped by the construction}
 
+Table~\ref{tab:capacity} and Figure~\ref{fig:capacity} give the realized watermark information per DNA
+base for each policy: $\capacityLow{}$ to $\capacityHigh{}$ bit per base against a structural ceiling
+of $\capacityCeiling{}$. The ceiling is not a limit of these models. Partition maximal coupling
+couples exactly one bit into each 6-mer, so $1/6$ bit per base is the most the construction can carry
+no matter how much entropy the model supplies, and the measured values sit just under it. The nominal
+alphabet of $4{,}096$ tokens is therefore not the quantity that matters, and reporting it would
+overstate the channel by more than an order of magnitude.
+
+\input{generated/tab_capacity}
+
+\subsection{Clean detection is complete from the floor of the search}
+
+Table~\ref{tab:clean-detection} and Figure~\ref{fig:clean-detection} report clean detection at a
+calibrated false-positive rate of $\targetFPR{}$. Every watermarked sequence is detected at every
+evaluated length down to $\shortestDetectedBases{}$ bases, which is the shortest sequence the declared
+search will score rather than a measured limit: the search declares a minimum window of $16$ tokens.
+
+A flat detection rate hides the quantity that actually varies, so we admit the separation margin
+separately. At $\shortestDetectedBases{}$ bases the weakest watermarked statistic and the strongest
+pooled null statistic touch; from $\strictSeparationBases{}$ bases onward the watermarked statistics
+sit strictly above every null. Figure~\ref{fig:clean-detection} shows the watermarked statistic growing
+with the square root of the length while the null maximum stays flat, which is the whole mechanism in
+one panel.
+
+\input{generated/tab_clean_detection}
+
+\subsection{Substitutions are survivable; synchronization is the binding limit}
+
+Table~\ref{tab:edit-channel} collects the edit channel. Substitution tolerance is high: every sequence
+is still detected at $\substitutionTolerance{}$ substitutions per base on the least tolerant policy
+and at $\substitutionToleranceHigh{}$ on the other two (Figure~\ref{fig:substitution}). At roughly one
+base in five replaced, the mark still comes through on every sequence.
+
+Insertions and deletions are different in kind rather than degree. Deleting one base moves every later
+base one position left, so every 6-mer after the deletion is cut at the wrong boundary and the
+remainder of the sequence leaves the reading grid. The unwindowed detector tolerates only
+$\deletionTolerance{}$ deletions per base, one to two orders of magnitude below its substitution
+tolerance. A declared sliding-window search recovers a factor of several, to
+$\windowedDeletionTolerance{}$, and then meets a second wall that is information-theoretic rather than
+a search failure: below some number of consecutive intact bases there is no window long enough to
+carry a detectable signal, however cleverly it is placed (Figure~\ref{fig:indel}).
+
+Two predictions were wrong here in ways worth recording. The first underestimated detection badly
+because the construction resynchronizes for free: after $k$ deleted bases, phase $k \bmod 6$ combined
+with key offset $\lceil k/6 \rceil$ recovers the original grid, so the declared phase and offset search
+already absorbs tens of bases of drift. The second used an unsigned drift range, which cannot reach any
+post-insertion segment at all --- a silent total failure on the insertion channel rather than a loss of
+power. Both corrections are recorded in the frozen protocols rather than smoothed away.
+
+\input{generated/tab_edit_channel}
+
+Crops, unknown phase, and reverse complementation are handled by the declared search
+(Figure~\ref{fig:crop-strand}). Every condition that fails is one whose required key-stream offset lies
+outside the declared search, which is a property of the search rather than of the model, and the three
+policies fail on exactly the same conditions. Widening the search recovers all but the longest crop and
+raises the calibrated threshold; both effects are inside the calibration because the nulls repeat the
+widened search.
+
+\subsection{Measured against the published alternatives, our construction loses}
+
+Table~\ref{tab:baselines} and Figure~\ref{fig:baselines} compare partition coupling with inverse
+transform and exponential sampling on the same policies, prompts, lengths, and control, each
+calibrated on its own nulls at the same target rate and searching the identical hypothesis set.
+
+The preregistered headline was the shortest length at which each method detects every sequence. It is
+$\baselineFullyDetectedBases{}$ bases for all three methods on all three policies --- the floor of the
+search --- so that quantity cannot separate them, and we report it as the null result it is rather than
+as agreement.
+
+What separates them is the signal each construction puts into one token, measured in units of its own
+null. Exponential sampling carries at least $\expSignalRatio{}$ times partition coupling's per-token
+signal and inverse transform at least $\itsSignalRatio{}$ times. Partition coupling is not
+underperforming: it is at its one-bit-per-token ceiling, and the measured value equals $2p-1$ for the
+generator-side agreement rate $p$. Exponential sampling reads a fine-grained keyed value attached to
+the emitted token and is not bounded by one bit, and that is the entire difference.
+
+\input{generated/tab_baselines}
+
+The comparison also produced a finding we were not looking for. Thresholds are calibrated on
+model-generated nulls, but a deployed verifier is handed natural DNA. Natural public DNA under wrong
+keys exceeds those thresholds at up to $\naturalDNAExceedance{}$, above the $\targetFPR{}$ target, and
+the two published baselines are more exposed to this than partition coupling at short lengths.
+Calibration does not transfer from generated to natural sequences, and it does not transfer equally
+across constructions. This was visible only because public-DNA trials were reported separately and
+never pooled into a threshold.
+
+\subsection{Key reuse defeats the construction}
+
+A deployed generator reuses its key, so an attacker accumulates outputs under one secret.
+Table~\ref{tab:attacks} and Figure~\ref{fig:attacks} measure what that buys.
+
+Take $\forgeryDonorsRequired{}$ watermarked outputs and, for each token position, copy that position's
+6-mer from one of them. The result is a sequence the generator never produced, and the verifier accepts
+it at rate $\forgeryDetectionRate{}$ at every length on every policy, with a statistic
+indistinguishable from genuine output. Forgeries that happen to copy a single donor throughout are
+rejected and redrawn, so no counted success is a verbatim copy.
+
+This is structural, not a tuning failure. The detector's decision at read position $i$ depends only on
+which half of the keyed partition at stream index $i$ the observed token falls into, and that partition
+is a function of the key, the domain, and $i$ alone. The statistic is a sum of per-position,
+content-blind indicators; nothing binds position $i$ to position $j$, and nothing binds the sequence to
+a nonce, a length, or a payload. \textbf{The construction authenticates a distribution, not a
+sequence.} Closing the gap requires a different construction, and the same argument applies to any
+position-indexed, content-blind keyed statistic, which includes both baselines --- though we measured
+it only on ours.
+
+Removal is the mirror image. Permuting 6-mer positions moves each token to a position whose keyed split
+is unrelated to it, so each check becomes a fair coin: a full positional shuffle drops detection to
+$\shuffleDetectionRate{}$ everywhere. A shuffle bounded to blocks of two tokens retains about half the
+statistic, and because the statistic grows with the square root of the length, half of a large statistic
+still clears the threshold; detection after a pairwise shuffle therefore \emph{rises} with length, and
+removal requires wider blocks as sequences grow.
+
+\input{generated/tab_attacks}
+
+\subsection{Pricing the removal attack, and failing to}
+
+A removal attack is only meaningful with its cost attached, so this deserved its own experiment. The
+largest relative change in any admitted composition proxy under a full shuffle is
+$\removalProxyCost{}$, on a single extreme-value statistic, with every other proxy moving far less.
+That is a fact about the proxies rather than about the attack: the attack permutes whole 6-mers, so the
+6-mer multiset is preserved \emph{exactly}, and a suite of counting statistics is blind to a
+permutation of the units it counts.
+
+We therefore implemented the two order-sensitive measures our own design specifies --- open reading
+frame summaries and a score under an independent Markov reference fitted on held-out cohort prompts ---
+and neither prices the attack.
+
+The independent-model score is blind in practice: its largest relative shift across every removal and
+spoofing condition is $\independentModelShift{}$. The reason is structural. A low-order Markov model
+scores high-entropy generated DNA close to the uniform rate, and a 6-mer permutation leaves most short
+contexts intact.
+
+The reading-frame result is more instructive, because it first looked like a success. The relative
+shift of the longest open reading frame runs from $0.07$ to $0.43$, larger than the composition shift
+on most cells. An exact paired sign-flip test over the eight prompts dissolves it: of
+$\orfConditionsTested{}$ removal conditions, at most $\orfDirectionalConditions{}$ shows a
+directionally consistent change on any policy, and for every bounded block shuffle --- the attacker's
+realistic option, and the widths that actually strip the mark --- the longest ORF rises about as often
+as it falls. On high-entropy DNA a long reading frame is a chance extreme-value statistic, and
+permuting the sequence re-rolls it rather than destroying a structure. A relative shift built from
+absolute differences records the re-roll and hides the absence of direction
+(Figure~\ref{fig:unpriced}).
+
+So the limitation is sharpened rather than closed. We are not reporting that we neglected to price the
+attack; we are reporting that we built both instruments our design named for the purpose and they
+cannot see it. Pricing a bounded 6-mer rearrangement needs a measure of long-range order that none of
+these three families supplies, and finding one is open work.
+
+One asymmetry is worth noting, and it runs against the defender. The splice forgery disturbs the
+composition proxies substantially more than any shuffle does, because splicing mixes DNA across
+organisms. The attack that manufactures provenance is easier to spot by composition than the attack
+that destroys it.
+
+Finally, key reuse does not break calibration on the verifier's side: one fixed key scored against
+sequences it did not generate exceeds its own threshold at a rate consistent with the target, within
+the resolution that $8$ trials per cell allows.
+
+\subsection{Feasibility}
+
+Table~\ref{tab:runtime} gives the runtime envelope from single observations on one laptop under
+uncontrolled desktop load: a feasibility statement, not a benchmark. Detection uses neither the model
+nor the GPU. We report no peak-memory figure, because the recorded memory counters cannot support a
+residency claim --- one driver counter exceeds the machine's physical memory --- and a number we cannot
+defend is worse than none. All quoted times are mains-power measurements; the same generation runs about
+ten times slower on battery, which is a reproducibility constraint rather than a property of the method.
+
+\input{generated/tab_runtime}

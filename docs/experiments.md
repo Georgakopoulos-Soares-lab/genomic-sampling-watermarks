@@ -67,6 +67,28 @@ Compare no synchronization, local phase-state dynamic programming, anchors/marke
 
 At minimum: ordinary model outputs, wrong keys, public benign DNA, and cross-model outputs. Report confidence intervals on empirical FPR and never extrapolate below supported resolution without a justified model.
 
+## Numbering: this file versus the protocol documents
+
+This file kept an early numbering that the protocol documents diverged from as the work was executed.
+**The protocol documents are the operative convention** and the sources-of-truth table in `../CLAUDE.md`
+follows them. The mapping:
+
+| Protocol convention (operative) | This file's original slot |
+|---|---|
+| E5 substitutions | E5/E6 substitutions and indels |
+| E6 crops, strand, phase | E7 |
+| E7 insertions, deletions, and the windowed resynchronization search | E6 and E8 |
+| E8/E9 matched baselines, inverse transform and exponential | E12 |
+| E10 held-out unkeyed distinguishers | E10 |
+| E11 key reuse and many-output analysis | part of E10 and E11 |
+| E12 spoofing and removal | E11 |
+| E13 ECC/PRC layer | E13, unchanged and not started |
+| E14 runtime envelope | not in this file originally |
+| E15 order-sensitive proxies | not in this file originally |
+
+Nothing below has been renumbered, because the original plan is a record and rewriting it would erase
+what was planned before the work was done. Read it as intent and the protocol documents as execution.
+
 ## E10-E13: attacks, comparators, and coding
 
 ### E10 — Unkeyed distinguishers

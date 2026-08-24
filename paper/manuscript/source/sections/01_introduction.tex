@@ -1,8 +1,55 @@
 \section{Introduction}
 
-Autoregressive genomic language models create a provenance problem: a generated DNA sequence can be copied or edited after leaving the model, while ordinary metadata can be removed. Sampling-time watermarking may embed a keyed statistical signal without retraining the model. Fixed 6-mer tokenization provides a large nominal alphabet, but the usable channel depends on realized probability mass and is fragile to nucleotide-level synchronization errors.
+Autoregressive genomic language models create a provenance problem: a generated DNA sequence can be
+copied or edited after it leaves the model, while ordinary metadata can simply be stripped.
+Sampling-time watermarking may embed a keyed statistical signal without retraining, and a fixed 6-mer
+tokenization offers a large nominal alphabet of $4{,}096$ symbols. Whether that alphabet translates
+into a usable channel, and whether the resulting signal survives the edits DNA actually undergoes, are
+empirical questions about specific released models rather than properties of the idea.
 
-We ask whether an exact-marginal keyed sampler can support standalone verification across two genomic model families and under a declared DNA edit channel. Our contribution is an empirical and methodological study, not a claim of a new cryptographic primitive.
+We ask whether an exact-marginal keyed sampler supports standalone verification across two genomic
+model families under a declared edit channel and a declared adversary. Our contribution is an
+empirical and methodological study, not a new cryptographic primitive.
 
-% TODO(evidence): Replace with ledger-backed contribution bullets after E2-E12.
+\subsection*{Contributions}
 
+\begin{itemize}
+  \item \textbf{The realized channel, not the nominal one.} We measure the watermark information
+  actually available at real model states for three released generation policies:
+  $\capacityLow{}$ to $\capacityHigh{}$ bit per base against a construction ceiling of
+  $\capacityCeiling{}$. The ceiling is structural, so the $4{,}096$-symbol alphabet is not the
+  quantity that governs capacity.
+
+  \item \textbf{A detector calibrated over its whole search.} The verifier reports a maximum over
+  $\hypothesesSearched{}$ alignment hypotheses, so its nominal tail is not a $p$-value. Every
+  threshold here comes from null trials that repeat the identical search, including the windowed and
+  wide-offset variants, and the decision rule matches how those exceedances were counted.
+
+  \item \textbf{Synchronization, not capacity, is the binding limit.} Detection survives
+  $\substitutionTolerance{}$ substitutions per base but fails at $\deletionTolerance{}$ deletions per
+  base. A declared sliding-window search moves that to $\windowedDeletionTolerance{}$ and then meets a
+  second wall that no search can move, because a short enough intact run carries too little signal to
+  detect at any placement.
+
+  \item \textbf{A matched comparison that does not favour us.} Implementing inverse-transform and
+  exponential sampling on the same corpus, prompts, lengths, control, and detector search shows
+  exponential sampling carrying at least $\expSignalRatio{}$ times our per-token signal. We report
+  that partition coupling sits at its one-bit ceiling and is therefore the weaker construction on
+  high-entropy genomic states.
+
+  \item \textbf{A negative security result under key reuse.} With
+  $\forgeryDonorsRequired{}$ outputs under one key and no model, key, or detector access, an attacker
+  splices a novel sequence that the verifier accepts at rate $\forgeryDetectionRate{}$. The
+  construction authenticates a distribution, not a sequence, and the same argument applies to any
+  position-indexed content-blind keyed statistic.
+
+  \item \textbf{An evidence discipline that made the negatives visible.} Every printable number enters
+  a ledger through explicit review, every figure and table is generated from that ledger, and results
+  that were superseded are recorded with the reason. Six pieces of statistical machinery were replaced
+  during this work after a number looked too clean; each replacement is documented rather than
+  silently applied.
+\end{itemize}
+
+Two findings in this paper are the kind that a study designed to advertise its own construction would
+not surface. We report them because a provenance mechanism whose limits are unstated is worse than one
+whose limits are known.

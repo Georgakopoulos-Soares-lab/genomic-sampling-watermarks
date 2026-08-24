@@ -2125,7 +2125,7 @@ measurements:
       - edit_rate: 0.2
         detection_rate: 0.55
         detection_rate_lower: 0.4
-        detection_rate_upper: 0.8250000000000001
+        detection_rate_upper: 0.8
         threshold: 3.819968175619412
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -2809,7 +2809,7 @@ measurements:
       - edit_rate: 0.2
         detection_rate: 0.75
         detection_rate_lower: 0.47500000000000003
-        detection_rate_upper: 0.875
+        detection_rate_upper: 0.85
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -2990,7 +2990,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.15
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.30000000000000004
+        detection_rate_upper: 0.3
         threshold: 3.5832290371508515
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -3130,7 +3130,7 @@ measurements:
         maximum_pooled_null_statistic: 4.157609203101499
       - edit_rate: 0.1
         detection_rate: 0.75
-        detection_rate_lower: 0.55
+        detection_rate_lower: 0.575
         detection_rate_upper: 0.9
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
@@ -3141,7 +3141,7 @@ measurements:
       - edit_rate: 0.15
         detection_rate: 0.15
         detection_rate_lower: 0.05
-        detection_rate_upper: 0.35000000000000003
+        detection_rate_upper: 0.375
         threshold: 3.75
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -3311,7 +3311,7 @@ measurements:
         maximum_pooled_null_statistic: 3.8156329904892896
       - edit_rate: 0.15
         detection_rate: 0.525
-        detection_rate_lower: 0.4
+        detection_rate_lower: 0.375
         detection_rate_upper: 0.875
         threshold: 4.170575594255735
         achieved_false_positive_rate: 0.0
@@ -3322,7 +3322,7 @@ measurements:
       - edit_rate: 0.2
         detection_rate: 0.4
         detection_rate_lower: 0.225
-        detection_rate_upper: 0.625
+        detection_rate_upper: 0.6
         threshold: 3.460690386722844
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -3674,7 +3674,7 @@ measurements:
       - edit_rate: 0.3
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.17500000000000002
+        detection_rate_upper: 0.2
         threshold: 4.025602992354661
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -5520,7 +5520,7 @@ measurements:
       - edit_rate: 0.005
         detection_rate: 0.675
         detection_rate_lower: 0.55
-        detection_rate_upper: 0.85
+        detection_rate_upper: 0.875
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -5755,7 +5755,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.575
         detection_rate_lower: 0.375
-        detection_rate_upper: 0.8
+        detection_rate_upper: 0.775
         threshold: 3.283219084839621
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -5764,8 +5764,8 @@ measurements:
         maximum_pooled_null_statistic: 3.283219084839621
       - edit_rate: 0.02
         detection_rate: 0.325
-        detection_rate_lower: 0.15
-        detection_rate_upper: 0.6
+        detection_rate_lower: 0.125
+        detection_rate_upper: 0.5750000000000001
         threshold: 3.283219084839621
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -5979,8 +5979,8 @@ measurements:
         maximum_pooled_null_statistic: 3.945213033836442
       - edit_rate: 0.01
         detection_rate: 0.6
-        detection_rate_lower: 0.375
-        detection_rate_upper: 0.8
+        detection_rate_lower: 0.35000000000000003
+        detection_rate_upper: 0.8250000000000001
         threshold: 3.4442336009683223
         achieved_false_positive_rate: 0.0
         wrong_key_watermarked_exceedance: 0.0
@@ -5990,7 +5990,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.175
         detection_rate_lower: 0.05
-        detection_rate_upper: 0.4
+        detection_rate_upper: 0.375
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -6429,7 +6429,7 @@ measurements:
         maximum_pooled_null_statistic: 3.6381616886060666
       - edit_rate: 0.01
         detection_rate: 0.725
-        detection_rate_lower: 0.575
+        detection_rate_lower: 0.6
         detection_rate_upper: 0.85
         threshold: 3.283219084839621
         achieved_false_positive_rate: 0.0078125
@@ -6665,7 +6665,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.05
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.4
+        detection_rate_upper: 0.42500000000000004
         threshold: 3.945213033836442
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -6839,7 +6839,7 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.0005
         detection_rate: 1.0
-        detection_rate_lower: 0.925
+        detection_rate_lower: 0.95
         detection_rate_upper: 1.0
         threshold: 3.9056328877620143
         achieved_false_positive_rate: 0.0078125
@@ -6869,8 +6869,8 @@ measurements:
         maximum_pooled_null_statistic: 4.409585518440984
       - edit_rate: 0.005
         detection_rate: 0.7
-        detection_rate_lower: 0.525
-        detection_rate_upper: 0.925
+        detection_rate_lower: 0.5
+        detection_rate_upper: 0.95
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -6880,7 +6880,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.675
         detection_rate_lower: 0.425
-        detection_rate_upper: 0.875
+        detection_rate_upper: 0.8500000000000001
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7105,7 +7105,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.675
         detection_rate_lower: 0.475
-        detection_rate_upper: 0.8250000000000001
+        detection_rate_upper: 0.85
         threshold: 3.3587572106361003
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -7114,7 +7114,7 @@ measurements:
         maximum_pooled_null_statistic: 3.8156329904892896
       - edit_rate: 0.02
         detection_rate: 0.25
-        detection_rate_lower: 0.1
+        detection_rate_lower: 0.07500000000000001
         detection_rate_upper: 0.47500000000000003
         threshold: 3.7123106012293743
         achieved_false_positive_rate: 0.0078125
@@ -7330,7 +7330,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.55
         detection_rate_lower: 0.375
-        detection_rate_upper: 0.875
+        detection_rate_upper: 0.9
         threshold: 3.694723317402382
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -7340,7 +7340,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.125
         detection_rate_lower: 0.0
-        detection_rate_upper: 0.25
+        detection_rate_upper: 0.275
         threshold: 3.569478459185352
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -7544,7 +7544,7 @@ measurements:
         maximum_pooled_null_statistic: 3.6536565724225296
       - edit_rate: 0.005
         detection_rate: 0.875
-        detection_rate_lower: 0.8
+        detection_rate_lower: 0.775
         detection_rate_upper: 1.0
         threshold: 3.401680257083045
         achieved_false_positive_rate: 0.0078125
@@ -7554,7 +7554,7 @@ measurements:
         maximum_pooled_null_statistic: 3.5
       - edit_rate: 0.01
         detection_rate: 0.525
-        detection_rate_lower: 0.325
+        detection_rate_lower: 0.3
         detection_rate_upper: 0.7000000000000001
         threshold: 3.6536565724225296
         achieved_false_positive_rate: 0.0078125
@@ -7769,7 +7769,7 @@ measurements:
         maximum_pooled_null_statistic: 3.7123106012293743
       - edit_rate: 0.005
         detection_rate: 0.85
-        detection_rate_lower: 0.675
+        detection_rate_lower: 0.7
         detection_rate_upper: 0.975
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
@@ -7780,7 +7780,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.3
         detection_rate_lower: 0.17500000000000002
-        detection_rate_upper: 0.45
+        detection_rate_upper: 0.475
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -8680,7 +8680,7 @@ measurements:
       - edit_rate: 0.01
         detection_rate: 0.1
         detection_rate_lower: 0.025
-        detection_rate_upper: 0.2
+        detection_rate_upper: 0.225
         threshold: 3.945213033836442
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.015625
@@ -9129,7 +9129,7 @@ measurements:
         maximum_pooled_null_statistic: 3.6381616886060666
       - edit_rate: 0.01
         detection_rate: 0.475
-        detection_rate_lower: 0.3
+        detection_rate_lower: 0.30000000000000004
         detection_rate_upper: 0.625
         threshold: 3.6381616886060666
         achieved_false_positive_rate: 0.0078125
@@ -9140,7 +9140,7 @@ measurements:
       - edit_rate: 0.02
         detection_rate: 0.275
         detection_rate_lower: 0.1
-        detection_rate_upper: 0.47500000000000003
+        detection_rate_upper: 0.475
         threshold: 3.5355339059327373
         achieved_false_positive_rate: 0.0078125
         wrong_key_watermarked_exceedance: 0.0
@@ -9354,7 +9354,7 @@ measurements:
         maximum_pooled_null_statistic: 3.375
       - edit_rate: 0.01
         detection_rate: 0.15
-        detection_rate_lower: 0.07500000000000001
+        detection_rate_lower: 0.05
         detection_rate_upper: 0.45
         threshold: 4.0
         achieved_false_positive_rate: 0.0078125
@@ -10176,7 +10176,7 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.02
         windowed_detection_rate: 0.575
-        windowed_detection_rate_lower: 0.3
+        windowed_detection_rate_lower: 0.275
         windowed_detection_rate_upper: 0.7250000000000001
         unwindowed_detection_rate: 0.05
         detection_rate_gain: 0.5249999999999999
@@ -10371,7 +10371,7 @@ measurements:
         windowed_recovered_window_tokens: [32, 64, 128]
       - edit_rate: 0.02
         windowed_detection_rate: 0.6
-        windowed_detection_rate_lower: 0.375
+        windowed_detection_rate_lower: 0.4
         windowed_detection_rate_upper: 0.725
         unwindowed_detection_rate: 0.1
         detection_rate_gain: 0.5
@@ -11913,6 +11913,2668 @@ measurements:
 
 # Corrections. Superseded measurement IDs are recorded here so an audit can see what changed and
 # why. The superseded artifacts remain on disk unmodified but are no longer cited by any entry.
+  - id: e8.e9.matched_baseline.c_tok.shortest_fully_detected_bases
+    status: V
+    value: 96
+    unit: bases
+    quantity: shortest evaluated generated length at which every clean watermarked sequence is detected,
+      identical for all three sampling watermarks, at a false-positive rate calibrated separately for
+      each method over the identical declared search
+    scope:
+      policy_id: C_tok
+      methods:
+      - partition-mc-v1
+      - its-v1
+      - exp-v1
+      prompts: 8
+      generated_tokens_per_prompt: 512
+      evaluated_base_lengths:
+      - 96
+      - 144
+      - 192
+      - 288
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      hypotheses_searched: 96 at every length except 96 bases, where the declared 16-token minimum window
+        leaves only phase zero scorable and the count is 16
+      identical_search_across_methods: true
+    admitted_null_result:
+      note: This was the protocol's preregistered headline and it does not separate the three constructions.
+        Every method detects every sequence at every evaluated length, and 96 bases is the detector's
+        own floor rather than a measured limit, so no shorter length was scorable under the declared search.
+      per_method:
+      - method: partition_mc
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+      - method: its
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+      - method: exp
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+    source:
+      comparison_artifact: outputs/carbon_c_tok_e8e9_comparison_v1.json
+      comparison_sha256: 2a45b3f5cc086c9d836cc233cf16fdfd1f2587692a30299b3d0e406ad31689fa
+      short_comparison_artifact: outputs/carbon_c_tok_e8e9_short_comparison_v1.json
+      short_comparison_sha256: 660d6c2ec1f958257230186d624275b9fd2e75694a4e8db0403a8e3930d22606
+      comparison_analysis_artifact: outputs/carbon_c_tok_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: 1a3b1487d79346b8426b6c07159186312598966064f84fe8a228eeec10e198e9
+      short_comparison_analysis_artifact: outputs/carbon_c_tok_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: aff64286d04a6b9d1c2368365be381e89850dcdaee4514113ccc0b79ad49ad4f
+      partition_generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      partition_sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/carbon_c_tok_e8e9_generation_v1.json
+      baseline_generation_sha256: 082e81da0a168040cfe9a0f4aa58253e79e7b359243b491a4f056542813f65e5
+      baseline_sequences_artifact: outputs/carbon_c_tok_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 70407b2f90e85cc45c4221d57d1e8a7dbe99fc64229d6ad8393f0a2c46e4b5d6
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.c_tok.signal_per_token
+    status: A
+    value: 7.426
+    unit: ratio
+    quantity: conservative ratio of the exponential baseline's standardized signal per 6-mer token to
+      partition coupling's, each in units of its own null standard deviation
+    derivation: smallest exponential value across evaluated lengths divided by the largest partition value
+      across evaluated lengths, so the ratio is a lower bound on the gap
+    scope:
+      policy_id: C_tok
+      prompts: 8
+      evaluated_base_lengths:
+      - 96
+      - 144
+      - 192
+      - 288
+      - 384
+      - 768
+      - 1536
+      - 3072
+      comparison_basis: each method's signal is expressed in units of that method's own null standard
+        deviation, which is the only sense in which the three are comparable; the raw statistics are on
+        different scales and must never be compared directly
+    admitted_signal_per_token:
+      note: Derived from admitted per-trial statistics, not a detection rate. This is the quantity that
+        separates the three constructions, because detection rate saturates at every evaluated length.
+      range_across_lengths:
+        partition_mc:
+          minimum: 0.9375
+          maximum: 0.9687500000000002
+        its:
+          minimum: 1.3769328024452414
+          maximum: 1.3933058502767652
+        exp:
+          minimum: 7.194198360466165
+          maximum: 7.862303060518968
+      its_over_partition_mc_lower_bound: 1.421
+      exp_over_partition_mc_lower_bound: 7.426
+      partition_mc_is_at_its_ceiling: partition coupling couples one bit per token, so its per-token standardized
+        signal cannot exceed 1.0; the measured values are the maximal-coupling loss away from that cap
+        and equal 2p-1 for the generator-side agreement rate p
+    source:
+      comparison_artifact: outputs/carbon_c_tok_e8e9_comparison_v1.json
+      comparison_sha256: 2a45b3f5cc086c9d836cc233cf16fdfd1f2587692a30299b3d0e406ad31689fa
+      short_comparison_artifact: outputs/carbon_c_tok_e8e9_short_comparison_v1.json
+      short_comparison_sha256: 660d6c2ec1f958257230186d624275b9fd2e75694a4e8db0403a8e3930d22606
+      comparison_analysis_artifact: outputs/carbon_c_tok_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: 1a3b1487d79346b8426b6c07159186312598966064f84fe8a228eeec10e198e9
+      short_comparison_analysis_artifact: outputs/carbon_c_tok_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: aff64286d04a6b9d1c2368365be381e89850dcdaee4514113ccc0b79ad49ad4f
+      partition_generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      partition_sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/carbon_c_tok_e8e9_generation_v1.json
+      baseline_generation_sha256: 082e81da0a168040cfe9a0f4aa58253e79e7b359243b491a4f056542813f65e5
+      baseline_sequences_artifact: outputs/carbon_c_tok_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 70407b2f90e85cc45c4221d57d1e8a7dbe99fc64229d6ad8393f0a2c46e4b5d6
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.c_tok.public_dna_exceedance
+    status: V
+    value: 0.06875
+    unit: fraction of trials
+    quantity: largest rate at which natural public genomic DNA under a wrong key exceeds a threshold calibrated
+      on model-generated nulls at a 0.01 target, across the three methods and the evaluated lengths where
+      the prompts are long enough to score
+    scope:
+      policy_id: C_tok
+      worst_method: its
+      trials_per_cell: 160
+      granularity: 0.00625
+      target_false_positive_rate: 0.01
+      pooling: the public-DNA family is never pooled into any threshold; it is scored against thresholds
+        calibrated on the wrong-key and ordinary families only
+    admitted_calibration_transfer:
+      note: 'Not preregistered. Reported as an observation: a threshold calibrated on model-generated
+        sequences is not valid on natural genomic DNA at a 1% target, and the two baselines are more exposed
+        to this than partition coupling at short lengths.'
+      per_method:
+        partition_mc:
+          maximum_exceedance: 0.025
+          at_base_length: 288
+          by_base_length:
+            '96': 0.00625
+            '144': 0.0
+            '192': 0.0
+            '288': 0.025
+            '384': 0.00625
+        its:
+          maximum_exceedance: 0.06875
+          at_base_length: 192
+          by_base_length:
+            '96': 0.01875
+            '144': 0.00625
+            '192': 0.06875
+            '288': 0.00625
+            '384': 0.0
+        exp:
+          maximum_exceedance: 0.05
+          at_base_length: 192
+          by_base_length:
+            '96': 0.00625
+            '144': 0.0125
+            '192': 0.05
+            '288': 0.03125
+            '384': 0.01875
+    source:
+      comparison_artifact: outputs/carbon_c_tok_e8e9_comparison_v1.json
+      comparison_sha256: 2a45b3f5cc086c9d836cc233cf16fdfd1f2587692a30299b3d0e406ad31689fa
+      short_comparison_artifact: outputs/carbon_c_tok_e8e9_short_comparison_v1.json
+      short_comparison_sha256: 660d6c2ec1f958257230186d624275b9fd2e75694a4e8db0403a8e3930d22606
+      comparison_analysis_artifact: outputs/carbon_c_tok_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: 1a3b1487d79346b8426b6c07159186312598966064f84fe8a228eeec10e198e9
+      short_comparison_analysis_artifact: outputs/carbon_c_tok_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: aff64286d04a6b9d1c2368365be381e89850dcdaee4514113ccc0b79ad49ad4f
+      partition_generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      partition_sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/carbon_c_tok_e8e9_generation_v1.json
+      baseline_generation_sha256: 082e81da0a168040cfe9a0f4aa58253e79e7b359243b491a4f056542813f65e5
+      baseline_sequences_artifact: outputs/carbon_c_tok_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 70407b2f90e85cc45c4221d57d1e8a7dbe99fc64229d6ad8393f0a2c46e4b5d6
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.g_tok.shortest_fully_detected_bases
+    status: V
+    value: 96
+    unit: bases
+    quantity: shortest evaluated generated length at which every clean watermarked sequence is detected,
+      identical for all three sampling watermarks, at a false-positive rate calibrated separately for
+      each method over the identical declared search
+    scope:
+      policy_id: G_tok
+      methods:
+      - partition-mc-v1
+      - its-v1
+      - exp-v1
+      prompts: 8
+      generated_tokens_per_prompt: 512
+      evaluated_base_lengths:
+      - 96
+      - 144
+      - 192
+      - 288
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      hypotheses_searched: 96 at every length except 96 bases, where the declared 16-token minimum window
+        leaves only phase zero scorable and the count is 16
+      identical_search_across_methods: true
+    admitted_null_result:
+      note: This was the protocol's preregistered headline and it does not separate the three constructions.
+        Every method detects every sequence at every evaluated length, and 96 bases is the detector's
+        own floor rather than a measured limit, so no shorter length was scorable under the declared search.
+      per_method:
+      - method: partition_mc
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+      - method: its
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+      - method: exp
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+    source:
+      comparison_artifact: outputs/generator_g_tok_e8e9_comparison_v1.json
+      comparison_sha256: 65378e35de494dff10500963b3f7ccc64902d204c55cd10f285a892842461d14
+      short_comparison_artifact: outputs/generator_g_tok_e8e9_short_comparison_v1.json
+      short_comparison_sha256: d4aaf14634559c9ac58d8af3a6e8b4bf4e02acaf8d4185ecc70ca9aee814ab9a
+      comparison_analysis_artifact: outputs/generator_g_tok_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: a041bc685823c8fa018c883f156a96bb7ca4658567666ae8bf5f2b3ff58d0aa2
+      short_comparison_analysis_artifact: outputs/generator_g_tok_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: f95ab9c8131c6444b9cd5f14fd8b5ef22c11194e9ac6d760cf92ff6d9c0467a7
+      partition_generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      partition_sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/generator_g_tok_e8e9_generation_v1.json
+      baseline_generation_sha256: fa2637b967fc0ff369ef25875a86feb3507fd90503d18c4cc75d7a8895b36024
+      baseline_sequences_artifact: outputs/generator_g_tok_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 38768840c0b2137afc1577c914271c9ae20cdeab90a532dbf8ff3d4c25690c81
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.g_tok.signal_per_token
+    status: A
+    value: 7.434
+    unit: ratio
+    quantity: conservative ratio of the exponential baseline's standardized signal per 6-mer token to
+      partition coupling's, each in units of its own null standard deviation
+    derivation: smallest exponential value across evaluated lengths divided by the largest partition value
+      across evaluated lengths, so the ratio is a lower bound on the gap
+    scope:
+      policy_id: G_tok
+      prompts: 8
+      evaluated_base_lengths:
+      - 96
+      - 144
+      - 192
+      - 288
+      - 384
+      - 768
+      - 1536
+      - 3072
+      comparison_basis: each method's signal is expressed in units of that method's own null standard
+        deviation, which is the only sense in which the three are comparable; the raw statistics are on
+        different scales and must never be compared directly
+    admitted_signal_per_token:
+      note: Derived from admitted per-trial statistics, not a detection rate. This is the quantity that
+        separates the three constructions, because detection rate saturates at every evaluated length.
+      range_across_lengths:
+        partition_mc:
+          minimum: 0.9765624999999999
+          maximum: 1.0
+        its:
+          minimum: 1.3804009006137397
+          maximum: 1.3889767864720073
+        exp:
+          minimum: 7.434060345258825
+          maximum: 8.02387212702338
+      its_over_partition_mc_lower_bound: 1.38
+      exp_over_partition_mc_lower_bound: 7.434
+      partition_mc_is_at_its_ceiling: partition coupling couples one bit per token, so its per-token standardized
+        signal cannot exceed 1.0; the measured values are the maximal-coupling loss away from that cap
+        and equal 2p-1 for the generator-side agreement rate p
+    source:
+      comparison_artifact: outputs/generator_g_tok_e8e9_comparison_v1.json
+      comparison_sha256: 65378e35de494dff10500963b3f7ccc64902d204c55cd10f285a892842461d14
+      short_comparison_artifact: outputs/generator_g_tok_e8e9_short_comparison_v1.json
+      short_comparison_sha256: d4aaf14634559c9ac58d8af3a6e8b4bf4e02acaf8d4185ecc70ca9aee814ab9a
+      comparison_analysis_artifact: outputs/generator_g_tok_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: a041bc685823c8fa018c883f156a96bb7ca4658567666ae8bf5f2b3ff58d0aa2
+      short_comparison_analysis_artifact: outputs/generator_g_tok_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: f95ab9c8131c6444b9cd5f14fd8b5ef22c11194e9ac6d760cf92ff6d9c0467a7
+      partition_generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      partition_sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/generator_g_tok_e8e9_generation_v1.json
+      baseline_generation_sha256: fa2637b967fc0ff369ef25875a86feb3507fd90503d18c4cc75d7a8895b36024
+      baseline_sequences_artifact: outputs/generator_g_tok_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 38768840c0b2137afc1577c914271c9ae20cdeab90a532dbf8ff3d4c25690c81
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.g_tok.public_dna_exceedance
+    status: V
+    value: 0.04375
+    unit: fraction of trials
+    quantity: largest rate at which natural public genomic DNA under a wrong key exceeds a threshold calibrated
+      on model-generated nulls at a 0.01 target, across the three methods and the evaluated lengths where
+      the prompts are long enough to score
+    scope:
+      policy_id: G_tok
+      worst_method: its
+      trials_per_cell: 160
+      granularity: 0.00625
+      target_false_positive_rate: 0.01
+      pooling: the public-DNA family is never pooled into any threshold; it is scored against thresholds
+        calibrated on the wrong-key and ordinary families only
+    admitted_calibration_transfer:
+      note: 'Not preregistered. Reported as an observation: a threshold calibrated on model-generated
+        sequences is not valid on natural genomic DNA at a 1% target, and the two baselines are more exposed
+        to this than partition coupling at short lengths.'
+      per_method:
+        partition_mc:
+          maximum_exceedance: 0.0125
+          at_base_length: 192
+          by_base_length:
+            '96': 0.0
+            '144': 0.00625
+            '192': 0.0125
+            '288': 0.0
+            '384': 0.00625
+        its:
+          maximum_exceedance: 0.04375
+          at_base_length: 192
+          by_base_length:
+            '96': 0.0
+            '144': 0.0125
+            '192': 0.04375
+            '288': 0.0125
+            '384': 0.00625
+        exp:
+          maximum_exceedance: 0.025
+          at_base_length: 192
+          by_base_length:
+            '96': 0.0125
+            '144': 0.01875
+            '192': 0.025
+            '288': 0.00625
+            '384': 0.0125
+    source:
+      comparison_artifact: outputs/generator_g_tok_e8e9_comparison_v1.json
+      comparison_sha256: 65378e35de494dff10500963b3f7ccc64902d204c55cd10f285a892842461d14
+      short_comparison_artifact: outputs/generator_g_tok_e8e9_short_comparison_v1.json
+      short_comparison_sha256: d4aaf14634559c9ac58d8af3a6e8b4bf4e02acaf8d4185ecc70ca9aee814ab9a
+      comparison_analysis_artifact: outputs/generator_g_tok_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: a041bc685823c8fa018c883f156a96bb7ca4658567666ae8bf5f2b3ff58d0aa2
+      short_comparison_analysis_artifact: outputs/generator_g_tok_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: f95ab9c8131c6444b9cd5f14fd8b5ef22c11194e9ac6d760cf92ff6d9c0467a7
+      partition_generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      partition_sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/generator_g_tok_e8e9_generation_v1.json
+      baseline_generation_sha256: fa2637b967fc0ff369ef25875a86feb3507fd90503d18c4cc75d7a8895b36024
+      baseline_sequences_artifact: outputs/generator_g_tok_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 38768840c0b2137afc1577c914271c9ae20cdeab90a532dbf8ff3d4c25690c81
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.g_bp.shortest_fully_detected_bases
+    status: V
+    value: 96
+    unit: bases
+    quantity: shortest evaluated generated length at which every clean watermarked sequence is detected,
+      identical for all three sampling watermarks, at a false-positive rate calibrated separately for
+      each method over the identical declared search
+    scope:
+      policy_id: G_bp
+      methods:
+      - partition-mc-v1
+      - its-v1
+      - exp-v1
+      prompts: 8
+      generated_tokens_per_prompt: 512
+      evaluated_base_lengths:
+      - 96
+      - 144
+      - 192
+      - 288
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      hypotheses_searched: 96 at every length except 96 bases, where the declared 16-token minimum window
+        leaves only phase zero scorable and the count is 16
+      identical_search_across_methods: true
+    admitted_null_result:
+      note: This was the protocol's preregistered headline and it does not separate the three constructions.
+        Every method detects every sequence at every evaluated length, and 96 bases is the detector's
+        own floor rather than a measured limit, so no shorter length was scorable under the declared search.
+      per_method:
+      - method: partition_mc
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+      - method: its
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+      - method: exp
+        shortest_fully_detected_bases: 96
+        detection_rate_at_every_evaluated_length:
+        - 1.0
+    source:
+      comparison_artifact: outputs/generator_g_bp_e8e9_comparison_v1.json
+      comparison_sha256: 4f1401068c726a4a9d9249240751ff3707fca0e3c82621227d386bb723dbafa4
+      short_comparison_artifact: outputs/generator_g_bp_e8e9_short_comparison_v1.json
+      short_comparison_sha256: 31cb477c399082f1225341803da2b0385781e21c9dc23704a9c1767e6b53c04b
+      comparison_analysis_artifact: outputs/generator_g_bp_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: 651689a42da63bf0a93c637d446d6f741c2e8809660777439c574a1d7822cf77
+      short_comparison_analysis_artifact: outputs/generator_g_bp_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: 7cb3f7597a394d59ed314dac76e7dc4394a906ebf488bea10ee85a9be62beccd
+      partition_generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      partition_sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/generator_g_bp_e8e9_generation_v1.json
+      baseline_generation_sha256: bc381fda20b8e08a797177c82c2e31db0cf99d4beb6b6cc0f7860f2a702adcb6
+      baseline_sequences_artifact: outputs/generator_g_bp_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 100fb64f4b4253cbee341e08cac42679599ccd633b920b545492ba7d38cc48cf
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.g_bp.signal_per_token
+    status: A
+    value: 7.291
+    unit: ratio
+    quantity: conservative ratio of the exponential baseline's standardized signal per 6-mer token to
+      partition coupling's, each in units of its own null standard deviation
+    derivation: smallest exponential value across evaluated lengths divided by the largest partition value
+      across evaluated lengths, so the ratio is a lower bound on the gap
+    scope:
+      policy_id: G_bp
+      prompts: 8
+      evaluated_base_lengths:
+      - 96
+      - 144
+      - 192
+      - 288
+      - 384
+      - 768
+      - 1536
+      - 3072
+      comparison_basis: each method's signal is expressed in units of that method's own null standard
+        deviation, which is the only sense in which the three are comparable; the raw statistics are on
+        different scales and must never be compared directly
+    admitted_signal_per_token:
+      note: Derived from admitted per-trial statistics, not a detection rate. This is the quantity that
+        separates the three constructions, because detection rate saturates at every evaluated length.
+      range_across_lengths:
+        partition_mc:
+          minimum: 0.9931640625
+          maximum: 1.0000000000000002
+        its:
+          minimum: 1.3876992950865454
+          maximum: 1.3913834849394502
+        exp:
+          minimum: 7.291106652871457
+          maximum: 7.616197483962853
+      its_over_partition_mc_lower_bound: 1.388
+      exp_over_partition_mc_lower_bound: 7.291
+      partition_mc_is_at_its_ceiling: partition coupling couples one bit per token, so its per-token standardized
+        signal cannot exceed 1.0; the measured values are the maximal-coupling loss away from that cap
+        and equal 2p-1 for the generator-side agreement rate p
+    source:
+      comparison_artifact: outputs/generator_g_bp_e8e9_comparison_v1.json
+      comparison_sha256: 4f1401068c726a4a9d9249240751ff3707fca0e3c82621227d386bb723dbafa4
+      short_comparison_artifact: outputs/generator_g_bp_e8e9_short_comparison_v1.json
+      short_comparison_sha256: 31cb477c399082f1225341803da2b0385781e21c9dc23704a9c1767e6b53c04b
+      comparison_analysis_artifact: outputs/generator_g_bp_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: 651689a42da63bf0a93c637d446d6f741c2e8809660777439c574a1d7822cf77
+      short_comparison_analysis_artifact: outputs/generator_g_bp_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: 7cb3f7597a394d59ed314dac76e7dc4394a906ebf488bea10ee85a9be62beccd
+      partition_generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      partition_sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/generator_g_bp_e8e9_generation_v1.json
+      baseline_generation_sha256: bc381fda20b8e08a797177c82c2e31db0cf99d4beb6b6cc0f7860f2a702adcb6
+      baseline_sequences_artifact: outputs/generator_g_bp_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 100fb64f4b4253cbee341e08cac42679599ccd633b920b545492ba7d38cc48cf
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e8.e9.matched_baseline.g_bp.public_dna_exceedance
+    status: V
+    value: 0.01875
+    unit: fraction of trials
+    quantity: largest rate at which natural public genomic DNA under a wrong key exceeds a threshold calibrated
+      on model-generated nulls at a 0.01 target, across the three methods and the evaluated lengths where
+      the prompts are long enough to score
+    scope:
+      policy_id: G_bp
+      worst_method: its
+      trials_per_cell: 160
+      granularity: 0.00625
+      target_false_positive_rate: 0.01
+      pooling: the public-DNA family is never pooled into any threshold; it is scored against thresholds
+        calibrated on the wrong-key and ordinary families only
+    admitted_calibration_transfer:
+      note: 'Not preregistered. Reported as an observation: a threshold calibrated on model-generated
+        sequences is not valid on natural genomic DNA at a 1% target, and the two baselines are more exposed
+        to this than partition coupling at short lengths.'
+      per_method:
+        partition_mc:
+          maximum_exceedance: 0.0
+          at_base_length: 96
+          by_base_length:
+            '96': 0.0
+            '144': 0.0
+            '192': 0.0
+            '288': 0.0
+            '384': 0.0
+        its:
+          maximum_exceedance: 0.01875
+          at_base_length: 144
+          by_base_length:
+            '96': 0.00625
+            '144': 0.01875
+            '192': 0.00625
+            '288': 0.0
+            '384': 0.0125
+        exp:
+          maximum_exceedance: 0.0125
+          at_base_length: 96
+          by_base_length:
+            '96': 0.0125
+            '144': 0.0125
+            '192': 0.00625
+            '288': 0.0
+            '384': 0.0
+    source:
+      comparison_artifact: outputs/generator_g_bp_e8e9_comparison_v1.json
+      comparison_sha256: 4f1401068c726a4a9d9249240751ff3707fca0e3c82621227d386bb723dbafa4
+      short_comparison_artifact: outputs/generator_g_bp_e8e9_short_comparison_v1.json
+      short_comparison_sha256: 31cb477c399082f1225341803da2b0385781e21c9dc23704a9c1767e6b53c04b
+      comparison_analysis_artifact: outputs/generator_g_bp_e8e9_comparison_analysis_v1.json
+      comparison_analysis_sha256: 651689a42da63bf0a93c637d446d6f741c2e8809660777439c574a1d7822cf77
+      short_comparison_analysis_artifact: outputs/generator_g_bp_e8e9_short_comparison_analysis_v1.json
+      short_comparison_analysis_sha256: 7cb3f7597a394d59ed314dac76e7dc4394a906ebf488bea10ee85a9be62beccd
+      partition_generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      partition_sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      baseline_generation_artifact: outputs/generator_g_bp_e8e9_generation_v1.json
+      baseline_generation_sha256: bc381fda20b8e08a797177c82c2e31db0cf99d4beb6b6cc0f7860f2a702adcb6
+      baseline_sequences_artifact: outputs/generator_g_bp_e8e9_sequences_v1.jsonl
+      baseline_sequences_sha256: 100fb64f4b4253cbee341e08cac42679599ccd633b920b545492ba7d38cc48cf
+      protocol: docs/research/e8_e9_matched_baseline_protocol.md
+  - id: e11.spoofing.c_tok.splice_forgery_detection_rate
+    status: V
+    value: 1.0
+    unit: fraction of forgeries accepted
+    quantity: rate at which a sequence the generator never produced, spliced position-wise from watermarked
+      outputs under the same key, is accepted by the calibrated detector
+    sign_of_the_result: A HIGH value is a VULNERABILITY, not a success. It is the only detection rate
+      in this project whose sign is inverted, and it must never share an axis with the intended-detection
+      rates.
+    scope:
+      policy_id: C_tok
+      attacker_knowledge: generated DNA and public configuration only; never the model, a probability,
+        or the key
+      outputs_available_to_attacker: 8
+      donor_outputs_required: 2
+      evaluated_base_lengths:
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      forgeries_per_cell: 8
+      novelty: a draw taking every position from one donor was rejected and redrawn, so no counted forgery
+        is a verbatim copy of an observed output
+    admitted_curve:
+      note: The forged statistic matches the genuine statistic to within noise at every length, because
+        the detector's decision at each position is content-blind.
+      interpretation: the construction authenticates a distribution, not a sequence; closing this would
+        require a different construction, not a parameter change
+      points:
+      - base_length: 384
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 7.71875
+        genuine_mean_statistic: 7.75
+        threshold: 3.6536565724225296
+      - base_length: 384
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 7.84375
+        genuine_mean_statistic: 7.75
+        threshold: 3.6536565724225296
+      - base_length: 384
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 7.84375
+        genuine_mean_statistic: 7.75
+        threshold: 3.6536565724225296
+      - base_length: 768
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 10.783378413094848
+        genuine_mean_statistic: 10.893863847655247
+        threshold: 3.8156329904892896
+      - base_length: 768
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 10.827572586919008
+        genuine_mean_statistic: 10.893863847655247
+        threshold: 3.8156329904892896
+      - base_length: 768
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 10.982252195303566
+        genuine_mean_statistic: 10.893863847655247
+        threshold: 3.8156329904892896
+      - base_length: 1536
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.375
+        genuine_mean_statistic: 15.484375
+        threshold: 3.75
+      - base_length: 1536
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.390625
+        genuine_mean_statistic: 15.484375
+        threshold: 3.75
+      - base_length: 1536
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.5625
+        genuine_mean_statistic: 15.484375
+        threshold: 3.75
+      - base_length: 3072
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 21.86506749950277
+        genuine_mean_statistic: 21.90926167332693
+        threshold: 4.065863991822648
+      - base_length: 3072
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 21.787727695310494
+        genuine_mean_statistic: 21.90926167332693
+        threshold: 4.065863991822648
+      - base_length: 3072
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 21.93135876023901
+        genuine_mean_statistic: 21.90926167332693
+        threshold: 4.065863991822648
+    source:
+      run_artifact: outputs/carbon_c_tok_e11_e12_key_reuse_v1.json
+      run_sha256: 154360414bba42ad66cdccd5cfc809c7133ef7a563429c9d0752e2e147a58e7b
+      analysis_artifact: outputs/carbon_c_tok_e11_e12_analysis_v1.json
+      analysis_sha256: d769feb630ac1a4489d3056a921126bf2f51976df442216d62f96ffd29e8cd8f
+      generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e12.removal.c_tok.rearrangement_detection_rate
+    status: V
+    value: 0.0
+    unit: fraction of attacked sequences detected
+    quantity: detection rate after a full positional shuffle of 6-mer positions, at every evaluated length
+    sign_of_the_result: A LOW value is a SUCCESSFUL removal attack. It must be read beside the utility
+      column, because a rearrangement that destroys the sequence is not a useful attack.
+    scope:
+      policy_id: C_tok
+      attacker_knowledge: one watermarked output; no model, probability, or key
+      evaluated_base_lengths:
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      trials_per_cell: 8
+      kmer_multiset_preserved: exactly, by construction and by test, so a measured removal cannot be a
+        composition change in disguise
+    admitted_curve:
+      note: 'A block width of 2 retains about half the statistic, so detection after a width-2 shuffle
+        rises with length rather than staying halved: halving a statistic that grows with the square root
+        of the length still clears the threshold once the sequence is long enough. Removal requires the
+        attacker to displace tokens across a wider window as the sequence grows.'
+      share_of_genuine_statistic_at_width_two:
+        minimum: 0.5330307614725165
+        maximum: 0.5806451612903226
+      trials_per_point: 8
+      interval_method: 'joint resample: nulls resampled and the threshold recalibrated on every replicate,
+        prompt clusters resampled independently'
+      interval_replicates: 20000
+      interval_seed: 2718
+      points:
+      - base_length: 384
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.294343089124087
+        share_of_genuine_statistic: 0.2960442695643983
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 0.75
+        detection_rate_lower: 0.375
+        detection_rate_upper: 1.0
+        mean_statistic: 4.5
+        share_of_genuine_statistic: 0.5806451612903226
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 3.1491478599015283
+        share_of_genuine_statistic: 0.4063416593421327
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.125
+        mean_statistic: 2.59375
+        share_of_genuine_statistic: 0.3346774193548387
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.603631576697424
+        share_of_genuine_statistic: 0.33595246150934505
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.7788416088328045
+        share_of_genuine_statistic: 0.3585602075913296
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.3888342073763935
+        share_of_genuine_statistic: 0.30823667191953463
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.3088564117456265
+        share_of_genuine_statistic: 0.2979169563542744
+      - base_length: 768
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.56120001105915
+        share_of_genuine_statistic: 0.2351048302857588
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 5.944116379349414
+        share_of_genuine_statistic: 0.5456389452332657
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.625
+        mean_statistic: 3.393335467089053
+        share_of_genuine_statistic: 0.31149053398711435
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.25
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.625
+        mean_statistic: 3.3487939899716013
+        share_of_genuine_statistic: 0.30740185822061494
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
+        mean_statistic: 2.897323160182126
+        share_of_genuine_statistic: 0.2659591858958045
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 2.8679544531285672
+        share_of_genuine_statistic: 0.2632632914487778
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.4031341955649865
+        share_of_genuine_statistic: 0.22059521113642594
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.125
+        mean_statistic: 2.6032235393002283
+        share_of_genuine_statistic: 0.23896237145101976
+      - base_length: 1536
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.7782275388706474
+        share_of_genuine_statistic: 0.17942135467984
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 8.359375
+        share_of_genuine_statistic: 0.5398587285570131
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 4.984375
+        share_of_genuine_statistic: 0.3218970736629667
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.625
+        detection_rate_lower: 0.25
+        detection_rate_upper: 0.875
+        mean_statistic: 4.15625
+        share_of_genuine_statistic: 0.2684157416750757
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.375
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.75
+        mean_statistic: 3.390625
+        share_of_genuine_statistic: 0.218970736629667
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
+        mean_statistic: 2.9006565275918335
+        share_of_genuine_statistic: 0.18732796949129904
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.448388531351438
+        share_of_genuine_statistic: 0.15811994551613726
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.5023873676160413
+        share_of_genuine_statistic: 0.16160725683897745
+      - base_length: 3072
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
+        mean_statistic: 2.6925624570371913
+        share_of_genuine_statistic: 0.12289608372860904
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 11.678310433034074
+        share_of_genuine_statistic: 0.5330307614725165
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 7.247844507162112
+        share_of_genuine_statistic: 0.3308119011598588
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.875
+        detection_rate_lower: 0.625
+        detection_rate_upper: 1.0
+        mean_statistic: 5.457980467283663
+        share_of_genuine_statistic: 0.24911749873928393
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.5
+        detection_rate_lower: 0.125
+        detection_rate_upper: 1.0
+        mean_statistic: 4.0327183614545286
+        share_of_genuine_statistic: 0.18406454866364094
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.75
+        mean_statistic: 3.5193879049988666
+        share_of_genuine_statistic: 0.16063471044683753
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.547018832050865
+        share_of_genuine_statistic: 0.11625306548562023
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.719811028547379
+        share_of_genuine_statistic: 0.12413978476776186
+    source:
+      run_artifact: outputs/carbon_c_tok_e11_e12_key_reuse_v1.json
+      run_sha256: 154360414bba42ad66cdccd5cfc809c7133ef7a563429c9d0752e2e147a58e7b
+      analysis_artifact: outputs/carbon_c_tok_e11_e12_analysis_v1.json
+      analysis_sha256: d769feb630ac1a4489d3056a921126bf2f51976df442216d62f96ffd29e8cd8f
+      generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e12.removal.c_tok.utility_cost_on_admitted_proxies
+    status: V
+    value: 0.16666666666666666
+    unit: largest relative shift across the nine admitted proxies
+    quantity: largest relative change in any admitted sequence proxy caused by the full positional-shuffle
+      removal attack, relative to the unattacked source sequence
+    scope:
+      policy_id: C_tok
+      proxy_metrics: 9
+      largest_shift_metric: longest_homopolymer_run
+      sequences: 8
+    admitted_utility:
+      note: This is evidence about the proxies as much as about the attack. The removal attacks permute
+        whole 6-mers, so the 6-mer multiset is preserved exactly and a suite of composition and complexity
+        statistics is blind to them by construction. A small shift here is NOT a claim that removal is
+        free.
+      what_would_price_it: the ORF and independent-model-likelihood proxies declared in docs/baseline_definition.md
+        and not yet implemented; a rearrangement destroys long-range structure, which is what those instruments
+        measure
+      full_shuffle_largest_relative_shift: 0.16666666666666666
+      splice_forgery_largest_relative_shift: 0.42208588957055215
+      the_forgery_is_more_anomalous_than_the_removal: true
+      relative_shift_by_attack:
+        block_shuffle[2]: 0.09523809523809523
+        block_shuffle[3]: 0.05952380952380952
+        block_shuffle[4]: 0.14285714285714285
+        block_shuffle[6]: 0.19047619047619047
+        block_shuffle[8]: 0.16666666666666666
+        block_shuffle[16]: 0.21428571428571427
+        block_shuffle[32]: 0.13095238095238096
+        positional_shuffle[None]: 0.16666666666666666
+        positional_splice[2]: 0.19600380589914368
+        positional_splice[4]: 0.3058455114822547
+        positional_splice[8]: 0.42208588957055215
+    source:
+      run_artifact: outputs/carbon_c_tok_e11_e12_key_reuse_v1.json
+      run_sha256: 154360414bba42ad66cdccd5cfc809c7133ef7a563429c9d0752e2e147a58e7b
+      analysis_artifact: outputs/carbon_c_tok_e11_e12_analysis_v1.json
+      analysis_sha256: d769feb630ac1a4489d3056a921126bf2f51976df442216d62f96ffd29e8cd8f
+      generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e11.key_reuse.c_tok.fixed_key_many_query_exceedance
+    status: V
+    value: 0.125
+    unit: fraction of trials
+    quantity: largest rate at which one fixed key exceeds its own calibrated threshold on sequences it
+      did not generate, across the evaluated lengths and the two many-query families
+    scope:
+      policy_id: C_tok
+      target_false_positive_rate: 0.01
+      trials_per_cell: 8
+      resolution: 0.125
+      reading: at eight trials per cell this confirms the calibration is not obviously broken by key reuse
+        rather than measuring the rate precisely
+    admitted_conditions:
+      grid:
+      - base_length: 384
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.6536565724225296
+      - base_length: 384
+        family: fixed_key_many_query_public_dna
+        exceedance_rate: 0.125
+        trials: 8
+        threshold: 3.6536565724225296
+      - base_length: 768
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.8156329904892896
+      - base_length: 1536
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.125
+        trials: 8
+        threshold: 3.75
+      - base_length: 3072
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 4.065863991822648
+    source:
+      run_artifact: outputs/carbon_c_tok_e11_e12_key_reuse_v1.json
+      run_sha256: 154360414bba42ad66cdccd5cfc809c7133ef7a563429c9d0752e2e147a58e7b
+      analysis_artifact: outputs/carbon_c_tok_e11_e12_analysis_v1.json
+      analysis_sha256: d769feb630ac1a4489d3056a921126bf2f51976df442216d62f96ffd29e8cd8f
+      generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e11.spoofing.g_tok.splice_forgery_detection_rate
+    status: V
+    value: 1.0
+    unit: fraction of forgeries accepted
+    quantity: rate at which a sequence the generator never produced, spliced position-wise from watermarked
+      outputs under the same key, is accepted by the calibrated detector
+    sign_of_the_result: A HIGH value is a VULNERABILITY, not a success. It is the only detection rate
+      in this project whose sign is inverted, and it must never share an axis with the intended-detection
+      rates.
+    scope:
+      policy_id: G_tok
+      attacker_knowledge: generated DNA and public configuration only; never the model, a probability,
+        or the key
+      outputs_available_to_attacker: 8
+      donor_outputs_required: 2
+      evaluated_base_lengths:
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      forgeries_per_cell: 8
+      novelty: a draw taking every position from one donor was rejected and redrawn, so no counted forgery
+        is a verbatim copy of an observed output
+    admitted_curve:
+      note: The forged statistic matches the genuine statistic to within noise at every length, because
+        the detector's decision at each position is content-blind.
+      interpretation: the construction authenticates a distribution, not a sequence; closing this would
+        require a different construction, not a parameter change
+      points:
+      - base_length: 384
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 7.75
+        genuine_mean_statistic: 7.8125
+        threshold: 3.6536565724225296
+      - base_length: 384
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 7.875
+        genuine_mean_statistic: 7.8125
+        threshold: 3.6536565724225296
+      - base_length: 384
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 7.78125
+        genuine_mean_statistic: 7.8125
+        threshold: 3.6536565724225296
+      - base_length: 768
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 11.092737629863963
+        genuine_mean_statistic: 11.136931803688123
+        threshold: 3.8156329904892896
+      - base_length: 768
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 11.159028890600203
+        genuine_mean_statistic: 11.136931803688123
+        threshold: 3.8156329904892896
+      - base_length: 768
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 11.114834716776043
+        genuine_mean_statistic: 11.136931803688123
+        threshold: 3.8156329904892896
+      - base_length: 1536
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.8125
+        genuine_mean_statistic: 15.78125
+        threshold: 3.819968175619412
+      - base_length: 1536
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.765625
+        genuine_mean_statistic: 15.78125
+        threshold: 3.819968175619412
+      - base_length: 1536
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.765625
+        genuine_mean_statistic: 15.78125
+        threshold: 3.819968175619412
+      - base_length: 3072
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 22.240717977008128
+        genuine_mean_statistic: 22.251766520464166
+        threshold: 3.7601786192323754
+      - base_length: 3072
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 22.218620890096048
+        genuine_mean_statistic: 22.251766520464166
+        threshold: 3.7601786192323754
+      - base_length: 3072
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 22.185475259727927
+        genuine_mean_statistic: 22.251766520464166
+        threshold: 3.7601786192323754
+    source:
+      run_artifact: outputs/generator_g_tok_e11_e12_key_reuse_v1.json
+      run_sha256: f6e916e334d3f388634381955e44bd111bd2de10f0e7f211bdbdf6466f009a83
+      analysis_artifact: outputs/generator_g_tok_e11_e12_analysis_v1.json
+      analysis_sha256: b718a8bb5e20386dced0fb0e9aab50b8b7059ae3ef8b371c4b2018af5e75b2ad
+      generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e12.removal.g_tok.rearrangement_detection_rate
+    status: V
+    value: 0.0
+    unit: fraction of attacked sequences detected
+    quantity: detection rate after a full positional shuffle of 6-mer positions, at every evaluated length
+    sign_of_the_result: A LOW value is a SUCCESSFUL removal attack. It must be read beside the utility
+      column, because a rearrangement that destroys the sequence is not a useful attack.
+    scope:
+      policy_id: G_tok
+      attacker_knowledge: one watermarked output; no model, probability, or key
+      evaluated_base_lengths:
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      trials_per_cell: 8
+      kmer_multiset_preserved: exactly, by construction and by test, so a measured removal cannot be a
+        composition change in disguise
+    admitted_curve:
+      note: 'A block width of 2 retains about half the statistic, so detection after a width-2 shuffle
+        rises with length rather than staying halved: halving a statistic that grows with the square root
+        of the length still clears the threshold once the sequence is long enough. Removal requires the
+        attacker to displace tokens across a wider window as the sequence grows.'
+      share_of_genuine_statistic_at_width_two:
+        minimum: 0.4444444444444445
+        maximum: 0.5
+      trials_per_point: 8
+      interval_method: 'joint resample: nulls resampled and the threshold recalibrated on every replicate,
+        prompt clusters resampled independently'
+      interval_replicates: 20000
+      interval_seed: 2718
+      points:
+      - base_length: 384
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.4252720351425414
+        share_of_genuine_statistic: 0.3104348204982453
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 3.5625
+        share_of_genuine_statistic: 0.456
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 0.25
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.625
+        mean_statistic: 3.022418583979479
+        share_of_genuine_statistic: 0.38686957874937333
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.584918583979479
+        share_of_genuine_statistic: 0.33086957874937334
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.25
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.5
+        mean_statistic: 3.0428608526194734
+        share_of_genuine_statistic: 0.3894861891352926
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.25
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.5
+        mean_statistic: 2.8339304263097365
+        share_of_genuine_statistic: 0.36274309456764625
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.56429127892921
+        share_of_genuine_statistic: 0.32822928370293886
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.402359372328191
+        share_of_genuine_statistic: 0.30750199965800845
+      - base_length: 768
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.637367666636565
+        share_of_genuine_statistic: 0.2368127697220136
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 0.75
+        detection_rate_upper: 1.0
+        mean_statistic: 4.949747468305833
+        share_of_genuine_statistic: 0.4444444444444445
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 0.5
+        detection_rate_lower: 0.125
+        detection_rate_upper: 0.875
+        mean_statistic: 3.8134405958885353
+        share_of_genuine_statistic: 0.34241393079426696
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.5
+        mean_statistic: 3.127996772497452
+        share_of_genuine_statistic: 0.28086701325239144
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.5
+        mean_statistic: 3.1877978455021205
+        share_of_genuine_statistic: 0.28623663156906864
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.25
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.625
+        mean_statistic: 3.1867559356222417
+        share_of_genuine_statistic: 0.286143077087615
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 2.7483740561369023
+        share_of_genuine_statistic: 0.24678018188337533
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
+        mean_statistic: 2.5484583640483067
+        share_of_genuine_statistic: 0.2288294845447788
+      - base_length: 1536
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.4339266078823303
+        share_of_genuine_statistic: 0.15422901277670212
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 7.890625
+        share_of_genuine_statistic: 0.5
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 0.875
+        detection_rate_lower: 0.625
+        detection_rate_upper: 1.0
+        mean_statistic: 5.46875
+        share_of_genuine_statistic: 0.3465346534653465
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.625
+        detection_rate_lower: 0.25
+        detection_rate_upper: 1.0
+        mean_statistic: 4.15625
+        share_of_genuine_statistic: 0.2633663366336634
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.375
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.75
+        mean_statistic: 3.6732523274707933
+        share_of_genuine_statistic: 0.23276054352290176
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.5
+        mean_statistic: 3.055314949181139
+        share_of_genuine_statistic: 0.19360411559167615
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 2.799813298604359
+        share_of_genuine_statistic: 0.17741391199077125
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
+        mean_statistic: 2.6671997459056955
+        share_of_genuine_statistic: 0.1690106769682817
+      - base_length: 3072
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.565196252707154
+        share_of_genuine_statistic: 0.11528056661694852
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 10.429825022501575
+        share_of_genuine_statistic: 0.4687189672293942
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 7.468815376282908
+        share_of_genuine_statistic: 0.33565044687189677
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.875
+        detection_rate_lower: 0.625
+        detection_rate_upper: 1.0
+        mean_statistic: 5.0933785332343495
+        share_of_genuine_statistic: 0.2288977159880834
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.875
+        detection_rate_lower: 0.5
+        detection_rate_upper: 1.0
+        mean_statistic: 4.607242621168599
+        share_of_genuine_statistic: 0.2070506454816286
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.625
+        mean_statistic: 3.336660123724021
+        share_of_genuine_statistic: 0.1499503475670308
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.6639307912479104
+        share_of_genuine_statistic: 0.11971772168281503
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
+        mean_statistic: 2.691730439384924
+        share_of_genuine_statistic: 0.12096704488200676
+    source:
+      run_artifact: outputs/generator_g_tok_e11_e12_key_reuse_v1.json
+      run_sha256: f6e916e334d3f388634381955e44bd111bd2de10f0e7f211bdbdf6466f009a83
+      analysis_artifact: outputs/generator_g_tok_e11_e12_analysis_v1.json
+      analysis_sha256: b718a8bb5e20386dced0fb0e9aab50b8b7059ae3ef8b371c4b2018af5e75b2ad
+      generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e12.removal.g_tok.utility_cost_on_admitted_proxies
+    status: V
+    value: 0.12307692307692308
+    unit: largest relative shift across the nine admitted proxies
+    quantity: largest relative change in any admitted sequence proxy caused by the full positional-shuffle
+      removal attack, relative to the unattacked source sequence
+    scope:
+      policy_id: G_tok
+      proxy_metrics: 9
+      largest_shift_metric: longest_homopolymer_run
+      sequences: 8
+    admitted_utility:
+      note: This is evidence about the proxies as much as about the attack. The removal attacks permute
+        whole 6-mers, so the 6-mer multiset is preserved exactly and a suite of composition and complexity
+        statistics is blind to them by construction. A small shift here is NOT a claim that removal is
+        free.
+      what_would_price_it: the ORF and independent-model-likelihood proxies declared in docs/baseline_definition.md
+        and not yet implemented; a rearrangement destroys long-range structure, which is what those instruments
+        measure
+      full_shuffle_largest_relative_shift: 0.12307692307692308
+      splice_forgery_largest_relative_shift: 0.3652561247216037
+      the_forgery_is_more_anomalous_than_the_removal: true
+      relative_shift_by_attack:
+        block_shuffle[2]: 0.18461538461538463
+        block_shuffle[3]: 0.15384615384615385
+        block_shuffle[4]: 0.18461538461538463
+        block_shuffle[6]: 0.23076923076923078
+        block_shuffle[8]: 0.16923076923076924
+        block_shuffle[16]: 0.16923076923076924
+        block_shuffle[32]: 0.15384615384615385
+        positional_shuffle[None]: 0.12307692307692308
+        positional_splice[2]: 0.3058968058968059
+        positional_splice[4]: 0.22264150943396227
+        positional_splice[8]: 0.3652561247216037
+    source:
+      run_artifact: outputs/generator_g_tok_e11_e12_key_reuse_v1.json
+      run_sha256: f6e916e334d3f388634381955e44bd111bd2de10f0e7f211bdbdf6466f009a83
+      analysis_artifact: outputs/generator_g_tok_e11_e12_analysis_v1.json
+      analysis_sha256: b718a8bb5e20386dced0fb0e9aab50b8b7059ae3ef8b371c4b2018af5e75b2ad
+      generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e11.key_reuse.g_tok.fixed_key_many_query_exceedance
+    status: V
+    value: 0.0
+    unit: fraction of trials
+    quantity: largest rate at which one fixed key exceeds its own calibrated threshold on sequences it
+      did not generate, across the evaluated lengths and the two many-query families
+    scope:
+      policy_id: G_tok
+      target_false_positive_rate: 0.01
+      trials_per_cell: 8
+      resolution: 0.125
+      reading: at eight trials per cell this confirms the calibration is not obviously broken by key reuse
+        rather than measuring the rate precisely
+    admitted_conditions:
+      grid:
+      - base_length: 384
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.6536565724225296
+      - base_length: 384
+        family: fixed_key_many_query_public_dna
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.6536565724225296
+      - base_length: 768
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.8156329904892896
+      - base_length: 1536
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.819968175619412
+      - base_length: 3072
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.7601786192323754
+    source:
+      run_artifact: outputs/generator_g_tok_e11_e12_key_reuse_v1.json
+      run_sha256: f6e916e334d3f388634381955e44bd111bd2de10f0e7f211bdbdf6466f009a83
+      analysis_artifact: outputs/generator_g_tok_e11_e12_analysis_v1.json
+      analysis_sha256: b718a8bb5e20386dced0fb0e9aab50b8b7059ae3ef8b371c4b2018af5e75b2ad
+      generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e11.spoofing.g_bp.splice_forgery_detection_rate
+    status: V
+    value: 1.0
+    unit: fraction of forgeries accepted
+    quantity: rate at which a sequence the generator never produced, spliced position-wise from watermarked
+      outputs under the same key, is accepted by the calibrated detector
+    sign_of_the_result: A HIGH value is a VULNERABILITY, not a success. It is the only detection rate
+      in this project whose sign is inverted, and it must never share an axis with the intended-detection
+      rates.
+    scope:
+      policy_id: G_bp
+      attacker_knowledge: generated DNA and public configuration only; never the model, a probability,
+        or the key
+      outputs_available_to_attacker: 8
+      donor_outputs_required: 2
+      evaluated_base_lengths:
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      forgeries_per_cell: 8
+      novelty: a draw taking every position from one donor was rejected and redrawn, so no counted forgery
+        is a verbatim copy of an observed output
+    admitted_curve:
+      note: The forged statistic matches the genuine statistic to within noise at every length, because
+        the detector's decision at each position is content-blind.
+      interpretation: the construction authenticates a distribution, not a sequence; closing this would
+        require a different construction, not a parameter change
+      points:
+      - base_length: 384
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 8.0
+        genuine_mean_statistic: 8.0
+        threshold: 3.9056328877620143
+      - base_length: 384
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 8.0
+        genuine_mean_statistic: 8.0
+        threshold: 3.9056328877620143
+      - base_length: 384
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 8.0
+        genuine_mean_statistic: 8.0
+        threshold: 3.9056328877620143
+      - base_length: 768
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 11.29161141207268
+        genuine_mean_statistic: 11.24741723824852
+        threshold: 3.7123106012293743
+      - base_length: 768
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 11.24741723824852
+        genuine_mean_statistic: 11.24741723824852
+        threshold: 3.7123106012293743
+      - base_length: 768
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 11.203223064424362
+        genuine_mean_statistic: 11.24741723824852
+        threshold: 3.7123106012293743
+      - base_length: 1536
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.90625
+        genuine_mean_statistic: 15.890625
+        threshold: 3.569478459185352
+      - base_length: 1536
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.9375
+        genuine_mean_statistic: 15.890625
+        threshold: 3.569478459185352
+      - base_length: 1536
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 15.859375
+        genuine_mean_statistic: 15.890625
+        threshold: 3.569478459185352
+      - base_length: 3072
+        donor_outputs: 2
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 22.472737389584964
+        genuine_mean_statistic: 22.483785933041002
+        threshold: 3.5355339059327373
+      - base_length: 3072
+        donor_outputs: 4
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 22.50588301995308
+        genuine_mean_statistic: 22.483785933041002
+        threshold: 3.5355339059327373
+      - base_length: 3072
+        donor_outputs: 8
+        forgery_detection_rate: 1.0
+        forgery_detection_rate_lower: 1.0
+        forgery_detection_rate_upper: 1.0
+        forgery_mean_statistic: 22.461688846128922
+        genuine_mean_statistic: 22.483785933041002
+        threshold: 3.5355339059327373
+    source:
+      run_artifact: outputs/generator_g_bp_e11_e12_key_reuse_v1.json
+      run_sha256: e9506aa695c58a7220a045bf726003ddaa40b3a78328e5c072aba5b9b93bb671
+      analysis_artifact: outputs/generator_g_bp_e11_e12_analysis_v1.json
+      analysis_sha256: 1f13f6decf48c403dd1dba572db953f0d04f079e1cddb736f0464f95c51f1e42
+      generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e12.removal.g_bp.rearrangement_detection_rate
+    status: V
+    value: 0.0
+    unit: fraction of attacked sequences detected
+    quantity: detection rate after a full positional shuffle of 6-mer positions, at every evaluated length
+    sign_of_the_result: A LOW value is a SUCCESSFUL removal attack. It must be read beside the utility
+      column, because a rearrangement that destroys the sequence is not a useful attack.
+    scope:
+      policy_id: G_bp
+      attacker_knowledge: one watermarked output; no model, probability, or key
+      evaluated_base_lengths:
+      - 384
+      - 768
+      - 1536
+      - 3072
+      target_false_positive_rate: 0.01
+      trials_per_cell: 8
+      kmer_multiset_preserved: exactly, by construction and by test, so a measured removal cannot be a
+        composition change in disguise
+    admitted_curve:
+      note: 'A block width of 2 retains about half the statistic, so detection after a width-2 shuffle
+        rises with length rather than staying halved: halving a statistic that grows with the square root
+        of the length still clears the threshold once the sequence is long enough. Removal requires the
+        attacker to displace tokens across a wider window as the sequence grows.'
+      share_of_genuine_statistic_at_width_two:
+        minimum: 0.48943488943488944
+        maximum: 0.55078125
+      trials_per_point: 8
+      interval_method: 'joint resample: nulls resampled and the threshold recalibrated on every replicate,
+        prompt clusters resampled independently'
+      interval_replicates: 20000
+      interval_seed: 2718
+      points:
+      - base_length: 384
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.514328286211265
+        share_of_genuine_statistic: 0.3142910357764081
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 0.75
+        detection_rate_lower: 0.375
+        detection_rate_upper: 1.0
+        mean_statistic: 4.40625
+        share_of_genuine_statistic: 0.55078125
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 2.961153781066657
+        share_of_genuine_statistic: 0.37014422263333213
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.621603451163062
+        share_of_genuine_statistic: 0.32770043139538274
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 2.716094569415369
+        share_of_genuine_statistic: 0.33951182117692114
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.778347529997933
+        share_of_genuine_statistic: 0.34729344124974165
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.6403164438810074
+        share_of_genuine_statistic: 0.3300395554851259
+      - base_length: 384
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 2.3563490102892155
+        share_of_genuine_statistic: 0.29454362628615194
+      - base_length: 768
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.125
+        mean_statistic: 2.4592017581667562
+        share_of_genuine_statistic: 0.21864590830718664
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 6.120893074646052
+        share_of_genuine_statistic: 0.5442043222003929
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 0.25
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.75
+        mean_statistic: 3.636490248945252
+        share_of_genuine_statistic: 0.3233178046048496
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 3.099756801147095
+        share_of_genuine_statistic: 0.2755972091624653
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.7131880189206865
+        share_of_genuine_statistic: 0.24122764910810687
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 3.169000139876324
+        share_of_genuine_statistic: 0.28175358597880285
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.568471631200629
+        share_of_genuine_statistic: 0.228361016293248
+      - base_length: 768
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.5041773644008245
+        share_of_genuine_statistic: 0.22264465800068267
+      - base_length: 1536
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.4326104949657945
+        share_of_genuine_statistic: 0.15308463291820143
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 8.0625
+        share_of_genuine_statistic: 0.5073746312684366
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 4.9375
+        share_of_genuine_statistic: 0.3107177974434612
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 0.75
+        detection_rate_lower: 0.25
+        detection_rate_upper: 1.0
+        mean_statistic: 3.9375
+        share_of_genuine_statistic: 0.24778761061946902
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.25
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.5
+        mean_statistic: 3.2273123782896542
+        share_of_genuine_statistic: 0.2030953709051503
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.25
+        mean_statistic: 2.8221948475434173
+        share_of_genuine_statistic: 0.17760124900961524
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.611731760338913
+        share_of_genuine_statistic: 0.16435676761228163
+      - base_length: 1536
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.793760717039261
+        share_of_genuine_statistic: 0.17581188386481092
+      - base_length: 3072
+        attack: full_positional_shuffle
+        block_width_tokens: null
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.57094203562831
+        share_of_genuine_statistic: 0.11434649143542092
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 2
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 11.004349282215646
+        share_of_genuine_statistic: 0.48943488943488944
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 3
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 7.369378485178549
+        share_of_genuine_statistic: 0.3277641277641277
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 4
+        detection_rate: 1.0
+        detection_rate_lower: 1.0
+        detection_rate_upper: 1.0
+        mean_statistic: 5.6347571625803
+        share_of_genuine_statistic: 0.2506142506142506
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 6
+        detection_rate: 0.875
+        detection_rate_lower: 0.625
+        detection_rate_upper: 1.0
+        mean_statistic: 4.176349426383046
+        share_of_genuine_statistic: 0.18574938574938576
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 8
+        detection_rate: 0.375
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.75
+        mean_statistic: 3.4198861813501757
+        share_of_genuine_statistic: 0.15210455176610133
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 16
+        detection_rate: 0.125
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.375
+        mean_statistic: 2.7854431584162374
+        share_of_genuine_statistic: 0.12388674962088547
+      - base_length: 3072
+        attack: block_shuffle
+        block_width_tokens: 32
+        detection_rate: 0.0
+        detection_rate_lower: 0.0
+        detection_rate_upper: 0.0
+        mean_statistic: 2.4598190810486424
+        share_of_genuine_statistic: 0.10940413186525763
+    source:
+      run_artifact: outputs/generator_g_bp_e11_e12_key_reuse_v1.json
+      run_sha256: e9506aa695c58a7220a045bf726003ddaa40b3a78328e5c072aba5b9b93bb671
+      analysis_artifact: outputs/generator_g_bp_e11_e12_analysis_v1.json
+      analysis_sha256: 1f13f6decf48c403dd1dba572db953f0d04f079e1cddb736f0464f95c51f1e42
+      generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e12.removal.g_bp.utility_cost_on_admitted_proxies
+    status: V
+    value: 0.14285714285714285
+    unit: largest relative shift across the nine admitted proxies
+    quantity: largest relative change in any admitted sequence proxy caused by the full positional-shuffle
+      removal attack, relative to the unattacked source sequence
+    scope:
+      policy_id: G_bp
+      proxy_metrics: 9
+      largest_shift_metric: longest_homopolymer_run
+      sequences: 8
+    admitted_utility:
+      note: This is evidence about the proxies as much as about the attack. The removal attacks permute
+        whole 6-mers, so the 6-mer multiset is preserved exactly and a suite of composition and complexity
+        statistics is blind to them by construction. A small shift here is NOT a claim that removal is
+        free.
+      what_would_price_it: the ORF and independent-model-likelihood proxies declared in docs/baseline_definition.md
+        and not yet implemented; a rearrangement destroys long-range structure, which is what those instruments
+        measure
+      full_shuffle_largest_relative_shift: 0.14285714285714285
+      splice_forgery_largest_relative_shift: 0.2943925233644859
+      the_forgery_is_more_anomalous_than_the_removal: true
+      relative_shift_by_attack:
+        block_shuffle[2]: 0.2222222222222222
+        block_shuffle[3]: 0.20634920634920634
+        block_shuffle[4]: 0.15873015873015872
+        block_shuffle[6]: 0.1746031746031746
+        block_shuffle[8]: 0.15873015873015872
+        block_shuffle[16]: 0.1111111111111111
+        block_shuffle[32]: 0.2222222222222222
+        positional_shuffle[None]: 0.14285714285714285
+        positional_splice[2]: 0.21698113207547168
+        positional_splice[4]: 0.2943925233644859
+        positional_splice[8]: 0.2768361581920904
+    source:
+      run_artifact: outputs/generator_g_bp_e11_e12_key_reuse_v1.json
+      run_sha256: e9506aa695c58a7220a045bf726003ddaa40b3a78328e5c072aba5b9b93bb671
+      analysis_artifact: outputs/generator_g_bp_e11_e12_analysis_v1.json
+      analysis_sha256: 1f13f6decf48c403dd1dba572db953f0d04f079e1cddb736f0464f95c51f1e42
+      generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e11.key_reuse.g_bp.fixed_key_many_query_exceedance
+    status: V
+    value: 0.125
+    unit: fraction of trials
+    quantity: largest rate at which one fixed key exceeds its own calibrated threshold on sequences it
+      did not generate, across the evaluated lengths and the two many-query families
+    scope:
+      policy_id: G_bp
+      target_false_positive_rate: 0.01
+      trials_per_cell: 8
+      resolution: 0.125
+      reading: at eight trials per cell this confirms the calibration is not obviously broken by key reuse
+        rather than measuring the rate precisely
+    admitted_conditions:
+      grid:
+      - base_length: 384
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.9056328877620143
+      - base_length: 384
+        family: fixed_key_many_query_public_dna
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.9056328877620143
+      - base_length: 768
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.7123106012293743
+      - base_length: 1536
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.125
+        trials: 8
+        threshold: 3.569478459185352
+      - base_length: 3072
+        family: fixed_key_many_query_ordinary
+        exceedance_rate: 0.0
+        trials: 8
+        threshold: 3.5355339059327373
+    source:
+      run_artifact: outputs/generator_g_bp_e11_e12_key_reuse_v1.json
+      run_sha256: e9506aa695c58a7220a045bf726003ddaa40b3a78328e5c072aba5b9b93bb671
+      analysis_artifact: outputs/generator_g_bp_e11_e12_analysis_v1.json
+      analysis_sha256: 1f13f6decf48c403dd1dba572db953f0d04f079e1cddb736f0464f95c51f1e42
+      generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      protocol: docs/research/e11_e12_key_reuse_and_attacks_protocol.md
+  - id: e15.structure_proxies.c_tok.orf_prices_bounded_rearrangement
+    status: V
+    value: 1
+    unit: attack conditions with a directional ORF effect
+    quantity: number of removal-attack conditions in which the longest open reading frame changes with
+      a consistent direction across prompts, by exact paired sign-flip test at 0.05, out of eight conditions
+      tested
+    quantity_is_a_negative_result: 'The relative shift of the longest ORF is 0.07 to 0.43 across conditions,
+      which looks like an effect. The paired test shows the direction is not consistent for any bounded
+      block shuffle: the longest ORF rises about as often as it falls, because on high-entropy DNA it
+      is a chance extreme-value statistic that a permutation re-rolls rather than destroys. An unsigned
+      magnitude is not evidence of an effect.'
+    scope:
+      policy_id: C_tok
+      conditions_tested: 8
+      trials_per_condition: 8
+      test: exact paired sign-flip enumeration over the 8 prompts
+      markov_order_reported: 3
+      minimum_orf_codons: 25
+      reference_prompts_held_out: 16
+      reference_overlaps_scored_prompts: false
+      interpretation: structural sequence statistics only; a change in a chance reading frame is evidence
+        that sequence order changed and is NOT evidence of functional, translational, viability, or safety
+        consequences
+    admitted_conditions:
+      note: Composition shift is the largest across the nine admitted proxies and is shown beside the
+        ORF result so the two can be compared on the same rows.
+      grid:
+      - attack: positional_shuffle
+        block_width_tokens: null
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.14763014763014765
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.3462191183540905
+        longest_orf_mean_signed_change_bases: -160.125
+        longest_orf_decreased_count: 8
+        longest_orf_sign_flip_p_value: 0.0078125
+        independent_model_relative_shift: 0.008581417862877652
+      - attack: block_shuffle
+        block_width_tokens: 2
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.08391608391608392
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.18752860161721813
+        longest_orf_mean_signed_change_bases: -9.0
+        longest_orf_decreased_count: 6
+        longest_orf_sign_flip_p_value: 0.890625
+        independent_model_relative_shift: 0.003153023721299109
+      - attack: block_shuffle
+        block_width_tokens: 3
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.06010829448329448
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.26838939183044963
+        longest_orf_mean_signed_change_bases: -84.75
+        longest_orf_decreased_count: 5
+        longest_orf_sign_flip_p_value: 0.078125
+        independent_model_relative_shift: 0.005237798040098181
+      - attack: block_shuffle
+        block_width_tokens: 4
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.13539238539238538
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.17848449315299805
+        longest_orf_mean_signed_change_bases: -78.75
+        longest_orf_decreased_count: 6
+        longest_orf_sign_flip_p_value: 0.0625
+        independent_model_relative_shift: 0.0056075207586765005
+      - attack: block_shuffle
+        block_width_tokens: 6
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.19319638694638694
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.22830723597651426
+        longest_orf_mean_signed_change_bases: -85.5
+        longest_orf_decreased_count: 6
+        longest_orf_sign_flip_p_value: 0.0703125
+        independent_model_relative_shift: 0.0035192671766069586
+      - attack: block_shuffle
+        block_width_tokens: 8
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.16952214452214454
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.2775988501183834
+        longest_orf_mean_signed_change_bases: 4.5
+        longest_orf_decreased_count: 5
+        longest_orf_sign_flip_p_value: 0.9609375
+        independent_model_relative_shift: 0.004285444263150265
+      - attack: block_shuffle
+        block_width_tokens: 16
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.20215617715617717
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.3122832048066391
+        longest_orf_mean_signed_change_bases: -80.625
+        longest_orf_decreased_count: 7
+        longest_orf_sign_flip_p_value: 0.2265625
+        independent_model_relative_shift: 0.005255720137380877
+      - attack: block_shuffle
+        block_width_tokens: 32
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.12957944832944834
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.1889963650873617
+        longest_orf_mean_signed_change_bases: -56.625
+        longest_orf_decreased_count: 6
+        longest_orf_sign_flip_p_value: 0.2578125
+        independent_model_relative_shift: 0.005978103467289943
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 2
+        trials: 8
+        largest_composition_relative_shift: 0.22120545167205397
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.311468076017144
+        longest_orf_mean_signed_change_bases: -176.625
+        longest_orf_decreased_count: 7
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.013321636241781492
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 4
+        trials: 8
+        largest_composition_relative_shift: 0.35941903816923704
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.39251590537062025
+        longest_orf_mean_signed_change_bases: -213.375
+        longest_orf_decreased_count: 8
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.023854263121165724
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 8
+        trials: 8
+        largest_composition_relative_shift: 0.5310281346114919
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.42453420073027914
+        longest_orf_mean_signed_change_bases: -176.25
+        longest_orf_decreased_count: 7
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.0231844397111835
+    source:
+      run_artifact: outputs/carbon_c_tok_e15_structure_proxies_v1.json
+      analysis_artifact: outputs/carbon_c_tok_e15_analysis_v1.json
+      analysis_sha256: 9309532553b462540a765d1f66ccb8d8412286ddc6c7f50d2fc37f64b5c5c2a3
+      run_sha256: 4b38eab891ae99ec5969e954c1f250f5af0fcead8fb8da4f1edbbc42ea3d05aa
+      sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      attack_artifact: outputs/carbon_c_tok_e11_e12_key_reuse_v1.json
+      protocol: docs/research/e15_structure_proxies_protocol.md
+  - id: e15.structure_proxies.c_tok.independent_model_relative_shift
+    status: V
+    value: 0.023854263121165724
+    unit: largest relative shift
+    quantity: largest relative change in the mean log-probability of a sequence under an independent held-out
+      Markov reference, across every removal and spoofing condition
+    quantity_is_a_negative_result: This instrument does not price a 6-mer rearrangement. A Markov model
+      of order 3 to 5 scores high-entropy generated DNA close to the uniform rate, and a permutation leaves
+      most short contexts intact.
+    scope:
+      policy_id: C_tok
+      markov_orders:
+      - 3
+      - 5
+      reference_prompts_held_out: 16
+      reference_definition: fitted without the generator, the key, or the scored sequence; independent
+        of the generator and NOT an independent biological model
+      reading: a low score means only that local statistics differ from the reference cohort
+    source:
+      run_artifact: outputs/carbon_c_tok_e15_structure_proxies_v1.json
+      analysis_artifact: outputs/carbon_c_tok_e15_analysis_v1.json
+      analysis_sha256: 9309532553b462540a765d1f66ccb8d8412286ddc6c7f50d2fc37f64b5c5c2a3
+      run_sha256: 4b38eab891ae99ec5969e954c1f250f5af0fcead8fb8da4f1edbbc42ea3d05aa
+      sequences_artifact: outputs/carbon_c_tok_e4_sequences_v1.jsonl
+      generation_artifact: outputs/carbon_c_tok_e4_generation_v1.json
+      attack_artifact: outputs/carbon_c_tok_e11_e12_key_reuse_v1.json
+      protocol: docs/research/e15_structure_proxies_protocol.md
+  - id: e15.structure_proxies.g_tok.orf_prices_bounded_rearrangement
+    status: V
+    value: 0
+    unit: attack conditions with a directional ORF effect
+    quantity: number of removal-attack conditions in which the longest open reading frame changes with
+      a consistent direction across prompts, by exact paired sign-flip test at 0.05, out of eight conditions
+      tested
+    quantity_is_a_negative_result: 'The relative shift of the longest ORF is 0.07 to 0.43 across conditions,
+      which looks like an effect. The paired test shows the direction is not consistent for any bounded
+      block shuffle: the longest ORF rises about as often as it falls, because on high-entropy DNA it
+      is a chance extreme-value statistic that a permutation re-rolls rather than destroys. An unsigned
+      magnitude is not evidence of an effect.'
+    scope:
+      policy_id: G_tok
+      conditions_tested: 8
+      trials_per_condition: 8
+      test: exact paired sign-flip enumeration over the 8 prompts
+      markov_order_reported: 3
+      minimum_orf_codons: 25
+      reference_prompts_held_out: 16
+      reference_overlaps_scored_prompts: false
+      interpretation: structural sequence statistics only; a change in a chance reading frame is evidence
+        that sequence order changed and is NOT evidence of functional, translational, viability, or safety
+        consequences
+    admitted_conditions:
+      note: Composition shift is the largest across the nine admitted proxies and is shown beside the
+        ORF result so the two can be compared on the same rows.
+      grid:
+      - attack: positional_shuffle
+        block_width_tokens: null
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.12238455988455987
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.31307725268471687
+        longest_orf_mean_signed_change_bases: -63.75
+        longest_orf_decreased_count: 5
+        longest_orf_sign_flip_p_value: 0.390625
+        independent_model_relative_shift: 0.0038568645113815922
+      - attack: block_shuffle
+        block_width_tokens: 2
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.18885281385281383
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.3078373350184231
+        longest_orf_mean_signed_change_bases: -14.625
+        longest_orf_decreased_count: 4
+        longest_orf_sign_flip_p_value: 0.84375
+        independent_model_relative_shift: 0.0027344737221516218
+      - attack: block_shuffle
+        block_width_tokens: 3
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.15918109668109667
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.2695900811486146
+        longest_orf_mean_signed_change_bases: -47.25
+        longest_orf_decreased_count: 3
+        longest_orf_sign_flip_p_value: 0.5
+        independent_model_relative_shift: 0.002256639124719918
+      - attack: block_shuffle
+        block_width_tokens: 4
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.1819083694083694
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.2332831598406587
+        longest_orf_mean_signed_change_bases: -37.125
+        longest_orf_decreased_count: 3
+        longest_orf_sign_flip_p_value: 0.6328125
+        independent_model_relative_shift: 0.00230225701478401
+      - attack: block_shuffle
+        block_width_tokens: 6
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.2454004329004329
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.295984347480914
+        longest_orf_mean_signed_change_bases: -15.0
+        longest_orf_decreased_count: 4
+        longest_orf_sign_flip_p_value: 0.7890625
+        independent_model_relative_shift: 0.0024882002082119367
+      - attack: block_shuffle
+        block_width_tokens: 8
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.16305916305916304
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.2634132533528019
+        longest_orf_mean_signed_change_bases: -49.125
+        longest_orf_decreased_count: 4
+        longest_orf_sign_flip_p_value: 0.484375
+        independent_model_relative_shift: 0.002457126280452752
+      - attack: block_shuffle
+        block_width_tokens: 16
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.15106421356421357
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.1838422477262827
+        longest_orf_mean_signed_change_bases: -19.5
+        longest_orf_decreased_count: 3
+        longest_orf_sign_flip_p_value: 0.8046875
+        independent_model_relative_shift: 0.0031031030590282843
+      - attack: block_shuffle
+        block_width_tokens: 32
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.15124458874458874
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.2461261054174627
+        longest_orf_mean_signed_change_bases: 13.5
+        longest_orf_decreased_count: 5
+        longest_orf_sign_flip_p_value: 0.8359375
+        independent_model_relative_shift: 0.0028567844064301164
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 2
+        trials: 8
+        largest_composition_relative_shift: 0.3075213432629653
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.35995862246807603
+        longest_orf_mean_signed_change_bases: -7.125
+        longest_orf_decreased_count: 2
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.009904897359460823
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 4
+        trials: 8
+        largest_composition_relative_shift: 0.21279986061952189
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.6143357658098176
+        longest_orf_mean_signed_change_bases: -16.875
+        longest_orf_decreased_count: 2
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.007902898651205487
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 8
+        trials: 8
+        largest_composition_relative_shift: 0.382169468654949
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.412686381281797
+        longest_orf_mean_signed_change_bases: -121.875
+        longest_orf_decreased_count: 6
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.017127735542671104
+    source:
+      run_artifact: outputs/generator_g_tok_e15_structure_proxies_v1.json
+      analysis_artifact: outputs/generator_g_tok_e15_analysis_v1.json
+      analysis_sha256: 3f3c8c0fbba58a83a13103f899964351cfdb3f0fe216570bef58253eea41e99f
+      run_sha256: b96af752720a8f0365cb1d23de3e6adb52675c6dda8f919068ffb3e81b1e7603
+      sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      attack_artifact: outputs/generator_g_tok_e11_e12_key_reuse_v1.json
+      protocol: docs/research/e15_structure_proxies_protocol.md
+  - id: e15.structure_proxies.g_tok.independent_model_relative_shift
+    status: V
+    value: 0.017127735542671104
+    unit: largest relative shift
+    quantity: largest relative change in the mean log-probability of a sequence under an independent held-out
+      Markov reference, across every removal and spoofing condition
+    quantity_is_a_negative_result: This instrument does not price a 6-mer rearrangement. A Markov model
+      of order 3 to 5 scores high-entropy generated DNA close to the uniform rate, and a permutation leaves
+      most short contexts intact.
+    scope:
+      policy_id: G_tok
+      markov_orders:
+      - 3
+      - 5
+      reference_prompts_held_out: 16
+      reference_definition: fitted without the generator, the key, or the scored sequence; independent
+        of the generator and NOT an independent biological model
+      reading: a low score means only that local statistics differ from the reference cohort
+    source:
+      run_artifact: outputs/generator_g_tok_e15_structure_proxies_v1.json
+      analysis_artifact: outputs/generator_g_tok_e15_analysis_v1.json
+      analysis_sha256: 3f3c8c0fbba58a83a13103f899964351cfdb3f0fe216570bef58253eea41e99f
+      run_sha256: b96af752720a8f0365cb1d23de3e6adb52675c6dda8f919068ffb3e81b1e7603
+      sequences_artifact: outputs/generator_g_tok_e4_sequences_v1.jsonl
+      generation_artifact: outputs/generator_g_tok_e4_generation_v1.json
+      attack_artifact: outputs/generator_g_tok_e11_e12_key_reuse_v1.json
+      protocol: docs/research/e15_structure_proxies_protocol.md
+  - id: e15.structure_proxies.g_bp.orf_prices_bounded_rearrangement
+    status: V
+    value: 0
+    unit: attack conditions with a directional ORF effect
+    quantity: number of removal-attack conditions in which the longest open reading frame changes with
+      a consistent direction across prompts, by exact paired sign-flip test at 0.05, out of eight conditions
+      tested
+    quantity_is_a_negative_result: 'The relative shift of the longest ORF is 0.07 to 0.43 across conditions,
+      which looks like an effect. The paired test shows the direction is not consistent for any bounded
+      block shuffle: the longest ORF rises about as often as it falls, because on high-entropy DNA it
+      is a chance extreme-value statistic that a permutation re-rolls rather than destroys. An unsigned
+      magnitude is not evidence of an effect.'
+    scope:
+      policy_id: G_bp
+      conditions_tested: 8
+      trials_per_condition: 8
+      test: exact paired sign-flip enumeration over the 8 prompts
+      markov_order_reported: 3
+      minimum_orf_codons: 25
+      reference_prompts_held_out: 16
+      reference_overlaps_scored_prompts: false
+      interpretation: structural sequence statistics only; a change in a chance reading frame is evidence
+        that sequence order changed and is NOT evidence of functional, translational, viability, or safety
+        consequences
+    admitted_conditions:
+      note: Composition shift is the largest across the nine admitted proxies and is shown beside the
+        ORF result so the two can be compared on the same rows.
+      grid:
+      - attack: positional_shuffle
+        block_width_tokens: null
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.1359126984126984
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.3156222872418875
+        longest_orf_mean_signed_change_bases: -60.0
+        longest_orf_decreased_count: 7
+        longest_orf_sign_flip_p_value: 0.0625
+        independent_model_relative_shift: 0.0027391928921750054
+      - attack: block_shuffle
+        block_width_tokens: 2
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.22777777777777777
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.12486652477777105
+        longest_orf_mean_signed_change_bases: 3.75
+        longest_orf_decreased_count: 4
+        longest_orf_sign_flip_p_value: 0.875
+        independent_model_relative_shift: 0.001927872159159237
+      - attack: block_shuffle
+        block_width_tokens: 3
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.2123015873015873
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.11629693191225698
+        longest_orf_mean_signed_change_bases: -22.5
+        longest_orf_decreased_count: 5
+        longest_orf_sign_flip_p_value: 0.1875
+        independent_model_relative_shift: 0.001523377100165133
+      - attack: block_shuffle
+        block_width_tokens: 4
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.16944444444444445
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.07995484198464074
+        longest_orf_mean_signed_change_bases: -17.625
+        longest_orf_decreased_count: 5
+        longest_orf_sign_flip_p_value: 0.0625
+        independent_model_relative_shift: 0.0017960892427837838
+      - attack: block_shuffle
+        block_width_tokens: 6
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.19722222222222222
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.07274678503390022
+        longest_orf_mean_signed_change_bases: -4.5
+        longest_orf_decreased_count: 3
+        longest_orf_sign_flip_p_value: 0.796875
+        independent_model_relative_shift: 0.0013956699885640854
+      - attack: block_shuffle
+        block_width_tokens: 8
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.17043650793650794
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.06957639513138886
+        longest_orf_mean_signed_change_bases: 2.25
+        longest_orf_decreased_count: 3
+        longest_orf_sign_flip_p_value: 0.8046875
+        independent_model_relative_shift: 0.0016734921297158793
+      - attack: block_shuffle
+        block_width_tokens: 16
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.11527777777777777
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.23119568603165047
+        longest_orf_mean_signed_change_bases: -12.75
+        longest_orf_decreased_count: 3
+        longest_orf_sign_flip_p_value: 0.6875
+        independent_model_relative_shift: 0.001508855016367299
+      - attack: block_shuffle
+        block_width_tokens: 32
+        donor_outputs: null
+        trials: 8
+        largest_composition_relative_shift: 0.21785714285714286
+        largest_composition_metric: longest_homopolymer_run
+        longest_orf_relative_shift: 0.18268641455391194
+        longest_orf_mean_signed_change_bases: 0.375
+        longest_orf_decreased_count: 4
+        longest_orf_sign_flip_p_value: 1.0
+        independent_model_relative_shift: 0.002391233081565087
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 2
+        trials: 8
+        largest_composition_relative_shift: 0.21826293231439692
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.27986873031655146
+        longest_orf_mean_signed_change_bases: -10.875
+        longest_orf_decreased_count: 4
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.012242596590081622
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 4
+        trials: 8
+        largest_composition_relative_shift: 0.29855264839199963
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.28750958820882955
+        longest_orf_mean_signed_change_bases: -4.875
+        longest_orf_decreased_count: 5
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.008941973251494907
+      - attack: positional_splice
+        block_width_tokens: null
+        donor_outputs: 8
+        trials: 8
+        largest_composition_relative_shift: 0.2750774391320397
+        largest_composition_metric: cpg_fraction
+        longest_orf_relative_shift: 0.33182490465509334
+        longest_orf_mean_signed_change_bases: 31.5
+        longest_orf_decreased_count: 2
+        longest_orf_sign_flip_p_value: null
+        independent_model_relative_shift: 0.010820533483809338
+    source:
+      run_artifact: outputs/generator_g_bp_e15_structure_proxies_v1.json
+      analysis_artifact: outputs/generator_g_bp_e15_analysis_v1.json
+      analysis_sha256: 3c226753ef24d7c4160f42b21db086e85fed093f11cc7c92127f959f33a82dd3
+      run_sha256: 4451814e40c2c0e3b99536f6740f8a9664484d6dc6ccd51f9b557b0aac891739
+      sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      attack_artifact: outputs/generator_g_bp_e11_e12_key_reuse_v1.json
+      protocol: docs/research/e15_structure_proxies_protocol.md
+  - id: e15.structure_proxies.g_bp.independent_model_relative_shift
+    status: V
+    value: 0.012242596590081622
+    unit: largest relative shift
+    quantity: largest relative change in the mean log-probability of a sequence under an independent held-out
+      Markov reference, across every removal and spoofing condition
+    quantity_is_a_negative_result: This instrument does not price a 6-mer rearrangement. A Markov model
+      of order 3 to 5 scores high-entropy generated DNA close to the uniform rate, and a permutation leaves
+      most short contexts intact.
+    scope:
+      policy_id: G_bp
+      markov_orders:
+      - 3
+      - 5
+      reference_prompts_held_out: 16
+      reference_definition: fitted without the generator, the key, or the scored sequence; independent
+        of the generator and NOT an independent biological model
+      reading: a low score means only that local statistics differ from the reference cohort
+    source:
+      run_artifact: outputs/generator_g_bp_e15_structure_proxies_v1.json
+      analysis_artifact: outputs/generator_g_bp_e15_analysis_v1.json
+      analysis_sha256: 3c226753ef24d7c4160f42b21db086e85fed093f11cc7c92127f959f33a82dd3
+      run_sha256: 4451814e40c2c0e3b99536f6740f8a9664484d6dc6ccd51f9b557b0aac891739
+      sequences_artifact: outputs/generator_g_bp_e4_sequences_v1.jsonl
+      generation_artifact: outputs/generator_g_bp_e4_generation_v1.json
+      attack_artifact: outputs/generator_g_bp_e11_e12_key_reuse_v1.json
+      protocol: docs/research/e15_structure_proxies_protocol.md
+
 superseded_measurements:
   - measurement_id_prefix: e4.clean_detection
     superseded_ids: 12
@@ -11967,3 +14629,20 @@ superseded_measurements:
       bounds, for example C_tok substitution at rate 0.15 and 1,536 bases moving from [1.000, 1.000]
       to [0.875, 1.000]. The E4 clean-detection and short-length intervals were checked the same way
       and are unchanged, because their margins are large.
+  - measurement_id_prefix: "e5.substitution, e6.crop_strand, e7.deletion, e7.insertion, e7.stage2"
+    superseded_ids: "interval fields only, 35 bounds across 327 interval-bearing points"
+    replaced_by_suffix: "same ids, interval bounds made order-canonical"
+    reason: >-
+      The joint interval resampled the pooled null trials by index, and the caller built that
+      pooled list by concatenating two null families. So the bounds depended on which family was
+      concatenated first, which carries no information, and two honest recomputations of the same
+      cell could disagree. The nulls are now sorted before resampling, making every bound a
+      function of the null multiset rather than of a pooling order. Caught by a validator test
+      that recomputed a cell from a differently ordered pool and got different bounds.
+    effect_on_values: >-
+      No point estimate changed. Of 327 interval-bearing points, 35 bounds moved, none by more
+      than 0.025, which is one resampling step on a 40-trial cell. No detection rate, threshold,
+      achieved false-positive rate, largest fully detected rate, or separation flag moved, and no
+      interval changed which side of a conclusion it falls on. Every patched bound was re-parsed
+      and confirmed equal to its canonical recomputation, and a structural comparison confirmed
+      the patch changed only floats.

@@ -515,6 +515,32 @@ def calibrate_threshold(
     )
 
 
+def calibrated_threshold_value(null_statistics: Sequence[float], target: float) -> float:
+    """Return only the threshold ``calibrate_threshold`` would choose, in O(n log n).
+
+    ``calibrate_threshold`` scans candidates and recounts exceedances for each, which
+    is quadratic. That is irrelevant once per cell and prohibitive inside a bootstrap
+    that recalibrates on every replicate, so this computes the same threshold as an
+    order statistic.
+
+    Why it is the same value: exceedance counts are non-increasing in the candidate,
+    so the smallest value meeting the target is the one at index
+    ``n - 1 - floor(target * n)`` of the ascending order. Ties do not change the
+    answer, because a tied neighbour to the left has the identical exceedance count
+    and the identical value. ``test_fast_threshold_matches_calibration`` checks this
+    against the scanning implementation, including on inputs that are almost all ties.
+    """
+
+    if not null_statistics:
+        raise ValueError("null calibration requires at least one trial")
+    if not 0.0 < target < 1.0:
+        raise ValueError("target false-positive rate must lie in (0, 1)")
+    values = sorted(float(value) for value in null_statistics)
+    allowed = int(len(values) * target)
+    index = len(values) - 1 - allowed
+    return values[index] if index >= 0 else values[0]
+
+
 def empirical_p_value(statistic: float, null_statistics: Sequence[float]) -> float:
     """Return the global p-value of one statistic against null trials of the same search."""
 
@@ -560,6 +586,13 @@ def joint_detection_rate_interval(
     from that resample, and independently resamples the clusters of positives. The
     clustering is preserved: a cluster contributes the mean of its own trials, so
     replicate trials inside a cluster are never treated as independent.
+
+    The null trials are sorted before resampling, which makes the result a function
+    of the null *multiset* rather than of the order the caller happened to build the
+    list in. Without that, pooling ``wrong_key`` before ``ordinary`` and pooling them
+    the other way round give different bounds for the same data and the same seed,
+    so two honest recomputations of one cell could disagree. Sorting changes nothing
+    statistically, because the resample draws uniformly from the multiset either way.
     """
 
     if not positives_by_cluster:
@@ -582,13 +615,13 @@ def joint_detection_rate_interval(
     values = {name: tuple(float(v) for v in positives_by_cluster[name]) for name in clusters}
     if any(not v for v in values.values()):
         raise ValueError("every positive cluster must hold at least one trial")
-    nulls = [float(value) for value in null_statistics]
+    nulls = sorted(float(value) for value in null_statistics)
     point = calibrate_threshold(nulls, target_false_positive_rate)
     rng = _random.Random(seed)
     rates: list[float] = []
     for _ in range(replicates):
         resampled_nulls = [nulls[rng.randrange(len(nulls))] for _ in nulls]
-        threshold = calibrate_threshold(resampled_nulls, target_false_positive_rate).threshold
+        threshold = calibrated_threshold_value(resampled_nulls, target_false_positive_rate)
         picked = [clusters[rng.randrange(len(clusters))] for _ in clusters]
         rates.append(
             _statistics.fmean(

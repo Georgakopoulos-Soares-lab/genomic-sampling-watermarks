@@ -1,0 +1,229 @@
+{
+  "excluded_by_choice": [
+    "no peak-memory panel, because no memory figure is admitted",
+    "no detection-rate panel for the baseline comparison, because it is 1.000 in every cell and would present a null result as agreement",
+    "no per-trial statistic distributions, because they are not admitted evidence"
+  ],
+  "figures": [
+    {
+      "caption_claim": "Realized maximal-coupling watermark information per DNA base for the three released generation policies, with equal-weight prompt-cluster percentile intervals over 24 frozen public prompts. The dashed line is the construction's structural ceiling of one coupled bit per 6-mer token.",
+      "figure": "paper/figures/fig01_capacity.pdf",
+      "measurement_ids": [
+        "e2.capacity.c_tok.mean_information_bits_per_base",
+        "e2.capacity.g_tok.mean_information_bits_per_base",
+        "e2.capacity.g_bp.mean_information_bits_per_base"
+      ],
+      "name": "capacity",
+      "sign": "higher is more channel"
+    },
+    {
+      "caption_claim": "Left: correct-key detection rate on clean watermarked DNA against generated length, at a false-positive rate calibrated by repeating the identical declared search on null trials. It is 1.000 at every evaluated length down to 96 bases, which is the shortest sequence the declared search will score rather than a measured limit. Right: the margin that flat line hides. The weakest watermarked statistic and the strongest pooled null statistic touch at 96 bases and separate from 144 bases onward, which is why the strict-separation length is admitted separately from the detection rate.",
+      "figure": "paper/figures/fig02_clean_detection.pdf",
+      "measurement_ids": [
+        "e4.clean_detection.c_tok.b1536.detection_rate.v2",
+        "e4.clean_detection.c_tok.b3072.detection_rate.v2",
+        "e4.clean_detection.c_tok.b384.detection_rate.v2",
+        "e4.clean_detection.c_tok.b768.detection_rate.v2",
+        "e4.clean_detection.g_bp.b1536.detection_rate.v2",
+        "e4.clean_detection.g_bp.b3072.detection_rate.v2",
+        "e4.clean_detection.g_bp.b384.detection_rate.v2",
+        "e4.clean_detection.g_bp.b768.detection_rate.v2",
+        "e4.clean_detection.g_tok.b1536.detection_rate.v2",
+        "e4.clean_detection.g_tok.b3072.detection_rate.v2",
+        "e4.clean_detection.g_tok.b384.detection_rate.v2",
+        "e4.clean_detection.g_tok.b768.detection_rate.v2",
+        "e4.short_detection.c_tok.shortest_fully_detected_bases",
+        "e4.short_detection.g_bp.shortest_fully_detected_bases",
+        "e4.short_detection.g_tok.shortest_fully_detected_bases"
+      ],
+      "name": "clean_detection",
+      "sign": "higher is intended detection; on the right, a wider gap is a stronger result"
+    },
+    {
+      "caption_claim": "Top: the decision threshold chosen empirically from null trials that repeat the complete declared search of two orientations, six phases, and eight key-stream offsets. Bottom: the false-positive rate that threshold actually achieves. The reported statistic is a maximum over the search, so its nominal normal tail is not a p-value and no threshold here comes from one.",
+      "figure": "paper/figures/fig03_calibration.pdf",
+      "measurement_ids": [
+        "e4.clean_detection.c_tok.b1536.detection_rate.v2",
+        "e4.clean_detection.c_tok.b3072.detection_rate.v2",
+        "e4.clean_detection.c_tok.b384.detection_rate.v2",
+        "e4.clean_detection.c_tok.b768.detection_rate.v2",
+        "e4.clean_detection.g_bp.b1536.detection_rate.v2",
+        "e4.clean_detection.g_bp.b3072.detection_rate.v2",
+        "e4.clean_detection.g_bp.b384.detection_rate.v2",
+        "e4.clean_detection.g_bp.b768.detection_rate.v2",
+        "e4.clean_detection.g_tok.b1536.detection_rate.v2",
+        "e4.clean_detection.g_tok.b3072.detection_rate.v2",
+        "e4.clean_detection.g_tok.b384.detection_rate.v2",
+        "e4.clean_detection.g_tok.b768.detection_rate.v2"
+      ],
+      "name": "calibration",
+      "sign": "lower achieved FPR is stricter"
+    },
+    {
+      "caption_claim": "Detection rate against per-base substitution rate, by policy and generated length, at the calibrated false-positive rate. Intervals are joint resamples: each replicate resamples the null trials, recalibrates the threshold, and independently resamples the prompt clusters.",
+      "figure": "paper/figures/fig04_substitution.pdf",
+      "measurement_ids": [
+        "e5.substitution.c_tok.b1536.max_fully_detected_rate.v2",
+        "e5.substitution.c_tok.b3072.max_fully_detected_rate.v2",
+        "e5.substitution.c_tok.b384.max_fully_detected_rate.v2",
+        "e5.substitution.c_tok.b768.max_fully_detected_rate.v2",
+        "e5.substitution.g_bp.b1536.max_fully_detected_rate.v2",
+        "e5.substitution.g_bp.b3072.max_fully_detected_rate.v2",
+        "e5.substitution.g_bp.b384.max_fully_detected_rate.v2",
+        "e5.substitution.g_bp.b768.max_fully_detected_rate.v2",
+        "e5.substitution.g_tok.b1536.max_fully_detected_rate.v2",
+        "e5.substitution.g_tok.b3072.max_fully_detected_rate.v2",
+        "e5.substitution.g_tok.b384.max_fully_detected_rate.v2",
+        "e5.substitution.g_tok.b768.max_fully_detected_rate.v2"
+      ],
+      "name": "substitution",
+      "sign": "higher is more robust"
+    },
+    {
+      "caption_claim": "Detection rate per crop, phase, and reverse-complement condition under the narrow and the wide declared key-offset search. The three policies agree condition by condition, and that is expected rather than suspicious: every failing condition is one whose required key-stream offset falls outside the declared search, which is a property of the search and not of the model. Widening the search recovers all but the longest crop, and it raises the calibrated threshold, and both effects are inside the calibration because the nulls repeat the same search.",
+      "figure": "paper/figures/fig05_crop_strand.pdf",
+      "measurement_ids": [
+        "e6.crop_strand.c_tok.narrow.conditions_fully_detected",
+        "e6.crop_strand.c_tok.wide.conditions_fully_detected",
+        "e6.crop_strand.g_bp.narrow.conditions_fully_detected",
+        "e6.crop_strand.g_bp.wide.conditions_fully_detected",
+        "e6.crop_strand.g_tok.narrow.conditions_fully_detected",
+        "e6.crop_strand.g_tok.wide.conditions_fully_detected"
+      ],
+      "name": "crop_strand",
+      "sign": "higher is more robust; a shaded failure is a search-coverage limit, not a fragility"
+    },
+    {
+      "caption_claim": "Detection against per-base edit rate at 1,536 bases, the longest length the indel experiments evaluated. Insertions and deletions defeat the unwindowed detector one to two orders of magnitude below the substitution tolerance drawn for scale, because one deleted base moves every later token off the reading grid. A declared sliding-window search moves that limit five- to tenfold before meeting a second, information-theoretic wall.",
+      "figure": "paper/figures/fig06_indel_synchronization.pdf",
+      "measurement_ids": [
+        "e5.substitution.c_tok.b1536.max_fully_detected_rate.v2",
+        "e5.substitution.g_bp.b1536.max_fully_detected_rate.v2",
+        "e5.substitution.g_tok.b1536.max_fully_detected_rate.v2",
+        "e7.deletion.c_tok.b1536.max_fully_detected_rate",
+        "e7.deletion.g_bp.b1536.max_fully_detected_rate",
+        "e7.deletion.g_tok.b1536.max_fully_detected_rate",
+        "e7.insertion.c_tok.b1536.max_fully_detected_rate",
+        "e7.insertion.g_bp.b1536.max_fully_detected_rate",
+        "e7.insertion.g_tok.b1536.max_fully_detected_rate",
+        "e7.stage2.deletion.c_tok.windowed_max_fully_detected_rate",
+        "e7.stage2.deletion.g_bp.windowed_max_fully_detected_rate",
+        "e7.stage2.deletion.g_tok.windowed_max_fully_detected_rate"
+      ],
+      "name": "indel",
+      "sign": "higher is more robust"
+    },
+    {
+      "caption_claim": "Wall-clock time per stage for one policy on one Apple M5 Pro laptop, from single observations under uncontrolled desktop load. A feasibility envelope, not a benchmark. No memory panel is shown because no peak-memory figure is admitted. Detection uses neither the model nor the GPU. Measured on mains power; the same generation runs about ten times slower on battery.",
+      "figure": "paper/figures/fig07_runtime.pdf",
+      "measurement_ids": [
+        "e14.runtime.c_tok.matched_generation_wall_seconds",
+        "e14.runtime.g_bp.matched_generation_wall_seconds",
+        "e14.runtime.g_tok.matched_generation_wall_seconds"
+      ],
+      "name": "runtime",
+      "sign": "lower is faster"
+    },
+    {
+      "caption_claim": "Standardized signal per 6-mer token for the three exact-marginal constructions, each in units of its own null standard deviation, as a band across the evaluated lengths. Detection rate is deliberately not plotted: it is 1.000 for all three methods at every evaluated length, so plotting it would present a null result as agreement. Partition coupling sits at its structural ceiling of one coupled bit per token; the exponential construction is not so bounded and carries about 7.5 times the signal.",
+      "figure": "paper/figures/fig08_baseline_signal_per_token.pdf",
+      "measurement_ids": [
+        "e8.e9.matched_baseline.c_tok.signal_per_token",
+        "e8.e9.matched_baseline.g_bp.signal_per_token",
+        "e8.e9.matched_baseline.g_tok.signal_per_token"
+      ],
+      "name": "baseline_comparison",
+      "sign": "higher is more signal per token; the dashed line is a structural cap, not a target"
+    },
+    {
+      "caption_claim": "Left: a sequence spliced position-wise from two watermarked outputs under the same key scores indistinguishably from genuine output at every length, so the verifier accepts it every time. A high value here is a vulnerability, because the statistic is a sum of content-blind per-position checks and nothing binds a sequence to itself. Right: detection after permuting 6-mer positions within blocks of the given width. A low value here is a successful removal, and it must be read with the utility column: the attack preserves the 6-mer multiset exactly, so the admitted composition proxies are nearly blind to it.",
+      "figure": "paper/figures/fig09_key_reuse_attacks.pdf",
+      "measurement_ids": [
+        "e11.spoofing.c_tok.splice_forgery_detection_rate",
+        "e11.spoofing.g_bp.splice_forgery_detection_rate",
+        "e11.spoofing.g_tok.splice_forgery_detection_rate",
+        "e12.removal.c_tok.rearrangement_detection_rate",
+        "e12.removal.g_bp.rearrangement_detection_rate",
+        "e12.removal.g_tok.rearrangement_detection_rate"
+      ],
+      "name": "attacks",
+      "sign": "INVERTED. Left panel: high is bad. Right panel: low means the attack succeeded. Neither may share an axis with the intended-detection figures."
+    },
+    {
+      "caption_claim": "Left: the relative shift of the longest open reading frame under each bounded rearrangement, with the largest composition-proxy shift beside it. The reading-frame shift is the larger of the two on most cells, which looks like an instrument that prices the attack. Right: the exact paired sign-flip p-value over the eight prompts for the same cells. Only the complete shuffle on one policy shows a directionally consistent change; under every bounded shuffle the longest reading frame rises about as often as it falls, because on high-entropy DNA it is a chance extreme-value statistic that a permutation re-rolls rather than destroys.",
+      "figure": "paper/figures/fig10_unpriced_removal.pdf",
+      "measurement_ids": [
+        "e15.structure_proxies.c_tok.orf_prices_bounded_rearrangement",
+        "e15.structure_proxies.g_bp.orf_prices_bounded_rearrangement",
+        "e15.structure_proxies.g_tok.orf_prices_bounded_rearrangement"
+      ],
+      "name": "unpriced_removal",
+      "sign": "a large left-panel value is NOT evidence of an effect unless the right panel is below 0.05; this figure exists to make that visible"
+    }
+  ],
+  "measurement_ids_used": [
+    "e11.spoofing.c_tok.splice_forgery_detection_rate",
+    "e11.spoofing.g_bp.splice_forgery_detection_rate",
+    "e11.spoofing.g_tok.splice_forgery_detection_rate",
+    "e12.removal.c_tok.rearrangement_detection_rate",
+    "e12.removal.g_bp.rearrangement_detection_rate",
+    "e12.removal.g_tok.rearrangement_detection_rate",
+    "e14.runtime.c_tok.matched_generation_wall_seconds",
+    "e14.runtime.g_bp.matched_generation_wall_seconds",
+    "e14.runtime.g_tok.matched_generation_wall_seconds",
+    "e15.structure_proxies.c_tok.orf_prices_bounded_rearrangement",
+    "e15.structure_proxies.g_bp.orf_prices_bounded_rearrangement",
+    "e15.structure_proxies.g_tok.orf_prices_bounded_rearrangement",
+    "e2.capacity.c_tok.mean_information_bits_per_base",
+    "e2.capacity.g_bp.mean_information_bits_per_base",
+    "e2.capacity.g_tok.mean_information_bits_per_base",
+    "e4.clean_detection.c_tok.b1536.detection_rate.v2",
+    "e4.clean_detection.c_tok.b3072.detection_rate.v2",
+    "e4.clean_detection.c_tok.b384.detection_rate.v2",
+    "e4.clean_detection.c_tok.b768.detection_rate.v2",
+    "e4.clean_detection.g_bp.b1536.detection_rate.v2",
+    "e4.clean_detection.g_bp.b3072.detection_rate.v2",
+    "e4.clean_detection.g_bp.b384.detection_rate.v2",
+    "e4.clean_detection.g_bp.b768.detection_rate.v2",
+    "e4.clean_detection.g_tok.b1536.detection_rate.v2",
+    "e4.clean_detection.g_tok.b3072.detection_rate.v2",
+    "e4.clean_detection.g_tok.b384.detection_rate.v2",
+    "e4.clean_detection.g_tok.b768.detection_rate.v2",
+    "e4.short_detection.c_tok.shortest_fully_detected_bases",
+    "e4.short_detection.g_bp.shortest_fully_detected_bases",
+    "e4.short_detection.g_tok.shortest_fully_detected_bases",
+    "e5.substitution.c_tok.b1536.max_fully_detected_rate.v2",
+    "e5.substitution.c_tok.b3072.max_fully_detected_rate.v2",
+    "e5.substitution.c_tok.b384.max_fully_detected_rate.v2",
+    "e5.substitution.c_tok.b768.max_fully_detected_rate.v2",
+    "e5.substitution.g_bp.b1536.max_fully_detected_rate.v2",
+    "e5.substitution.g_bp.b3072.max_fully_detected_rate.v2",
+    "e5.substitution.g_bp.b384.max_fully_detected_rate.v2",
+    "e5.substitution.g_bp.b768.max_fully_detected_rate.v2",
+    "e5.substitution.g_tok.b1536.max_fully_detected_rate.v2",
+    "e5.substitution.g_tok.b3072.max_fully_detected_rate.v2",
+    "e5.substitution.g_tok.b384.max_fully_detected_rate.v2",
+    "e5.substitution.g_tok.b768.max_fully_detected_rate.v2",
+    "e6.crop_strand.c_tok.narrow.conditions_fully_detected",
+    "e6.crop_strand.c_tok.wide.conditions_fully_detected",
+    "e6.crop_strand.g_bp.narrow.conditions_fully_detected",
+    "e6.crop_strand.g_bp.wide.conditions_fully_detected",
+    "e6.crop_strand.g_tok.narrow.conditions_fully_detected",
+    "e6.crop_strand.g_tok.wide.conditions_fully_detected",
+    "e7.deletion.c_tok.b1536.max_fully_detected_rate",
+    "e7.deletion.g_bp.b1536.max_fully_detected_rate",
+    "e7.deletion.g_tok.b1536.max_fully_detected_rate",
+    "e7.insertion.c_tok.b1536.max_fully_detected_rate",
+    "e7.insertion.g_bp.b1536.max_fully_detected_rate",
+    "e7.insertion.g_tok.b1536.max_fully_detected_rate",
+    "e7.stage2.deletion.c_tok.windowed_max_fully_detected_rate",
+    "e7.stage2.deletion.g_bp.windowed_max_fully_detected_rate",
+    "e7.stage2.deletion.g_tok.windowed_max_fully_detected_rate",
+    "e8.e9.matched_baseline.c_tok.signal_per_token",
+    "e8.e9.matched_baseline.g_bp.signal_per_token",
+    "e8.e9.matched_baseline.g_tok.signal_per_token"
+  ],
+  "rule": "every plotted value is read from the ledger; nothing is computed here, read from a result artifact, or hand-entered, and a missing measurement raises rather than falling back to a default",
+  "schema_version": 1,
+  "source_of_truth": "evidence/measurements.yaml"
+}

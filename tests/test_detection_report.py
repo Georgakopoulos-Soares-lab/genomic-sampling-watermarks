@@ -18,11 +18,21 @@ from genomic_watermarks.watermark import ORDINARY_SCHEME, PARTITION_MC_SCHEME
 OFFSETS = 2
 NULL_KEYS = 3
 TARGET_FPR = 0.2
-LENGTHS = (16, 32)
+LENGTHS = (8, 32)
+MIN_WINDOW = 8
 PROMPTS = ("case_0", "case_1", "case_2", "case_3")
 REPLICATES = 500
 SEED = 11
 HYPOTHESES = len(ORIENTATIONS) * 6 * OFFSETS
+
+
+def hypotheses_at(token_length: int) -> int:
+    """A prefix short enough loses five of six phases to the minimum-window rule."""
+
+    scorable = sum(
+        1 for phase in range(6) if (token_length if phase == 0 else token_length - 1) >= MIN_WINDOW
+    )
+    return len(ORIENTATIONS) * scorable * OFFSETS
 
 
 def build_cases() -> tuple[ContextCase, ...]:
@@ -51,7 +61,7 @@ def trial(
         "orientation": ORIENTATIONS[0],
         "phase": 0,
         "stream_offset": 0,
-        "hypotheses_searched": HYPOTHESES,
+        "hypotheses_searched": hypotheses_at(length),
     }
 
 
@@ -100,7 +110,7 @@ def build_report() -> dict[str, object]:
             {
                 "token_length": length,
                 "base_length": length * 6,
-                "hypotheses_searched": HYPOTHESES,
+                "hypotheses_searched": hypotheses_at(length),
                 "calibration": {
                     "pooled_null_families": ["wrong_key_watermarked", "any_key_ordinary"],
                     "pooled_null_trials": len(pooled),
@@ -163,7 +173,7 @@ def build_report() -> dict[str, object]:
             "window_tokens": "full_sequence_only",
             "window_stride_tokens": 0,
             "stream_offsets": list(range(OFFSETS)),
-            "minimum_window_tokens": 16,
+            "minimum_window_tokens": MIN_WINDOW,
         },
         "sequences": {"path": "outputs/fixture.jsonl", "sha256": "0" * 64},
         "cohort": {"prompts_path": "fixture.jsonl"},
@@ -192,7 +202,10 @@ class DetectionReportTest(unittest.TestCase):
         self.assertTrue(result["valid"])
         self.assertEqual(result["policy_id"], "C_tok")
         self.assertEqual(result["prompt_count"], len(PROMPTS))
-        self.assertEqual(result["hypotheses_searched"], HYPOTHESES)
+        self.assertEqual(
+            result["hypotheses_searched"],
+            {str(length * 6): hypotheses_at(length) for length in LENGTHS},
+        )
         self.assertEqual([entry["token_length"] for entry in result["lengths"]], list(LENGTHS))
         for entry in result["lengths"]:
             self.assertLessEqual(entry["achieved_false_positive_rate"], TARGET_FPR)

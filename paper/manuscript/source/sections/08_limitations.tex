@@ -1,4 +1,52 @@
 \section{Limitations}
 
-This study concerns selected open genomic language models, fixed 6-mer policies, synthetic edit channels, and public benign sequence cohorts. Sequence statistics and independent-model scores are biological proxies and do not establish function, viability, or safety. Exact one-step marginals do not by themselves establish cryptographic security under key reuse or adaptive queries.
+We list these as constraints on what the numbers above can be used for, not as caveats to soften them.
 
+\paragraph{Scope of the models and policies.} Three released generation policies from two open model
+families, all reading fixed 6-mers. Carbon's deployed logits-processor stack is unresolved, so the
+policy a Carbon user obtains by default is characterised for the main revision we audited and not for
+every configuration the release admits. Carbon-3B was not run.
+
+\paragraph{Scope of the cohort.} The channel measurement uses all $24$ frozen public prompts, but every
+detection and robustness result rests on $8$ prompts across four organisms. That is the resampling unit
+for every interval we report, and it is why several intervals are coarse. Nothing here establishes
+behaviour on other organisms, other genomic regions, or non-eukaryotic sequence.
+
+\paragraph{Scope of the edit model.} Substitutions, insertions, deletions, crops, and reverse
+complementation are applied by a synthetic protocol at declared rates. They are a stand-in for
+sequencing and handling error, not a model of any particular platform's error profile, and the
+adversarial attacks were never composed with them.
+
+\paragraph{Biological proxies are proxies.} Every sequence statistic here is structural: composition,
+complexity, or reading frame. None establishes function, viability, or safety, and we make no such
+claim. In particular, a change in the longest open reading frame of a high-entropy sequence is evidence
+that order changed, not that anything biological was lost, because such a frame arises largely by
+chance.
+
+\paragraph{The removal attack is unpriced.} We implemented both order-sensitive measures our design
+named for this purpose and neither prices it. The composition proxies are blind by construction, the
+independent-model score shifts by at most $\independentModelShift{}$, and the reading-frame measure
+shows no directionally consistent change under any bounded rearrangement. We therefore report that a
+6-mer permutation removes the watermark and that we cannot say what it costs. A reader should not read
+the small measured shifts as evidence that the attack is cheap.
+
+\paragraph{Statistical resolution.} Achieved false-positive rates are multiples of one over the number
+of null trials, and the intervals cannot resolve below that. Several attack and many-query cells carry
+eight trials, so they support statements about whether an effect is present, not precise rates. Where a
+target rate is below the attainable resolution we say so rather than reporting it.
+
+\paragraph{Exact marginals are not security.} One-step distribution preservation is proved and tested,
+and it implies nothing about key reuse, adaptive queries, or spoofing. Our own key-reuse result is the
+sharpest available demonstration: a construction with exactly correct marginals admits a complete
+spoofing attack. Any cryptographic claim about this construction would need its own assumptions and
+proof, and we make none.
+
+\paragraph{Feasibility, not benchmarking.} Runtimes are single observations on one laptop under
+uncontrolled load and on mains power; the same work runs about an order of magnitude slower on battery.
+No peak-memory figure is reported, because the counters available to us cannot support a residency
+claim.
+
+\paragraph{One unresolved result.} On the base-marginal policy, two of nine held-out unkeyed
+distinguisher tests reject nominally without clearing a Bonferroni correction across the family. We
+report it as unresolved rather than as either a detection or a clean bill of health; resolving it needs
+more matched draws than we have collected.

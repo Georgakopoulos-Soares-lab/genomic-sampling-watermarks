@@ -22,13 +22,36 @@ Read them in order:
 15. [The detector, and what an honest threshold costs](15_the_detector_and_honest_thresholds.md) — a model-free verifier searching 96 alignments, and why calibrating the maximum is the whole problem.
 16. [How much damage it survives](16_how_much_damage_it_survives.md) — substitution robustness, crops and the other strand, what a wider search costs, and a correction worth reading.
 17. [The synchronization wall](17_the_synchronization_wall.md) — why one deleted base breaks everything after it, two predictions that were wrong in useful ways, and the wall that a windowed detector moves but cannot remove.
+18. [Measuring against the alternatives](18_measuring_against_the_alternatives.md) — how a comparison between watermark constructions can be rigged without meaning to, why our method loses on clean sequences and why that is structural, and a threshold that does not transfer to real genomes.
+19. [What two outputs buy an attacker](19_what_two_outputs_buy_an_attacker.md) — why anyone holding two watermarked sequences can mint a third the verifier accepts, why that is structural rather than a bug, and why both of the instruments we built to price the removal attack turned out to be blind to it.
 
 The short version is this: the model assigns probabilities to possible next DNA blocks. A secret
 key changes *how we draw* from those probabilities, not what the probabilities are on average. The
 detector later looks for a key-dependent pattern using only the DNA, the key, and public settings.
 
-No result enters the paper automatically. We have implemented and tested the foundation, audited
-the real tokenizers, completed the sequential capacity gate, built and verified the watermarked
-generation path, and passed the fixed-state distribution-preservation gate. Nine numbers are
-admitted to the evidence ledger. The next gate is converting all of this into calibrated
-standalone-detector performance.
+No result enters the paper automatically. The foundation, the real tokenizer audits, the sequential
+capacity gate, the watermarked generation path, the distribution-preservation gate, calibrated clean
+detection, substitution and crop and strand robustness, the insertion and deletion synchronization
+result, the unkeyed-distinguisher checks, and the matched comparison against the two published
+alternatives have all been completed and reviewed. **85 numbers are admitted to the evidence ledger**,
+with five records of results that were superseded and why.
+
+Two findings are worth carrying away. The binding limit is **synchronization**, not capacity: a
+deleted base pushes everything after it off the reading grid, and the detector tolerates indel rates
+one to two orders of magnitude below its substitution tolerance. And on clean sequences our own
+construction is **not** the strongest of the three measured — the exponential method is about 7.5
+times louder per token, because ours hides one bit per token by design and is already at that ceiling.
+
+The adversarial end is now measured too, and it is negative: anyone holding **two** outputs from one
+key can splice them into a third sequence that the verifier accepts every time, because the detector's
+per-position checks are blind to the DNA content. The construction authenticates a *distribution*, not
+a *sequence*. **103 numbers are admitted to the evidence ledger.**
+
+Those two instruments now exist, and the honest result is that neither prices the removal attack: the
+independent-model score barely moves, and the reading-frame measure moves a lot without moving in a
+consistent direction, because a long reading frame in high-entropy DNA is mostly a chance event that
+shuffling re-rolls. The attack is unpriced and we say so rather than quoting the small numbers our
+blind instruments produce.
+
+A first full draft of the paper exists and builds, with every number drawn from the ledger and every
+figure generated from it. What remains is checking rather than measuring.

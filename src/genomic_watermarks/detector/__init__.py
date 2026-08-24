@@ -1,5 +1,18 @@
 """Standalone detector building blocks."""
 
+from .baseline_search import (
+    EXP_NULL_MEAN,
+    EXP_NULL_SD,
+    ITS_NULL_MEAN,
+    ITS_NULL_SD,
+    BaselineDetectionResult,
+    BaselineHypothesis,
+    ExponentialScoreCache,
+    InverseTransformScoreCache,
+    baseline_cache,
+    detect_baseline,
+    standardized_score,
+)
 from .hypotheses import PartitionScore, score_partition_agreement, search_orientation_and_phase
 from .search import (
     DECISION_RULE,
@@ -27,21 +40,31 @@ from .search import (
 
 __all__ = [
     "DECISION_RULE",
+    "EXP_NULL_MEAN",
+    "EXP_NULL_SD",
     "FORWARD",
+    "ITS_NULL_MEAN",
+    "ITS_NULL_SD",
     "ORIENTATIONS",
     "REVERSE_COMPLEMENT",
+    "BaselineDetectionResult",
+    "BaselineHypothesis",
     "Calibration",
     "DetectionResult",
     "DetectorConfig",
     "DetectorHypothesis",
+    "ExponentialScoreCache",
+    "InverseTransformScoreCache",
     "PartitionCache",
     "PartitionScore",
     "WindowedDetectionResult",
     "WindowedHypothesis",
     "WindowedSearchConfig",
+    "baseline_cache",
     "calibrate_threshold",
     "detect",
     "detect_aligned",
+    "detect_baseline",
     "detect_windowed",
     "detection_rate",
     "empirical_p_value",
@@ -50,4 +73,5 @@ __all__ = [
     "score_partition_agreement",
     "search_orientation_and_phase",
     "standardized_agreement",
+    "standardized_score",
 ]

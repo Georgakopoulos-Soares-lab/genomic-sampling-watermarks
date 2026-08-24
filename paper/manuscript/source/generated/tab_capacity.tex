@@ -1,0 +1,16 @@
+% GENERATED FILE -- do not edit. Regenerate with paper/scripts/make_tables.py
+\begin{table}[t]
+  \centering
+  \small
+  \begin{tabular}{lrrrr}
+    \toprule
+    Policy & bit/base & 95\% interval & states & prompts \\
+    \midrule
+    \policyCtok & 0.1540 & [0.1515, 0.1558] & 3072 & 24 \\
+    \policyGtok & 0.1514 & [0.1398, 0.1578] & 3072 & 24 \\
+    \policyGbp & 0.1574 & [0.1548, 0.1593] & 3072 & 24 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Realized maximal-coupling watermark information per DNA base for each released generation policy, with equal-weight prompt-cluster percentile intervals. The construction's structural ceiling is one coupled bit per 6-mer token, or $1/6$ bit per base. Sequential states within a prompt are not independent samples, which is why the interval resamples prompts rather than states.}
+  \label{tab:capacity}
+\end{table}
