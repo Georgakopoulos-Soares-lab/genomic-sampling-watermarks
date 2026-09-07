@@ -3,22 +3,22 @@
 from __future__ import annotations
 
 import inspect
+import math
 from collections.abc import Callable
 from dataclasses import dataclass
 from threading import RLock
 from typing import Any
 
 from genomic_watermarks.dna import normalize_dna
-from genomic_watermarks.models.base import DistributionState, ModelPolicy
+from genomic_watermarks.models.base import ContinuationLikelihood, DistributionState, ModelPolicy
 from genomic_watermarks.models.policy_math import apply_generation_policy, canonical_softmax
 from genomic_watermarks.models.runtime import resolve_torch_runtime
 from genomic_watermarks.models.vocabulary import CanonicalVocabulary, extract_canonical_vocabulary
 
 CARBON_500M_REVISION = "9796b752108258c1d365089f842e62e6c0547704"
-CARBON_500M_FNS_REVISION = "974bc8a54e95d72af5c909416f1b0473e11b7bf4"
 CARBON_QWEN3_TOKENIZER_REVISION = "906bfd4b4dc7f14ee4320094d8b41684abff8539"
-GENERATOR_V2_1P2B_REVISION = "c41b0018da9ee13b9e96ee54647de8da381ccd72"
 CARBON_QWEN3_TOKENIZER_ID = "Qwen/Qwen3-4B-Base"
+GENERATOR_V2_1P2B_REVISION = "c41b0018da9ee13b9e96ee54647de8da381ccd72"
 
 _AUTO_TOKENIZER_PATCH_LOCK = RLock()
 
@@ -43,7 +43,7 @@ def carbon_prompt(dna_context: str) -> str:
 
 
 def generator_prompt(dna_context: str) -> str:
-    """Format a GENERator continuation prompt without silently changing phase."""
+    """Format a GENERator continuation prompt without changing 6-mer phase."""
 
     normalized = normalize_dna(dna_context)
     if len(normalized) % 6:
@@ -65,31 +65,9 @@ POLICIES: dict[str, PolicySpec] = {
             CARBON_QWEN3_TOKENIZER_REVISION,
         ),
     ),
-    "C_bp": PolicySpec(
-        policy=ModelPolicy(
-            policy_id="C_bp",
-            model_id="HuggingFaceBio/Carbon-500M",
-            revision=CARBON_500M_FNS_REVISION,
-            tokenizer_revision=CARBON_500M_FNS_REVISION,
-        ),
-        prompt_builder=carbon_prompt,
-        transitive_tokenizer_pin=DependencyPin(
-            CARBON_QWEN3_TOKENIZER_ID,
-            CARBON_QWEN3_TOKENIZER_REVISION,
-        ),
-    ),
     "G_tok": PolicySpec(
         policy=ModelPolicy(
             policy_id="G_tok",
-            model_id="GenerTeam/GENERator-v2-eukaryote-1.2b-base",
-            revision=GENERATOR_V2_1P2B_REVISION,
-            tokenizer_revision=GENERATOR_V2_1P2B_REVISION,
-        ),
-        prompt_builder=generator_prompt,
-    ),
-    "G_bp": PolicySpec(
-        policy=ModelPolicy(
-            policy_id="G_bp",
             model_id="GenerTeam/GENERator-v2-eukaryote-1.2b-base",
             revision=GENERATOR_V2_1P2B_REVISION,
             tokenizer_revision=GENERATOR_V2_1P2B_REVISION,
@@ -228,6 +206,27 @@ class HuggingFaceDNAAdapter:
         self._device = device
         self._dtype_name = dtype_name
         self._vocabulary = extract_canonical_vocabulary(tokenizer)
+        # The canonical IDs are gathered on the model's own device, so only the
+        # 4,096 canonical logits cross the device boundary instead of the whole
+        # model vocabulary.  ``index_select`` picks the same elements the Python
+        # indexing picked and ``.float()`` is elementwise, so the values handed
+        # to ``canonical_softmax`` are bit-identical either way.
+        self._canonical_index_cache: Any = None
+        self._selected_ids = tuple(range(len(self._vocabulary.ids)))
+        self._max_canonical_id = max(self._vocabulary.ids)
+        self._token_to_id = dict(
+            zip(self._vocabulary.tokens, self._vocabulary.ids, strict=True)
+        )
+        self._incremental_cache_enabled = policy_id == "G_tok"
+        self._cached_context: str | None = None
+        self._past_key_values: Any = None
+
+    def _canonical_index(self, torch: Any, device: Any) -> Any:
+        cached = self._canonical_index_cache
+        if cached is None or cached.device != device:
+            cached = torch.tensor(self._vocabulary.ids, dtype=torch.long, device=device)
+            self._canonical_index_cache = cached
+        return cached
 
     @property
     def policy(self) -> ModelPolicy:
@@ -241,6 +240,12 @@ class HuggingFaceDNAAdapter:
     def canonical_vocabulary(self) -> CanonicalVocabulary:
         return self._vocabulary
 
+    def reset_incremental_cache(self) -> None:
+        """Discard model state used only to accelerate consecutive extensions."""
+
+        self._cached_context = None
+        self._past_key_values = None
+
     def next_distribution(self, dna_context: str) -> DistributionState:
         try:
             import torch
@@ -249,17 +254,46 @@ class HuggingFaceDNAAdapter:
                 "model-backed work requires the optional 'models' dependencies"
             ) from error
 
-        prompt = self._spec.prompt_builder(dna_context)
-        inputs = self._tokenizer(
-            prompt,
-            return_tensors="pt",
-            add_special_tokens=False,
+        context = normalize_dna(dna_context)
+        extends_cache = (
+            self._incremental_cache_enabled
+            and self._cached_context is not None
+            and self._past_key_values is not None
+            and len(context) == len(self._cached_context) + 6
+            and context.startswith(self._cached_context)
         )
-        inputs = {name: value.to(self._device) for name, value in inputs.items()}
+        if extends_cache:
+            token_id = self._token_to_id[context[-6:]]
+            inputs = {
+                "input_ids": torch.tensor([[token_id]], dtype=torch.long, device=self._device),
+                "past_key_values": self._past_key_values,
+            }
+        else:
+            prompt = self._spec.prompt_builder(context)
+            inputs = self._tokenizer(
+                prompt,
+                return_tensors="pt",
+                add_special_tokens=False,
+            )
+            inputs = {name: value.to(self._device) for name, value in inputs.items()}
         with torch.inference_mode():
-            outputs = self._model(**inputs, return_dict=True)
-        logits = outputs.logits[0, -1].detach().float().cpu().tolist()
-        direct = canonical_softmax(logits, self._vocabulary.ids)
+            outputs = self._model(
+                **inputs,
+                return_dict=True,
+                use_cache=self._incremental_cache_enabled,
+            )
+        if self._incremental_cache_enabled:
+            past_key_values = getattr(outputs, "past_key_values", None)
+            if past_key_values is None:
+                raise RuntimeError("GENERATOR did not return the requested incremental cache")
+            self._cached_context = context
+            self._past_key_values = past_key_values
+        row = outputs.logits[0, -1].detach()
+        if self._max_canonical_id >= row.shape[0]:
+            raise ValueError("canonical token ID lies outside the logits vector")
+        selected = row.index_select(0, self._canonical_index(torch, row.device))
+        logits = selected.float().cpu().tolist()
+        direct = canonical_softmax(logits, self._selected_ids)
         probabilities = apply_generation_policy(
             self.policy.policy_id,
             self._vocabulary.tokens,
@@ -274,8 +308,83 @@ class HuggingFaceDNAAdapter:
                 "revision": self.policy.revision,
                 "device": self._device,
                 "dtype": self._dtype_name,
-                "context_bases": len(normalize_dna(dna_context)),
+                "context_bases": len(context),
+                "incremental_cache_used": extends_cache,
             },
+        )
+
+    def continuation_likelihood(
+        self,
+        prompt_dna: str,
+        continuation_dna: str,
+    ) -> ContinuationLikelihood:
+        """Teacher-force a continuation under the selected direct-token policy.
+
+        The denominator is the canonical 4,096-token direct law at each
+        position, not the model's full text vocabulary. Prompt tokens condition
+        the score but never enter the reported loss.
+        """
+
+        if self.policy.policy_id not in {"C_tok", "G_tok"}:
+            raise ValueError("continuation_likelihood requires a direct-token policy")
+        try:
+            import torch
+        except ImportError as error:
+            raise RuntimeError(
+                "model-backed work requires the optional 'models' dependencies"
+            ) from error
+        prompt = normalize_dna(prompt_dna)
+        continuation = normalize_dna(continuation_dna)
+        if len(prompt) % 6 or len(continuation) % 6:
+            raise ValueError("prompt and continuation lengths must be divisible by six")
+        if not continuation:
+            raise ValueError("continuation must not be empty")
+        prompt_inputs = self._tokenizer(
+            self._spec.prompt_builder(prompt),
+            return_tensors="pt",
+            add_special_tokens=False,
+        )
+        full_inputs = self._tokenizer(
+            self._spec.prompt_builder(prompt + continuation),
+            return_tensors="pt",
+            add_special_tokens=False,
+        )
+        prompt_ids = prompt_inputs["input_ids"][0]
+        full_ids = full_inputs["input_ids"][0]
+        prompt_tokens = int(prompt_ids.shape[0])
+        full_tokens = int(full_ids.shape[0])
+        expected_continuation_tokens = len(continuation) // 6
+        if full_tokens - prompt_tokens != expected_continuation_tokens:
+            raise RuntimeError("model tokenization did not preserve the declared 6-mer boundary")
+        if not torch.equal(full_ids[:prompt_tokens], prompt_ids):
+            raise RuntimeError("model prompt tokenization is not a prefix of the full sequence")
+        continuation_ids = full_ids[prompt_tokens:].tolist()
+        canonical_index = {token_id: index for index, token_id in enumerate(self._vocabulary.ids)}
+        try:
+            target_indices = [canonical_index[int(token_id)] for token_id in continuation_ids]
+        except KeyError as error:
+            raise RuntimeError(
+                "continuation tokenized outside the canonical vocabulary"
+            ) from error
+        device_inputs = {name: value.to(self._device) for name, value in full_inputs.items()}
+        with torch.inference_mode():
+            outputs = self._model(**device_inputs, return_dict=True)
+            prediction_logits = outputs.logits[
+                0,
+                prompt_tokens - 1 : full_tokens - 1,
+                list(self._vocabulary.ids),
+            ].float()
+            log_probabilities = torch.log_softmax(prediction_logits, dim=-1)
+            targets = torch.tensor(target_indices, device=log_probabilities.device)
+            positions = torch.arange(expected_continuation_tokens, device=log_probabilities.device)
+            token_losses = -log_probabilities[positions, targets]
+            total_nll = float(token_losses.sum().detach().cpu())
+        mean_nll = total_nll / expected_continuation_tokens
+        return ContinuationLikelihood(
+            token_count=expected_continuation_tokens,
+            negative_log_likelihood=total_nll,
+            mean_negative_log_likelihood=mean_nll,
+            perplexity=math.exp(mean_nll),
         )
 
 

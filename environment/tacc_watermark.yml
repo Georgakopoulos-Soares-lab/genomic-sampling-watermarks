@@ -1,0 +1,7 @@
+name: tacc_watermark
+channels:
+  - defaults
+dependencies:
+  - python=3.12.14
+  - pip=26.2.1
+

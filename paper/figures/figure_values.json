@@ -1,0 +1,324 @@
+{
+  "figures": {
+    "fig1_method": {
+      "pdf": "paper/figures/fig1_method.pdf",
+      "pdf_sha256": "45590db18ce2c6650b456936f491c3046ed7582a7d42d2358edc401fb520496a",
+      "png": "paper/figures/fig1_method.png",
+      "png_sha256": "30542c9feab823e92f4c67e6ce87b8968fce74dbde4cab10b4afb9d09b457dee",
+      "values": {
+        "illustrative_mark_bits": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "illustrative_model_probability": [
+          0.26,
+          0.19,
+          0.15,
+          0.12,
+          0.1,
+          0.08,
+          0.06,
+          0.04
+        ],
+        "illustrative_probability_after_one_layer": [
+          0.3666,
+          0.0779,
+          0.2115,
+          0.1692,
+          0.041,
+          0.0328,
+          0.0846,
+          0.0164
+        ],
+        "windows_searched": 16136
+      }
+    },
+    "fig2_quality": {
+      "pdf": "paper/figures/fig2_quality.pdf",
+      "pdf_sha256": "149a8187aedbefee26dc9d6df2022586b2d57167e15fe9f8ed351dfbecb3a51a",
+      "png": "paper/figures/fig2_quality.png",
+      "png_sha256": "9b033796720c1df65d4752cb64337b7bd75c01184d5eae567e79b9b9c239e1f2",
+      "values": {
+        "model_score_difference": 0.00852077268064022,
+        "model_score_interval": [
+          -0.04426048335153608,
+          0.05973294146824616
+        ],
+        "model_score_p_value": 0.7506224937750623,
+        "ordinary_mean_model_score": 7.533859075047076,
+        "standardized_effects": [
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.10785158363398334,
+              0.13452923922242085
+            ],
+            "label": "GC content",
+            "metric": "gc_fraction",
+            "standardized_effect": 0.013072441957753415
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.07777105042236765,
+              0.16618833730600477
+            ],
+            "label": "Base entropy",
+            "metric": "base_entropy_bits",
+            "standardized_effect": 0.0432250910628233
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.07447402034637005,
+              0.1706091765040574
+            ],
+            "label": "2-mer entropy",
+            "metric": "dinucleotide_entropy_bits",
+            "standardized_effect": 0.046892982019007795
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.0665651117453585,
+              0.18076023996079962
+            ],
+            "label": "3-mer entropy",
+            "metric": "trinucleotide_entropy_bits",
+            "standardized_effect": 0.057744609304908885
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.07700353831861642,
+              0.16404766782294714
+            ],
+            "label": "Distinct 6-mers",
+            "metric": "distinct_hexamer_fraction",
+            "standardized_effect": 0.04245403380183777
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.21058298323500133,
+              0.03845698073805621
+            ],
+            "label": "Longest single-base run",
+            "metric": "longest_homopolymer_run",
+            "standardized_effect": -0.08373697418770303
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.09101198025466715,
+              0.1527909020012064
+            ],
+            "label": "Mean single-base run",
+            "metric": "mean_homopolymer_run",
+            "standardized_effect": 0.03139349062953578
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.08418357252378117,
+              0.1619143750261995
+            ],
+            "label": "Purine content",
+            "metric": "purine_fraction",
+            "standardized_effect": 0.03953526555630628
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.14575823446741001,
+              0.09989958305696205
+            ],
+            "label": "CpG content",
+            "metric": "cpg_fraction",
+            "standardized_effect": -0.02323100260186259
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.10376714735051165,
+              0.14418581697843574
+            ],
+            "label": "1-mer shift from prompt",
+            "metric": "js_divergence_from_prompt_k1_bits",
+            "standardized_effect": 0.019537599742162442
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.11127320059570528,
+              0.13294930167348676
+            ],
+            "label": "2-mer shift from prompt",
+            "metric": "js_divergence_from_prompt_k2_bits",
+            "standardized_effect": 0.011571415450387468
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.1069712062283595,
+              0.1377979425144395
+            ],
+            "label": "3-mer shift from prompt",
+            "metric": "js_divergence_from_prompt_k3_bits",
+            "standardized_effect": 0.0158558123621699
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.10423466883203819,
+              0.1406727378653915
+            ],
+            "label": "Model score",
+            "metric": "mean_negative_log_likelihood_per_token",
+            "standardized_effect": 0.02006665655920334
+          },
+          {
+            "benjamini_hochberg_p_value": 0.8528214717852821,
+            "interval": [
+              -0.0911918785726808,
+              0.1546593841241265
+            ],
+            "label": "Perplexity",
+            "metric": "perplexity",
+            "standardized_effect": 0.03300611536882948
+          }
+        ],
+        "watermarked_mean_model_score": 7.542379847727716
+      }
+    },
+    "fig3_detection": {
+      "pdf": "paper/figures/fig3_detection.pdf",
+      "pdf_sha256": "1fead7fc8f53800d7ebd36a11841a2ed54e70b6ece49f859c47746193d70866e",
+      "png": "paper/figures/fig3_detection.png",
+      "png_sha256": "3cc2a9155d3f1a4f7d2abdc14bd2d6e56ebfe64d7ce675b4c5cd051ed5c19c6d",
+      "values": {
+        "clean_strength": {
+          "ordinary_corresponding_key": {
+            "clean_strength_max": 6.6016070744860755,
+            "clean_strength_median": 3.1611781167649413,
+            "clean_strength_min": 2.036649288687517
+          },
+          "threshold_strength": 6.207795885204709,
+          "watermarked_correct_key": {
+            "clean_strength_max": 880.6886352686053,
+            "clean_strength_median": 790.6151014720618,
+            "clean_strength_min": 124.77747726900617
+          },
+          "watermarked_wrong_key": {
+            "clean_strength_max": 5.694553392400395,
+            "clean_strength_median": 3.137889928289541,
+            "clean_strength_min": 1.954484413919037
+          },
+          "windows_searched": 16136
+        },
+        "prompt_level_rates": {
+          "ordinary_corresponding_key": {
+            "exact_95_percent_interval": [
+              0.013185488963134408,
+              2.867584185449001
+            ],
+            "percent": 0.5208333333333334,
+            "positive_prompts": 1,
+            "prompts": 192
+          },
+          "watermarked_correct_key": {
+            "exact_95_percent_interval": [
+              98.09704778312202,
+              100.0
+            ],
+            "percent": 100.0,
+            "positive_prompts": 192,
+            "prompts": 192
+          },
+          "watermarked_wrong_key": {
+            "exact_95_percent_interval": [
+              0.0,
+              1.902952216877982
+            ],
+            "percent": 0.0,
+            "positive_prompts": 0,
+            "prompts": 192
+          }
+        }
+      }
+    },
+    "fig4_edits": {
+      "pdf": "paper/figures/fig4_edits.pdf",
+      "pdf_sha256": "67273115283a60e28ef204d1843e7d613b24952dc88c67ab29489535b7cd517c",
+      "png": "paper/figures/fig4_edits.png",
+      "png_sha256": "dcee75baa6c6f439619f684fccbd4e735e76636c9de6be089080055ab1c12bf6",
+      "values": {
+        "best_window_length_counts": {
+          "clean": {
+            "1536": 1,
+            "3072": 383,
+            "384": 0,
+            "768": 0
+          },
+          "deletion_1nt": {
+            "1536": 151,
+            "3072": 232,
+            "384": 0,
+            "768": 1
+          },
+          "insertion_1nt": {
+            "1536": 180,
+            "3072": 203,
+            "384": 0,
+            "768": 1
+          },
+          "substitution_1nt": {
+            "1536": 1,
+            "3072": 383,
+            "384": 0,
+            "768": 0
+          }
+        },
+        "correct_key_strength": {
+          "clean": {
+            "label": "None",
+            "strength_max": 880.6886352686053,
+            "strength_median": 790.6151014720618,
+            "strength_min": 124.77747726900617
+          },
+          "deletion_1nt": {
+            "label": "Deletion",
+            "strength_max": 849.7272761095987,
+            "strength_median": 443.6981610909953,
+            "strength_min": 114.66774594734677
+          },
+          "insertion_1nt": {
+            "label": "Insertion",
+            "strength_max": 832.3884105230525,
+            "strength_median": 431.5283181189861,
+            "strength_min": 82.16118504951478
+          },
+          "substitution_1nt": {
+            "label": "Substitution",
+            "strength_max": 866.3190725548483,
+            "strength_median": 774.6516878248034,
+            "strength_min": 124.10108968948374
+          }
+        },
+        "threshold_strength": 6.207795885204709
+      }
+    }
+  },
+  "sources": {
+    "quality_artifact": "outputs/carbon_synthid_e16_v1/sequence_comparison_summary.json",
+    "quality_sha256": "6c9a73ea92592465b3a7c5121ab6a7e296839bc22a02edaa8050c36ebad7b0da",
+    "trials_artifact": "outputs/carbon_synthid_position_independent_v1/trials.jsonl",
+    "trials_sha256": "323d998561843dda5b204c33d3de9d6a281aaa700ceddc535b0d7af32e0ac81c"
+  }
+}

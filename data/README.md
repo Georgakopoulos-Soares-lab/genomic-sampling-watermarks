@@ -1,21 +1,23 @@
 # Data policy
 
-No dataset is committed to this repository. Use only public, benign genomic cohorts with documented license, revision, checksum, and preprocessing. Keep downloads under ignored `data/raw/` and derived material under ignored `data/processed/`.
+Only the 256-prompt public RefSeq cohort used by the Carbon SynthID validation and the matched
+GENERator replication is retained. The tracked files contain accession versions, coordinates,
+selection rules, and checksums, not genomic sequences.
 
-Do not use patient, private, controlled-access, or otherwise sensitive genomic data. A small
-provenance record must capture source, revision, license, checksum, and filtering without embedding
-sequences in it.
+- `public_prompt_cohort_large_v1_sources.yaml` declares the public source records and selection.
+- `public_prompt_cohort_large_v1.yaml` is the frozen checksum-complete manifest.
+- `docs/research/public_prompt_cohort_large_v1.md` explains construction and exclusions.
 
-The first prompt cohort is specified in `public_prompt_cohort.yaml`. Build or verify it with:
+Downloaded records stay under ignored `data/raw/`; derived prompt JSONL stays under ignored
+`data/processed/`. Patient, private, controlled-access, human, organelle, plasmid, and
+ambiguous-base inputs are excluded.
+
+An offline rebuild from already fetched public records is:
 
 ```bash
-uv run python scripts/build_public_prompt_cohort.py
-uv run python scripts/build_public_prompt_cohort.py --offline
+uv run python scripts/build_large_public_prompt_cohort.py \
+  --manifest data/public_prompt_cohort_large_v1.yaml --offline
 ```
 
-The tracked manifest contains accessions, coordinates, usage-policy links, and sequence checksums.
-The downloaded FASTA files and derived JSONL remain under ignored `data/raw/` and `data/processed/`.
-
-The expected cohort digest is
-`10495c987950b1c96a492ca39509747bdaa0dd43083cf20758c6210df6f84f9e`. An online build and a
-network-free rebuild on 2026-08-21 produced that same digest for all 12 prompts.
+The frozen prompt content digest is
+`8f7f7bba52f26837cdef5f17b542e01ab61eb1ddf7735d43dcd6f7b8d0986308`.

@@ -1,0 +1,21 @@
+--index-url https://pypi.org/simple
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+# CUDA is pinned separately from uv.lock because the required laptop lock is
+# platform-neutral while Lonestar6 exposes CUDA 12.8.
+torch==2.11.0+cu128
+
+# Direct dependencies match the repository lock used by the MPS path.
+huggingface-hub==1.28.0
+safetensors==0.8.0
+transformers==5.15.1
+matplotlib==3.11.1
+numpy==2.5.2
+pandas==3.0.5
+pyarrow==25.0.1
+scikit-learn==1.9.0
+scipy==1.18.0
+pytest==9.1.1
+pyyaml==6.0.3
+ruff==0.16.4
+

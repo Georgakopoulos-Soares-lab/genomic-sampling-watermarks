@@ -13,8 +13,6 @@ class FakeCarbonTokenizer:
     dna_id_to_token = {token_id: token for token, token_id in dna_token_to_id.items()}
 
     def get_vocab(self) -> dict[str, int]:
-        # Carbon's combined public mapping can retain a BPE ID for an
-        # overlapping string. The dedicated DNA mapping must win.
         combined = dict(self.dna_token_to_id)
         combined["CCCCCC"] = 17
         return combined
@@ -34,24 +32,21 @@ class FakeGeneratorTokenizer:
 
 
 class ModelVocabularyTest(unittest.TestCase):
-    def test_carbon_uses_dedicated_dna_mapping(self) -> None:
+    def test_dedicated_dna_mapping_is_used(self) -> None:
         vocabulary = extract_canonical_vocabulary(FakeCarbonTokenizer())
         self.assertEqual(vocabulary.mapping_source, "dna_token_to_id")
-        self.assertEqual(vocabulary.first_id, 1003)
-        self.assertEqual(vocabulary.last_id, 5098)
+        self.assertEqual((vocabulary.first_id, vocabulary.last_id), (1003, 5098))
         self.assertTrue(vocabulary.is_contiguous)
-        cccccc = vocabulary.tokens.index("CCCCCC")
-        self.assertNotEqual(vocabulary.ids[cccccc], 17)
+        self.assertNotEqual(vocabulary.ids[vocabulary.tokens.index("CCCCCC")], 17)
 
-    def test_generator_uses_vocab_after_32_specials(self) -> None:
+    def test_generator_uses_vocab_after_special_tokens(self) -> None:
         vocabulary = extract_canonical_vocabulary(FakeGeneratorTokenizer())
         self.assertEqual(vocabulary.mapping_source, "vocab")
-        self.assertEqual(vocabulary.first_id, 32)
-        self.assertEqual(vocabulary.last_id, 4127)
+        self.assertEqual((vocabulary.first_id, vocabulary.last_id), (32, 4127))
         self.assertTrue(vocabulary.is_contiguous)
 
     def test_wrong_k_is_rejected(self) -> None:
-        tokenizer = FakeGeneratorTokenizer()
+        tokenizer = FakeCarbonTokenizer()
         tokenizer.k = 5
         with self.assertRaises(ValueError):
             extract_canonical_vocabulary(tokenizer)

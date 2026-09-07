@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "genomic-sampling-watermarks"
 version = "0.1.0"
-description = "Local-first experiments for secret-key sampling watermarks in genomic language models"
+description = "Position-independent SynthID watermark experiments for genomic DNA generation"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = []

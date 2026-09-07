@@ -33,6 +33,29 @@ class DistributionState:
             raise ValueError("probabilities must sum to one")
 
 
+@dataclass(frozen=True, slots=True)
+class ContinuationLikelihood:
+    """Teacher-forced likelihood under one declared canonical-token policy."""
+
+    token_count: int
+    negative_log_likelihood: float
+    mean_negative_log_likelihood: float
+    perplexity: float
+
+    def __post_init__(self) -> None:
+        if self.token_count <= 0:
+            raise ValueError("token_count must be positive")
+        if any(
+            not math.isfinite(value) or value < 0.0
+            for value in (
+                self.negative_log_likelihood,
+                self.mean_negative_log_likelihood,
+                self.perplexity,
+            )
+        ):
+            raise ValueError("likelihood values must be finite and non-negative")
+
+
 @runtime_checkable
 class GenomicModelAdapter(Protocol):
     """Minimal model interface needed by sampling and channel experiments."""

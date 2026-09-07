@@ -1,0 +1,88 @@
+schema_version = 1
+experiment_id = "generator_synthid_validation_v1"
+classification = "validation_not_automatically_admitted_evidence"
+policy_id = "G_tok"
+model_id = "GenerTeam/GENERator-v2-eukaryote-1.2b-base"
+model_revision = "c41b0018da9ee13b9e96ee54647de8da381ccd72"
+cohort_id = "ncbi_refseq_eukaryote_windows_large_v1"
+cohort_sha256 = "8f7f7bba52f26837cdef5f17b542e01ab61eb1ddf7735d43dcd6f7b8d0986308"
+prompt_bases = 384
+prompt_count = 256
+draw_indices = [0, 1]
+generated_tokens = 512
+generated_bases = 3072
+temperature = 1.0
+truncation = "none"
+device = "mps"
+dtype = "float32"
+cache_dir = ".cache/huggingface"
+local_files_only = true
+
+[generation]
+experiment_label = "generator-synthid-validation-v1"
+watermark_scheme = "synthid-tournament-v1"
+control_scheme = "ordinary-categorical-v1"
+fixture_key_mapping = "draw index equals published fixture-key index"
+prf_domain = "experiment_label/cohort_id/policy_id"
+prf_domain_includes_draw = false
+replay_seed_parts = ["experiment_label", "policy_id", "case_id", "draw=<draw_id>", "scheme"]
+
+[tournament]
+kind = "non-distortionary binary SynthID tournament"
+num_leaves_per_node = 2
+depth = 30
+context_tokens = 4
+context_history_size = 1024
+first_context_tokens_unwatermarked = true
+repeated_contexts_sampled_ordinary_and_masked = true
+candidate_prf = "domain-separated HMAC-SHA-256; first depth output bits"
+
+[distribution]
+state_rule = "declared law after 64 tokens of draw-0 ordinary trajectory"
+state_token_index = 64
+states = 256
+draws_per_state_per_arm = 5000
+monte_carlo_replicates = 999
+key_average_replicates_per_state = 64
+gof_seed = 2718
+negative_control_states = 8
+nominal_alpha = 0.05
+
+[sequence_comparison]
+statistical_cluster = "case_id"
+bootstrap_replicates = 20000
+permutation_replicates = 100000
+analysis_seed = 2718
+multiple_testing = "Benjamini-Hochberg primary; Bonferroni also recorded"
+teacher_forced_prompt_tokens_in_loss = false
+
+[detection]
+token_lengths = [64, 128, 256, 512]
+base_lengths = [384, 768, 1536, 3072]
+calibration_prompts = 64
+evaluation_prompts = 192
+split_rule = "SHA-256 rank of frozen label and case_id"
+threshold_null_family = "ordinary_corresponding_key"
+target_fpr = 0.01
+threshold_source = "analytic_standard_normal"
+analytic_null = "under the PRF idealization, ones ~ Binomial(total, 0.5); standardized statistic approximates N(0, 1)"
+empirical_fit_check_prompts = 256
+orientation = "forward"
+phase = 0
+offset_search = false
+windows = "full evaluated prefix only"
+hypotheses_searched = 1
+decision_rule = "statistic > threshold"
+bootstrap_replicates = 20000
+permutation_replicates = 100000
+analysis_seed = 2718
+
+[smoke]
+prompts = 4
+draw_indices = [0, 1]
+generated_tokens = 64
+distribution_draws = 500
+distribution_replicates = 99
+distribution_key_average_replicates = 8
+calibration_prompts_in_full_split = 1
+evaluation_prompts_in_full_split = 3

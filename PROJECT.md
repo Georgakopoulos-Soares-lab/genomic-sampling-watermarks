@@ -1,48 +1,43 @@
 # Project charter
 
-## Working title
+## Research question
 
-**Secret-Key Sampling Watermarks for Genomic Language Models**
+Can the SynthID tournament watermark be added while two genomic language models generate DNA,
+without exceeding a pre-specified model-quality loss bound, and can a verifier find the watermark
+when it does not know where the generated part begins? The rebuilt paper will answer this jointly
+for Carbon-500M and GENERator-v2 1.2B under one new confirmatory study identity.
 
-## Paper thesis
+## Retained scope
 
-Carbon and GENERator-v2 are not two separate paper targets. They are complementary test beds for one question: can the sampling freedom of fixed 6-mer genomic language models carry a secret-key provenance signal while preserving the intended generation distribution, and can that signal be verified from edited DNA without model access?
+This repository contains one watermark method: `synthid-tournament-v1`. The two paper models are
+Carbon-500M revision `9796b752108258c1d365089f842e62e6c0547704`, restricted to its 4,096
+canonical DNA 6-mer tokens, and
+`GenerTeam/GENERator-v2-eukaryote-1.2b-base` revision
+`c41b0018da9ee13b9e96ee54647de8da381ccd72` and its direct 4,096-token canonical policy `G_tok`.
+Neither model uses an alternate base-marginal policy in the retained experiments. Ordinary
+categorical sampling from the model-specific distribution is the only generation control.
 
-## Candidate contributions
+The retained detector is `synthid-position-independent-detector-v1`. It receives DNA, a secret key,
+the public generation domain, and fixed public settings. It does not receive the prompt, model,
+model probabilities, random generation seed, strand, 6-mer phase, or generation boundary.
 
-These are targets, not accepted claims.
+## Evidence status
 
-1. A source-grounded baseline taxonomy separating direct 6-mer sampling from base-marginal generation in Carbon and GENERator-v2.
-2. A reusable exact-marginal sampler and standalone detector for fixed 6-mer genomic outputs.
-3. A cross-model measurement of entropy, keyed partition balance, and attainable watermark information per token and per base.
-4. A calibrated account of how substitutions, indels, crops, phase, strand orientation, and detector search affect detection.
-5. A reproducible, laptop-scale evidence pipeline whose primary results run on one Apple M5 Pro with 48 GB unified memory.
+Existing version-one Carbon and GENERator measurements are retained only as development history.
+They may inform runtime and blinded power planning, but they are not confirmatory evidence for the
+rebuilt paper. New paper-bound evidence requires a fresh prompt cohort, a new protocol and evidence
+identity, and complete M5 Pro runs for both models. The active design and gates are in
+`docs/research/dual_model_synthid_paper_rebuild_plan.md`.
 
-## Facts
+## Claim boundary
 
-- Both research plans target secret-key sampling-time watermarks with no model retraining.
-- The verifier must not require the prompt, model weights, logits, or generation seed.
-- Carbon uses a hybrid tokenizer with fixed non-overlapping 6-mers inside DNA tags.
-- The current Carbon checkpoints use a standard causal-LM path; a separate `fns` revision contains a base-marginal generation implementation.
-- The audited GENERator-v2 checkpoint uses a base-marginal logits processor during its released generation path.
-- A single nucleotide insertion or deletion changes the 6-mer phase of every downstream token under fixed blocking.
+The study measures statistical watermark detection and model-based sequence-quality proxies. It
+does not establish biological function, viability, safety, sequence authenticity, or formal
+secret-key security. The operational attacker is assumed not to know the key and not to see or
+query the detector score. Multiple-edit and detector-guided attack experiments are outside this
+study.
 
-## Assumptions to test
-
-- Real next-token distributions have enough effective support for detectable information within 1-5 kbp.
-- Exact marginal preservation at each step is sufficient to avoid simple unkeyed distinguishers at the sequence level under the tested key-use policy.
-- Searching strand and phase hypotheses can recover clean crops without invalidating false-positive calibration.
-- Lightweight synchronization can recover useful power under low-rate indels without model access.
-
-## Non-goals
-
-- Training or fine-tuning Carbon or GENERator-v2.
-- Running Carbon-8B as a required experiment.
-- Treating a pseudorandom bit stream plus ECC as a pseudorandom code.
-- Claiming wet-lab function, biological safety, viability, or cryptographic security from proxy experiments.
-- Using sensitive or private genomic data.
-
-## Decision rule
-
-The project proceeds to a full paper only if E2 shows adequate information per base and E4 shows calibrated clean detection at a useful sequence length. Failure under indels can motivate a synchronization paper; failure under clean conditions stops watermark elaboration rather than expanding compute.
-
+The previous detector runs used Linux CPU and the previous generations used CUDA. The new paper
+does not inherit those results. Every paper-bound stage for both models must run through the
+documented Apple M5 Pro path unless the hardware contract is explicitly revised before the new
+protocol is frozen.

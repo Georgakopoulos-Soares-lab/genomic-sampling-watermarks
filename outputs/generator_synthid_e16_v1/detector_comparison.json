@@ -1,0 +1,179 @@
+{
+  "boundary": "Detector selection uses only the frozen calibration prompts. Evaluation prompts are not scored or summarized, and no signal-matched weights are fitted.",
+  "calibration_prompts": 64,
+  "classification": "validation_artifact_not_admitted_evidence",
+  "command": "/scratch/10899/kimopro/conda/envs/tacc_watermark/bin/python scripts/compare_generator_synthid_detectors.py --output-root /scratch/10899/kimopro/generator_synthid_validation_hpc_v1 --draw-index 0 --draw-index 1 --token-lengths 64 512 --tournament-depth 30 --context-tokens 4 --context-history-size 1024",
+  "complete": true,
+  "draw_indices": [
+    0,
+    1
+  ],
+  "experiment_id": "generator_synthid_validation_v1",
+  "inputs": [
+    {
+      "path": "/scratch/10899/kimopro/generator_synthid_validation_hpc_v1/detection/prompt_split.json",
+      "sha256": "c5945682f9cbd3b1a2a97b5efb0d70870d27d931fba223e62779381219e37698"
+    },
+    {
+      "path": "/scratch/10899/kimopro/generator_synthid_validation_hpc_v1/generation/draw_00_sequences.jsonl",
+      "sha256": "039b6dc291e7d372dc1c6b9d2a3f3515338005c95ef0ecc1139b70a5c46f32ca"
+    },
+    {
+      "path": "/scratch/10899/kimopro/generator_synthid_validation_hpc_v1/generation/draw_01_sequences.jsonl",
+      "sha256": "8f45d1be33f636be2004b50f0fb9fd966d4ec440bffb3a92d01df41e4fec724a"
+    }
+  ],
+  "lengths": [
+    {
+      "base_length": 384,
+      "mean": {
+        "ordinary_mean": 0.49833333333333335,
+        "ordinary_standard_deviation": 0.010860247653706372,
+        "separation_in_ordinary_standard_deviations": 21.83717403300825,
+        "watermarked_mean": 0.7354904513888889
+      },
+      "selected_detector": "mean",
+      "token_length": 64,
+      "trials_per_arm": 128,
+      "upstream_default_weighted_mean": {
+        "ordinary_mean": 0.4975927377220481,
+        "ordinary_standard_deviation": 0.011950343057557405,
+        "separation_in_ordinary_standard_deviations": 20.376442235665753,
+        "watermarked_mean": 0.7410982127307558
+      },
+      "watermarked_layer_mean_g": {
+        "maximum": 0.753978587962963,
+        "minimum": 0.7108217592592593,
+        "range": 0.04315682870370374,
+        "values": [
+          0.7440682870370371,
+          0.7477575231481481,
+          0.7473234953703703,
+          0.7481336805555555,
+          0.7463975694444445,
+          0.7410590277777778,
+          0.7524594907407407,
+          0.7451388888888889,
+          0.7499565972222222,
+          0.753978587962963,
+          0.7481336805555555,
+          0.7404369212962963,
+          0.7396267361111111,
+          0.7457465277777778,
+          0.7347511574074074,
+          0.7397858796296296,
+          0.73125,
+          0.7338396990740741,
+          0.7392795138888889,
+          0.7320601851851852,
+          0.7297887731481482,
+          0.7240306712962963,
+          0.7390625,
+          0.7245804398148148,
+          0.7166521990740741,
+          0.7125723379629629,
+          0.7164496527777777,
+          0.7177517361111111,
+          0.7108217592592593,
+          0.7118200231481482
+        ]
+      }
+    },
+    {
+      "base_length": 3072,
+      "mean": {
+        "ordinary_mean": 0.5003147976819127,
+        "ordinary_standard_deviation": 0.003984838780643234,
+        "separation_in_ordinary_standard_deviations": 60.16394391931129,
+        "watermarked_mean": 0.740058414608029
+      },
+      "selected_detector": "mean",
+      "token_length": 512,
+      "trials_per_arm": 128,
+      "upstream_default_weighted_mean": {
+        "ordinary_mean": 0.5003159907545648,
+        "ordinary_standard_deviation": 0.004637135134563688,
+        "separation_in_ordinary_standard_deviations": 52.66224679793533,
+        "watermarked_mean": 0.7445179456463348
+      },
+      "watermarked_layer_mean_g": {
+        "maximum": 0.7509428971697657,
+        "minimum": 0.7191349815970861,
+        "range": 0.03180791557267959,
+        "values": [
+          0.7488370607766792,
+          0.7454991871976134,
+          0.7491433564583472,
+          0.7487132279279889,
+          0.749177606760289,
+          0.7484483311551043,
+          0.7487899066550815,
+          0.7509428971697657,
+          0.7476684132301263,
+          0.7502333834690281,
+          0.7479402426519055,
+          0.7421293673111526,
+          0.74599116151582,
+          0.7461109753955802,
+          0.7473868186903104,
+          0.7460064403894927,
+          0.7440677218510682,
+          0.7423585075146927,
+          0.7416649975425605,
+          0.7382965838601673,
+          0.7368851479787261,
+          0.7327456708888714,
+          0.7375748336703737,
+          0.7320353648992144,
+          0.7279464610032745,
+          0.7213808863566916,
+          0.7218685401866187,
+          0.7229338823701219,
+          0.7198404817671185,
+          0.7191349815970861
+        ]
+      }
+    }
+  ],
+  "question": "mean versus released default weighted-mean detector",
+  "schema_version": 1,
+  "selected_detector": "mean",
+  "selection_split": "calibration only",
+  "tournament_depth": 30,
+  "upstream_default_weights": {
+    "definition": "linear from 10 to 1, normalized to sum to depth",
+    "values": [
+      1.8181818181818183,
+      1.761755485893417,
+      1.7053291536050155,
+      1.6489028213166144,
+      1.5924764890282133,
+      1.5360501567398122,
+      1.4796238244514106,
+      1.4231974921630095,
+      1.3667711598746082,
+      1.3103448275862069,
+      1.2539184952978055,
+      1.1974921630094044,
+      1.1410658307210033,
+      1.084639498432602,
+      1.0282131661442007,
+      0.9717868338557994,
+      0.9153605015673981,
+      0.8589341692789969,
+      0.8025078369905956,
+      0.7460815047021945,
+      0.6896551724137931,
+      0.6332288401253918,
+      0.5768025078369906,
+      0.5203761755485893,
+      0.4639498432601881,
+      0.4075235109717868,
+      0.35109717868338564,
+      0.2946708463949845,
+      0.23824451410658298,
+      0.18181818181818182
+    ]
+  },
+  "upstream_revision": "addb4a158143c7c6851a1308f78b89fceed59683"
+}

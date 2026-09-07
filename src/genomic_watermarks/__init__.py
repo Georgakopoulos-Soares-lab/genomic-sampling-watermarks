@@ -1,4 +1,4 @@
-"""Secret-key sampling watermark research utilities for genomic language models."""
+"""SynthID tournament watermark utilities for Carbon-generated DNA."""
 
 from .dna import KMER_SIZE, reverse_complement
 

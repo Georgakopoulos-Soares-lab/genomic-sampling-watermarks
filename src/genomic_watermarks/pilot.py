@@ -1,18 +1,15 @@
-"""Small public fixtures for model-integration capacity pilots."""
+"""Public prompt records and compact summaries used by SynthID experiments."""
 
 from __future__ import annotations
 
 import hashlib
 import json
 import statistics
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
 from genomic_watermarks.dna import BASES, KMER_SIZE, normalize_dna
-from genomic_watermarks.metrics import information_bits_per_base, maximal_coupling_information_bits
-from genomic_watermarks.metrics import partition_mass as probability_partition_mass
-from genomic_watermarks.sampling.partition import keyed_balanced_partition
 
 
 @dataclass(frozen=True, slots=True)
@@ -101,13 +98,6 @@ def load_context_cases_jsonl(path: Path) -> tuple[ContextCase, ...]:
     return tuple(cases)
 
 
-@dataclass(frozen=True, slots=True)
-class CapacityPoint:
-    partition_mass: float
-    information_bits_per_token: float
-    information_bits_per_base: float
-
-
 def deterministic_public_dna(label: str, length: int) -> str:
     """Create reproducible synthetic DNA without reading a dataset or private sequence."""
 
@@ -152,45 +142,6 @@ def select_spanning_cases(
     if count <= 2:
         return tuple(cases[:count])
     return tuple(cases[: count - 2]) + tuple(cases[-2:])
-
-
-def capacity_points(
-    tokens: Sequence[str],
-    probabilities: Sequence[float],
-    *,
-    fixture_material: bytes,
-    domains: Iterable[str],
-) -> tuple[CapacityPoint, ...]:
-    """Measure maximal-coupling capacity under public non-secret fixture partitions."""
-
-    if not fixture_material:
-        raise ValueError("fixture material must not be empty")
-    partitions = tuple(
-        keyed_balanced_partition(tokens, fixture_material, domain=domain) for domain in domains
-    )
-    return capacity_points_for_partitions(tokens, probabilities, partitions)
-
-
-def capacity_points_for_partitions(
-    tokens: Sequence[str],
-    probabilities: Sequence[float],
-    partitions: Iterable[Mapping[str, bool]],
-) -> tuple[CapacityPoint, ...]:
-    """Measure capacity for already-built partitions without repeating their HMAC work."""
-
-    points: list[CapacityPoint] = []
-    for partition in partitions:
-        mass = probability_partition_mass(tokens, probabilities, partition)
-        points.append(
-            CapacityPoint(
-                partition_mass=mass,
-                information_bits_per_token=maximal_coupling_information_bits(mass),
-                information_bits_per_base=information_bits_per_base(mass),
-            )
-        )
-    if not points:
-        raise ValueError("at least one partition domain is required")
-    return tuple(points)
 
 
 def numeric_summary(values: Iterable[float]) -> dict[str, float]:

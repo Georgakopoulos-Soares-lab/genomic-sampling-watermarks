@@ -6,22 +6,23 @@ The manuscript is downstream of code and evidence. Read, in order:
 
 1. `../PROJECT.md`
 2. `../evidence/README.md`
-3. `context/00_terminology.md`
-4. `context/02_claims_and_limits.md`
-5. `context/03_source_map.md`
-6. `context/04_implementation_ground_truth.md`
+3. `context/evidence_map.md`
 
 ## Rules
 
-- This is one cross-model paper, not a Carbon paper plus a GENERator paper.
+- Rebuild this as a dual-model Carbon-500M and GENERator-v2 1.2B SynthID paper. Do not reintroduce
+  removed watermark methods.
+- The current Carbon-only manuscript is legacy development material. Do not reuse its numbers in
+  the rebuilt paper.
+- New manuscript results must use the `synthid.v2.*` evidence namespace and the new dual-model
+  evidence map.
 - Every empirical number must resolve to `../evidence/measurements.yaml`.
-- `[U]` evidence may appear only as future work or an explicit unresolved item, never as a result.
-- Preserve the distinction between direct-token and base-marginal generation policies.
-- “Distribution-preserving” must state whether it is per-step exact, in expectation, or empirically tested.
-- Report detector FPR only after calibrating the full orientation/phase/window/offset/synchronization search.
+- “Distribution-preserving” must state that the SynthID identity is an expectation over fresh keyed
+  functions and that fixed-key sampling follows its calculated reweighted law.
+- Report detector FPR only after correcting for the full orientation/start/window search.
 - Do not claim biological function, viability, safety, or cryptographic security without the corresponding evidence class.
 - Do not include host names, local paths, raw run IDs, keys, or internal infrastructure details in the manuscript.
-- Figures and tables must be generated from admitted evidence, not manually edited.
+- Tables must contain only admitted evidence. There are no retained result figures.
 - Add dated review notes under `reviews/`; do not overwrite review history.
 
 ## Build

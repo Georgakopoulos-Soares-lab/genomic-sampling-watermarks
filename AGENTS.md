@@ -2,7 +2,9 @@
 
 ## Purpose
 
-This repository produces one paper and one evidence trail for secret-key sampling watermarks across Carbon and GENERator-v2.
+This repository will produce one dual-model paper and evidence trail for the SynthID tournament
+watermark on Carbon-500M and GENERator-v2 1.2B. Existing version-one runs and the Carbon-only draft
+are legacy development material; the rebuilt paper uses only new `synthid.v2.*` evidence.
 
 ## Read order
 
@@ -20,7 +22,8 @@ Read `paper/AGENTS.md` before editing manuscript material.
 - All required experiments must run on the documented M5 Pro MacBook with 48 GB unified memory.
 - Prefer MPS, support CPU fallback, and keep batch sizes configurable.
 - Do not introduce CUDA-only kernels, SLURM jobs, distributed launchers, Brev dependencies, or remote services into the required path.
-- Carbon-500M and GENERator-v2 1.2B are primary. Carbon-3B is optional confirmation. Carbon-8B is out of the required scope.
+- Carbon-500M and GENERator-v2 1.2B are the only retained models. Both must use the required M5
+  path for paper-bound evidence; other models are outside scope.
 - Benchmark before increasing sample counts. Use sequential evidence gates instead of a large Cartesian sweep.
 
 ## Evidence rules
@@ -37,10 +40,10 @@ Read `paper/AGENTS.md` before editing manuscript material.
 ## Claim discipline
 
 - Separate mathematical identities, cryptographic assumptions, empirical statistics, and biological proxies.
-- Use “exact marginal preservation” only for a construction with a passing fixed-distribution test and a written proof obligation.
-- Do not call CSPRNG plus ECC a PRC.
+- State clearly that SynthID preservation is an expectation over fresh keyed functions; a fixed key
+  and context use a deliberately reweighted distribution.
 - Do not infer biological function, viability, or safety from sequence statistics or model likelihood.
-- Distinguish current Carbon generation from its optional `fns` branch, and direct-token GENERator baselines from the released base-marginal path.
+- Do not reintroduce removed watermark methods or multiple-edit and detector-guided attack studies.
 
 ## Engineering conventions
 

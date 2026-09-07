@@ -1,174 +1,93 @@
-# Secret-Key Sampling Watermarks for Genomic Language Models
+# Position-independent SynthID for genomic DNA generation
 
-This repository is the code, evidence, and manuscript workspace for **one combined paper** studying secret-key sampling watermarks in Carbon and GENERator-v2. The paper asks whether fixed 6-mer genomic language models expose a useful, distribution-preserving provenance channel, and whether a verifier with only the DNA sequence, a key, and public configuration can recover that signal after realistic edits.
+This repository contains one sampling watermark, one matched ordinary control, and one standalone
+detector. The paper is being rebuilt as a fresh, dual-model evaluation on Carbon-500M and
+GENERator-v2 1.2B. The detector needs the observed DNA, secret key, public generation domain, and
+fixed public settings; it does not need the prompt or model.
 
-The repository is a research scaffold, not a results release. No empirical claim is valid until it
-appears in the evidence ledger and points to a reproducible result.
+The authoritative future design, frozen-gate proposal, evidence requirements, and manuscript
+outline are in the
+[dual-model paper rebuild plan](docs/research/dual_model_synthid_paper_rebuild_plan.md).
 
-## Scope
+The numerical results below document version-one development runs. They are deliberately retained
+for auditability but are not confirmatory evidence for the rebuilt paper.
 
-- Primary models: Carbon-500M and GENERator-v2 eukaryote 1.2B.
-- Optional confirmation: Carbon-3B on a deliberately reduced cohort.
-- Hardware contract: one Apple M5 Pro MacBook Pro with 48 GB unified memory; MPS first, CPU fallback; no CUDA, SLURM, Brev, or distributed runtime required.
-- Initial samplers: exact partition coupling, inverse-transform sampling, and exponential/Gumbel sampling.
-- Detector: model-free verification over both strand orientations, six 6-mer phases, configured windows, and key offsets, with calibration over the full search.
-- Claims excluded by default: biological function, viability, cryptographic security, or robustness at an unmeasured false-positive rate.
+## Legacy Carbon development result
 
-## Start here
+The final held-out detector evaluation used 192 public prompts and two stored draws per prompt,
+giving 384 sequences in each result cell. Each read contained the 384-base prompt followed by the
+3,072-base generated continuation. The detector searched both strands, every nucleotide start, and
+four possible region lengths in one corrected decision.
 
-1. New to the topic: begin with the numbered [explainers](explainers/README.md).
-2. Read [PROJECT.md](PROJECT.md) for the formal paper thesis and boundaries.
-3. Read [docs/research/combined_research_plan.md](docs/research/combined_research_plan.md) for the staged study.
-4. Read [docs/experiments.md](docs/experiments.md) and [evidence/README.md](evidence/README.md) before adding experiments.
-5. Read [AGENTS.md](AGENTS.md) before making agent-assisted changes.
-6. Claude Code also reads [CLAUDE.md](CLAUDE.md); specialized roles are documented in [.claude/README.md](.claude/README.md).
-7. For a fresh Claude session, use the copy/paste [continuation prompt](CLAUDE_CONTINUATION_PROMPT.md).
+| Read condition | Correct-key SynthID detections | Ordinary Carbon false positives | Wrong-key false positives |
+|---|---:|---:|---:|
+| Clean | 384/384 | 1/384 | 0/384 |
+| One nucleotide substitution | 384/384 | 1/384 | 0/384 |
+| One nucleotide insertion | 384/384 | 1/384 | 0/384 |
+| One nucleotide deletion | 384/384 | 1/384 | 0/384 |
 
-## Local smoke test
+The four displayed ordinary false positives are the same underlying prompt and draw repeated
+across the four conditions; each edit occurred outside its winning region. At the prompt level,
+the clean ordinary result is therefore one positive among 192 independent prompt clusters. Its
+exact 95% interval is 0.0132% to 2.8676%. The data are compatible with the declared 1% target, but
+they do not prove that the operational false-positive rate is below 1%.
 
-The foundational sampler and detector utilities use only the Python standard library.
+Quality was measured separately on the stored 3,072-base generations. The paired difference in
+Carbon negative log-likelihood, SynthID minus ordinary, was 0.00852 nat per token, with a 95%
+prompt-level interval from -0.04426 to 0.05973 and p=0.751. No declared sequence summary differed
+after correction for testing several summaries. This means no quality reduction was detected; it
+does not prove biological equivalence.
+
+## Legacy GENERator development result
+
+The same frozen SynthID process was repeated with
+`GenerTeam/GENERator-v2-eukaryote-1.2b-base`, using its direct 4,096-way canonical 6-mer
+distribution. It again produced 1,024 sequences from 256 prompts and reserved the same 192 prompts
+for final detection.
+
+| Read condition | Correct-key SynthID detections | Ordinary GENERator false positives | Other-key false positives |
+|---|---:|---:|---:|
+| Clean | 384/384 | 0/384 | 1/384 |
+| One nucleotide substitution | 384/384 | 0/384 | 1/384 |
+| One nucleotide insertion | 384/384 | 0/384 | 1/384 |
+| One nucleotide deletion | 384/384 | 0/384 | 0/384 |
+
+The one other-key positive in the first three rows is the same prompt and draw. The paired
+GENERator negative-log-likelihood difference was -0.00564 nat per 6-mer, with a 95% prompt-level
+interval from -0.05614 to 0.04378 and p=0.830. No declared quality summary differed after
+multiple-test correction. Thus GENERator passes the same predeclared quality and detector gates as
+Carbon, although the exact null counts need not match. Full interpretation and limitations are in
+[the GENERator execution record](docs/research/generator_synthid_execution_2026_09_03.md).
+
+## Detector command
+
+```bash
+export GENOMIC_SYNTHID_KEY='<hex-encoded-secret-key>'
+PYTHONPATH=src python3 scripts/detect_synthid_position_independent.py \
+  --input observed.fasta --domain '<generation-domain>'
+```
+
+The command does not print the key or the input DNA. See
+[the detector protocol](docs/research/synthid_position_independent_detector_protocol.md) and
+[the completed execution record](docs/research/carbon_synthid_position_independent_execution_2026_09_02.md).
+
+## Verification
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 python3 scripts/doctor.py
 python3 scripts/check_evidence.py
+uv run ruff check .
 ```
 
-For model-backed work:
+The old model-backed paths remain documented for audit history. Model weights and source DNA are
+not stored in this repository. New paper-bound results must use the fresh dual-model study identity,
+new prompt cohort, M5 execution path, and `synthid.v2.*` evidence namespace.
 
-```bash
-uv sync --extra dev --extra models --extra analysis
-```
+## Scope
 
-Model downloads are intentionally not part of setup or CI. Pin every model revision in
-`sources.yaml` before collecting results.
-
-Tokenizer structure can be checked without downloading model weights:
-
-```bash
-uv run python scripts/audit_model_vocab.py --policy G_tok --cache-dir .cache/huggingface
-uv run python scripts/audit_model_vocab.py --policy C_tok --cache-dir .cache/huggingface
-```
-
-After explicitly choosing to download a checkpoint, the first M5 Pro smoke command is:
-
-```bash
-PYTORCH_ENABLE_MPS_FALLBACK=1 uv run python scripts/probe_model_distribution.py \
-  --policy C_tok --device auto --cache-dir .cache/huggingface
-```
-
-The probe performs one forward pass on a public synthetic context and prints only structural,
-distribution, timing, and memory summaries. It does not generate or save DNA.
-
-After the checkpoint is cached, compare its complete canonical distribution across MPS and CPU:
-
-```bash
-PYTORCH_ENABLE_MPS_FALLBACK=1 uv run python scripts/compare_model_devices.py \
-  --policy C_tok --cache-dir .cache/huggingface --local-files-only
-```
-
-Run the compact eight-context Carbon engineering pilot:
-
-```bash
-PYTORCH_ENABLE_MPS_FALLBACK=1 uv run python scripts/run_model_capacity_pilot.py \
-  --cache-dir .cache/huggingface --partitions-per-state 8 \
-  --cpu-parity-cases 4 --local-files-only
-```
-
-The contexts and partition fixtures are public and synthetic. The command prints streamed summary
-statistics and is explicitly not a paper-evidence run.
-
-Build the frozen public prompt cohort and run the corresponding Carbon engineering pilot:
-
-```bash
-uv run python scripts/build_public_prompt_cohort.py --offline
-PYTORCH_ENABLE_MPS_FALLBACK=1 uv run python scripts/run_model_capacity_pilot.py \
-  --policy C_tok \
-  --cohort-jsonl data/processed/ncbi_refseq_eukaryote_windows_v1/prompts.jsonl \
-  --partitions-per-state 16 --cpu-parity-cases 12 --local-files-only \
-  --output outputs/carbon_public_prompt_pilot_v1.json
-```
-
-The tracked cohort manifest contains only public source coordinates and checksums. FASTA, derived
-prompts, and the detailed engineering report remain in ignored directories.
-
-GENERATOR-v2 uses `float32` on this Mac because its MPS `bfloat16` path failed the public-cohort
-parity gate:
-
-```bash
-PYTORCH_ENABLE_MPS_FALLBACK=1 uv run python scripts/run_model_capacity_pilot.py \
-  --policy G_tok --mps-dtype float32 \
-  --cohort-jsonl data/processed/ncbi_refseq_eukaryote_windows_v1/prompts.jsonl \
-  --partitions-per-state 16 --cpu-parity-cases 12 --local-files-only \
-  --output outputs/generator_g_tok_public_prompt_pilot_float32_v1.json
-```
-
-Use the same command with `--policy G_bp` for the released base-product policy. The two policies
-share one cached 4.6 GB checkpoint.
-
-The frozen sequential E2 collector advances an ordinary, unwatermarked continuation while
-measuring 32 public test partitions at every state. Start with one prompt before launching the full
-run:
-
-```bash
-PYTORCH_ENABLE_MPS_FALLBACK=1 uv run python scripts/collect_sequential_capacity.py \
-  --policy G_bp --case-id yeast_q20 --states-per-prompt 4 \
-  --cache-dir .cache/huggingface --local-files-only \
-  --output outputs/generator_g_bp_sequential_smoke_yeast_q20_v1.json
-```
-
-The smoke graduated into a final 24-prompt cohort after the frozen stability trigger fired for
-`G_tok`. Full runs now use `data/processed/ncbi_refseq_eukaryote_windows_v2/prompts.jsonl`; detailed
-results remain ignored engineering artifacts until evidence review.
-
-## Repository map
-
-```text
-src/genomic_watermarks/  Model-independent algorithms and model adapters
-tests/                   Deterministic unit and statistical smoke tests
-configs/                 Smoke and M5 Pro configurations
-sources.yaml             Pinned upstream model and reference-code revisions
-evidence/                Minimal ledger of numbers allowed into the paper
-docs/                    Threat model, baselines, research audit, and roadmap
-explainers/              Numbered beginner-friendly walkthroughs with examples
-paper/                   Manuscript source, source map, figures, and reviews
-.claude/                 Claude Code routing and specialized subagents
-```
-
-## Status
-
-The source audit, E0 partition-coupling reference, model policy transforms, local runtime selection,
-real tokenizer audits, versioned public prompt cohort, and weight-backed Carbon `C_tok` and
-GENERATOR-v2 `G_tok`/`G_bp` MPS/CPU capacity pilots are implemented. Local `G_bp` matches the
-pinned upstream base-marginal helper on MPS and CPU. The sequential E2 collector has passed a real
-three-policy run on 24 prompts: 3,072 states per policy and 9,216 states overall. The
-preregistered cluster rule stops expansion at 24 prompts. Evidence-admission review is complete:
-`evidence/measurements.yaml` now holds one admitted mean information bit/base value per primary
-policy with its prompt-cluster interval and full provenance. The `partition_mc` watermarked
-generation loop, its matched ordinary control, and model-free keyed recomputation are implemented
-and verified against real model generations. E3 stage-1 fixed-state goodness of fit passes for all
-three policies with the watermarked arm indistinguishable from the ordinary size control. E4 clean
-detection is measured and admitted: a model-free verifier searching two strands, six phases, and
-eight key-stream offsets detects every watermarked sequence at 384 bases and above, at a
-false-positive rate calibrated over that complete search, with real public genomic DNA behaving like
-the other nulls. E5 measures substitution robustness: detection stays at 1.0 through 5% per-base
-substitution at every length and through 20% at 3,072 bases for two of three policies, with the
-transition matching an analytic channel prediction stated before the run. E6 shows that every crop
-or strand condition whose required key-stream offset lies inside the declared search is detected in
-every prompt, that widening that search sixteen-fold raises the calibrated threshold by 0.3 to 0.5 in
-`z` units without measurable power loss at 1,536 bases, and that conditions outside the search fail
-as they must. E7 stage 1 is the synchronization-limited finding: the unwindowed detector tolerates
-per-base indel rates of only 0.0005 to 0.002, which is 50 to 150 times below its substitution
-tolerance at matched lengths, although the declared phase and offset search turns out to perform
-implicit resynchronization and most detections under indels come from post-indel segments rather than
-the intact prefix. E7 stage 2 adds a declared sliding-window search that moves the indel wall five- to
-tenfold, to about rate 0.01, before meeting a second wall near 0.02 to 0.05 that no window size can
-pass. The `C_tok` sequence-proxy anomaly is resolved as realization noise once both arms are averaged
-over independent draws. Sixty-eight entries are admitted to the ledger, including a runtime envelope
-that deliberately omits peak memory because no recorded field supports a residency claim. Three cheap unkeyed
-distinguishers fail to separate the arms for `C_tok` and `G_tok` under matched per-draw pairing and a
-permute-and-refit null; `G_bp` shows two nominal rejections that do not clear Bonferroni across the
-nine tests and are recorded as unresolved. Inverse-transform and exponential baseline samplers are
-implemented with their invariants, and their matched comparison is frozen but not run. Clean detection holds at 1.0 down to 96 bases, though the
-positive and null distributions touch there for two policies, so 144 bases is the shortest length with
-a strict margin. Seventy-six entries are admitted. Key reuse, adaptive removal, and the decision on a coding layer remain open.
+The attacker considered here does not know the secret key and cannot inspect or query the detector
+score. The edit checks model ordinary single-nucleotide changes, not an optimization attack.
+Multiple edits and detector-guided edits are not part of the protocol. Public fixture keys make the
+experiment reproducible; they are not evidence that a deployment key cannot be recovered from many
+examples.

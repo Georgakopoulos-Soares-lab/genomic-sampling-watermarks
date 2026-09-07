@@ -1,0 +1,58 @@
+schema_version = 1
+experiment_id = "carbon_synthid_validation_v1"
+classification = "analysis_resume_not_automatically_admitted_evidence"
+purpose = "complete model-dependent distribution and teacher-forced analyses from immutable generation artifacts"
+parent_generation_profile = "configs/carbon_synthid_validation_hpc_v1.toml"
+source_generation_root = "/scratch/10899/kimopro/carbon_synthid_validation_hpc_v3"
+analysis_output_root = "/scratch/10899/kimopro/carbon_synthid_validation_hpc_v4"
+generation_artifacts_copied_byte_identical = true
+generation_device = "cuda"
+generation_dtype = "bfloat16"
+analysis_device = "cpu"
+analysis_dtype = "bfloat16"
+analysis_workers_per_stage = 4
+analysis_stages_concurrent = true
+cpu_threads_per_worker = 2
+python = "3.13.5"
+torch = "2.8.0+cu128"
+transformers = "5.15.1"
+huggingface_hub = "1.22.0"
+tokenizers = "0.22.2"
+safetensors = "0.8.0"
+numpy = "2.2.6"
+scipy = "1.18.1"
+pandas = "2.3.3"
+pyarrow = "24.0.0"
+scikit_learn = "1.9.0"
+platform = "Lonestar6 vm-small x86_64 CPU fallback"
+model_cache = ".cache/huggingface"
+local_files_only = true
+required_laptop_path_unchanged = true
+
+[distribution]
+states = 256
+state_token_index = 64
+draws_per_state_per_arm = 5000
+monte_carlo_replicates = 999
+key_average_replicates_per_state = 64
+negative_control_states = 8
+gof_seed = 2718
+bootstrap_replicates = 20000
+permutation_replicates = 100000
+analysis_seed = 2718
+
+[sequence_comparison]
+sequences = 1024
+prompt_clusters = 256
+draw_indices = [0, 1]
+generated_tokens_per_sequence = 512
+teacher_forced_prompt_tokens_in_loss = false
+bootstrap_replicates = 20000
+permutation_replicates = 100000
+analysis_seed = 2718
+
+[boundary]
+generation_artifacts_recomputed = false
+distribution_and_likelihood_recomputed_from_model = true
+detection_requires_model = false
+reason = "TACC login-node submission required interactive MFA; the declared CPU fallback completed the two remaining analyses within the active allocation"

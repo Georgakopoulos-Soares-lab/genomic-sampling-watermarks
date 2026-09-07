@@ -1,17 +1,5 @@
-"""Sampling-time watermark constructions."""
+"""Sampling helpers used by the SynthID experiments."""
 
-from .partition import (
-    CoupledSample,
-    keyed_balanced_partition,
-    sample_categorical,
-    sample_partition_coupling,
-    select_group_maximal_coupling,
-)
+from .partition import sample_categorical
 
-__all__ = [
-    "CoupledSample",
-    "keyed_balanced_partition",
-    "sample_categorical",
-    "sample_partition_coupling",
-    "select_group_maximal_coupling",
-]
+__all__ = ["sample_categorical"]

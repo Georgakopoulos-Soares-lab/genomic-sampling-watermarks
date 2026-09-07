@@ -1,39 +1,43 @@
-# Baseline definitions
+# Generation and control definitions
 
-## Model-generation policies
+## Carbon generation policy
 
-| ID | Model | Policy | Purpose |
-|---|---|---|---|
-| `C_full` | Carbon | Sample from the full processed vocabulary | Audit control; may emit non-DNA tokens |
-| `C_tok` | Carbon | Restrict and renormalize to canonical DNA tokens, then categorical sample | Primary direct-token baseline |
-| `C_deployed` | Carbon | Exact selected main-revision policy including all processors | Released-policy control |
-| `C_bp` | Carbon `fns` revision | Sample independent base marginals and reconstruct a 6-mer | Optional historical branch baseline |
-| `G_tok` | GENERator-v2 | Categorical sample from processed 4,096-way DNA distribution | Research direct-token baseline |
-| `G_bp` | GENERator-v2 | Released base-marginal path | Primary released-policy control |
+The experiment uses Carbon-500M revision
+`9796b752108258c1d365089f842e62e6c0547704`. At each generation step, the model probabilities are
+restricted to the 4,096 canonical DNA 6-mers and normalized to sum to one. Temperature is 1.0 and
+no top-k or top-p truncation is applied.
 
-Every empirical table must name the policy ID. “Carbon” or “GENERATOR” alone is insufficient.
+## GENERator generation policy
 
-## Watermark methods
+The rebuilt paper's second model uses `GenerTeam/GENERator-v2-eukaryote-1.2b-base` revision
+`c41b0018da9ee13b9e96ee54647de8da381ccd72`. Policy `G_tok` gathers the logits for its 4,096
+canonical DNA 6-mer tokens, whose tokenizer IDs are 32 through 4,127, and normalizes those logits
+once. Temperature is 1.0 and no top-k or top-p truncation is applied. This is the direct token
+distribution, not the released base-marginal helper.
 
-| ID | Type | Marginal claim | Detection |
-|---|---|---|---|
-| `none` | Ordinary sampling | Reference distribution | None |
-| `partition_mc` | Fair latent bit with maximal coupling to keyed token partition | Exact, conditional on the defined `P_t` | Keyed group agreement / likelihood score |
-| `its` | Keyed inverse-transform sampling | Exact under fresh uniform key material | Matched cyclic/permutation score |
-| `exp` | Keyed exponential/Gumbel categorical sampling | Exact under fresh exponential variables | Matched key-token score |
-| `dipmark` | Distribution-preserving reweighting | As defined by the source paper | Secondary, after independent implementation |
-| `kgw` | Green-list logit bias | Not exact-marginal | Distortion-allowing reference only |
+## SynthID arm
 
-## Matched sampling controls
+`synthid-tournament-v1` applies 30 keyed tournament layers to the current model probability
+distribution. Its keyed values depend on the preceding four generated 6-mers and each candidate
+6-mer. The first four generated tokens are ordinary samples so that the detector can reconstruct
+all later contexts from the output alone. A repeated four-token context is sampled ordinarily and
+excluded from the detector score, matching the reference design.
 
-- identical prompt cohort and generation length;
-- identical temperature and truncation policy;
-- identical model and tokenizer revision;
-- paired generation seeds where the method permits a meaningful coupling;
-- separate results for direct-token and base-marginal policies;
-- no comparison across policies presented as a pure watermark effect.
+## Ordinary arm
 
-## Biological proxy controls
+`ordinary-categorical-v1` samples directly from the same model-specific probability distribution,
+with the same prompt, temperature, output length, model revision, and token restriction. It has no
+key.
 
-Compare against ordinary outputs from the same model policy and prompt. Report GC, canonical k-mer distances, complexity/repeats, ORF summaries when appropriate, and independent-model likelihood. Do not treat closeness on these metrics as biological equivalence.
+The two ordinary draws for a prompt are made independently reproducible by distinct public replay
+seeds. Sampling uses a random draw from the model distribution at every step; it is not greedy
+generation. Because each sampled token changes the next model context, an early difference usually
+causes the two continuations to diverge further. The watermark key is neither needed nor used to
+create ordinary variation.
 
+## Keys and draws
+
+Each prompt has two stored draws. Draw zero and draw one use two different public fixture keys in
+the SynthID arm and two different public replay seeds in both arms. These keys are deliberately
+public so another researcher can reproduce the study. A real deployment must use an independently
+generated secret key that is never written to results.

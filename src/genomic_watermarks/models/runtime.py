@@ -1,4 +1,4 @@
-"""Apple-local runtime selection without importing PyTorch at package import time."""
+"""Portable runtime selection without importing PyTorch at package import time."""
 
 from __future__ import annotations
 
@@ -17,19 +17,28 @@ def choose_device(
     requested: str,
     *,
     mps_available: bool,
+    cuda_available: bool = False,
     allow_cpu_fallback: bool,
 ) -> str:
-    """Resolve ``auto``, ``mps``, or ``cpu`` under the laptop hardware contract."""
+    """Resolve an accelerator while preserving MPS as the ``auto`` priority."""
 
-    if requested not in {"auto", "mps", "cpu"}:
-        raise ValueError("device must be auto, mps, or cpu")
+    if requested not in {"auto", "mps", "cuda", "cpu"}:
+        raise ValueError("device must be auto, mps, cuda, or cpu")
     if requested == "cpu":
         return "cpu"
-    if mps_available:
+    if requested == "auto":
+        if mps_available:
+            return "mps"
+        if cuda_available:
+            return "cuda"
+    elif requested == "mps" and mps_available:
         return "mps"
+    elif requested == "cuda" and cuda_available:
+        return "cuda"
     if allow_cpu_fallback:
         return "cpu"
-    raise RuntimeError("MPS was requested but is unavailable and CPU fallback is disabled")
+    accelerator = "an accelerator" if requested == "auto" else requested.upper()
+    raise RuntimeError(f"{accelerator} is unavailable and CPU fallback is disabled")
 
 
 def resolve_torch_runtime(
@@ -50,10 +59,11 @@ def resolve_torch_runtime(
     device = choose_device(
         requested,
         mps_available=bool(torch.backends.mps.is_available()),
+        cuda_available=bool(torch.cuda.is_available()),
         allow_cpu_fallback=allow_cpu_fallback,
     )
     if dtype == "auto":
-        dtype = "bfloat16" if device == "mps" else "float32"
+        dtype = "bfloat16" if device in {"mps", "cuda"} else "float32"
     supported = {
         "bfloat16": torch.bfloat16,
         "float16": torch.float16,

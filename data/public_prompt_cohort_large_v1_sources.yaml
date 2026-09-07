@@ -1,0 +1,175 @@
+schema_version: 1
+cohort_id: ncbi_refseq_eukaryote_windows_large_v1
+purpose: Output-blind large Carbon-500M C_tok validation cohort
+created: "2026-08-27"
+
+source:
+  provider: NCBI
+  database: nuccore_refseq
+  endpoint: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
+  metadata_endpoint: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi
+  access_documentation: https://www.ncbi.nlm.nih.gov/books/NBK25499/
+  usage_policy: https://www.ncbi.nlm.nih.gov/home/about/policies/
+  reuse_status: NCBI places no restrictions on molecular data; original submitter rights may apply
+
+selection:
+  record_count: 16
+  windows_per_record: 16
+  prompt_count: 256
+  prompt_length_bases: 384
+  public_null_length_bases: 3072
+  source_span_length_bases: 3072
+  coordinate_system: one_based_inclusive
+  strand: forward
+  selection_label: genomic-sampling-watermarks/refseq-large-v1/stratified-sha256
+  rule: >-
+    Divide each accession-versioned chromosome into 16 non-overlapping equal-length coordinate
+    segments. Within segment s, hash selection_label, accession, s, and attempt; map the first
+    64 digest bits uniformly by integer remainder onto starts whose complete 3072-base source
+    span fits in that segment. Accept the first span containing canonical A/C/G/T only. The first
+    384 bases are the generation prompt and the complete span is the public-DNA detector null.
+  maximum_canonical_retries: 64
+  selection_used_model_output: false
+  filters:
+    - exact accession.version required
+    - complete source span lies inside its preregistered segment
+    - exactly 3072 canonical A/C/G/T bases in the source span
+    - prompt is exactly the first 384 source-span bases
+    - prompt and public-null lengths are divisible by six
+    - no duplicate prompt or public-null sequence
+    - no overlapping source spans within an accession
+  exclusions:
+    - human or patient sequences
+    - controlled-access data
+    - ambiguous-base spans
+    - organelle and plasmid records
+
+records:
+  - organism: Saccharomyces cerevisiae S288C
+    taxon_id: 559292
+    accession: NC_001133.9
+    record_length: 230218
+    record_updated: "2026-07-10"
+    assembly: GCF_000146045.2
+    chromosome: I
+    id_prefix: scer_chr01
+  - organism: Saccharomyces cerevisiae S288C
+    taxon_id: 559292
+    accession: NC_001134.8
+    record_length: 813184
+    record_updated: "2026-07-10"
+    assembly: GCF_000146045.2
+    chromosome: II
+    id_prefix: scer_chr02
+  - organism: Arabidopsis thaliana Columbia
+    taxon_id: 3702
+    accession: NC_003070.9
+    record_length: 30427671
+    record_updated: "2022-10-20"
+    assembly: GCF_000001735.4
+    chromosome: "1"
+    id_prefix: ath_chr01
+  - organism: Arabidopsis thaliana Columbia
+    taxon_id: 3702
+    accession: NC_003071.7
+    record_length: 19698289
+    record_updated: "2023-04-10"
+    assembly: GCF_000001735.4
+    chromosome: "2"
+    id_prefix: ath_chr02
+  - organism: Caenorhabditis elegans Bristol N2
+    taxon_id: 6239
+    accession: NC_003279.8
+    record_length: 15072434
+    record_updated: "2025-12-01"
+    assembly: GCF_000002985.6
+    chromosome: I
+    id_prefix: cele_chr01
+  - organism: Caenorhabditis elegans Bristol N2
+    taxon_id: 6239
+    accession: NC_003280.10
+    record_length: 15279421
+    record_updated: "2025-12-01"
+    assembly: GCF_000002985.6
+    chromosome: II
+    id_prefix: cele_chr02
+  - organism: Drosophila melanogaster
+    taxon_id: 7227
+    accession: NT_033779.5
+    record_length: 23513712
+    record_updated: "2023-12-26"
+    assembly: GCF_000001215.4
+    chromosome: 2L
+    id_prefix: dmel_chr2l
+  - organism: Drosophila melanogaster
+    taxon_id: 7227
+    accession: NT_037436.4
+    record_length: 28110227
+    record_updated: "2023-12-26"
+    assembly: GCF_000001215.4
+    chromosome: 3L
+    id_prefix: dmel_chr3l
+  - organism: Schizosaccharomyces pombe 972h-
+    taxon_id: 4896
+    accession: NC_003424.3
+    record_length: 5579133
+    record_updated: "2024-08-16"
+    assembly: GCF_000002945.2
+    chromosome: I
+    id_prefix: spom_chr01
+  - organism: Schizosaccharomyces pombe 972h-
+    taxon_id: 4896
+    accession: NC_003423.3
+    record_length: 4539804
+    record_updated: "2024-08-16"
+    assembly: GCF_000002945.2
+    chromosome: II
+    id_prefix: spom_chr02
+  - organism: Oryza sativa Japonica Group cultivar Nipponbare
+    taxon_id: 39947
+    accession: NC_029256.1
+    record_length: 43270923
+    record_updated: "2018-08-07"
+    assembly: IRGSP-1.0
+    chromosome: "1"
+    id_prefix: osat_chr01
+  - organism: Oryza sativa Japonica Group cultivar Nipponbare
+    taxon_id: 39947
+    accession: NC_029257.1
+    record_length: 35937250
+    record_updated: "2018-08-07"
+    assembly: IRGSP-1.0
+    chromosome: "2"
+    id_prefix: osat_chr02
+  - organism: Danio rerio Tuebingen
+    taxon_id: 7955
+    accession: NC_007112.7
+    record_length: 59578282
+    record_updated: "2024-09-08"
+    assembly: GRCz11
+    chromosome: "1"
+    id_prefix: drer_chr01
+  - organism: Danio rerio Tuebingen
+    taxon_id: 7955
+    accession: NC_007113.7
+    record_length: 59640629
+    record_updated: "2024-09-08"
+    assembly: GRCz11
+    chromosome: "2"
+    id_prefix: drer_chr02
+  - organism: Mus musculus C57BL/6J
+    taxon_id: 10090
+    accession: NC_000067.7
+    record_length: 195154279
+    record_updated: "2024-02-07"
+    assembly: GRCm39
+    chromosome: "1"
+    id_prefix: mmus_chr01
+  - organism: Mus musculus C57BL/6J
+    taxon_id: 10090
+    accession: NC_000068.8
+    record_length: 181755017
+    record_updated: "2024-02-07"
+    assembly: GRCm39
+    chromosome: "2"
+    id_prefix: mmus_chr02

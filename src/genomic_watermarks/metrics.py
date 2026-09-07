@@ -1,9 +1,9 @@
-"""Distribution and channel metrics used by E0-E3."""
+"""Distribution metrics used by the Carbon SynthID validation."""
 
 from __future__ import annotations
 
 import math
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Iterable
 
 
 def normalized_probabilities(probabilities: Iterable[float]) -> tuple[float, ...]:
@@ -89,48 +89,3 @@ def top_k_overlap_fraction(
     left_ranked = sorted(range(len(left_probs)), key=lambda index: (-left_probs[index], index))
     right_ranked = sorted(range(len(right_probs)), key=lambda index: (-right_probs[index], index))
     return len(set(left_ranked[:k]).intersection(right_ranked[:k])) / k
-
-
-def partition_mass(
-    items: Sequence[str],
-    probabilities: Iterable[float],
-    partition: Mapping[str, bool],
-) -> float:
-    probs = normalized_probabilities(probabilities)
-    if len(items) != len(probs):
-        raise ValueError("items and probabilities must have the same length")
-    missing = [item for item in items if item not in partition]
-    if missing:
-        raise ValueError(f"partition is missing {len(missing)} item(s)")
-    return math.fsum(
-        probability for item, probability in zip(items, probs, strict=True) if partition[item]
-    )
-
-
-def binary_entropy_bits(probability: float) -> float:
-    if not 0.0 <= probability <= 1.0:
-        raise ValueError("probability must lie in [0, 1]")
-    if probability in {0.0, 1.0}:
-        return 0.0
-    return -probability * math.log2(probability) - (1.0 - probability) * math.log2(
-        1.0 - probability
-    )
-
-
-def maximal_coupling_information_bits(group_one_mass: float) -> float:
-    """Mutual information I(C; G) for a fair bit and maximal coupling.
-
-    ``C`` is the fair latent bit and ``G`` is the sampled token's partition
-    group. The expression is ``h2(q) - 1/2 h2(|2q-1|)``.
-    """
-
-    if not 0.0 <= group_one_mass <= 1.0:
-        raise ValueError("group mass must lie in [0, 1]")
-    q = group_one_mass
-    return binary_entropy_bits(q) - 0.5 * binary_entropy_bits(abs(2.0 * q - 1.0))
-
-
-def information_bits_per_base(group_one_mass: float, k: int = 6) -> float:
-    if k <= 0:
-        raise ValueError("k must be positive")
-    return maximal_coupling_information_bits(group_one_mass) / k

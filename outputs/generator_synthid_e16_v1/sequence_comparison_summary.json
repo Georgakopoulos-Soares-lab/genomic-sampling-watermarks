@@ -1,0 +1,1016 @@
+{
+  "artifacts": {
+    "sequence_metrics": {
+      "path": "/scratch/10899/kimopro/generator_synthid_validation_hpc_v1/sequence_comparison/sequence_metrics.parquet",
+      "sha256": "91b752af763e40602829af2112236de0d25efa884428dec3305b2bf106522c6a"
+    }
+  },
+  "boundary": "These are sequence-level model scores and biological proxies, not biological function, viability, or safety measurements. Statistical significance is reported with effect size and does not by itself establish practical importance.",
+  "classification": "validation_artifact_not_admitted_evidence",
+  "complete": true,
+  "draw_indices": [
+    0,
+    1
+  ],
+  "experiment_id": "generator_synthid_validation_v1",
+  "inputs": [
+    {
+      "path": "/scratch/10899/kimopro/generator_synthid_validation_hpc_v1/generation/draw_00_sequences.jsonl",
+      "sha256": "039b6dc291e7d372dc1c6b9d2a3f3515338005c95ef0ecc1139b70a5c46f32ca"
+    },
+    {
+      "path": "/scratch/10899/kimopro/generator_synthid_validation_hpc_v1/generation/draw_01_sequences.jsonl",
+      "sha256": "8f45d1be33f636be2004b50f0fb9fd966d4ec440bffb3a92d01df41e4fec724a"
+    }
+  ],
+  "likelihood": {
+    "definition": "teacher-forced mean negative log-likelihood per generated canonical 6-mer under the same frozen G_tok law, conditioned on the original prompt",
+    "model_forward_calls": 1024,
+    "prompt_tokens_in_loss": false
+  },
+  "main_key_averaged": {
+    "base_entropy_bits": {
+      "draw_id": null,
+      "metric": "base_entropy_bits",
+      "ordinary": {
+        "mean": 1.9492832128612727,
+        "median": 1.9562465228274437
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.005172098545478381,
+        "interval_upper": 0.0025637632962869764,
+        "mean_difference": -0.0012949368743573274,
+        "median_difference": -0.000997139933583746,
+        "p_value": 0.5090849091509085,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.0413402404415316
+      },
+      "watermarked": {
+        "mean": 1.9479882759869154,
+        "median": 1.9535637116626983
+      }
+    },
+    "cpg_fraction": {
+      "draw_id": null,
+      "metric": "cpg_fraction",
+      "ordinary": {
+        "mean": 0.04165543084500163,
+        "median": 0.03842396613480951
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.002171285437357538,
+        "interval_upper": 0.0011110743650276783,
+        "mean_difference": -0.0005113358840768479,
+        "median_difference": -0.0006512536633018554,
+        "p_value": 0.5408645913540865,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.03827251450988017
+      },
+      "watermarked": {
+        "mean": 0.04114409496092478,
+        "median": 0.03842396613480951
+      }
+    },
+    "dinucleotide_entropy_bits": {
+      "draw_id": null,
+      "metric": "dinucleotide_entropy_bits",
+      "ordinary": {
+        "mean": 3.8891032631508042,
+        "median": 3.90238039597806
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.010153927708629598,
+        "interval_upper": 0.005070025652264493,
+        "mean_difference": -0.0024968629533240402,
+        "median_difference": -0.001418550014180342,
+        "p_value": 0.5207147928520715,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.04018705713586928
+      },
+      "watermarked": {
+        "mean": 3.88660640019748,
+        "median": 3.897106811793394
+      }
+    },
+    "distinct_hexamer_fraction": {
+      "draw_id": null,
+      "metric": "distinct_hexamer_fraction",
+      "ordinary": {
+        "mean": 0.6180179124551679,
+        "median": 0.6258558852298663
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.006154906947954018,
+        "interval_upper": 0.0035337584314884306,
+        "mean_difference": -0.0012456186827518715,
+        "median_difference": -0.0019563090968373054,
+        "p_value": 0.6155438445615544,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.03185706006655852
+      },
+      "watermarked": {
+        "mean": 0.616772293772416,
+        "median": 0.6227583958265406
+      }
+    },
+    "gc_fraction": {
+      "draw_id": null,
+      "metric": "gc_fraction",
+      "ordinary": {
+        "mean": 0.3901907602945964,
+        "median": 0.3831380208333333
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.007297531763712561,
+        "interval_upper": 0.004234997431437172,
+        "mean_difference": -0.0014343261718749987,
+        "median_difference": 0.0,
+        "p_value": 0.6265737342626574,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.030395711138181142
+      },
+      "watermarked": {
+        "mean": 0.3887564341227214,
+        "median": 0.38134765625
+      }
+    },
+    "js_divergence_from_prompt_k1_bits": {
+      "draw_id": null,
+      "metric": "js_divergence_from_prompt_k1_bits",
+      "ordinary": {
+        "mean": 0.007589959274550018,
+        "median": 0.0046186108841200805
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.0008185246282162787,
+        "interval_upper": 0.0004606072056890233,
+        "mean_difference": -0.00017730698044460372,
+        "median_difference": -0.00014278299898136306,
+        "p_value": 0.5855141448585515,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.03401728093754385
+      },
+      "watermarked": {
+        "mean": 0.007412652294105414,
+        "median": 0.004626683839574158
+      }
+    },
+    "js_divergence_from_prompt_k2_bits": {
+      "draw_id": null,
+      "metric": "js_divergence_from_prompt_k2_bits",
+      "ordinary": {
+        "mean": 0.026259422619799126,
+        "median": 0.020257440158200912
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.0018571983606784268,
+        "interval_upper": 0.0007620207384359442,
+        "mean_difference": -0.000545330135398228,
+        "median_difference": -0.0006715763695283395,
+        "p_value": 0.4197758022419776,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.050481632336218704
+      },
+      "watermarked": {
+        "mean": 0.025714092484400895,
+        "median": 0.01990395281650967
+      }
+    },
+    "js_divergence_from_prompt_k3_bits": {
+      "draw_id": null,
+      "metric": "js_divergence_from_prompt_k3_bits",
+      "ordinary": {
+        "mean": 0.07159956370728666,
+        "median": 0.06203151450627614
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.002915222680171928,
+        "interval_upper": 0.0011075817794774121,
+        "mean_difference": -0.0009229903987299858,
+        "median_difference": -0.00120681657504991,
+        "p_value": 0.37264627353726465,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.05580270545272577
+      },
+      "watermarked": {
+        "mean": 0.07067657330855667,
+        "median": 0.061024469818848584
+      }
+    },
+    "longest_homopolymer_run": {
+      "draw_id": null,
+      "metric": "longest_homopolymer_run",
+      "ordinary": {
+        "mean": 8.232421875,
+        "median": 8.0
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.046875,
+        "interval_upper": 0.38671875,
+        "mean_difference": 0.169921875,
+        "median_difference": 0.0,
+        "p_value": 0.13009869901300988,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": 0.09600292808494106
+      },
+      "watermarked": {
+        "mean": 8.40234375,
+        "median": 8.0
+      }
+    },
+    "mean_homopolymer_run": {
+      "draw_id": null,
+      "metric": "mean_homopolymer_run",
+      "ordinary": {
+        "mean": 1.394436316091443,
+        "median": 1.3935133400002468
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.000295801671094167,
+        "interval_upper": 0.007596969356374817,
+        "mean_difference": 0.0036354391445605695,
+        "median_difference": 0.002887081124124835,
+        "p_value": 0.07646923530764692,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": 0.1113797288168427
+      },
+      "watermarked": {
+        "mean": 1.3980717552360036,
+        "median": 1.3976342129208372
+      }
+    },
+    "mean_negative_log_likelihood_per_token": {
+      "draw_id": null,
+      "metric": "mean_negative_log_likelihood_per_token",
+      "ordinary": {
+        "mean": 7.800290860701352,
+        "median": 7.904588937759399
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.8299117008829912,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.05614170790649948,
+        "interval_upper": 0.043782048230059406,
+        "mean_difference": -0.005637146532535553,
+        "median_difference": -0.005357265472412109,
+        "p_value": 0.8299117008829912,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.013870365401695508
+      },
+      "watermarked": {
+        "mean": 7.794653714168817,
+        "median": 7.909298896789551
+      }
+    },
+    "perplexity": {
+      "draw_id": null,
+      "metric": "perplexity",
+      "ordinary": {
+        "mean": 2608.019396110576,
+        "median": 2709.6884461625154
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7553462926909192,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -72.50537068141666,
+        "interval_upper": 48.91234836209359,
+        "mean_difference": -11.922511716393622,
+        "median_difference": -10.264243532791049,
+        "p_value": 0.7013929860701393,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.02404017957981459
+      },
+      "watermarked": {
+        "mean": 2596.096884394183,
+        "median": 2722.4815389265686
+      }
+    },
+    "purine_fraction": {
+      "draw_id": null,
+      "metric": "purine_fraction",
+      "ordinary": {
+        "mean": 0.49784215291341144,
+        "median": 0.4977213541666667
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.0030320485432942684,
+        "interval_upper": 0.0016371568044026672,
+        "mean_difference": -0.0006758371988932293,
+        "median_difference": -0.0008138020833333426,
+        "p_value": 0.5728242717572825,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.03533944050580326
+      },
+      "watermarked": {
+        "mean": 0.49716631571451825,
+        "median": 0.49853515625
+      }
+    },
+    "trinucleotide_entropy_bits": {
+      "draw_id": null,
+      "metric": "trinucleotide_entropy_bits",
+      "ordinary": {
+        "mean": 5.815065158506723,
+        "median": 5.835285617024854
+      },
+      "paired": {
+        "benjamini_hochberg_p_value": 0.7310026899731003,
+        "bonferroni_p_value": 1.0,
+        "interval_lower": -0.015474977610586202,
+        "interval_upper": 0.007379612196720157,
+        "mean_difference": -0.003951761184932338,
+        "median_difference": -0.0025311594337091847,
+        "p_value": 0.4967650323496765,
+        "pairs": 512,
+        "prompts": 256,
+        "standardized_effect": -0.04256258172687414
+      },
+      "watermarked": {
+        "mean": 5.81111339732179,
+        "median": 5.827495441986033
+      }
+    }
+  },
+  "model_id": "GenerTeam/GENERator-v2-eukaryote-1.2b-base",
+  "multiple_testing_family": [
+    "gc_fraction",
+    "base_entropy_bits",
+    "dinucleotide_entropy_bits",
+    "trinucleotide_entropy_bits",
+    "distinct_hexamer_fraction",
+    "longest_homopolymer_run",
+    "mean_homopolymer_run",
+    "purine_fraction",
+    "cpg_fraction",
+    "js_divergence_from_prompt_k1_bits",
+    "js_divergence_from_prompt_k2_bits",
+    "js_divergence_from_prompt_k3_bits",
+    "mean_negative_log_likelihood_per_token",
+    "perplexity"
+  ],
+  "pair_count": 512,
+  "per_fixture_key_draw": {
+    "0": {
+      "base_entropy_bits": {
+        "draw_id": 0,
+        "metric": "base_entropy_bits",
+        "ordinary": {
+          "mean": 1.9492445102827114,
+          "median": 1.9559776872670291
+        },
+        "paired": {
+          "interval_lower": -0.008019906801934987,
+          "interval_upper": 0.0029463491966092454,
+          "mean_difference": -0.0024586335036822556,
+          "median_difference": -0.0006328843484020297,
+          "p_value": 0.38207617923820764,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.054695135280823905
+        },
+        "watermarked": {
+          "mean": 1.9467858767790291,
+          "median": 1.9567075276426307
+        }
+      },
+      "cpg_fraction": {
+        "draw_id": 0,
+        "metric": "cpg_fraction",
+        "ordinary": {
+          "mean": 0.041382591175512864,
+          "median": 0.03760989905568218
+        },
+        "paired": {
+          "interval_lower": -0.0023328427731195045,
+          "interval_upper": 0.001999584062601756,
+          "mean_difference": -0.00017171727450341915,
+          "median_difference": 0.0,
+          "p_value": 0.8793012069879301,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.009628326961121992
+        },
+        "watermarked": {
+          "mean": 0.04121087390100944,
+          "median": 0.03760989905568218
+        }
+      },
+      "dinucleotide_entropy_bits": {
+        "draw_id": 0,
+        "metric": "dinucleotide_entropy_bits",
+        "ordinary": {
+          "mean": 3.88914786097596,
+          "median": 3.90238039597806
+        },
+        "paired": {
+          "interval_lower": -0.015901339481200902,
+          "interval_upper": 0.005916625971663059,
+          "mean_difference": -0.004898053707083575,
+          "median_difference": -0.0006739440766319049,
+          "p_value": 0.37840621593784063,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.055117788082444
+        },
+        "watermarked": {
+          "mean": 3.8842498072688767,
+          "median": 3.903438780548874
+        }
+      },
+      "distinct_hexamer_fraction": {
+        "draw_id": 0,
+        "metric": "distinct_hexamer_fraction",
+        "ordinary": {
+          "mean": 0.6179032849690251,
+          "median": 0.6256928594717965
+        },
+        "paired": {
+          "interval_lower": -0.010173858055510266,
+          "interval_upper": 0.003999352991522646,
+          "mean_difference": -0.0028554980436908987,
+          "median_difference": 0.00016302575806981245,
+          "p_value": 0.43344566554334457,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.04916554400110043
+        },
+        "watermarked": {
+          "mean": 0.6150477869253342,
+          "median": 0.6256928594717965
+        }
+      },
+      "gc_fraction": {
+        "draw_id": 0,
+        "metric": "gc_fraction",
+        "ordinary": {
+          "mean": 0.3895912170410156,
+          "median": 0.38297526041666663
+        },
+        "paired": {
+          "interval_lower": -0.008958244323730467,
+          "interval_upper": 0.007507705688476531,
+          "mean_difference": -0.000687917073567707,
+          "median_difference": 0.0021158854166666574,
+          "p_value": 0.8721312786872131,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.010263003040333837
+        },
+        "watermarked": {
+          "mean": 0.38890329996744794,
+          "median": 0.38509114583333337
+        }
+      },
+      "js_divergence_from_prompt_k1_bits": {
+        "draw_id": 0,
+        "metric": "js_divergence_from_prompt_k1_bits",
+        "ordinary": {
+          "mean": 0.00769853796212486,
+          "median": 0.0048210377258971265
+        },
+        "paired": {
+          "interval_lower": -0.001379756745488,
+          "interval_upper": 0.0005119892516766127,
+          "mean_difference": -0.0004192727025178642,
+          "median_difference": -0.000226586446670945,
+          "p_value": 0.38741612583874163,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.05433027401617992
+        },
+        "watermarked": {
+          "mean": 0.007279265259606996,
+          "median": 0.004869558827261869
+        }
+      },
+      "js_divergence_from_prompt_k2_bits": {
+        "draw_id": 0,
+        "metric": "js_divergence_from_prompt_k2_bits",
+        "ordinary": {
+          "mean": 0.026538202223416907,
+          "median": 0.020724494312648105
+        },
+        "paired": {
+          "interval_lower": -0.003022067483614535,
+          "interval_upper": 0.0007218098575434958,
+          "mean_difference": -0.0011351480398737374,
+          "median_difference": -0.0009419166823822446,
+          "p_value": 0.23833761662383376,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.0737621300201781
+        },
+        "watermarked": {
+          "mean": 0.025403054183543168,
+          "median": 0.01947589935416619
+        }
+      },
+      "js_divergence_from_prompt_k3_bits": {
+        "draw_id": 0,
+        "metric": "js_divergence_from_prompt_k3_bits",
+        "ordinary": {
+          "mean": 0.07209523020795373,
+          "median": 0.06277235488342608
+        },
+        "paired": {
+          "interval_lower": -0.004797488809262141,
+          "interval_upper": 0.0007637262712369118,
+          "mean_difference": -0.001996282295274482,
+          "median_difference": -0.0010302075962069952,
+          "p_value": 0.16309836901630984,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.08756715020597446
+        },
+        "watermarked": {
+          "mean": 0.07009894791267926,
+          "median": 0.06054176329296426
+        }
+      },
+      "longest_homopolymer_run": {
+        "draw_id": 0,
+        "metric": "longest_homopolymer_run",
+        "ordinary": {
+          "mean": 8.08203125,
+          "median": 8.0
+        },
+        "paired": {
+          "interval_lower": -0.0625,
+          "interval_upper": 0.5977539062499915,
+          "mean_difference": 0.265625,
+          "median_difference": 0.0,
+          "p_value": 0.12137878621213788,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.0988329122670276
+        },
+        "watermarked": {
+          "mean": 8.34765625,
+          "median": 8.0
+        }
+      },
+      "mean_homopolymer_run": {
+        "draw_id": 0,
+        "metric": "mean_homopolymer_run",
+        "ordinary": {
+          "mean": 1.3929447552392962,
+          "median": 1.3931972789115645
+        },
+        "paired": {
+          "interval_lower": -0.0007216533146183768,
+          "interval_upper": 0.010324967872425865,
+          "mean_difference": 0.004764142324586084,
+          "median_difference": 0.005464832003809761,
+          "p_value": 0.0963490365096349,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.10471116560063748
+        },
+        "watermarked": {
+          "mean": 1.397708897563882,
+          "median": 1.3957292139936393
+        }
+      },
+      "mean_negative_log_likelihood_per_token": {
+        "draw_id": 0,
+        "metric": "mean_negative_log_likelihood_per_token",
+        "ordinary": {
+          "mean": 7.79601077735424,
+          "median": 7.889959812164307
+        },
+        "paired": {
+          "interval_lower": -0.09703153115697204,
+          "interval_upper": 0.03174932873807845,
+          "mean_difference": -0.026268583722412586,
+          "median_difference": 0.002119779586791992,
+          "p_value": 0.4900050999490005,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.04920830173532456
+        },
+        "watermarked": {
+          "mean": 7.769742193631828,
+          "median": 7.928510427474976
+        }
+      },
+      "perplexity": {
+        "draw_id": 0,
+        "metric": "perplexity",
+        "ordinary": {
+          "mean": 2581.9642777962986,
+          "median": 2670.3371047541395
+        },
+        "paired": {
+          "interval_lower": -64.54958567597346,
+          "interval_upper": 99.3627824125655,
+          "mean_difference": 17.023961926253016,
+          "median_difference": 5.10297814038347,
+          "p_value": 0.6831631683683164,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.025384097300655835
+        },
+        "watermarked": {
+          "mean": 2598.9882397225515,
+          "median": 2775.2915196696254
+        }
+      },
+      "purine_fraction": {
+        "draw_id": 0,
+        "metric": "purine_fraction",
+        "ordinary": {
+          "mean": 0.49847666422526044,
+          "median": 0.49853515625
+        },
+        "paired": {
+          "interval_lower": -0.0067952791849772145,
+          "interval_upper": -0.00019197463989258258,
+          "mean_difference": -0.0034828186035156267,
+          "median_difference": -0.00423177083333337,
+          "p_value": 0.03890961090389096,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.1298443987862565
+        },
+        "watermarked": {
+          "mean": 0.4949938456217448,
+          "median": 0.49674479166666663
+        }
+      },
+      "trinucleotide_entropy_bits": {
+        "draw_id": 0,
+        "metric": "trinucleotide_entropy_bits",
+        "ordinary": {
+          "mean": 5.815202057974197,
+          "median": 5.834545442457419
+        },
+        "paired": {
+          "interval_lower": -0.02397746392848447,
+          "interval_upper": 0.008319582993854695,
+          "mean_difference": -0.007640954565220376,
+          "median_difference": -0.0015572685560312216,
+          "p_value": 0.35937640623593764,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.05753646936840932
+        },
+        "watermarked": {
+          "mean": 5.807561103408977,
+          "median": 5.836596602535255
+        }
+      }
+    },
+    "1": {
+      "base_entropy_bits": {
+        "draw_id": 1,
+        "metric": "base_entropy_bits",
+        "ordinary": {
+          "mean": 1.949321915439834,
+          "median": 1.9568694777242706
+        },
+        "paired": {
+          "interval_lower": -0.00541839793688647,
+          "interval_upper": 0.0051913641952433445,
+          "mean_difference": -0.00013124024503239923,
+          "median_difference": -0.0017918170508562925,
+          "p_value": 0.9612803871961281,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.0030167777270803066
+        },
+        "watermarked": {
+          "mean": 1.9491906751948016,
+          "median": 1.9524047260015558
+        }
+      },
+      "cpg_fraction": {
+        "draw_id": 1,
+        "metric": "cpg_fraction",
+        "ordinary": {
+          "mean": 0.04192827051449039,
+          "median": 0.03907521979811136
+        },
+        "paired": {
+          "interval_lower": -0.0031736214282806897,
+          "interval_upper": 0.0014780723400358165,
+          "mean_difference": -0.0008509544936502766,
+          "median_difference": -0.0006512536633018554,
+          "p_value": 0.4765152348476515,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.044437220637343906
+        },
+        "watermarked": {
+          "mean": 0.04107731602084012,
+          "median": 0.03907521979811136
+        }
+      },
+      "dinucleotide_entropy_bits": {
+        "draw_id": 1,
+        "metric": "dinucleotide_entropy_bits",
+        "ordinary": {
+          "mean": 3.8890586653256483,
+          "median": 3.9025327373161214
+        },
+        "paired": {
+          "interval_lower": -0.010655776438621244,
+          "interval_upper": 0.010477133888863323,
+          "mean_difference": -9.567219956450532e-05,
+          "median_difference": -0.002357287957083898,
+          "p_value": 0.985440145598544,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.0011076107688763755
+        },
+        "watermarked": {
+          "mean": 3.888962993126084,
+          "median": 3.8947769115198687
+        }
+      },
+      "distinct_hexamer_fraction": {
+        "draw_id": 1,
+        "metric": "distinct_hexamer_fraction",
+        "ordinary": {
+          "mean": 0.6181325399413107,
+          "median": 0.6276491685686338
+        },
+        "paired": {
+          "interval_lower": -0.005763278957450272,
+          "interval_upper": 0.006597448646886209,
+          "mean_difference": 0.0003642606781871559,
+          "median_difference": -0.004890772742093208,
+          "p_value": 0.9098209017909821,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.007149602342886683
+        },
+        "watermarked": {
+          "mean": 0.6184968006194979,
+          "median": 0.6216172155200521
+        }
+      },
+      "gc_fraction": {
+        "draw_id": 1,
+        "metric": "gc_fraction",
+        "ordinary": {
+          "mean": 0.39079030354817706,
+          "median": 0.38362630208333337
+        },
+        "paired": {
+          "interval_lower": -0.010554027557373046,
+          "interval_upper": 0.006047693888346344,
+          "mean_difference": -0.0021807352701822902,
+          "median_difference": -0.0029296875,
+          "p_value": 0.6093739062609373,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.032173013515205115
+        },
+        "watermarked": {
+          "mean": 0.3886095682779948,
+          "median": 0.37874348958333337
+        }
+      },
+      "js_divergence_from_prompt_k1_bits": {
+        "draw_id": 1,
+        "metric": "js_divergence_from_prompt_k1_bits",
+        "ordinary": {
+          "mean": 0.007481380586975177,
+          "median": 0.004329311513024359
+        },
+        "paired": {
+          "interval_lower": -0.0008469322206008763,
+          "interval_upper": 0.0009398827617466765,
+          "mean_difference": 6.465874162865679e-05,
+          "median_difference": -8.631281536154289e-05,
+          "p_value": 0.8882311176888231,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.008906700172009799
+        },
+        "watermarked": {
+          "mean": 0.007546039328603833,
+          "median": 0.004526665343018052
+        }
+      },
+      "js_divergence_from_prompt_k2_bits": {
+        "draw_id": 1,
+        "metric": "js_divergence_from_prompt_k2_bits",
+        "ordinary": {
+          "mean": 0.025980643016181342,
+          "median": 0.01930504044650134
+        },
+        "paired": {
+          "interval_lower": -0.0017795054419761527,
+          "interval_upper": 0.0018095611923357876,
+          "mean_difference": 4.4487769077281585e-05,
+          "median_difference": -0.000600167001147821,
+          "p_value": 0.9611203887961121,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.0030388353362156275
+        },
+        "watermarked": {
+          "mean": 0.026025130785258623,
+          "median": 0.020262418653915783
+        }
+      },
+      "js_divergence_from_prompt_k3_bits": {
+        "draw_id": 1,
+        "metric": "js_divergence_from_prompt_k3_bits",
+        "ordinary": {
+          "mean": 0.0711038972066196,
+          "median": 0.06112958895198105
+        },
+        "paired": {
+          "interval_lower": -0.002571602821486438,
+          "interval_upper": 0.002860071596985756,
+          "mean_difference": 0.00015030149781451044,
+          "median_difference": -0.0012335877755343116,
+          "p_value": 0.9156108438915611,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.00675534449553744
+        },
+        "watermarked": {
+          "mean": 0.0712541987044341,
+          "median": 0.06216979717744149
+        }
+      },
+      "longest_homopolymer_run": {
+        "draw_id": 1,
+        "metric": "longest_homopolymer_run",
+        "ordinary": {
+          "mean": 8.3828125,
+          "median": 8.0
+        },
+        "paired": {
+          "interval_lower": -0.22666015624999836,
+          "interval_upper": 0.375,
+          "mean_difference": 0.07421875,
+          "median_difference": 0.0,
+          "p_value": 0.6503734962650374,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.030068761415386714
+        },
+        "watermarked": {
+          "mean": 8.45703125,
+          "median": 8.0
+        }
+      },
+      "mean_homopolymer_run": {
+        "draw_id": 1,
+        "metric": "mean_homopolymer_run",
+        "ordinary": {
+          "mean": 1.3959278769435899,
+          "median": 1.3938294010889292
+        },
+        "paired": {
+          "interval_lower": -0.0029301328937015804,
+          "interval_upper": 0.007967742993777765,
+          "mean_difference": 0.0025067359645350546,
+          "median_difference": -0.0016479512821204745,
+          "p_value": 0.3722362776372236,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.056025515567975644
+        },
+        "watermarked": {
+          "mean": 1.398434612908125,
+          "median": 1.3992257614797665
+        }
+      },
+      "mean_negative_log_likelihood_per_token": {
+        "draw_id": 1,
+        "metric": "mean_negative_log_likelihood_per_token",
+        "ordinary": {
+          "mean": 7.804570944048464,
+          "median": 7.916425466537476
+        },
+        "paired": {
+          "interval_lower": -0.051136513520032144,
+          "interval_upper": 0.09148126062937076,
+          "mean_difference": 0.01499429065734148,
+          "median_difference": -0.015297174453735352,
+          "p_value": 0.7128528714712853,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.025557178266526946
+        },
+        "watermarked": {
+          "mean": 7.819565234705806,
+          "median": 7.890427350997925
+        }
+      },
+      "perplexity": {
+        "draw_id": 1,
+        "metric": "perplexity",
+        "ordinary": {
+          "mean": 2634.074514424854,
+          "median": 2741.9523286850217
+        },
+        "paired": {
+          "interval_lower": -127.55817395450893,
+          "interval_upper": 42.10765959382142,
+          "mean_difference": -40.86898535904026,
+          "median_difference": -46.00524313678147,
+          "p_value": 0.34920650793492064,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.0585691728686124
+        },
+        "watermarked": {
+          "mean": 2593.2055290658136,
+          "median": 2671.6012645794103
+        }
+      },
+      "purine_fraction": {
+        "draw_id": 1,
+        "metric": "purine_fraction",
+        "ordinary": {
+          "mean": 0.4972076416015625,
+          "median": 0.4970703125
+        },
+        "paired": {
+          "interval_lower": -0.0012093544006347636,
+          "interval_upper": 0.005470307668050126,
+          "mean_difference": 0.002131144205729168,
+          "median_difference": 0.0011393229166666574,
+          "p_value": 0.2158678413215868,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": 0.07781502087646047
+        },
+        "watermarked": {
+          "mean": 0.4993387858072917,
+          "median": 0.4996744791666667
+        }
+      },
+      "trinucleotide_entropy_bits": {
+        "draw_id": 1,
+        "metric": "trinucleotide_entropy_bits",
+        "ordinary": {
+          "mean": 5.814928259039249,
+          "median": 5.8391570009667095
+        },
+        "paired": {
+          "interval_lower": -0.015934305986043357,
+          "interval_upper": 0.015717319528826528,
+          "mean_difference": -0.00026256780464430085,
+          "median_difference": -0.004966803674411491,
+          "p_value": 0.974020259797402,
+          "pairs": 256,
+          "prompts": 256,
+          "standardized_effect": -0.0020378872655574696
+        },
+        "watermarked": {
+          "mean": 5.814665691234604,
+          "median": 5.822355716208726
+        }
+      }
+    }
+  },
+  "policy_id": "G_tok",
+  "prompt_count": 256,
+  "question": "matched full-sequence GENERATOR behavior",
+  "revision": "c41b0018da9ee13b9e96ee54647de8da381ccd72",
+  "schema_version": 1,
+  "sequence_count": 1024,
+  "statistical_cluster": "case_id"
+}

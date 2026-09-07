@@ -1,0 +1,87 @@
+{
+  "artifacts": {
+    "cohort_manifest.yaml": "99ce4a911897e110c04b5f47d310c810e30169bdfc9381537eb45eb21611e302",
+    "detection/calibration_trials.parquet": "1aacaebe0faa003489d2586c1f7874e067c24f18c7a7a71b375436f91e02b7a7",
+    "detection/detection_summary.json": "0bd171a3886ed823c31123271b1f22f5650bcf0b5a0767947467356605f1a72d",
+    "detection/detector_comparison.json": "3623ba5990b3ee6a36a37dd4ab4e7e41db540b5f81c62f9f058a927856182d7c",
+    "detection/evaluation_trials.parquet": "0caddc6cc1dc843273d35644ce60e3bd4492ec458b37bbeb489dce639aefc1d5",
+    "distribution/distribution_summary.json": "77090622d7901ce6b459c45c7f22eee7b51bf1ee5535b6d960c560e281910783",
+    "distribution/fixed_state_trials.parquet": "032841cf662d7429aa8766d3abda5e804a7fbb53f4e47f3384bc7f987adc8543",
+    "distribution/state_manifest.jsonl": "48a294ed383178989e66eb4b3ddeef6740937bf36148b44c0be8e0dada7db872",
+    "figures/01_fixed_state_tv.pdf": "ca88b95b5c2bb2eea31d7d98d1fca2a46893176e185f3b896aa6358f55459777",
+    "figures/01_fixed_state_tv.png": "dcadeb4ef819d7055578acc74974ea170a27d6600a4f12e50a743246ac35c110",
+    "figures/02_fixed_state_p_values.pdf": "6a86e79d446ee1a596784b15bcc2abd61642a4ae0eb78029bf75d1a4e32a4996",
+    "figures/02_fixed_state_p_values.png": "aedbd6df9a4504ec1ae98e3910daf6d864519a230ae2e717e5d8a3b5c5863a77",
+    "figures/03_state_concentration_error.pdf": "6f8420838155c32971c54560a502cdd87c9931c70d98959ab09a863e867494af",
+    "figures/03_state_concentration_error.png": "5c91f2599bebbeb8516a67669075444e5d36a96d9ed49d069c45eedbc2e483fd",
+    "figures/04_state_capacity.pdf": "e5aeab940fc62b3364a0d2403cc98ef2f15d71aa3b2fb387e6a215bada28fd6e",
+    "figures/04_state_capacity.png": "295c733c26428194360be1ba744662d3f88a30f12dcba230e5d9bee13afeb4ff",
+    "figures/05_paired_nll.pdf": "40f0b869fa0d440cab49cd39f38ea8b476fce61c9353f0cf620e688cb45902de",
+    "figures/05_paired_nll.png": "9473053ae49a788910a096e212d047bf1453f36fa48d2ed6234f326f6fda029f",
+    "figures/06_sequence_proxy_effects.pdf": "5b87774ddf7d8f69bb190341e8ed0e169f938659cfebbe9b0520b3c5a7eadd41",
+    "figures/06_sequence_proxy_effects.png": "1adbcf0c03acd8c28848f6a4c63c7336029a221f8f6c98041cb1e102d576cf3e",
+    "figures/07_detector_scores.pdf": "56543d4bd0f7db842adc0d5ee7d5e24f347c2b0d1f810f086f3df9437c9aefa2",
+    "figures/07_detector_scores.png": "f5eca08e1980aa3fc141e95d7e6942389f0e6f49bc933d9b1506d9774140b8d3",
+    "figures/08_roc.pdf": "1440b8cd0ebaf31d3eb0e6d3314f179f151d941ebdcee68cff3359a1c1bb2631",
+    "figures/08_roc.png": "bdb8535c9d5a6ba1e434d3db1880b46499df2de2c48b83ded043d69a75b54c1c",
+    "figures/09_tpr_length.pdf": "17f09d61da635e466553d871e5311c23deb54fe5e5711478a6e634776ebfe1de",
+    "figures/09_tpr_length.png": "cd01e9481aac291f6874c078c7953dd3d7f42deacb7b8050f974469770043241",
+    "figures/10_fpr_length.pdf": "f61716698be52de411e83c3b473756c76a1a227c0cb75408836f6f4618fe4de5",
+    "figures/10_fpr_length.png": "f534ba5569e5991679e2732d9f7e4f864b8ea8f1d38377b753bd4c40341bb997",
+    "generation/draw_00_sequences.jsonl": "039b6dc291e7d372dc1c6b9d2a3f3515338005c95ef0ecc1139b70a5c46f32ca",
+    "generation/draw_01_sequences.jsonl": "8f45d1be33f636be2004b50f0fb9fd966d4ec440bffb3a92d01df41e4fec724a",
+    "generation/generation_summary.json": "7b1b132d3d5c79c01bd914059d28e968b4c27fec2da47d0c297791c23c2e6a4e",
+    "prompts.jsonl": "01867c1a987ae5e130ebdb6bed7f992e2967b2f7537554879662dc40499adfeb",
+    "report.md": "bd07b21576d4cf6cbb85b0d1288d814e090994e913f65c05cbc918418a637e24",
+    "sequence_comparison/sequence_comparison_summary.json": "d8e3c03b2d0e3a2639c521889ea29dd804e8a741d3cf43818cb79f31ae821401",
+    "sequence_comparison/sequence_metrics.parquet": "91b752af763e40602829af2112236de0d25efa884428dec3305b2bf106522c6a"
+  },
+  "checks": {
+    "analytic_null_fit_by_bases": {
+      "1536": {
+        "expected_positive_prompts": 4.984410720716221,
+        "observed_positive_prompts": 6,
+        "prompt_clusters": 256,
+        "two_sided_poisson_binomial_p_value": 0.7625425218791096
+      },
+      "3072": {
+        "expected_positive_prompts": 5.113597427009747,
+        "observed_positive_prompts": 4,
+        "prompt_clusters": 256,
+        "two_sided_poisson_binomial_p_value": 0.8377296826245748
+      },
+      "384": {
+        "expected_positive_prompts": 4.995266699367718,
+        "observed_positive_prompts": 2,
+        "prompt_clusters": 256,
+        "two_sided_poisson_binomial_p_value": 0.24514371073317767
+      },
+      "768": {
+        "expected_positive_prompts": 5.287707191780765,
+        "observed_positive_prompts": 6,
+        "prompt_clusters": 256,
+        "two_sided_poisson_binomial_p_value": 0.8698135996304113
+      }
+    },
+    "analytic_null_fit_check_passed": true,
+    "analytic_null_fit_check_recomputed": true,
+    "analytic_null_fit_method": "two-sided prompt-level Poisson-binomial",
+    "calibration_evaluation_disjoint": true,
+    "correct_key_positives": true,
+    "distinct_replay_streams": true,
+    "draw_count": 2,
+    "explicit_draw_identity": true,
+    "generated_lengths": true,
+    "mean_detector_selected_on_calibration_only": true,
+    "prompt_count": 256,
+    "prompt_level_clustering": true,
+    "sequence_count": 1024,
+    "state_count": 256,
+    "threshold_recomputed_from_declared_source": true,
+    "wrong_key_scores_fall": true
+  },
+  "classification": "validation_artifact_not_admitted_evidence",
+  "evidence_ledger_modified": false,
+  "schema_version": 1,
+  "valid": true
+}

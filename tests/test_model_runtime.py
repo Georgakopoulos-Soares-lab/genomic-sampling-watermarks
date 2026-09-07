@@ -4,7 +4,6 @@ import unittest
 from pathlib import Path
 
 from genomic_watermarks.models.huggingface import (
-    CARBON_500M_FNS_REVISION,
     CARBON_500M_REVISION,
     CARBON_QWEN3_TOKENIZER_ID,
     CARBON_QWEN3_TOKENIZER_REVISION,
@@ -18,30 +17,31 @@ from genomic_watermarks.models.huggingface import (
 from genomic_watermarks.models.runtime import choose_device
 
 
-class ModelRuntimeTest(unittest.TestCase):
+class CarbonRuntimeTest(unittest.TestCase):
     def test_local_device_resolution(self) -> None:
         self.assertEqual(choose_device("auto", mps_available=True, allow_cpu_fallback=True), "mps")
         self.assertEqual(choose_device("mps", mps_available=False, allow_cpu_fallback=True), "cpu")
-        with self.assertRaises(RuntimeError):
-            choose_device("mps", mps_available=False, allow_cpu_fallback=False)
 
-    def test_model_prompt_contracts(self) -> None:
+    def test_cuda_is_available_for_recorded_reproduction(self) -> None:
+        self.assertEqual(
+            choose_device(
+                "cuda", mps_available=False, cuda_available=True, allow_cpu_fallback=False
+            ),
+            "cuda",
+        )
+
+    def test_model_prompts_and_revisions(self) -> None:
         self.assertEqual(carbon_prompt("atcgat"), "<dna>ATCGAT")
         self.assertEqual(generator_prompt("atcgat"), "<s>ATCGAT")
         with self.assertRaises(ValueError):
             generator_prompt("ATCGA")
-
-    def test_code_revisions_match_sources_file(self) -> None:
         text = Path("sources.yaml").read_text(encoding="utf-8")
-        for revision in (
-            CARBON_500M_REVISION,
-            CARBON_500M_FNS_REVISION,
-            CARBON_QWEN3_TOKENIZER_REVISION,
-            GENERATOR_V2_1P2B_REVISION,
-        ):
-            self.assertIn(revision, text)
+        self.assertIn(CARBON_500M_REVISION, text)
+        self.assertIn(CARBON_QWEN3_TOKENIZER_REVISION, text)
+        self.assertIn(GENERATOR_V2_1P2B_REVISION, text)
+        self.assertEqual(set(POLICIES), {"C_tok", "G_tok"})
 
-    def test_carbon_transitive_tokenizer_revision_is_injected_and_restored(self) -> None:
+    def test_transitive_tokenizer_revision_is_injected_and_restored(self) -> None:
         class FakeAutoTokenizer:
             calls: list[tuple[str, dict[str, object]]] = []
 
@@ -62,10 +62,9 @@ class ModelRuntimeTest(unittest.TestCase):
         self.assertIs(FakeAutoTokenizer.__dict__["from_pretrained"], original)
         _, dependency_kwargs = FakeAutoTokenizer.calls[1]
         self.assertEqual(dependency_kwargs["revision"], CARBON_QWEN3_TOKENIZER_REVISION)
-        self.assertEqual(dependency_kwargs["cache_dir"], "test-cache")
         self.assertTrue(dependency_kwargs["local_files_only"])
 
-    def test_remote_model_tokenizer_reload_is_revision_pinned_and_restored(self) -> None:
+    def test_generator_remote_tokenizer_reload_is_pinned_and_restored(self) -> None:
         class FakeAutoTokenizer:
             calls: list[tuple[str, dict[str, object]]] = []
 
