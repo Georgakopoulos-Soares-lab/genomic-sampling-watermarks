@@ -32,9 +32,7 @@ class GoodnessOfFitTest(unittest.TestCase):
                 if value < cumulative:
                     tokens.append(token)
                     break
-        result = token_goodness_of_fit(
-            tokens, tuple("abcd"), probabilities, replicates=500, seed=1
-        )
+        result = token_goodness_of_fit(tokens, tuple("abcd"), probabilities, replicates=500, seed=1)
         self.assertGreater(result.p_value, 0.05)
         self.assertEqual(result.draws, 2_000)
 

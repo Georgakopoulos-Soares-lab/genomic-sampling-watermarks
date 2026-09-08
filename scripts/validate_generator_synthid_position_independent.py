@@ -204,9 +204,7 @@ def validate_rate(
 ) -> None:
     condition = str(cell["condition"])
     family = str(cell["family"])
-    selected = [
-        row for row in rows if row["condition"] == condition and row["family"] == family
-    ]
+    selected = [row for row in rows if row["condition"] == condition and row["family"] == family]
     if len(selected) != EXPECTED_PROMPTS * len(EXPECTED_DRAWS):
         raise ValueError("summary cell has the wrong trial count")
     detections = sum(bool(row["detected"]) for row in selected)
@@ -267,9 +265,7 @@ def validate_rate(
     }
     for field, expected_values in expected_summaries.items():
         observed = cell[field]
-        for name, expected in zip(
-            ("minimum", "median", "maximum"), expected_values, strict=True
-        ):
+        for name, expected in zip(("minimum", "median", "maximum"), expected_values, strict=True):
             if not close(float(observed[name]), expected):
                 raise ValueError(f"summary {field} is inconsistent")
     orientations = dict(
@@ -323,9 +319,7 @@ def main() -> int:
     expected_rows = EXPECTED_PROMPTS * len(EXPECTED_DRAWS) * len(CONDITIONS) * len(FAMILIES)
     if len(rows) != expected_rows or int(summary.get("total_decisions", -1)) != expected_rows:
         raise ValueError("result bundle has the wrong number of decisions")
-    identities = {
-        (row["case_id"], row["draw_id"], row["condition"], row["family"]) for row in rows
-    }
+    identities = {(row["case_id"], row["draw_id"], row["condition"], row["family"]) for row in rows}
     if len(identities) != expected_rows:
         raise ValueError("result bundle contains duplicate decisions")
     prompt_ids = {str(row["case_id"]) for row in rows}

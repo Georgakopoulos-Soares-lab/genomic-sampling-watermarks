@@ -53,9 +53,9 @@ class ExactBinomialTailTest(unittest.TestCase):
     def test_matches_literal_fair_coin_enumeration(self) -> None:
         for total in range(1, 21):
             for successes in range(total + 1):
-                expected = sum(
-                    math.comb(total, count) for count in range(successes, total + 1)
-                ) / (2**total)
+                expected = sum(math.comb(total, count) for count in range(successes, total + 1)) / (
+                    2**total
+                )
                 self.assertAlmostEqual(
                     fair_binomial_survival_probability(successes, total),
                     expected,

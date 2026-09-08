@@ -722,9 +722,7 @@ def main() -> int:
             **cuda_memory,
         }
         sessions_dir.mkdir(parents=True, exist_ok=True)
-        atomic_write_json(
-            sessions_dir / f"session_{time.time_ns()}_{os.getpid()}.json", session
-        )
+        atomic_write_json(sessions_dir / f"session_{time.time_ns()}_{os.getpid()}.json", session)
         adapter = None
         gc.collect()
         if args.device == "mps":

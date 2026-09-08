@@ -181,9 +181,7 @@ def load_quality() -> dict[str, Any]:
         # single multiplication, so the same interval is rescaled by the same
         # factor rather than recomputed.
         scale = effect / difference
-        bounds = sorted(
-            (paired["interval_lower"] * scale, paired["interval_upper"] * scale)
-        )
+        bounds = sorted((paired["interval_lower"] * scale, paired["interval_upper"] * scale))
         rows.append(
             {
                 "metric": name,
@@ -218,9 +216,7 @@ def load_trials() -> list[dict[str, Any]]:
 
 def select(trials: list[dict[str, Any]], family: str, condition: str) -> list[dict[str, Any]]:
     return [
-        trial
-        for trial in trials
-        if trial["family"] == family and trial["condition"] == condition
+        trial for trial in trials if trial["family"] == family and trial["condition"] == condition
     ]
 
 
@@ -459,12 +455,16 @@ def figure_method(path_stem: str) -> dict[str, Any]:
     panel_letter(top, "a", x=-0.155, y=1.10)
     panel_letter(read, "b", x=-0.045, y=0.985)
 
-    return save_figure(figure, path_stem, {
-        "illustrative_model_probability": ILLUSTRATIVE_P.tolist(),
-        "illustrative_mark_bits": ILLUSTRATIVE_G.tolist(),
-        "illustrative_probability_after_one_layer": [round(v, 6) for v in keyed],
-        "windows_searched": 2 * sum(READ_BASES - length + 1 for length in WINDOW_LENGTHS),
-    })
+    return save_figure(
+        figure,
+        path_stem,
+        {
+            "illustrative_model_probability": ILLUSTRATIVE_P.tolist(),
+            "illustrative_mark_bits": ILLUSTRATIVE_G.tolist(),
+            "illustrative_probability_after_one_layer": [round(v, 6) for v in keyed],
+            "windows_searched": 2 * sum(READ_BASES - length + 1 for length in WINDOW_LENGTHS),
+        },
+    )
 
 
 def save_figure(figure: Any, stem: str, values: dict[str, Any]) -> dict[str, Any]:
@@ -585,23 +585,27 @@ def figure_quality(path_stem: str, quality: dict[str, Any]) -> dict[str, Any]:
     panel_letter(score, "a", x=-0.135, y=1.10)
     panel_letter(forest, "b", x=-0.335, y=1.10)
 
-    return save_figure(figure, path_stem, {
-        "model_score_difference": quality["difference"],
-        "model_score_interval": quality["interval"],
-        "model_score_p_value": quality["p_value"],
-        "ordinary_mean_model_score": quality["ordinary_mean"],
-        "watermarked_mean_model_score": quality["watermarked_mean"],
-        "standardized_effects": [
-            {
-                "metric": row["metric"],
-                "label": row["label"],
-                "standardized_effect": row["standardized_effect"],
-                "interval": [row["interval_lower"], row["interval_upper"]],
-                "benjamini_hochberg_p_value": row["benjamini_hochberg_p_value"],
-            }
-            for row in rows
-        ],
-    })
+    return save_figure(
+        figure,
+        path_stem,
+        {
+            "model_score_difference": quality["difference"],
+            "model_score_interval": quality["interval"],
+            "model_score_p_value": quality["p_value"],
+            "ordinary_mean_model_score": quality["ordinary_mean"],
+            "watermarked_mean_model_score": quality["watermarked_mean"],
+            "standardized_effects": [
+                {
+                    "metric": row["metric"],
+                    "label": row["label"],
+                    "standardized_effect": row["standardized_effect"],
+                    "interval": [row["interval_lower"], row["interval_upper"]],
+                    "benjamini_hochberg_p_value": row["benjamini_hochberg_p_value"],
+                }
+                for row in rows
+            ],
+        },
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -933,14 +937,18 @@ def figure_edits(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, Any]
     panel_letter(spread, "a", x=-0.115, y=1.10)
     panel_letter(mix, "b", x=-0.245, y=1.10)
 
-    return save_figure(figure, path_stem, {
-        "threshold_strength": threshold,
-        "correct_key_strength": per_condition,
-        "best_window_length_counts": {
-            condition: {str(length): count for length, count in tally.items()}
-            for condition, tally in counts.items()
+    return save_figure(
+        figure,
+        path_stem,
+        {
+            "threshold_strength": threshold,
+            "correct_key_strength": per_condition,
+            "best_window_length_counts": {
+                condition: {str(length): count for length, count in tally.items()}
+                for condition, tally in counts.items()
+            },
         },
-    })
+    )
 
 
 def main() -> int:

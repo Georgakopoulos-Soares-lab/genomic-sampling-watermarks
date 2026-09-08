@@ -38,9 +38,7 @@ from genomic_watermarks.watermark import ORDINARY_SCHEME, public_replay_seed  # 
 DEFAULT_VALIDATION_ROOT = Path("/scratch/10899/kimopro/carbon_synthid_validation_hpc_v4")
 DEFAULT_COHORT = ROOT / "data/processed/ncbi_refseq_eukaryote_windows_large_v1/prompts.jsonl"
 DEFAULT_OUTPUT = ROOT / "outputs/carbon_synthid_position_independent_v1"
-DEFAULT_PROTOCOL = (
-    ROOT / "docs/research/carbon_synthid_position_independent_validation_protocol.md"
-)
+DEFAULT_PROTOCOL = ROOT / "docs/research/carbon_synthid_position_independent_validation_protocol.md"
 EXPERIMENT_ID = "carbon_synthid_position_independent_v1"
 POSITIVE = "watermarked_correct_key"
 PRIMARY_NULL = "ordinary_corresponding_key"
@@ -188,9 +186,7 @@ def validate_prompt_shard(shard: dict[str, Any], case_id: str) -> None:
     expected = len(DRAWS) * len(CONDITIONS) * len(FAMILIES)
     if not isinstance(rows, list) or len(rows) != expected:
         raise ValueError(f"shard {case_id} has the wrong row count")
-    identities = {
-        (row.get("draw_id"), row.get("condition"), row.get("family")) for row in rows
-    }
+    identities = {(row.get("draw_id"), row.get("condition"), row.get("family")) for row in rows}
     expected_identities = {
         (draw, condition, family)
         for draw in DRAWS
@@ -335,9 +331,7 @@ def finalize(
     for condition in CONDITIONS:
         for family in FAMILIES:
             selected = [
-                row
-                for row in rows
-                if row["condition"] == condition and row["family"] == family
+                row for row in rows if row["condition"] == condition and row["family"] == family
             ]
             rates.append(
                 {
@@ -512,9 +506,7 @@ def main() -> int:
                 atomic_write_json(args.output_dir / "shards" / f"{case_id}.json", shard)
                 completed += 1
                 print(
-                    json.dumps(
-                        {"completed_prompts": completed, "total_prompts": EXPECTED_PROMPTS}
-                    ),
+                    json.dumps({"completed_prompts": completed, "total_prompts": EXPECTED_PROMPTS}),
                     flush=True,
                 )
         else:

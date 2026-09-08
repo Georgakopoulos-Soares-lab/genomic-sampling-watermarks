@@ -118,9 +118,7 @@ def main() -> int:
     environment["PYTHONNOUSERSITE"] = "1"
     running: list[tuple[int, int, subprocess.Popen[bytes], Any]] = []
     for draw_id, worker_id, command in commands:
-        log = (log_dir / f"cpu_generation_draw_{draw_id:02d}_worker_{worker_id:02d}.log").open(
-            "ab"
-        )
+        log = (log_dir / f"cpu_generation_draw_{draw_id:02d}_worker_{worker_id:02d}.log").open("ab")
         process = subprocess.Popen(command, cwd=ROOT, env=environment, stdout=log, stderr=log)
         running.append((draw_id, worker_id, process, log))
     failures: list[tuple[int, int, int]] = []

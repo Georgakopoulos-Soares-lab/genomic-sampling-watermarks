@@ -98,5 +98,7 @@ implementation on one model and one corpus, whose confirmatory replication is ou
 gates must be closed before submission.
 
 The completed GENERator-v2 1.2B replication is fully reviewed in `evidence/measurements.yaml` and
-collected in `docs/research/manuscript_evidence_packet.md`. It remains supplementary and must not be
-inserted into this Carbon manuscript without a separate scope decision.
+collected in `docs/research/manuscript_evidence_packet.md`. GENERator-v2 is a co-primary model of the
+rebuilt dual-model paper, so it is not supplementary work; its version-one identifiers are legacy
+development history, exactly like the Carbon identifiers in this map, and no legacy identifier from
+either model may enter the rebuilt paper.

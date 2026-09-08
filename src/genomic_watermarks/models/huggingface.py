@@ -214,9 +214,7 @@ class HuggingFaceDNAAdapter:
         self._canonical_index_cache: Any = None
         self._selected_ids = tuple(range(len(self._vocabulary.ids)))
         self._max_canonical_id = max(self._vocabulary.ids)
-        self._token_to_id = dict(
-            zip(self._vocabulary.tokens, self._vocabulary.ids, strict=True)
-        )
+        self._token_to_id = dict(zip(self._vocabulary.tokens, self._vocabulary.ids, strict=True))
         self._incremental_cache_enabled = policy_id == "G_tok"
         self._cached_context: str | None = None
         self._past_key_values: Any = None
@@ -363,9 +361,7 @@ class HuggingFaceDNAAdapter:
         try:
             target_indices = [canonical_index[int(token_id)] for token_id in continuation_ids]
         except KeyError as error:
-            raise RuntimeError(
-                "continuation tokenized outside the canonical vocabulary"
-            ) from error
+            raise RuntimeError("continuation tokenized outside the canonical vocabulary") from error
         device_inputs = {name: value.to(self._device) for name, value in full_inputs.items()}
         with torch.inference_mode():
             outputs = self._model(**device_inputs, return_dict=True)

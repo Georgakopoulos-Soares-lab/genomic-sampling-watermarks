@@ -85,3 +85,22 @@ resolved by this rewrite.
   manuscript mappings.
 - The manuscript builds to a 9-page PDF with `latexmk` and reports no LaTeX warnings. The build
   script's preferred engine, `tectonic`, is still absent from this environment.
+
+---
+
+## Addendum, 2026-09-08 — the open-gates statement above was superseded the same day
+
+The section *Open gates carried forward* states that both execution gates "are now written into the
+manuscript's discussion." That was true when this note was written and stopped being true later the
+same day. `2026-09-03_manuscript_restructure.md` records that, at the authors' direction, the gates
+are **no longer printed in the manuscript** and are tracked in `../README.md` and the
+writing-boundaries section of `../context/evidence_map.md` instead.
+
+Read the restructure note as authoritative on this point. This note is left unedited above, per the
+rule against overwriting review history.
+
+A follow-on defect from that handover was found on 2026-09-08 and is now fixed: the substitute
+statement the removal depended on — that this is one implementation on one corpus whose confirmatory
+replication is outstanding — was never actually present in `main.tex`, so for a period the manuscript
+carried neither the gates nor the statement that replaced them. See
+`2026-09-08_sources_and_solidity_review.md`.

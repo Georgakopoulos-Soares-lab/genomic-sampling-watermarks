@@ -21,8 +21,10 @@ they are tracked here and in `context/evidence_map.md`:
    retained protocol document, as recorded in
    `../docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`.
 
-The completed GENERator-v2 1.2B replication is reviewed evidence but stays out of this manuscript
-until its scope is explicitly expanded. The planned dual-model rebuild is described in the
+GENERator-v2 1.2B is a co-primary model of the rebuilt paper, not a supplement to this one. Its
+completed version-one replication is reviewed evidence, and it stays out of *this* manuscript for the
+same reason Carbon's own version-one numbers cannot carry into the rebuild: both are legacy
+development history. The rebuild is described in the
 [dual-model rebuild plan](../docs/research/dual_model_synthid_paper_rebuild_plan.md) and will use a
 fresh `synthid.v2.*` evidence namespace.
 
@@ -33,6 +35,7 @@ every source artifact before plotting and writes each plotted value, with figure
 `figures/figure_values.json`. Regenerate with:
 
 ```bash
+# from the repository root
 python3 scripts/make_paper_figures.py
 ```
 

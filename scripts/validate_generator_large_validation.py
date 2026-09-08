@@ -329,9 +329,7 @@ def main() -> int:
                         "analytic null fit check has the wrong draws per prompt",
                     )
                     trial_probabilities = [
-                        binomial_standardized_exceedance_probability(
-                            int(total), resolved.threshold
-                        )
+                        binomial_standardized_exceedance_probability(int(total), resolved.threshold)
                         for total in prompt_rows["g_total"]
                     ]
                     prompt_probabilities.append(

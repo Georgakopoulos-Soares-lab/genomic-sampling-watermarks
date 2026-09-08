@@ -18,6 +18,15 @@ from genomic_watermarks.synthid import (
 
 PUBLIC_KEY = b"public-synthid-unit-test-key"
 
+# The accelerated path exists only when NumPy is installed. A dev-only install from the
+# frozen lock is a legitimate configuration, so tests that require the accelerated path
+# skip rather than fail there; the tests that compare it against the pure-Python
+# reference remove NumPy deliberately and run in either configuration.
+NUMPY_AVAILABLE = synthid._numpy_module is not None
+requires_numpy = unittest.skipUnless(
+    NUMPY_AVAILABLE, "NumPy is not installed, so there is no accelerated path to compare"
+)
+
 
 def brute_force_tournament(
     probabilities: tuple[float, ...],
@@ -219,10 +228,11 @@ class SynthIDAcceleratedPathTest(unittest.TestCase):
                     f"key_length={key_length} candidate={candidate}",
                 )
 
+    @requires_numpy
     def test_g_bit_matrix_matches_scalar_g_values(self) -> None:
         tournament = KeyedTournament(key=PUBLIC_KEY, domain="bits/matrix", depth=30)
         bits = tournament.candidate_g_bits(self.context, self.items)
-        self.assertIsNotNone(bits, "NumPy is required for this test")
+        self.assertIsNotNone(bits, "the accelerated path must return a bit matrix")
         self.assertEqual(bits.shape, (len(self.items), 30))
         for index, candidate in enumerate(self.items):
             self.assertEqual(
@@ -230,6 +240,7 @@ class SynthIDAcceleratedPathTest(unittest.TestCase):
                 tournament.g_values(self.context, candidate),
             )
 
+    @requires_numpy
     def test_vectorised_law_agrees_with_pure_python_reference(self) -> None:
         rng = random.Random(4242)
         for depth in (1, 7, 30):

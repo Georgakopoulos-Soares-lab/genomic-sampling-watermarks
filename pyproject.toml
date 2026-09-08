@@ -29,7 +29,7 @@ analysis = [
 dev = [
   "pytest>=8.3",
   "pyyaml>=6.0",
-  "ruff>=0.9",
+  "ruff==0.16.4",  # exact pin: gate Q4 requires a recorded formatter version
 ]
 
 [tool.hatch.build.targets.wheel]
