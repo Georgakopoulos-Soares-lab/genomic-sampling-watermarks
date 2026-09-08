@@ -1,3 +1,9 @@
+% Entries below the marked divider were added on 2026-09-08 and each was verified against a
+% primary source (publisher proceedings page, journal page, preprint landing page, OpenReview
+% API record, or official model card) on that date. Entries above the divider came with the
+% 2026-09-03 restructure; two of them were upgraded from the same verification pass and are
+% annotated where that happened.
+
 @article{dathathri2024scalable,
   title   = {Scalable Watermarking for Identifying Large Language Model Outputs},
   author  = {Dathathri, Sumanth and See, Abigail and Ghaisas, Sumedh and Huang, Po-Sen and
@@ -11,12 +17,17 @@
   doi     = {10.1038/s41586-024-08025-4}
 }
 
+% Author list completed from the bioRxiv landing page on 2026-09-08 (was "and others").
 @article{carbon2026,
   title   = {{Carbon}: decoding the language of life},
-  author  = {Ben Allal, Loubna and others},
+  author  = {Ben Allal, Loubna and Li, Qiuyi and Fiusco, Maurizio and Tunstall, Lewis and
+             Rasul, Kashif and Beeching, Edward and Aubakirova, Dana and Pati{\~n}o, Carlos and
+             Frere, Thibaud and Lozhkov, Anton and Channing, Georgia and Wolf, Thomas and
+             di Bernardo, Diego and von Werra, Leandro},
   journal = {bioRxiv},
   year    = {2026},
-  doi     = {10.64898/2026.05.22.727119}
+  doi     = {10.64898/2026.05.22.727119},
+  note    = {Posted 25 May 2026}
 }
 
 @inproceedings{kirchenbauer2023watermark,
@@ -26,6 +37,7 @@
   booktitle = {Proceedings of the 40th International Conference on Machine Learning (ICML)},
   series    = {PMLR},
   volume    = {202},
+  pages     = {17061--17084},
   year      = {2023},
   note      = {arXiv:2301.10226}
 }
@@ -36,6 +48,7 @@
   booktitle = {Proceedings of the 37th Annual Conference on Learning Theory (COLT)},
   series    = {PMLR},
   volume    = {247},
+  pages     = {1125--1139},
   year      = {2024},
   note      = {arXiv:2306.09194}
 }
@@ -44,7 +57,9 @@
   title   = {Robust Distortion-free Watermarks for Language Models},
   author  = {Kuditipudi, Rohith and Thickstun, John and Hashimoto, Tatsunori and Liang, Percy},
   journal = {Transactions on Machine Learning Research},
+  issn    = {2835-8856},
   year    = {2024},
+  url     = {https://openreview.net/forum?id=FpaCL1MO2C},
   note    = {arXiv:2307.15593}
 }
 
@@ -55,6 +70,7 @@
   booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
   series    = {PMLR},
   volume    = {235},
+  pages     = {58851--58880},
   year      = {2024},
   note      = {arXiv:2311.04378}
 }
@@ -126,9 +142,193 @@
   doi     = {10.1126/science.ado1671}
 }
 
-@article{zhang2025securing,
-  title   = {Securing the Language of Life: Inheritable Watermarks from {DNA} Language Models to Proteins},
-  author  = {Zhang, Zaixi and Jin, Ruofan and Cong, Le and Wang, Mengdi},
-  journal = {arXiv preprint arXiv:2509.18207},
+% NeurIPS 2025 acceptance confirmed on the arXiv landing page 2026-09-08 (was cited as a preprint).
+@inproceedings{zhang2025securing,
+  title     = {Securing the Language of Life: Inheritable Watermarks from {DNA} Language Models
+               to Proteins},
+  author    = {Zhang, Zaixi and Jin, Ruofan and Cong, Le and Wang, Mengdi},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  note      = {arXiv:2509.18207}
+}
+
+% =====================================================================================
+% Added 2026-09-08. Not yet cited from main.tex. Each fills a gap identified while
+% checking the manuscript's claims against primary sources; see
+% paper/reviews/2026-09-08_sources_and_solidity_review.md for which sentence each serves.
+% =====================================================================================
+
+% --- keyed sampling constructions the distortion-free lineage rests on
+@misc{aaronson2022watermark,
+  title        = {Watermarking {GPT} outputs},
+  author       = {Aaronson, Scott and Kirchner, Hendrik},
+  year         = {2022},
+  howpublished = {Talk slides},
+  note         = {\url{https://www.scottaaronson.com/talks/watermark.ppt}; the source usually
+                  credited for exponential-minimum, or Gumbel, keyed sampling}
+}
+
+@inproceedings{hu2024unbiased,
+  title     = {Unbiased Watermark for Large Language Models},
+  author    = {Hu, Zhengmian and Chen, Lichang and Wu, Xidong and Wu, Yihan and
+               Zhang, Hongyang and Huang, Heng},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024}
+}
+
+@inproceedings{wu2024dipmark,
+  title     = {A Resilient and Accessible Distribution-Preserving Watermark for
+               Large Language Models},
+  author    = {Wu, Yihan and Hu, Zhengmian and Guo, Junfeng and Zhang, Hongyang and Huang, Heng},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  series    = {PMLR},
+  volume    = {235},
+  year      = {2024}
+}
+
+% --- cryptographic notions, codes, and the indel channel
+@inproceedings{christ2024prc,
+  title     = {Pseudorandom Error-Correcting Codes},
+  author    = {Christ, Miranda and Gunn, Sam},
+  booktitle = {Advances in Cryptology --- CRYPTO 2024},
+  year      = {2024},
+  doi       = {10.1007/978-3-031-68391-6_10},
+  note      = {IACR ePrint 2024/235; robust to substitutions and deletions}
+}
+
+@article{fairoze2025publicly,
+  title   = {Publicly-Detectable Watermarking for Language Models},
+  author  = {Fairoze, Jaiden and Garg, Sanjam and Jha, Somesh and Mahloujifar, Saeed and
+             Mahmoody, Mohammad and Wang, Mingyuan},
+  journal = {IACR Communications in Cryptology},
+  volume  = {1},
+  number  = {4},
   year    = {2025}
+}
+
+@inproceedings{haeupler2017synchronization,
+  title     = {Synchronization Strings: Codes for Insertions and Deletions Approaching the
+               Singleton Bound},
+  author    = {Haeupler, Bernhard and Shahrasbi, Amirbehshad},
+  booktitle = {Proceedings of the 49th Annual ACM SIGACT Symposium on Theory of Computing (STOC)},
+  year      = {2017},
+  doi       = {10.1145/3055399.3055498}
+}
+
+% --- attacks: stealing, spoofing, key reuse, adaptive removal
+@inproceedings{jovanovic2024stealing,
+  title     = {Watermark Stealing in Large Language Models},
+  author    = {Jovanovi{\'c}, Nikola and Staab, Robin and Vechev, Martin},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  series    = {PMLR},
+  volume    = {235},
+  year      = {2024}
+}
+
+@misc{reynolds2025breaking,
+  title         = {Breaking Distortion-free Watermarks in Large Language Models},
+  author        = {Reynolds, Shayleen and He, Hengzhi and Ngo, Dung Daniel T. and
+                   Obitayo, Saheed and Dalmasso, Niccol{\`o} and Cheng, Guang and
+                   Potluru, Vamsi K. and Veloso, Manuela},
+  year          = {2025},
+  eprint        = {2502.18608},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CR}
+}
+
+@misc{wu2024collisions,
+  title         = {Distortion-free Watermarks are not Truly Distortion-free under Watermark
+                   Key Collisions},
+  author        = {Wu, Yihan and Chen, Ruibo and Hu, Zhengmian and Chen, Yanshuo and
+                   Guo, Junfeng and Zhang, Hongyang and Huang, Heng},
+  year          = {2024},
+  eprint        = {2406.02603},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
+}
+
+@inproceedings{gloaguen2025spoofing,
+  title     = {Discovering Spoofing Attempts on Language Model Watermarks},
+  author    = {Gloaguen, Thibaud and Jovanovi{\'c}, Nikola and Staab, Robin and Vechev, Martin},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning (ICML)},
+  series    = {PMLR},
+  volume    = {267},
+  pages     = {19562--19584},
+  year      = {2025}
+}
+
+@inproceedings{diaa2025adaptive,
+  title     = {Optimizing Adaptive Attacks against Watermarks for Language Models},
+  author    = {Diaa, Abdulrahman and Aremu, Toluwani and Lukas, Nils},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning (ICML)},
+  series    = {PMLR},
+  volume    = {267},
+  pages     = {13546--13569},
+  year      = {2025}
+}
+
+@article{sadasivan2025reliably,
+  title   = {Can {AI}-Generated Text be Reliably Detected? Stress Testing {AI} Text Detectors
+             Under Various Attacks},
+  author  = {Sadasivan, Vinu Sankar and Kumar, Aounon and Balasubramanian, Sriram and
+             Wang, Wenxiao and Feizi, Soheil},
+  journal = {Transactions on Machine Learning Research},
+  year    = {2025}
+}
+
+% --- biological-sequence watermarking
+@article{chen2025protein,
+  title   = {Enhancing privacy in biosecurity with watermarked protein design},
+  author  = {Chen, Yanshuo and Hu, Zhengmian and Wu, Yihan and Chen, Ruibo and Jin, Yongrui and
+             Zhan, Marcus and Xie, Chengjin and Chen, Wei and Huang, Heng},
+  journal = {Bioinformatics},
+  volume  = {41},
+  number  = {7},
+  pages   = {btaf141},
+  year    = {2025},
+  doi     = {10.1093/bioinformatics/btaf141}
+}
+
+@article{liss2012watermarks,
+  title   = {Embedding Permanent Watermarks in Synthetic Genes},
+  author  = {Liss, Michael and Daubert, Daniela and Brunner, Kathrin and Kliche, Kristina and
+             Hammes, Ulrich and Leiherer, Andreas and Wagner, Ralf},
+  journal = {PLoS ONE},
+  volume  = {7},
+  number  = {8},
+  pages   = {e42465},
+  year    = {2012},
+  doi     = {10.1371/journal.pone.0042465}
+}
+
+% --- released artefacts, pinned because the released code differs from the papers
+@misc{carbon500m,
+  title        = {{Carbon-500M} model card},
+  author       = {{HuggingFaceBio}},
+  year         = {2026},
+  howpublished = {\url{https://huggingface.co/HuggingFaceBio/Carbon-500M}},
+  note         = {Main revision \texttt{9796b752} is a standard causal LM; the \texttt{fns}
+                  revision \texttt{974bc8a5} adds base-pair-level generation and scoring}
+}
+
+@misc{generatorv2checkpoint,
+  title        = {{GENERator-v2-eukaryote-1.2b-base} model card and released modeling code},
+  author       = {{GenerTeam}},
+  year         = {2026},
+  howpublished = {\url{https://huggingface.co/GenerTeam/GENERator-v2-eukaryote-1.2b-base}},
+  note         = {Revision \texttt{c41b0018}; \texttt{modeling\_generator.py} defines
+                  \texttt{\_BPLogitsProcessor}, which samples each of six bases independently
+                  inside \texttt{generate()}}
+}
+
+@article{generatorv22026,
+  title   = {{GENERator-v2}: Reconciling Coarse Tokenization with Single-Nucleotide Resolution
+             in Genomic Language Modeling},
+  author  = {Li, Qiuyi and Zhan, Zhihao and Feng, Shikun and Zhu, Yiheng and He, Yuan and
+             Wu, Wei and Shi, Zhenghang and Wang, Shengjie and Hu, Zongyong and Yang, Zhao and
+             Li, Jiaoyang and Tang, Jian and Liu, Haiguang and Qin, Tao},
+  journal = {bioRxiv},
+  year    = {2026},
+  doi     = {10.64898/2026.01.27.702015},
+  note    = {Version 2}
 }
