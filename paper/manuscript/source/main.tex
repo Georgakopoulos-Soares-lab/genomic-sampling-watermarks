@@ -146,7 +146,11 @@ synthetic bacterial genome carried four watermark sequences inserted at position
 disturb the cell, encoding names and an email address, so that the synthetic chromosome could be
 told apart from its natural counterpart \cite{gibson2010creation}. Schemes such as DNA-Crypt made
 the same idea systematic, encoding an encrypted payload into synonymous codon positions and adding
-error correction so that the message survives a few mutations \cite{heider2007dna}.
+error correction so that the message survives a few mutations \cite{heider2007dna}. A mark of this
+kind can be made to survive biology as well as software: hiding text in the synonymous codon choices
+of an open reading frame leaves the encoded protein untouched and ties the message to the frame even
+when it is taken out of its context, and one such marked viral gene was recovered with the message
+intact after 136 days of replication \cite{liss2012watermarks}.
 
 These are insertions. Something extra is added to a sequence that was going to exist anyway, and the
 mark is a foreign object inside it. That is workable when a person controls the design and can pick
@@ -172,10 +176,26 @@ output is computationally indistinguishable from ordinary output \cite{christ202
 practical family reaches the same property by mapping a key-derived random sequence into a sample
 through inverse-transform or exponential-minimum sampling, and by aligning text against that
 sequence at detection time, which also buys robustness to editing and
-paraphrase \cite{kuditipudi2024robust}. There is a limit to how far robustness can be pushed: an
+paraphrase \cite{kuditipudi2024robust}; the exponential-minimum rule is usually credited to an
+earlier proposal of Aaronson and Kirchner \cite{aaronson2022watermark}. A second branch of the same
+family reaches the property by reweighting the model's distribution directly, rather than by mapping
+keyed randomness into a sample, and recovers the model's distribution once the average over keys is
+taken \cite{hu2024unbiased,wu2024dipmark}; the construction we use belongs to this branch. A third
+design gives up the secret instead: a publicly verifiable signature is embedded by rejection
+sampling, so anyone can run the detector, at the cost of needing enough entropy in the output to
+carry the signature \cite{fairoze2025publicly}. There is a limit to how far robustness can be pushed: an
 attacker who can paraphrase a text at quality has, in general, enough power to remove any watermark
 from it, so robustness claims are always claims about a stated edit budget rather than about
-attackers in general \cite{zhang2024sand}.
+attackers in general \cite{zhang2024sand}. That budget is not a formality. Paraphrasers tuned
+against a particular scheme evade every watermark they were tested on \cite{diaa2025adaptive},
+recursive paraphrasing lowers detection rates at modest cost in quality \cite{sadasivan2025reliably},
+and querying a watermarked model reveals enough of its rule to both forge and strip the mark
+\cite{jovanovic2024stealing}. Keys are attacked as well as marks: the keyed sequence of the
+distortion-free family has been recovered by adaptive prompting \cite{reynolds2025breaking}, and
+reusing one key across outputs biases the very distribution that family sets out to preserve
+\cite{wu2024collisions}. Some of this is answerable in turn---forged text can be told apart from
+genuinely marked text after the fact \cite{gloaguen2025spoofing}---and none of it is measured here,
+for reasons we state with the other limits.
 
 \subsection{SynthID}
 
@@ -201,7 +221,12 @@ Genomic models have moved quickly from representation learning to
 generation \cite{dallatorre2025nucleotide,nguyen2024evo}. Several of the recent generative models,
 including the one used here, do not read DNA one base at a time; they tokenise it into
 non-overlapping six-base words, which shortens sequences and lets the model reach long genomic
-contexts \cite{wu2025generator,carbon2026}. That choice is what makes the watermarking problem
+contexts \cite{wu2025generator,carbon2026,generatorv22026}. Recent models in this family also
+reconcile that coarse tokenisation with single-base resolution by marginalising the token
+distribution down to per-base probabilities, and at least one released checkpoint samples base by
+base from those marginals even though its paper describes the marginalisation as a training
+objective \cite{generatorv22026,generatorv2checkpoint}. What a model samples is therefore a property
+of the code that was run, not of the paper that describes it. That choice is what makes the watermarking problem
 different. In text, whitespace and subword vocabularies let a verifier recover the token sequence
 the model produced. In DNA the tokens are invisible: the six-base grouping depends entirely on where
 counting starts, so a verifier that does not know the boundary must consider all six groupings.
@@ -213,7 +238,10 @@ follows.
 Watermarking for DNA models is new. Recent work embeds marks in designed coding sequences through
 synonymous codon substitution and propagates them from DNA into the translated protein, which is a
 different and complementary goal: it aims at function-preserving marks in coding regions, evaluated
-by detection accuracy on the designed sequences \cite{zhang2025securing}. Our question is narrower
+by detection accuracy on the designed sequences \cite{zhang2025securing}. The same reweighting
+idea has been carried into protein design, where a keyed mark lets a synthesiser verify locally that
+a sequence came from an authorised user without reporting the sequence to a central
+database \cite{chen2025protein}. Our question is narrower
 and, we think, prior to it. We do not assume the generated region is coding, we do not assume it can
 be aligned to anything, and we do not assume the verifier knows where it starts. We take an existing
 watermark whose distributional behaviour is already understood, put it inside a genomic model, and
@@ -223,8 +251,9 @@ measure what a verifier can honestly conclude from a bare stretch of DNA and a k
 
 \subsection{Model and sampling}
 
-All generation used Carbon-500M \cite{carbon2026}, a decoder-only genomic language model that
-tokenises DNA into non-overlapping six-base words. At each step the model's logits were restricted
+All generation used Carbon-500M \cite{carbon2026} at one pinned revision of its released
+checkpoint \cite{carbon500m}, a decoder-only genomic language model that tokenises DNA into
+non-overlapping six-base words. At each step the model's logits were restricted
 to the 4{,}096 canonical DNA tokens and normalised once. Temperature was 1.0 and no top-$k$ or
 top-$p$ truncation was applied. The ordinary arm samples from that distribution directly and uses no
 key. The marked arm applies the tournament described below and then samples.
@@ -352,7 +381,7 @@ window probability is reported as a read-level result anywhere in this paper.
 
 \section{Results}
 
-\subsection{The sampler draws from the law it is supposed to draw from}
+\subsection{Sampler fidelity: the sampler draws from the law it calculates}
 
 Before asking what the mark costs, we checked that the sampler implements the construction. Thirteen
 of 256 marked states fell below the nominal 0.05 level against 12.8 expected by chance, and the
@@ -361,7 +390,7 @@ with a deliberately broken sampler were rejected. The implementation therefore b
 at the 256 states and 5{,}000 draws we tested, which is a statement about those states rather than a
 proof for every state the model can reach.
 
-\subsection{The mark leaves no measurable trace in the sequence}
+\subsection{Sequence quality: the mark leaves no measurable trace}
 
 For every prompt we generated two marked and two ordinary continuations of 3{,}072 bases under the
 same conditions, giving 512 matched pairs from 256 prompts.
@@ -392,7 +421,7 @@ the 14 survives correction for multiple testing.}
 \label{fig:quality}
 \end{figure}
 
-\subsection{The mark is found in every marked read}
+\subsection{Recall and false-positive rate: the mark is found in every marked read}
 
 We split the prompts once, before looking at any detection result: 64 prompts were used to choose
 between two ways of summarizing a window's score, and 192 were held out. The threshold was not
@@ -403,8 +432,11 @@ with the other draw's key---and in four conditions: unedited, and after exactly 
 inserted, or deleted base.
 
 The verifier found the mark in 384 of 384 marked reads in all four conditions
-(Table~\ref{tab:detection}). One of 384 ordinary reads passed, and no read checked with a wrong key
-passed, in any condition.
+(Table~\ref{tab:detection}), a recall of 100\%. One of 384 ordinary reads passed, a false-positive
+rate of 0.26\%, and no read checked with a wrong key passed, in any condition. We report recall and
+the two false-positive rates separately rather than a pooled accuracy, because how many marked,
+ordinary, and wrong-key reads a cohort contains is a design choice, and a pooled figure would move
+with that choice rather than with the verifier.
 
 The separation is not marginal. On unedited reads the weakest marked read reached window strength
 124.8, while the strongest ordinary read reached 6.60 and the strongest wrong-key read reached 5.69,
@@ -456,7 +488,7 @@ rate below 1\% without establishing one.}
 \label{fig:detection}
 \end{figure}
 
-\subsection{One edited base does not hide the mark}
+\subsection{Edit robustness: one edited base does not hide the mark}
 
 A substitution changes the mark bits only near itself, and the evidence barely moves: the median
 window strength falls from 790.6 on unedited reads to 774.7 (Figure~\ref{fig:edits}a). An insertion
@@ -514,34 +546,54 @@ survives an adversary who can rewrite a sequence at quality; robustness claims o
 always claims about a stated edit budget \cite{zhang2024sand}, and ours is one substitution,
 insertion, or deletion applied by a rule that never looks at the verifier.
 
-What the results do not cover deserves the same directness. The false-positive behaviour is
-consistent with the 1\% target but does not establish it: one ordinary prompt of 192 passed and no
-wrong-key prompt did, which is what a correctly calibrated test should produce, yet 192 independent
-prompts cannot resolve
-a rate near 1\%, since the interval around the ordinary result runs to 2.87\% and the wrong-key upper
-bound is 1.90\%; pinning the rate down needs more independent prompts, not a different verifier.
+Coding theory has treated this asymmetry as the harder case for a long time, because an insertion or
+a deletion destroys the index rather than one symbol, and the standard remedy is to restore the index
+explicitly: indexing a stream with a synchronisation string turns synchronisation errors back into
+ordinary substitution errors, so a conventional code can finish the job
+\cite{haeupler2017synchronization}. The cryptographic counterpart is a pseudorandom code, whose
+codewords stay indistinguishable from random while remaining decodable under substitutions and
+deletions, which is the property a watermark on an editable channel wants
+\cite{christ2024prc}. Our verifier buys the same synchronisation by brute force instead. That needs
+no change to the sampler and no redundancy in the sequence, and it pays for itself in the size of the
+search rather than in the construction.
+
+Complementary work marks designed coding sequences through synonymous substitution and carries the
+mark into the translated protein \cite{zhang2025securing}; that approach assumes a
+coding region and a design step, and it answers a question about function preservation that ours
+does not. The two are naturally combined, and the combination is a better description of what a
+provenance system for synthetic DNA would eventually need than either alone.
+
+\section{Limitations}
+
+The scope is one model, one watermark, and one verifier, and it is one implementation on one corpus
+whose confirmatory replication is still outstanding: everything above is a single execution of this
+sampler and this detector, and none of it has yet been reproduced independently of that run.
+Carbon-500M writes six-base tokens, and so do several other current genomic models
+\cite{wu2025generator}, which is what makes the grouping problem general rather than particular; but
+models that read DNA one base at a time face a different version of it, and models with much longer
+context would change the arithmetic of the search.
+
+The false-positive behaviour is consistent with the 1\% target but does not establish it: one
+ordinary prompt of 192 passed and no wrong-key prompt did, which is what a correctly calibrated test
+should produce, yet 192 independent prompts cannot resolve a rate near 1\%, since the interval
+around the ordinary result runs to 2.87\% and the wrong-key upper bound is 1.90\%; pinning the rate
+down needs more independent prompts, not a different verifier.
+
 Neither is any of this a security result, because the keys used here are published so that the study
 can be reproduced, and a published key cannot test whether a deployed secret key could be recovered
 from many observed outputs; key secrecy is an assumption we make rather than a finding, as is the
 standard modelling assumption that the mark bits behave like fair coin flips to anyone without the
-key. And none of it is a biological result: the model's score and the 14 sequence measures are
-statistics about letters, they do not measure whether the DNA folds, expresses, replicates, or is
-safe, and a watermark that leaves those statistics unchanged has not thereby been shown to leave
-function unchanged. That last gap is the one most worth closing, and closing it needs assays rather
-than more sequence statistics.
+key. In text, keys of the distortion-free family have been recovered by adaptive prompting
+\cite{reynolds2025breaking} and watermark rules reverse-engineered by querying the watermarked model
+\cite{jovanovic2024stealing}; whether either transfers to a 4{,}096-token genomic vocabulary is a
+question this study does not ask, and the attacker assumed throughout neither holds the key nor sees
+the verifier's score.
 
-Finally, the scope is one model, one watermark, and one verifier, and it is one implementation on one
-corpus whose confirmatory replication is still outstanding: everything above is a single execution of
-this sampler and this detector, and none of it has yet been reproduced independently of that run.
-Carbon-500M writes six-base
-tokens, and so do several other current genomic models \cite{wu2025generator}, which is what makes
-the grouping problem general rather than particular; but models that read DNA one base at a time
-face a different version of it, and models with much longer context would change the arithmetic of
-the search. Complementary work marks designed coding sequences through synonymous substitution and
-carries the mark into the translated protein \cite{zhang2025securing}; that approach assumes a
-coding region and a design step, and it answers a question about function preservation that ours
-does not. The two are naturally combined, and the combination is a better description of what a
-provenance system for synthetic DNA would eventually need than either alone.
+And none of it is a biological result: the model's score and the 14 sequence measures are statistics
+about letters, they do not measure whether the DNA folds, expresses, replicates, or is safe, and a
+watermark that leaves those statistics unchanged has not thereby been shown to leave function
+unchanged. That last gap is the one most worth closing, and closing it needs assays rather than more
+sequence statistics.
 
 \section{Conclusion}
 
