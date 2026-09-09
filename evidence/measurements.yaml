@@ -511,7 +511,7 @@ measurements:
       deliberately_incorrect_control_rejections: 8
       deliberately_incorrect_control_states: 8
     scope:
-      evidence_role: supplementary replication, excluded from Carbon-only manuscript
+      evidence_role: co-primary model evidence, admitted by docs/research/dual_model_v1_admission_amendment_2026_09_09.md
       model: GenerTeam/GENERator-v2-eukaryote-1.2b-base
       revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
       policy: G_tok direct canonical 4096-way DNA 6-mer categorical distribution
@@ -563,7 +563,7 @@ measurements:
       synthid_mean: 7.794653714168817
       ordinary_mean: 7.800290860701352
     scope: &generator_quality_scope
-      evidence_role: supplementary replication, excluded from Carbon-only manuscript
+      evidence_role: co-primary model evidence, admitted by docs/research/dual_model_v1_admission_amendment_2026_09_09.md
       model: GenerTeam/GENERator-v2-eukaryote-1.2b-base
       revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
       policy: G_tok direct canonical 4096-way DNA 6-mer categorical distribution
@@ -654,7 +654,7 @@ measurements:
     derivation: >-
       two orientations times the sum of N-L+1 over N=3456 and L in {384, 768, 1536, 3072}
     scope: &generator_position_scope
-      evidence_role: supplementary replication, excluded from Carbon-only manuscript
+      evidence_role: co-primary model evidence, admitted by docs/research/dual_model_v1_admission_amendment_2026_09_09.md
       model: GenerTeam/GENERator-v2-eukaryote-1.2b-base
       revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
       policy: G_tok direct canonical 4096-way DNA 6-mer categorical distribution
@@ -686,8 +686,9 @@ measurements:
         /scratch/10899/kimopro/generator_synthid_validation_hpc_v1/position_independent
         --workers 32 --bootstrap-replicates 20000 --analysis-seed 2718
     notes: >-
-      Every tested region contributes to one Bonferroni-corrected decision. The result is
-      supplementary and does not alter the Carbon-only manuscript.
+      Every tested region contributes to one Bonferroni-corrected decision. Admitted as
+      co-primary model evidence by the 2026-09-09 dual-model amendment; the version-one execution
+      caveats recorded for Carbon apply here as well.
 
   - id: synthid.generator.detector.clean.correct_key_rate
     status: V

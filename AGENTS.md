@@ -3,8 +3,11 @@
 ## Purpose
 
 This repository will produce one dual-model paper and evidence trail for the SynthID tournament
-watermark on Carbon-500M and GENERator-v2 1.2B. Existing version-one runs and the Carbon-only draft
-are legacy development material; the rebuilt paper uses only new `synthid.v2.*` evidence.
+watermark on Carbon-500M and GENERator-v2 1.2B. Both models' version-one measurements are admitted
+as paper evidence by `docs/research/dual_model_v1_admission_amendment_2026_09_09.md`, which
+supersedes the earlier `synthid.v2.*`-only rule for the current manuscript; the execution caveats
+that rule guarded against are disclosed in the manuscript's Limitations section. New runs still
+require the M5 Pro path and a new evidence identity.
 
 ## Read order
 

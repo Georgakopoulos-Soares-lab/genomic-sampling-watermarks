@@ -21,12 +21,15 @@ they are tracked here and in `context/evidence_map.md`:
    retained protocol document, as recorded in
    `../docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`.
 
-GENERator-v2 1.2B is a co-primary model of the rebuilt paper, not a supplement to this one. Its
-completed version-one replication is reviewed evidence, and it stays out of *this* manuscript for the
-same reason Carbon's own version-one numbers cannot carry into the rebuild: both are legacy
-development history. The rebuild is described in the
-[dual-model rebuild plan](../docs/research/dual_model_synthid_paper_rebuild_plan.md) and will use a
-fresh `synthid.v2.*` evidence namespace.
+GENERator-v2 1.2B is a co-primary model of this manuscript. Its completed version-one replication
+was admitted alongside Carbon's by
+[the dual-model admission amendment](../docs/research/dual_model_v1_admission_amendment_2026_09_09.md),
+and both gates above are now disclosed in the manuscript's Limitations section rather than held only
+here. The two runs are unequal in coverage: window strengths, per-measure effect sizes, and winning
+window lengths exist for Carbon only, the aligned-detector null fit for GENERator only, and all four
+figures are Carbon. Confirmatory replication on the documented M5 Pro path, with a fresh cohort and a
+new evidence namespace, is still the intended next step and is described in the
+[dual-model rebuild plan](../docs/research/dual_model_synthid_paper_rebuild_plan.md).
 
 ## Figures
 

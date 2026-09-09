@@ -12,10 +12,11 @@ The manuscript is downstream of code and evidence. Read, in order:
 
 - Rebuild this as a dual-model Carbon-500M and GENERator-v2 1.2B SynthID paper. Do not reintroduce
   removed watermark methods.
-- The current Carbon-only manuscript is legacy development material. Do not reuse its numbers in
-  the rebuilt paper.
-- New manuscript results must use the `synthid.v2.*` evidence namespace and the new dual-model
-  evidence map.
+- The manuscript is dual-model. Both models' version-one numbers are admitted by
+  `../docs/research/dual_model_v1_admission_amendment_2026_09_09.md`; a claim resting on one model
+  must name that model.
+- Manuscript numbers resolve to the `synthid.carbon.*` and `synthid.generator.*` entries listed in
+  `context/evidence_map.md`. Any future run gets a new namespace and a new map.
 - Every empirical number must resolve to `../evidence/measurements.yaml`.
 - “Distribution-preserving” must state that the SynthID identity is an expectation over fresh keyed
   functions and that fixed-key sampling follows its calculated reweighted law.

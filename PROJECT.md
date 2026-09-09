@@ -23,10 +23,12 @@ model probabilities, random generation seed, strand, 6-mer phase, or generation 
 
 ## Evidence status
 
-Existing version-one Carbon and GENERator measurements are retained only as development history.
-They may inform runtime and blinded power planning, but they are not confirmatory evidence for the
-rebuilt paper. New paper-bound evidence requires a fresh prompt cohort, a new protocol and evidence
-identity, and complete M5 Pro runs for both models. The active design and gates are in
+Version-one Carbon and GENERator measurements are admitted as evidence for the current dual-model
+manuscript by `docs/research/dual_model_v1_admission_amendment_2026_09_09.md`, with their execution
+caveats disclosed in the paper rather than removed from it: generation on GPU hardware, detection on
+x86-64 CPUs, one execution per model, and the Carbon protocol-hash discrepancy. They are executed
+results, not settled ones. Confirmatory M5 Pro replication with a fresh cohort and a new evidence
+identity remains the intended next step; its design and gates are in
 `docs/research/dual_model_synthid_paper_rebuild_plan.md`.
 
 ## Claim boundary
