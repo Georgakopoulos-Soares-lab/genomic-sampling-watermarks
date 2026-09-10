@@ -70,3 +70,49 @@ These are author decisions or missing runs, not text problems.
    a plotting change.
 7. **The false-positive rate remains unresolved at 192 prompts**, in both models, with the interval
    reaching 2.87%. Tightening it needs more independent prompts.
+
+## Addendum — 2026-09-10 — two-column layout
+
+Blocker 5 above ("no venue template") is partly closed. The manuscript was single-column 11pt on
+letter paper, which matched no other paper in this lab. The three sibling projects all use the same
+house style, so the manuscript now adopts it:
+
+| Project | Class |
+|---|---|
+| `beaconing` | `\documentclass[10pt,twocolumn]{article}` |
+| `fhe-dna-gpt` | `\documentclass[10pt,twocolumn]{article}` |
+| `prs` (arXiv upload) | `\documentclass[10pt,twocolumn]{article}` |
+
+Applied: `10pt,twocolumn`; the shared geometry
+`[a4paper, top=2.0cm, bottom=2.4cm, left=1.5cm, right=1.5cm, columnsep=0.65cm]`; `titlesec` section
+formatting; `captionsetup{font=small, labelfont=bf}`; a `fancyhdr` page-number footer; and
+`hyperref` with the lab's `blue!60!black` link colours plus PDF metadata. Front matter is a
+`\twocolumn[...]` block so the title, authors, affiliations, and abstract span the full page width
+and the body flows into two columns on page 1.
+
+All six floats became `figure*`/`table*`. In two-column mode an unstarred float is column-width,
+which would have rendered the four two-panel figures and the two wide tables unreadably narrow.
+Float parameters were loosened (`dbltopfraction` 0.9, `dblfloatpagefraction` 0.7, `textfraction`
+0.07, `dbltopnumber` 2) because full-width floats can only float forward to a page top; that pulled
+Table 2 and Figures 3 and 4 one to two pages earlier, and no page is a float dump.
+
+Three fixes the conversion forced:
+
+1. The $P_{\mathrm{read}}$ equation overflowed a column, since it carried two statements joined by
+   `\qquad`. It is now an `aligned` block over two lines. Same content.
+2. `\titleformat` requested bold small caps, which Latin Modern does not provide in T1; LaTeX was
+   silently substituting bold roman. The `\scshape` was dropped, so the requested shape now matches
+   the rendered one. The sibling papers have this same latent warning.
+3. `cmap`, `inputenc`, and the `\pdfgentounicode` block were copied from the house preamble and are
+   inert under the XeTeX engine `tectonic` runs, each emitting a warning. Removed.
+
+Result: 11 pages, down from 16, A4, zero undefined citations, zero undefined references, zero
+overfull boxes. Pages 1, 2, 8, and 11 were rendered and inspected; figures are legible at full
+width and the two-column bibliography wraps its URLs correctly.
+
+Verified unchanged by the conversion: all 35 spot-checked empirical values still present, the seven
+section headings, all six floats, and all 31 bibliography entries still cited.
+
+Not adopted: the lab's `natbib`/`\citep` convention. This manuscript uses `\cite` with the `plain`
+style, and switching would rewrite every citation call and the whole reference format. It is a
+separate decision, best made with the venue.

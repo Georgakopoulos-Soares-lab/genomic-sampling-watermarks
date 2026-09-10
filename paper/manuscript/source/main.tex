@@ -1,36 +1,74 @@
-\documentclass[11pt]{article}
+\documentclass[10pt,twocolumn]{article}
 
-\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, top=2.0cm, bottom=2.4cm, left=1.5cm, right=1.5cm, columnsep=0.65cm]{geometry}
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{microtype}
-\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
 
 \graphicspath{{../../figures/}}
 
-\title{\vspace{-1.5em}Finding a watermark in model-written DNA without knowing where it starts}
-
-\author{%
-  Kimon Antonios Provatas\textsuperscript{1,*}\hspace{0.9em}
-  Christos Galanopoulos\textsuperscript{1,*}\hspace{0.9em}
-  Ilias Georgakopoulos-Soares\textsuperscript{1,\dag}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+  pdftitle={Finding a watermark in model-written DNA without knowing where it starts},
+  pdfauthor={Kimon Antonios Provatas; Christos Galanopoulos; Ilias Georgakopoulos-Soares},
+  pdfsubject={Position-independent detection of the SynthID tournament watermark in two genomic language models},
+  pdfkeywords={genomic language models; watermarking; SynthID; provenance; position-independent detection}
 }
-\date{}
+\pdfstringdefDisableCommands{\def\texttt#1{#1}}
+
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\captionsetup{font=small, labelfont=bf}
+\raggedbottom
+\setlength{\emergencystretch}{2em}
+
+%% full-width floats in two columns can only float forward to a page top;
+%% loosen the defaults so they land near their reference instead of drifting
+\setcounter{topnumber}{2}
+\setcounter{dbltopnumber}{2}
+\renewcommand{\dbltopfraction}{0.9}
+\renewcommand{\dblfloatpagefraction}{0.7}
+\renewcommand{\textfraction}{0.07}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
 
 \begin{document}
-\maketitle
-\vspace{-2.2em}
+
+\twocolumn[{%
 \begin{center}
-\footnotesize
+{\LARGE\bfseries Finding a watermark in model-written DNA\\[3pt]
+without knowing where it starts\par}
+\vspace{1.0em}
+{\large
+Kimon Antonios Provatas\textsuperscript{1,*}\hspace{0.9em}
+Christos Galanopoulos\textsuperscript{1,*}\hspace{0.9em}
+Ilias Georgakopoulos-Soares\textsuperscript{1,\dag}\par}
+\vspace{0.6em}
+{\footnotesize
 \textsuperscript{1}The University of Texas at Austin, Austin, Texas, USA\\[2pt]
 \textsuperscript{*}These authors contributed equally.\quad
-\textsuperscript{\dag}Correspondence to I.G.-S.
-\end{center}
-\vspace{1em}
-
-\begin{abstract}
-\noindent
+\textsuperscript{\dag}Correspondence to I.G.-S.\par}
+\vspace{1.4em}
+\begin{minipage}{0.86\textwidth}
+\small
+\textbf{Abstract.}
 Genomic language models now write DNA that reads like the real thing, and a sequence carries no
 record of where it came from. A watermark added while the model writes would let the holder of a
 secret key recognise the model's output later, but DNA makes this harder than text. A DNA sequence
@@ -57,7 +95,12 @@ show that the two models are equivalent. These are statistical results about pro
 speak to biological function, and they do not measure how hard a deployed key would be to recover.
 They also rest on one execution per model, on hardware other than the machine named for their
 replication, and that replication is outstanding.
-\end{abstract}
+\end{minipage}
+\vspace{1.2em}
+\end{center}
+}]
+
+\thispagestyle{fancy}
 
 \section{Introduction}
 
@@ -110,7 +153,7 @@ functional, viable, or safe. Nothing here shows that a deployed secret key resis
 the argument readable, Table~\ref{tab:vocabulary} fixes one word and one symbol for each idea, and
 the rest of the paper uses only those.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Words and symbols used in this paper. Each idea has one name; no synonyms appear elsewhere
 in the text, the tables, or the figures.}
@@ -150,7 +193,7 @@ ordinary          & sampled straight from $p$, with no key \\
 draw              & one of the two continuations generated per prompt in each model \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \section{Background}
 
@@ -340,9 +383,10 @@ P_{\mathrm{win}} \;=\; \Pr\bigl[\mathrm{Binomial}(n, \tfrac{1}{2}) \geq S\bigr].
 The verifier scores $M = 2\sum_L (N - L + 1)$ windows, which is 16{,}136 for a 3{,}456-base read,
 and reports one answer for the whole read:
 \begin{equation}
-P_{\mathrm{read}} \;=\; \min\bigl(1,\; M \cdot \min_{\text{windows}} P_{\mathrm{win}}\bigr),
-\qquad
-\text{mark found} \iff P_{\mathrm{read}} \leq \alpha .
+\begin{aligned}
+P_{\mathrm{read}} &\;=\; \min\bigl(1,\; M \cdot \min_{\text{windows}} P_{\mathrm{win}}\bigr),\\
+\text{mark found} &\iff P_{\mathrm{read}} \leq \alpha .
+\end{aligned}
 \end{equation}
 Multiplying by $M$ pays for every window that was tried, including overlapping ones. Nothing about
 the threshold was fitted to these reads: $\alpha = 0.01$ is set in advance and the correction
@@ -354,7 +398,7 @@ length is refused rather than silently rescored. Reverse-complement coordinates 
 the supplied read, and log-probabilities are retained throughout so that strong evidence is not lost
 to floating-point underflow.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig1_method}
 \caption{\textbf{Writing the mark and reading it back.}
@@ -367,7 +411,7 @@ lengths at every starting base on both strands---16{,}136 windows for a 3{,}456-
 returns one answer that has already paid for the whole search. Panel \textbf{a} illustrates
 Equation~\ref{eq:layer} and is not a measurement.}
 \label{fig:method}
-\end{figure}
+\end{figure*}
 
 \subsection{Prompts and generation}
 
@@ -457,7 +501,7 @@ the interval on each model score still allows a change of roughly $\pm 0.05$ nat
 these are model scores and sequence statistics rather than measures of biological function. The two
 model scores are computed under different models and are not comparable to each other.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig2_quality}
 \caption{\textbf{The mark leaves no measurable trace, in Carbon.} All panels are Carbon; the
@@ -469,7 +513,7 @@ probable. The bar is the 95\% interval from a bootstrap that resamples prompts.
 deviations, with the same interval rescaled to those units. Every interval crosses zero and none of
 the 14 survives correction for multiple testing.}
 \label{fig:quality}
-\end{figure}
+\end{figure*}
 
 \subsection{Recall and false-positive rate: the mark is found in every marked read}
 
@@ -518,7 +562,7 @@ prompts producing a positive was 2, 6, 6 and 4 at the four window lengths, again
 expected at each, with exact two-sided $P$-values of 0.25, 0.87, 0.76 and 0.84. The analytic null
 therefore fits ordinary output at every length we checked. This check was run for GENERator only.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering
 \caption{Reads in which the verifier found the mark, for each model, on 192 held-out prompts with
 two draws each. Each edit is exactly one base. The last two rows of each block count prompts rather
@@ -546,9 +590,9 @@ Prompts with a positive draw & 192/192 & 0/192 & 1/192 \\
 Exact 95\% interval  & 98.10--100\% & 0--1.903\% & 0.013--2.868\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig3_detection}
 \caption{\textbf{Finding the mark without being told where the DNA starts, in Carbon.} All panels
@@ -563,7 +607,7 @@ intervals, split across a break in the axis. Results are the same in all four ed
 control intervals reach above the 1\% target, so these data are consistent with a false-positive
 rate below 1\% without establishing one.}
 \label{fig:detection}
-\end{figure}
+\end{figure*}
 
 \subsection{Edit robustness: one edited base does not hide the mark}
 
@@ -588,7 +632,7 @@ conditions, and its one wrong-key control positive disappeared after the deletio
 the search repairs a frame shift rests on Carbon, and the claim that detection survives one edit
 rests on both.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig4_edits}
 \caption{\textbf{What one edited base does, in Carbon.} All panels are Carbon.
@@ -601,7 +645,7 @@ read counts out of 384. Unedited and substituted reads are almost always best ex
 3{,}072-base window; after an insertion or deletion, a shorter window that starts past the edit
 often wins.}
 \label{fig:edits}
-\end{figure}
+\end{figure*}
 
 \section{Discussion}
 
