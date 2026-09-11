@@ -95,12 +95,12 @@ artifact before plotting and writes every plotted summary value, with figure dig
 |---|---|---|
 | 1a | one keyed layer applied to an illustrative distribution | none; illustration of the manuscript's layer equation, carries no measurement |
 | 1b | read layout and the search the verifier performs | `synthid.detector.clean.regions_searched` |
-| 2a | paired marked-minus-ordinary model score with its interval | `synthid.carbon.quality.nll_difference` |
-| 2b | all 14 declared summaries as standardized effects with intervals | `synthid.carbon.quality.metric_family_effects`, `synthid.carbon.quality.corrected_rejections` |
-| 3a | window strength per unedited read, by family, against the threshold | `synthid.detector.strength_separation`, `synthid.detector.clean.regions_searched` |
-| 3b | prompt-level detection rate with exact intervals, by family and condition | the twelve `synthid.detector.*_rate` entries |
-| 4a | window strength per marked read, by read condition | `synthid.detector.strength_separation` |
-| 4b | length of the strongest window, by read condition | `synthid.detector.strongest_window_length` |
+| 2a,c | paired marked-minus-ordinary model score with its interval | `synthid.carbon.quality.nll_difference`, `synthid.generator.quality.nll_difference` |
+| 2b,d | all 14 declared summaries as standardized effects with intervals | `synthid.carbon.quality.metric_family_effects`, `synthid.generator.quality.metric_family_effects`, and both corrected-rejection entries |
+| 3a,c | window strength per unedited read, by family, against the threshold | Carbon and GENERator `detector.strength_separation` entries and their clean-region counts |
+| 3b,d | prompt-level detection rate with exact intervals, by family and condition | the twelve Carbon and twelve GENERator `detector.*_rate` entries |
+| 4a,c | window strength per marked read, by read condition | Carbon and GENERator `detector.strength_separation` entries |
+| 4b,d | length of the strongest window, by read condition | Carbon and GENERator `detector.strongest_window_length` entries |
 
 Figure 3b plots the prompt-level rate. Its point estimates are the ledger fields
 `prompts_with_both_draws_detected` and `prompts_with_at_least_one_positive_draw` over
@@ -134,9 +134,9 @@ the operational false-positive rate is proven below 1%, that the two models are 
 respect, or that biological function, viability, safety, sequence authenticity, or resistance to key
 recovery was shown.
 
-Claims that rest on one model only must name that model. Window-strength separation, the largest
-standardized effect among the 14 measures, the edit-by-edit strengths, and the winning window length
-are Carbon. The aligned-detector ordinary null fit is GENERator. All four figures are Carbon.
+Claims that rest on one model only must name that model. The aligned-detector ordinary null fit is
+specific to GENERator. Figures 2--4 display Carbon in panels \textbf{a,b} and GENERator in panels
+  extbf{c,d}; Figure 1 is illustrative except for its reported search count.
 
 Two execution gates remain open and are now disclosed in the manuscript's Limitations section rather
 than tracked only here, because the numbers they qualify are paper-bound under

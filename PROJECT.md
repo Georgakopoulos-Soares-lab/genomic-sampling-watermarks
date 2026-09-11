@@ -4,8 +4,9 @@
 
 Can the SynthID tournament watermark be added while two genomic language models generate DNA,
 without exceeding a pre-specified model-quality loss bound, and can a verifier find the watermark
-when it does not know where the generated part begins? The rebuilt paper will answer this jointly
-for Carbon-500M and GENERator-v2 1.2B under one new confirmatory study identity.
+when it does not know where the generated part begins? The current manuscript addresses this jointly
+for Carbon-500M and GENERator-v2 1.2B with admitted version-one evidence; the planned confirmatory
+study will use a new evidence identity.
 
 ## Retained scope
 
@@ -39,7 +40,7 @@ secret-key security. The operational attacker is assumed not to know the key and
 query the detector score. Multiple-edit and detector-guided attack experiments are outside this
 study.
 
-The previous detector runs used Linux CPU and the previous generations used CUDA. The new paper
-does not inherit those results. Every paper-bound stage for both models must run through the
-documented Apple M5 Pro path unless the hardware contract is explicitly revised before the new
-protocol is frozen.
+The previous detector runs used Linux CPU and the previous generations used CUDA. The 2026-09-09
+admission amendment permits those version-one results in the current manuscript, with the stated
+caveats. Every new paper-bound stage for both models must run through the documented Apple M5 Pro
+path unless the hardware contract is explicitly revised before a new protocol is frozen.
