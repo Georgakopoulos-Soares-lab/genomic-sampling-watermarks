@@ -140,9 +140,13 @@ are Carbon. The aligned-detector ordinary null fit is GENERator. All four figure
 Two execution gates remain open and are now disclosed in the manuscript's Limitations section rather
 than tracked only here, because the numbers they qualify are paper-bound under
 `docs/research/dual_model_v1_admission_amendment_2026_09_09.md`: generation ran on GPU hardware and
-detection on x86-64 CPUs rather than the documented Apple M5 Pro, and the protocol file recorded
+detection on x86-64 CPUs without independent replication across platforms, and the protocol file recorded
 inside the Carbon detection result does not match the bytes of the retained protocol document (see
 `docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`). Neither is resolved. The
 manuscript also states the scope limit that follows: one execution per model on one shared corpus,
 whose confirmatory replication is outstanding. The M5 Pro replication remains the intended next step,
 and the gates must be closed before the result is described as settled rather than as executed once.
+
+The 2026-09-11 editorial revision removes references to pinned model revisions and a prescribed
+replication machine from the manuscript at the user's request. Exact revisions and execution
+environments remain in the evidence trail; the hardware requirements for future runs are unchanged.
