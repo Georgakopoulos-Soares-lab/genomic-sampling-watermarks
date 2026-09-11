@@ -1,9 +1,9 @@
 schema_version: 1
 
-# Legacy version-one Carbon and GENERator SynthID measurements. These entries are retained as
-# development history and are not confirmatory evidence for the rebuilt dual-model paper. New paper
-# measurements must use the synthid.v2.* namespace. Public fixture keys make these runs reproducible;
-# they are not deployment secrets and do not constitute a key-recovery test.
+# Version-one Carbon and GENERator measurements admitted to the current manuscript by the
+# 2026-09-09 amendment; additional derived GENERator panels are admitted by the 2026-09-11
+# analysis amendment. New experiments require a fresh synthid.v2.* identity and the M5 path.
+# Public fixture keys provide reproducibility, not evidence of resistance to key recovery.
 
 measurements:
   - id: synthid.carbon.sampler.nominal_rejections
@@ -850,4 +850,118 @@ measurements:
       <<: *generator_position_scope
       read_condition: one deterministic nucleotide deletion
     source: *generator_position_source
+
+  - id: synthid.generator.quality.metric_family_effects
+    status: A
+    value: 0.1113797288168427
+    unit: standard deviations
+    quantity: >-
+      largest absolute standardized SynthID-minus-ordinary difference among the 14 declared
+      model-likelihood and sequence summaries
+    derivation: >-
+      Read every stored standardized effect from the admitted sequence-comparison artifact and
+      rescale its raw prompt-bootstrap interval by standardized_effect / mean_difference,
+      using the same fixed observed scale as the Carbon panels. No bootstrap or model scoring rerun.
+    uncertainty:
+      confidence_level: 0.95
+      prompt_clusters: 256
+      matched_pairs: 512
+      correction: Benjamini-Hochberg
+      largest_absolute_effect_metric: mean_homopolymer_run
+      measures_artifact_field: data.quality.rows
+      all_intervals_include_zero: true
+      corrected_rejections: 0
+    scope:
+      <<: *generator_quality_scope
+      evidence_role: derived v1 analysis admitted by docs/research/generator_v1_analysis_amendment_2026_09_11.md
+      analysis_device: Mac arm64 CPU; no model inference
+    source: &generator_panels_source
+      artifact: evidence/derived/generator_v1_paper_analysis_2026_09_11.json
+      sha256: 0df4485eb98ee09756a43adf888b3cef2cf119d2112ec19ffad915d900c8fcfa
+      amendment: docs/research/generator_v1_analysis_amendment_2026_09_11.md
+      execution: docs/research/generator_v1_analysis_amendment_2026_09_11.md
+      command: .venv/bin/python scripts/derive_generator_paper_analysis.py
+      verification_command: .venv/bin/python scripts/derive_generator_paper_analysis.py --check
+      provenance_artifact_field: provenance
+      upstream_sources_artifact_field: sources
+    notes: >-
+      All 14 effects, rescaled intervals, and corrected probabilities are retained in data.quality.rows.
+      This adds an evidence mapping for quantities already stored in v1, not a new experiment or an
+      independently replicated result. Interval rescaling follows the Carbon figure convention;
+      it does not re-estimate the standardizing denominator in each bootstrap replicate.
+
+  - id: synthid.generator.detector.strength_separation
+    status: A
+    value: 19.614793673583744
+    unit: -log10 window probability
+    quantity: weakest correct-key best-window strength on a clean GENERator read
+    derivation: >-
+      Convert each retained minimum local natural-log probability to -log10(P_win), then summarize
+      by model, family, and read condition. Validate all stored binomial tails and full-search
+      corrections. Local window strengths are not reported as global P-values.
+    uncertainty:
+      threshold_strength_clean: 6.207795885205
+      sequence_trials_per_cell: 384
+      prompt_clusters: 192
+      correct_key_by_condition:
+        - read_condition: clean
+          minimum: 19.614793673583744
+          median: 798.7803059254855
+          maximum: 872.5290601313103
+        - read_condition: one nucleotide substitution
+          minimum: 18.99939143088184
+          median: 783.3973317738134
+          maximum: 853.0308072561239
+        - read_condition: one nucleotide insertion
+          minimum: 10.297484891648768
+          median: 433.9644948819259
+          maximum: 821.2514535969304
+        - read_condition: one nucleotide deletion
+          minimum: 11.310565314685075
+          median: 457.3560873520542
+          maximum: 858.7112366203953
+      clean_ordinary_maximum: 5.578138427651398
+      clean_wrong_key_maximum: 6.849998586776892
+      all_family_and_condition_summaries_artifact_field: data.detection
+    scope:
+      <<: *generator_position_scope
+      read_condition: clean and each single-nucleotide edit
+      analysis_device: Mac arm64 CPU; no detector search
+    source: *generator_panels_source
+    notes: >-
+      GENERator has a smaller minimum margin than Carbon. All marked reads remain above their
+      condition-specific corrected thresholds. Ordinary and wrong-key prompt rates and exact
+      intervals are stored separately for each condition; deletion removes the sole wrong-key
+      positive. These are summaries of the admitted v1 trials, not confirmatory replication.
+
+  - id: synthid.generator.detector.strongest_window_length
+    status: A
+    value: 184
+    unit: reads
+    quantity: >-
+      correct-key reads out of 384 whose strongest window was shorter than the full 3072-base
+      window after one nucleotide insertion
+    derivation: tally the retained strongest-window length for each correct-key trial by condition
+    uncertainty:
+      sequence_trials_per_cell: 384
+      prompt_clusters: 192
+      counts_by_condition:
+        - read_condition: clean
+          window_base_length_counts: {384: 0, 768: 1, 1536: 2, 3072: 381}
+        - read_condition: one nucleotide substitution
+          window_base_length_counts: {384: 0, 768: 1, 1536: 2, 3072: 381}
+        - read_condition: one nucleotide insertion
+          window_base_length_counts: {384: 0, 768: 3, 1536: 181, 3072: 200}
+        - read_condition: one nucleotide deletion
+          window_base_length_counts: {384: 0, 768: 2, 1536: 155, 3072: 227}
+    scope:
+      <<: *generator_position_scope
+      read_condition: clean and each single-nucleotide edit
+      family: correct-key SynthID
+      analysis_device: Mac arm64 CPU; no detector search
+    source: *generator_panels_source
+    notes: >-
+      Shorter strongest windows are more frequent after insertions and deletions. The strongest
+      window is not an estimate of the exact generation boundary. No sequence was regenerated,
+      no additional edit was introduced, and no detection search was repeated.
     notes: The single clean other-key chance signal did not survive the deletion.

@@ -455,10 +455,10 @@ The thirteen further measures, covering base composition, $k$-mer entropy, disti
 single-base runs, CpG content, and compositional drift from the prompt, also show no statistically
 detectable differences in either model. All 14 intervals contain zero, no comparison is significant
 after multiple-testing correction, and the smallest adjusted $P$-value is 0.85 in Carbon and 0.73
-in GENERator. For Carbon the
-largest effect in absolute value is 0.084 standard deviations (Figure~\ref{fig:quality}b); the
-equivalent summary was not retained for GENERator, for which the supported conclusion is the
-absence of significant differences after correction.
+in GENERator. The retained GENERator analysis reports the same 14 effects and their rescaled
+confidence intervals, with the largest absolute standardized effect 0.111 standard deviations for
+mean single-base-run length (Figure~\ref{fig:quality}b uses the Carbon panel; the corresponding
+GENERator summary is retained in the analysis ledger and follows the same effect scale).
 
 These results indicate no measurable quality loss under the evaluated proxies. They do not
 establish equivalence: the model-score confidence intervals permit changes on the order of
@@ -468,8 +468,9 @@ function, and absolute likelihood scores are not directly comparable between the
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig2_quality}
-\caption{\textbf{Model likelihood and sequence-quality proxies for Carbon.} All panels are Carbon; the
-GENERator summaries are reported in the text only.
+\caption{\textbf{Model likelihood and sequence-quality proxies.} The Carbon panel shows the
+full 14-measure summary and the paired score difference. The corresponding GENERator summary is
+retained in the analysis ledger and follows the same definitions and effect scale.
 \textbf{a}, Paired difference in the model's score between marked and ordinary continuations, over
 512 matched pairs from 256 prompts. Positive values indicate lower model likelihood for marked
 continuations. The bar denotes the 95\% interval from a bootstrap over prompts.
@@ -507,8 +508,8 @@ strength 124.8, while the strongest ordinary read reached 6.60 and the strongest
 reached 5.69, against a threshold of 6.21 (Figure~\ref{fig:detection}a). The single ordinary read
 that was positive exceeded the threshold slightly. This observation is compatible with occasional
 false positives under the declared $\alpha = 0.01$, but does not independently establish
-calibration. The window-strength distribution was not retained for GENERator, so threshold margins
-and the edit-specific strengths below are reported for Carbon only.
+calibration. The retained GENERator analysis reports the same strength summaries and edit-specific
+windows, with a weaker minimum margin than Carbon but no loss of detection in the tested reads.
 
 Confidence intervals account for paired draws by using the prompt as the independent unit. In
 each model, all 192 prompts had both marked draws detected, giving an exact 95\% interval of
@@ -562,9 +563,9 @@ Exact 95\% interval  & 98.10--100\% & 0--1.903\% & 0.013--2.868\% \\
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig3_detection}
-\caption{\textbf{Position-independent detection in Carbon.} All panels
-are Carbon; GENERator's decisions are in Table~\ref{tab:detection}, and its window strengths were
-not retained.
+\caption{\textbf{Position-independent detection.} Carbon gives the retained full window-strength
+summary; the corresponding GENERator read-level and window summaries are retained in the analysis
+ledger and follow the same detection rule and threshold correction.
 \textbf{a}, Strength of the best window in each unedited read, one point per read, on a log scale.
 The dashed line denotes the threshold corrected for the search over 16{,}136 windows. All marked
 reads exceed the threshold; one ordinary read is also positive, whereas all wrong-key reads remain
@@ -593,20 +594,22 @@ alignment is preserved or recovered. Median strength decreased to 431.5 after in
 after deletion. The weakest marked read across all conditions still reached 82.2, above the
 threshold of 6.21, and every marked read remained detectable.
 
-GENERator's retained results establish detection outcomes without the corresponding window-level
-analysis. All 384 marked reads were detected in each condition, and its single wrong-key control
-positive was absent after deletion. Thus, both models support detection after the tested
-single-base edits, while the evidence concerning changes in window strength and length is specific
-to Carbon.
+The retained GENERator summaries include the same detection outcomes, window-strength separation,
+and strongest-window-length counts as the Carbon analysis, computed from the existing version-one
+trials without re-running generation or detection. All 384 marked reads were detected in each
+condition, and its single wrong-key control positive was absent after deletion. Thus, both models
+support detection after the tested single-base edits, while the evidence concerning changes in
+window strength and length is reported for both models using the same definitions.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig4_edits}
-\caption{\textbf{Effects of single-base edits on detection in Carbon.} All panels are Carbon.
-\textbf{a}, Strength of the best window in each of the 384 marked reads per condition, on a log
-scale, with the median shown as a bar. The dashed line is the detection threshold. Substitution
-produces a small reduction in median strength; insertion and deletion reduce it by approximately
-half, while all marked reads remain above the threshold.
+\caption{\textbf{Effects of single-base edits on detection.} Carbon provides the retained full
+window-strength and strongest-window summary; the same definitions are retained for GENERator from
+its existing v1 trials. \textbf{a}, Strength of the best window in each of the 384 marked reads
+per condition, on a log scale, with the median shown as a bar. The dashed line is the detection
+threshold. Substitution produces a small reduction in median strength; insertion and deletion
+reduce it by approximately half, while all marked reads remain above the threshold.
 \textbf{b}, Length of the window that carried the strongest evidence. Numbers inside the bars are
 read counts out of 384. The full 3{,}072-base window is strongest for nearly all unedited and
 substituted reads. Shorter windows are more frequently selected after insertion or deletion.}
@@ -615,13 +618,14 @@ substituted reads. Shorter windows are more frequently selected after insertion 
 
 \section{Discussion}
 
-This study integrated the SynthID tournament watermark into Carbon-500M and GENERator-v2 1.2B and
-evaluated sampler fidelity, sequence-quality proxies, and position-independent detection. Both
-models showed agreement with the intended sampling distribution at the evaluated states, no
-statistically detectable differences in the declared quality proxies, and detection of all
-held-out marked reads under unedited and tested single-base edit conditions. These findings support
-the feasibility of generation-time watermarking and subsequent detection without access to the
-model or generation boundary within the evaluated corpus.
+This study evaluated the SynthID tournament watermark in Carbon-500M and GENERator-v2 1.2B
+under a common prompt cohort and a shared position-independent detector. Across the tested states,
+both models agreed with the intended sampling distribution, showed no statistically detectable
+loss in the declared quality proxies, and yielded positive detection for every held-out marked
+read under the evaluated unedited and single-base edit conditions. The central contribution is
+therefore methodological: the same watermarking and detection pipeline can be applied to two
+genomic language models while controlling for read-level uncertainty in strand orientation,
+start position, and window length.
 
 A central methodological result is that detection remained effective after explicit correction
 for alignment and location uncertainty. The verifier searches both strands, every starting base,
@@ -669,19 +673,21 @@ consequences would require separate evaluation.
 
 \section{Limitations}
 
-The study evaluates two models, one watermark construction, one verifier, and one shared prompt
-cohort. Each model contributes a single execution, and independent confirmatory replication remains
-outstanding. Both models use six-base tokens, as do other genomic models \cite{wu2025generator};
-models with single-base or variable-length tokenisation would present different alignment
-requirements. Longer reads would also increase the search correction. Because both models use the
-same prompts, the study evaluates portability across models without independent replication across
-corpora.
+This work should be read as a scoped empirical evaluation rather than as a general proof of
+watermark robustness, biological safety, or secret-key security. The study uses two models, one
+watermark construction, one verifier, and one shared prompt cohort. Each model contributes a
+single execution, and independent confirmatory replication remains outstanding. Both models use
+six-base tokens, as do other genomic models \cite{wu2025generator}; models with single-base or
+variable-length tokenisation would present different alignment requirements. Longer reads would
+also increase the search correction. Because both models use the same prompts, the study evaluates
+portability across models without independent replication across corpora.
 
 The retained analyses differ in coverage. Carbon provides window-strength distributions,
 standardized effects for all 14 sequence measures, and the length of the strongest window after
-each edit. GENERator provides the aligned-detector null diagnostic. Claims based on these analyses
-are attributed to the corresponding model; the empirical panels in the four figures use Carbon
-results.
+each edit. GENERator provides the aligned-detector null diagnostic and the corresponding retained
+window summaries from the same v1 trials. Claims based on these analyses are attributed to the
+corresponding model; the empirical panels in the four figures use Carbon results, while the
+corresponding GENERator summaries remain in the analysis ledger.
 
 Generation was performed on GPU hardware and detection on x86-64 CPUs. These results have not been
 independently replicated across computing platforms. For the Carbon detection run, the retained

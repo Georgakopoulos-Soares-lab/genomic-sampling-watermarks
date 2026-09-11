@@ -15,6 +15,8 @@ import argparse
 import hashlib
 import json
 import math
+import sys
+from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -27,7 +29,12 @@ import numpy as np  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, Rectangle  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from genomic_watermarks.paper_analysis import quality_summary  # noqa: E402
+
 FIGURE_DIR = ROOT / "paper" / "figures"
+GENERATOR_ANALYSIS = ROOT / "evidence/derived/generator_v1_paper_analysis_2026_09_11.json"
 
 # Source artifacts and the digests recorded in the evidence ledger.
 QUALITY_ARTIFACT = ROOT / "outputs/carbon_synthid_e16_v1/sequence_comparison_summary.json"
@@ -172,40 +179,10 @@ METRIC_LABEL = {
 def load_quality() -> dict[str, Any]:
     check_digest(QUALITY_ARTIFACT, QUALITY_SHA256)
     summary = json.loads(QUALITY_ARTIFACT.read_text(encoding="utf-8"))
-    rows = []
-    for name in summary["multiple_testing_family"]:
-        paired = summary["main_key_averaged"][name]["paired"]
-        difference = paired["mean_difference"]
-        effect = paired["standardized_effect"]
-        # The bootstrap interval is stored on the raw scale.  Standardising is a
-        # single multiplication, so the same interval is rescaled by the same
-        # factor rather than recomputed.
-        scale = effect / difference
-        bounds = sorted((paired["interval_lower"] * scale, paired["interval_upper"] * scale))
-        rows.append(
-            {
-                "metric": name,
-                "label": METRIC_LABEL[name],
-                "standardized_effect": effect,
-                "interval_lower": bounds[0],
-                "interval_upper": bounds[1],
-                "benjamini_hochberg_p_value": paired["benjamini_hochberg_p_value"],
-            }
-        )
-    model_score = summary["main_key_averaged"]["mean_negative_log_likelihood_per_token"]
-    return {
-        "rows": rows,
-        "difference": model_score["paired"]["mean_difference"],
-        "interval": [
-            model_score["paired"]["interval_lower"],
-            model_score["paired"]["interval_upper"],
-        ],
-        "p_value": model_score["paired"]["p_value"],
-        "ordinary_mean": model_score["ordinary"]["mean"],
-        "watermarked_mean": model_score["watermarked"]["mean"],
-        "prompts": summary["prompt_count"],
-        "pairs": summary["pair_count"],
-    }
+    quality = quality_summary(summary)
+    for row in quality["rows"]:
+        row["label"] = METRIC_LABEL[row["metric"]]
+    return quality
 
 
 def load_trials() -> list[dict[str, Any]]:
@@ -220,22 +197,43 @@ def select(trials: list[dict[str, Any]], family: str, condition: str) -> list[di
     ]
 
 
-# Prompt-level results, as recorded in evidence/measurements.yaml.  Prompts are
-# the independent unit; the two draws of a prompt are paired repetitions.
-PROMPT_LEVEL = {
-    "watermarked_correct_key": {
-        "positive_prompts": 192,
-        "interval": [0.9809704778312202, 1.0],
-    },
-    "ordinary_corresponding_key": {
-        "positive_prompts": 1,
-        "interval": [0.00013185488963134408, 0.02867584185449001],
-    },
-    "watermarked_wrong_key": {
-        "positive_prompts": 0,
-        "interval": [0.0, 0.01902952216877982],
-    },
-}
+def prompt_rates(trials: list[dict[str, Any]]) -> dict[str, Any]:
+    """Use both draws for recall, either draw for controls, separately by edit."""
+    from scipy.stats import beta
+
+    rates: dict[str, Any] = {}
+    for condition, _ in CONDITIONS:
+        rates[condition] = {}
+        for family, _ in FAMILIES:
+            clusters: dict[str, dict[int, bool]] = defaultdict(dict)
+            for row in select(trials, family, condition):
+                if row["draw_id"] in clusters[row["case_id"]]:
+                    raise ValueError("duplicate draw in figure data")
+                clusters[row["case_id"]][row["draw_id"]] = row["detected"]
+            if len(clusters) != EVALUATION_PROMPTS or any(
+                set(draws) != {0, 1} for draws in clusters.values()
+            ):
+                raise ValueError("incomplete prompt/draw grid in figure data")
+            positives = sum(
+                all(draws.values()) if family == "watermarked_correct_key" else any(draws.values())
+                for draws in clusters.values()
+            )
+            count = len(clusters)
+            lower = (
+                0.0 if positives == 0 else float(beta.ppf(0.025, positives, count - positives + 1))
+            )
+            upper = (
+                1.0
+                if positives == count
+                else float(beta.ppf(0.975, positives + 1, count - positives))
+            )
+            rates[condition][family] = {
+                "positive_prompts": positives,
+                "prompts": count,
+                "percent": 100.0 * positives / count,
+                "exact_95_percent_interval": [100 * lower, 100 * upper],
+            }
+    return rates
 
 
 # ---------------------------------------------------------------------------
@@ -486,7 +484,11 @@ def save_figure(figure: Any, stem: str, values: dict[str, Any]) -> dict[str, Any
 # ---------------------------------------------------------------------------
 # Figure 2: sequence quality
 # ---------------------------------------------------------------------------
-def figure_quality(path_stem: str, quality: dict[str, Any]) -> dict[str, Any]:
+def figure_quality(
+    path_stem: str,
+    quality: dict[str, Any],
+    letters: tuple[str, str] = ("a", "b"),
+) -> dict[str, Any]:
     figure = plt.figure(figsize=(DOUBLE_COLUMN, 2.45))
     grid = figure.add_gridspec(
         1,
@@ -582,8 +584,8 @@ def figure_quality(path_stem: str, quality: dict[str, Any]) -> dict[str, Any]:
         pad=5,
     )
 
-    panel_letter(score, "a", x=-0.135, y=1.10)
-    panel_letter(forest, "b", x=-0.335, y=1.10)
+    panel_letter(score, letters[0], x=-0.135, y=1.10)
+    panel_letter(forest, letters[1], x=-0.335, y=1.10)
 
     return save_figure(
         figure,
@@ -611,8 +613,12 @@ def figure_quality(path_stem: str, quality: dict[str, Any]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 # Figure 3: detection without a known boundary
 # ---------------------------------------------------------------------------
-def figure_detection(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, Any]:
-    windows = trials[0]["hypotheses_searched"]
+def figure_detection(
+    path_stem: str,
+    trials: list[dict[str, Any]],
+    letters: tuple[str, str] = ("a", "b"),
+) -> dict[str, Any]:
+    windows = select(trials, "watermarked_correct_key", "clean")[0]["hypotheses_searched"]
     threshold = math.log10(windows / TARGET_FALSE_POSITIVE_RATE)
 
     figure = plt.figure(figsize=(DOUBLE_COLUMN, 2.40))
@@ -656,6 +662,7 @@ def figure_detection(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, 
             ha="left",
         )
         summary[family] = {
+            "clean_strength_values": values.tolist(),
             "clean_strength_min": float(values.min()),
             "clean_strength_median": float(np.median(values)),
             "clean_strength_max": float(values.max()),
@@ -692,18 +699,18 @@ def figure_detection(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, 
         "ordinary_corresponding_key": 0.0,
         "watermarked_wrong_key": 0.22,
     }
-    rates: dict[str, Any] = {}
+    rates = prompt_rates(trials)
     for family, _ in FAMILIES:
-        record = PROMPT_LEVEL[family]
-        rate = 100.0 * record["positive_prompts"] / EVALUATION_PROMPTS
-        lower = 100.0 * record["interval"][0]
-        upper = 100.0 * record["interval"][1]
-        axes = high if rate > 50 else low
+        records = [rates[condition][family] for condition, _ in CONDITIONS]
+        rate = np.array([record["percent"] for record in records])
+        lower = np.array([record["exact_95_percent_interval"][0] for record in records])
+        upper = np.array([record["exact_95_percent_interval"][1] for record in records])
+        axes = high if family == "watermarked_correct_key" else low
         x = positions + offsets[family]
         axes.errorbar(
             x,
-            np.full(positions.size, rate),
-            yerr=[np.full(positions.size, rate - lower), np.full(positions.size, upper - rate)],
+            rate,
+            yerr=[rate - lower, upper - rate],
             fmt="o",
             markersize=3.0,
             color=SERIES_COLOUR[family],
@@ -712,12 +719,6 @@ def figure_detection(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, 
             capthick=0.7,
             zorder=3,
         )
-        rates[family] = {
-            "positive_prompts": record["positive_prompts"],
-            "prompts": EVALUATION_PROMPTS,
-            "percent": rate,
-            "exact_95_percent_interval": [lower, upper],
-        }
 
     high.set_ylim(96.6, 101.6)
     high.set_yticks([98, 100])
@@ -793,8 +794,8 @@ def figure_detection(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, 
             linewidth=0.7,
             clip_on=False,
         )
-    panel_letter(strip, "a", x=-0.055, y=1.10)
-    panel_letter(high, "b", x=-0.175, y=1.10)
+    panel_letter(strip, letters[0], x=-0.055, y=1.10)
+    panel_letter(high, letters[1], x=-0.175, y=1.10)
 
     return save_figure(figure, path_stem, {"clean_strength": summary, "prompt_level_rates": rates})
 
@@ -802,8 +803,12 @@ def figure_detection(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, 
 # ---------------------------------------------------------------------------
 # Figure 4: what one edited base does
 # ---------------------------------------------------------------------------
-def figure_edits(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, Any]:
-    windows = trials[0]["hypotheses_searched"]
+def figure_edits(
+    path_stem: str,
+    trials: list[dict[str, Any]],
+    letters: tuple[str, str] = ("a", "b"),
+) -> dict[str, Any]:
+    windows = select(trials, "watermarked_correct_key", "clean")[0]["hypotheses_searched"]
     threshold = math.log10(windows / TARGET_FALSE_POSITIVE_RATE)
 
     figure = plt.figure(figsize=(DOUBLE_COLUMN, 2.45))
@@ -846,9 +851,13 @@ def figure_edits(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, Any]
         )
         per_condition[condition] = {
             "label": label,
+            "strength_values": values.tolist(),
             "strength_min": float(values.min()),
             "strength_median": median,
             "strength_max": float(values.max()),
+            "threshold_strength": math.log10(
+                chosen[0]["hypotheses_searched"] / TARGET_FALSE_POSITIVE_RATE
+            ),
         }
 
     spread.axhline(threshold, color=INK, linewidth=0.7, linestyle=(0, (2.5, 1.6)), zorder=4)
@@ -934,8 +943,8 @@ def figure_edits(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, Any]
     mix.set_ylim(-0.6, len(CONDITIONS) - 0.4)
     mix.spines["left"].set_visible(False)
 
-    panel_letter(spread, "a", x=-0.115, y=1.10)
-    panel_letter(mix, "b", x=-0.245, y=1.10)
+    panel_letter(spread, letters[0], x=-0.115, y=1.10)
+    panel_letter(mix, letters[1], x=-0.245, y=1.10)
 
     return save_figure(
         figure,
@@ -951,8 +960,78 @@ def figure_edits(path_stem: str, trials: list[dict[str, Any]]) -> dict[str, Any]
     )
 
 
+def add_generator_figures(manifest_path: Path) -> dict[str, Any]:
+    """Add matched panels without needing or replacing missing Carbon source data."""
+    import yaml
+    from derive_generator_paper_analysis import derive
+
+    ledger = yaml.safe_load((ROOT / "evidence/measurements.yaml").read_text())
+    entry = next(
+        row
+        for row in ledger["measurements"]
+        if row["id"] == "synthid.generator.quality.metric_family_effects"
+    )
+    if entry["status"] != "A" or ROOT / entry["source"]["artifact"] != GENERATOR_ANALYSIS:
+        raise ValueError("unexpected GENERator panel evidence identity")
+    check_digest(GENERATOR_ANALYSIS, entry["source"]["sha256"])
+    analysis = json.loads(GENERATOR_ANALYSIS.read_text())
+    if analysis["data"] != derive():
+        raise ValueError("derived panel data do not match the verified original artifacts")
+    manifest = json.loads(manifest_path.read_text())
+    # Reuse only unchanged, previously published Carbon graphics. This verifies
+    # the graphics, not the absent underlying Carbon trials: that gap remains open.
+    for record in manifest["figures"].values():
+        for extension in ("pdf", "png"):
+            check_digest(ROOT / record[extension], record[f"{extension}_sha256"])
+    quality = analysis["data"]["quality"]
+    for row in quality["rows"]:
+        row["label"] = METRIC_LABEL[row["metric"]]
+    trials_record = analysis["sources"]["trials"]
+    check_digest(ROOT / trials_record["path"], trials_record["sha256"])
+    trials = [json.loads(line) for line in (ROOT / trials_record["path"]).read_text().splitlines()]
+    # Rates are independently reconstructed from paired trials for the plot.
+    rates = prompt_rates(trials)
+    for condition, families in rates.items():
+        for family, fields in families.items():
+            derived = analysis["data"]["detection"][condition][family]
+            for field, value in fields.items():
+                expected = derived[field]
+                if isinstance(value, list):
+                    if not np.allclose(value, expected, atol=1e-10, rtol=0):
+                        raise ValueError("plot interval differs from the derived result")
+                elif value != expected:
+                    raise ValueError("plot rate differs from the derived result")
+    manifest["sources"]["generator_analysis_artifact"] = str(GENERATOR_ANALYSIS.relative_to(ROOT))
+    manifest["sources"]["generator_analysis_sha256"] = entry["source"]["sha256"]
+    manifest["generator_plot_provenance"] = {
+        "command": ".venv/bin/python scripts/make_paper_figures.py --model generator",
+        "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "matplotlib": matplotlib.__version__,
+        "numpy": np.__version__,
+        "jitter_seed": 20260903,
+        "panel_order": "Carbon a/b above GENERator c/d; same axes, units, and colours",
+        "carbon_artifacts": "PDF/PNG digests verified; original Carbon sources unavailable",
+    }
+    manifest["figures"].update(
+        {
+            "fig2_quality_generator": figure_quality("fig2_quality_generator", quality, ("c", "d")),
+            "fig3_detection_generator": figure_detection(
+                "fig3_detection_generator", trials, ("c", "d")
+            ),
+            "fig4_edits_generator": figure_edits("fig4_edits_generator", trials, ("c", "d")),
+        }
+    )
+    return manifest
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--model",
+        choices=("carbon", "generator"),
+        default="carbon",
+        help="rebuild Carbon from its sources, or add GENERator panels to the verified manifest",
+    )
     parser.add_argument(
         "--manifest",
         type=Path,
@@ -962,23 +1041,28 @@ def main() -> int:
     arguments = parser.parse_args()
 
     plt.rcParams.update(RC_PARAMS)
-    quality = load_quality()
-    trials = load_trials()
-
-    manifest = {
-        "sources": {
-            "quality_artifact": str(QUALITY_ARTIFACT.relative_to(ROOT)),
-            "quality_sha256": QUALITY_SHA256,
-            "trials_artifact": str(TRIALS_ARTIFACT.relative_to(ROOT)),
-            "trials_sha256": TRIALS_SHA256,
-        },
-        "figures": {
-            "fig1_method": figure_method("fig1_method"),
-            "fig2_quality": figure_quality("fig2_quality", quality),
-            "fig3_detection": figure_detection("fig3_detection", trials),
-            "fig4_edits": figure_edits("fig4_edits", trials),
-        },
-    }
+    if arguments.model == "generator":
+        manifest = add_generator_figures(arguments.manifest)
+    else:
+        quality = load_quality()
+        trials = load_trials()
+        manifest = json.loads(arguments.manifest.read_text()) if arguments.manifest.exists() else {}
+        manifest.setdefault("sources", {}).update(
+            {
+                "quality_artifact": str(QUALITY_ARTIFACT.relative_to(ROOT)),
+                "quality_sha256": QUALITY_SHA256,
+                "trials_artifact": str(TRIALS_ARTIFACT.relative_to(ROOT)),
+                "trials_sha256": TRIALS_SHA256,
+            }
+        )
+        manifest.setdefault("figures", {}).update(
+            {
+                "fig1_method": figure_method("fig1_method"),
+                "fig2_quality": figure_quality("fig2_quality", quality),
+                "fig3_detection": figure_detection("fig3_detection", trials),
+                "fig4_edits": figure_edits("fig4_edits", trials),
+            }
+        )
     arguments.manifest.parent.mkdir(parents=True, exist_ok=True)
     arguments.manifest.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"

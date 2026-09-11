@@ -1,0 +1,472 @@
+{
+  "analysis_id": "generator_v1_paper_analysis_2026_09_11",
+  "data": {
+    "detection": {
+      "clean": {
+        "ordinary_corresponding_key": {
+          "detections": 0,
+          "exact_95_percent_interval": [
+            0.0,
+            1.902952216877982
+          ],
+          "maximum": 5.578138427651398,
+          "median": 3.1104647162868075,
+          "minimum": 1.8484865059781648,
+          "percent": 0.0,
+          "positive_prompts": 0,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.207795885204709,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 25,
+            "3072": 2,
+            "384": 272,
+            "768": 85
+          },
+          "windows_searched": 16136
+        },
+        "watermarked_correct_key": {
+          "detections": 384,
+          "exact_95_percent_interval": [
+            98.09704778312202,
+            100.0
+          ],
+          "maximum": 872.5290601313103,
+          "median": 798.7803059254855,
+          "minimum": 19.614793673583744,
+          "percent": 100.0,
+          "positive_prompts": 192,
+          "prompt_event": "prompt_both_draws",
+          "prompts": 192,
+          "threshold_strength": 6.207795885204709,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 2,
+            "3072": 381,
+            "384": 0,
+            "768": 1
+          },
+          "windows_searched": 16136
+        },
+        "watermarked_wrong_key": {
+          "detections": 1,
+          "exact_95_percent_interval": [
+            0.013185488963134408,
+            2.867584185449001
+          ],
+          "maximum": 6.849998586776892,
+          "median": 3.20915370537052,
+          "minimum": 1.954484413919037,
+          "percent": 0.5208333333333334,
+          "positive_prompts": 1,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.207795885204709,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 22,
+            "3072": 6,
+            "384": 262,
+            "768": 94
+          },
+          "windows_searched": 16136
+        }
+      },
+      "deletion_1nt": {
+        "ordinary_corresponding_key": {
+          "detections": 0,
+          "exact_95_percent_interval": [
+            0.0,
+            1.902952216877982
+          ],
+          "maximum": 5.578138427651398,
+          "median": 3.1104647162868075,
+          "minimum": 1.7459594442470112,
+          "percent": 0.0,
+          "positive_prompts": 0,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.207580514765431,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 25,
+            "3072": 5,
+            "384": 262,
+            "768": 92
+          },
+          "windows_searched": 16128
+        },
+        "watermarked_correct_key": {
+          "detections": 384,
+          "exact_95_percent_interval": [
+            98.09704778312202,
+            100.0
+          ],
+          "maximum": 858.7112366203953,
+          "median": 457.3560873520542,
+          "minimum": 11.310565314685075,
+          "percent": 100.0,
+          "positive_prompts": 192,
+          "prompt_event": "prompt_both_draws",
+          "prompts": 192,
+          "threshold_strength": 6.207580514765431,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 155,
+            "3072": 227,
+            "384": 0,
+            "768": 2
+          },
+          "windows_searched": 16128
+        },
+        "watermarked_wrong_key": {
+          "detections": 0,
+          "exact_95_percent_interval": [
+            0.0,
+            1.902952216877982
+          ],
+          "maximum": 5.976205979490676,
+          "median": 3.1681981571031965,
+          "minimum": 1.954484413919037,
+          "percent": 0.0,
+          "positive_prompts": 0,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.207580514765431,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 29,
+            "3072": 4,
+            "384": 264,
+            "768": 87
+          },
+          "windows_searched": 16128
+        }
+      },
+      "insertion_1nt": {
+        "ordinary_corresponding_key": {
+          "detections": 0,
+          "exact_95_percent_interval": [
+            0.0,
+            1.902952216877982
+          ],
+          "maximum": 5.578138427651398,
+          "median": 3.137889928289541,
+          "minimum": 1.9010503675186383,
+          "percent": 0.0,
+          "positive_prompts": 0,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.208011148892835,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 27,
+            "3072": 6,
+            "384": 268,
+            "768": 83
+          },
+          "windows_searched": 16144
+        },
+        "watermarked_correct_key": {
+          "detections": 384,
+          "exact_95_percent_interval": [
+            98.09704778312202,
+            100.0
+          ],
+          "maximum": 821.2514535969304,
+          "median": 433.9644948819259,
+          "minimum": 10.297484891648768,
+          "percent": 100.0,
+          "positive_prompts": 192,
+          "prompt_event": "prompt_both_draws",
+          "prompts": 192,
+          "threshold_strength": 6.208011148892835,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 181,
+            "3072": 200,
+            "384": 0,
+            "768": 3
+          },
+          "windows_searched": 16144
+        },
+        "watermarked_wrong_key": {
+          "detections": 1,
+          "exact_95_percent_interval": [
+            0.013185488963134408,
+            2.867584185449001
+          ],
+          "maximum": 6.699205718056494,
+          "median": 3.137889928289541,
+          "minimum": 1.954484413919037,
+          "percent": 0.5208333333333334,
+          "positive_prompts": 1,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.208011148892835,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 27,
+            "3072": 5,
+            "384": 266,
+            "768": 86
+          },
+          "windows_searched": 16144
+        }
+      },
+      "substitution_1nt": {
+        "ordinary_corresponding_key": {
+          "detections": 0,
+          "exact_95_percent_interval": [
+            0.0,
+            1.902952216877982
+          ],
+          "maximum": 5.289455474977115,
+          "median": 3.0675338546140436,
+          "minimum": 1.8484865059781648,
+          "percent": 0.0,
+          "positive_prompts": 0,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.207795885204709,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 20,
+            "3072": 2,
+            "384": 266,
+            "768": 96
+          },
+          "windows_searched": 16136
+        },
+        "watermarked_correct_key": {
+          "detections": 384,
+          "exact_95_percent_interval": [
+            98.09704778312202,
+            100.0
+          ],
+          "maximum": 853.0308072561239,
+          "median": 783.3973317738134,
+          "minimum": 18.99939143088184,
+          "percent": 100.0,
+          "positive_prompts": 192,
+          "prompt_event": "prompt_both_draws",
+          "prompts": 192,
+          "threshold_strength": 6.207795885204709,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 2,
+            "3072": 381,
+            "384": 0,
+            "768": 1
+          },
+          "windows_searched": 16136
+        },
+        "watermarked_wrong_key": {
+          "detections": 1,
+          "exact_95_percent_interval": [
+            0.013185488963134408,
+            2.867584185449001
+          ],
+          "maximum": 6.849998586776892,
+          "median": 3.1420866510966023,
+          "minimum": 1.954484413919037,
+          "percent": 0.5208333333333334,
+          "positive_prompts": 1,
+          "prompt_event": "prompt_any_draw",
+          "prompts": 192,
+          "threshold_strength": 6.207795885204709,
+          "trials": 384,
+          "window_base_length_counts": {
+            "1536": 22,
+            "3072": 6,
+            "384": 268,
+            "768": 88
+          },
+          "windows_searched": 16136
+        }
+      }
+    },
+    "model": "GenerTeam/GENERator-v2-eukaryote-1.2b-base",
+    "policy": "G_tok",
+    "quality": {
+      "difference": -0.005637146532535553,
+      "interval": [
+        -0.05614170790649948,
+        0.043782048230059406
+      ],
+      "largest_absolute_effect": 0.1113797288168427,
+      "largest_absolute_effect_metric": "mean_homopolymer_run",
+      "ordinary_mean": 7.800290860701352,
+      "p_value": 0.8299117008829912,
+      "pairs": 512,
+      "prompts": 256,
+      "rows": [
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.1546466012131302,
+          "interval_upper": 0.08974650335539008,
+          "mean_difference": -0.0014343261718749987,
+          "metric": "gc_fraction",
+          "standardization_scale": 21.191631118636607,
+          "standardized_effect": -0.030395711138181142
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.1651167726330198,
+          "interval_upper": 0.08184691717600366,
+          "mean_difference": -0.0012949368743573274,
+          "metric": "base_entropy_bits",
+          "standardization_scale": 31.924521774120162,
+          "standardized_effect": -0.0413402404415316
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.1634276612726957,
+          "interval_upper": 0.08160216014123932,
+          "mean_difference": -0.0024968629533240402,
+          "metric": "dinucleotide_entropy_bits",
+          "standardization_scale": 16.09501918492114,
+          "standardized_effect": -0.04018705713586928
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.16667378630659843,
+          "interval_upper": 0.07948237065366004,
+          "mean_difference": -0.003951761184932338,
+          "metric": "trinucleotide_entropy_bits",
+          "standardization_scale": 10.770534891926394,
+          "standardized_effect": -0.04256258172687414
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.15741353518547724,
+          "interval_upper": 0.090376899585296,
+          "mean_difference": -0.0012456186827518715,
+          "metric": "distinct_hexamer_fraction",
+          "standardization_scale": 25.575290823495525,
+          "standardized_effect": -0.03185706006655852
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.026483566368259603,
+          "interval_upper": 0.21848942253814171,
+          "mean_difference": 0.169921875,
+          "metric": "longest_homopolymer_run",
+          "standardization_scale": 0.5649827491895382,
+          "standardized_effect": 0.09600292808494106
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.00906253924215243,
+          "interval_upper": 0.23274997960257937,
+          "mean_difference": 0.0036354391445605695,
+          "metric": "mean_homopolymer_run",
+          "standardization_scale": 30.63721448438814,
+          "standardized_effect": 0.1113797288168427
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.15854542970101182,
+          "interval_upper": 0.08560671946232917,
+          "mean_difference": -0.0006758371988932293,
+          "metric": "purine_fraction",
+          "standardization_scale": 52.289871826641324,
+          "standardized_effect": -0.03533944050580326
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.16251656884277818,
+          "interval_upper": 0.08316179458801079,
+          "mean_difference": -0.0005113358840768479,
+          "metric": "cpg_fraction",
+          "standardization_scale": 74.84809046596905,
+          "standardized_effect": -0.03827251450988017
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.15703827431109585,
+          "interval_upper": 0.08836992586806765,
+          "mean_difference": -0.00017730698044460372,
+          "metric": "js_divergence_from_prompt_k1_bits",
+          "standardization_scale": 191.8552831492831,
+          "standardized_effect": -0.03401728093754385
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.17192228841476395,
+          "interval_upper": 0.0705408490257115,
+          "mean_difference": -0.000545330135398228,
+          "metric": "js_divergence_from_prompt_k2_bits",
+          "standardization_scale": 92.57077329745297,
+          "standardized_effect": -0.050481632336218704
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7310026899731003,
+          "interval_lower": -0.17625027603166862,
+          "interval_upper": 0.06696284153120949,
+          "mean_difference": -0.0009229903987299858,
+          "metric": "js_divergence_from_prompt_k3_bits",
+          "standardization_scale": 60.458597976218435,
+          "standardized_effect": -0.05580270545272577
+        },
+        {
+          "benjamini_hochberg_p_value": 0.8299117008829912,
+          "interval_lower": -0.13813832910746573,
+          "interval_upper": 0.10772702172643939,
+          "mean_difference": -0.005637146532535553,
+          "metric": "mean_negative_log_likelihood_per_token",
+          "standardization_scale": 2.460529511099422,
+          "standardized_effect": -0.013870365401695508
+        },
+        {
+          "benjamini_hochberg_p_value": 0.7553462926909192,
+          "interval_lower": -0.14619756081141633,
+          "interval_upper": 0.09862532881207854,
+          "mean_difference": -11.922511716393622,
+          "metric": "perplexity",
+          "standardization_scale": 0.0020163687108614037,
+          "standardized_effect": -0.02404017957981459
+        }
+      ],
+      "watermarked_mean": 7.794653714168817
+    },
+    "revision": "c41b0018da9ee13b9e96ee54647de8da381ccd72"
+  },
+  "detection_rerun": false,
+  "generation_rerun": false,
+  "provenance": {
+    "amendment": "docs/research/generator_v1_analysis_amendment_2026_09_11.md",
+    "code_sha256": {
+      "scripts/derive_generator_paper_analysis.py": "1399c81dfdd3a8d07bcf705d4bc5093e2ab70e72321cb3d203f6a7e9fa24cd6b",
+      "scripts/validate_generator_synthid_position_independent.py": "327be8619bc32ff0ae3f67a05afed3af016468d0a859b7abdcb7158b7cdd17e9",
+      "src/genomic_watermarks/paper_analysis.py": "5ccbb7ccddde5be7d81bb4f4a98c49a3a67dcbc3bf1be1ab9207356c8d1d9be1",
+      "src/genomic_watermarks/synthid_position_independent.py": "db7a0116281d8c07b46b7c6c6196907526578480a22eb2ab6c55a9260f78c901"
+    },
+    "command": "/Users/kap4722/genomic-sampling-watermarks/.venv/bin/python scripts/derive_generator_paper_analysis.py",
+    "device": "cpu",
+    "git_base_revision": "6470e503b9542c1448c2d968e4451c9160c18940",
+    "machine": "arm64",
+    "macos": "26.6.2",
+    "original_execution": "docs/research/generator_synthid_execution_2026_09_03.md",
+    "python": "3.12.13",
+    "scipy": "1.18.1",
+    "system": "Darwin"
+  },
+  "schema_version": 1,
+  "sources": {
+    "detection": {
+      "path": "outputs/generator_synthid_position_independent_v1/summary.json",
+      "sha256": "ac28bf5ed078fccd1eac5a97cabdd4f2a4e67f07a75d291aa3c5e0abd15830f7"
+    },
+    "quality": {
+      "path": "outputs/generator_synthid_e16_v1/sequence_comparison_summary.json",
+      "sha256": "d8e3c03b2d0e3a2639c521889ea29dd804e8a741d3cf43818cb79f31ae821401"
+    },
+    "trials": {
+      "path": "outputs/generator_synthid_position_independent_v1/trials.jsonl",
+      "sha256": "3de1d8f7b8a946d3a5149f48ac30e357ceb2fa812eddbe6a11a5e836c7106d99"
+    }
+  },
+  "status": "A"
+}

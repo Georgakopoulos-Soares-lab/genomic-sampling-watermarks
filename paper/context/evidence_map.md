@@ -57,8 +57,8 @@ are stored on their respective entries.
 | Declared quality summaries significant after correction | `synthid.generator.quality.corrected_rejections` | 0/14; smallest adjusted P 0.73 |
 | Aligned-detector ordinary null fit at four lengths | `synthid.generator.aligned.ordinary_null_fit` | pass; 2, 6, 6, 4 positive prompts against about 5 expected |
 
-GENERator has no counterpart to `synthid.carbon.quality.metric_family_effects`, so the manuscript
-reports no largest standardized effect for GENERator.
+The retained GENERator analysis includes the full 14-measure effect summary, with the largest
+absolute standardized effect reported as `synthid.generator.quality.metric_family_effects`.
 
 ## Position-independent detection, GENERator
 
@@ -78,11 +78,12 @@ reports no largest standardized effect for GENERator.
 | One deletion | ordinary | `synthid.generator.detector.deletion_1nt.ordinary_rate` | 0/384 |
 | One deletion | marked, wrong key | `synthid.generator.detector.deletion_1nt.other_key_rate` | 0/384 |
 
-GENERator has no counterpart to `synthid.detector.strength_separation` or
-`synthid.detector.strongest_window_length`. The manuscript therefore attributes the window-strength
-margin, the edit-by-edit strengths, and the winning window length to Carbon explicitly, and reports
-only decisions for GENERator. The ledger names the wrong-key family `other_key_rate` for GENERator
-and `wrong_key_rate` for Carbon; the manuscript uses one word, "wrong key", for both.
+The retained GENERator analysis includes the corresponding window-strength margin,
+read-condition-specific best-window strengths, and strongest-window-length counts under
+`synthid.generator.detector.strength_separation` and `synthid.generator.detector.strongest_window_length`.
+The manuscript uses the same definitions for both models; the ledger names the wrong-key family
+`other_key_rate` for GENERator and `wrong_key_rate` for Carbon, even though the manuscript uses a
+single phrase, "wrong key", for both.
 
 ## Figures
 
