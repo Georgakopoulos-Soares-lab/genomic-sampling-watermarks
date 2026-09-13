@@ -21,8 +21,8 @@
   linkcolor=blue!60!black,
   citecolor=blue!60!black,
   urlcolor=blue!60!black,
-  pdftitle={Tracing Model-Generated DNA with Position-Independent SynthID Watermarking},
-  pdfauthor={Kimon Antonios Provatas; Christos Galanopoulos; Aris Karatzikos; Charalambos Koilakos; Ilias Georgakopoulos-Soares},
+  pdftitle={Tracing model-generated DNA with position-independent synthID watermarking},
+  pdfauthor={Kimon Antonios Provatas; Christos Galanopoulos; Ilias Georgakopoulos-Soares},
   pdfsubject={Position-independent detection of the SynthID tournament watermark in two genomic language models},
   pdfkeywords={genomic language models; watermarking; SynthID; provenance; position-independent detection}
 }
@@ -53,14 +53,12 @@
 
 \twocolumn[{%
 \begin{center}
-{\LARGE\bfseries Tracing Model-Generated DNA\\[3pt]
-with Position-Independent SynthID Watermarking\par}
+{\LARGE\bfseries Tracing model-generated DNA\\[3pt]
+with position-independent synthID watermarking\par}
 \vspace{1.0em}
 {\large
 Kimon Antonios Provatas\textsuperscript{1,*}\hspace{0.9em}
-Christos Galanopoulos\textsuperscript{1,*}\hspace{0.9em}
-Aris Karatzikos\textsuperscript{1}\\[4pt]
-Charalambos Koilakos\textsuperscript{1}\hspace{0.9em}
+Christos Galanopoulos\textsuperscript{1,*}\\[4pt]
 Ilias Georgakopoulos-Soares\textsuperscript{1,\dag}\par}
 \vspace{0.6em}
 {\footnotesize
@@ -71,24 +69,26 @@ Ilias Georgakopoulos-Soares\textsuperscript{1,\dag}\par}
 \begin{minipage}{0.86\textwidth}
 \small
 \textbf{Abstract.}
-Genomic language models can generate DNA sequences that lack an enduring record of their origin.
-Generation-time watermarking could supply such provenance, but verification in DNA is a
-synchronisation problem: once generation metadata are absent, a verifier may not know the boundary,
-strand orientation, or six-base token phase of the generated region.
+Genomic language models can generate synthetic DNA sequences, yet the resulting sequences contain
+no inherent record of their origin. Generation-time watermarking could supply such provenance.
+In DNA, however, the unknown location of the generated region, six-mer token boundaries, and strand
+orientation complicate detection, particularly when generated sequence is embedded within a longer read.
 
-We apply the SynthID tournament watermark to Carbon-500M and GENERator-v2 1.2B and evaluate
-whether a verifier can recover the mark using only DNA, a key, and fixed public settings. The
+We integrate the SynthID tournament watermark into Carbon-500M and GENERator-v2 1.2B---two genomic
+language models that process and generate non-overlapping six-mer tokens under the evaluated
+sampling policy. We evaluate whether a verifier can recover the mark using only DNA, a key, and
+fixed public settings. The
 verifier corrects one read-level test over both strands, every start position, and four window
 lengths. In each model, it detected all 384 held-out marked reads when unedited and after each
-tested single-base substitution, insertion, or deletion; ordinary and wrong-key controls yielded
-at most one positive per model, control family, and condition. Neither model showed a statistically
-detectable difference in model likelihood or the pre-specified sequence measures after
-multiple-testing correction. Window-level results show that the search can recover usable token
-alignment after insertions and deletions. These findings support statistical provenance detection
+tested single-base substitution, insertion, or deletion. Ordinary and wrong-key controls yielded
+no more than one positive result for each model, control family, and condition. Neither model showed
+a statistically detectable difference in model likelihood or the pre-specified sequence measures after
+multiple-testing correction. In both models, window-level results are consistent with preserved or
+recovered six-mer token alignment after insertions and deletions. These findings support statistical
+provenance detection
 within the tested corpus and portability of the implementation across the two evaluated models.
 They do not establish biological function, secret-key security, or robustness beyond the evaluated
-non-adaptive single-base edits. Each model was evaluated in a single execution; independent
-confirmatory replication remains outstanding.
+non-adaptive single-base edits.
 \end{minipage}
 \vspace{1.2em}
 \end{center}
@@ -99,25 +99,29 @@ confirmatory replication remains outstanding.
 \section{Introduction}
 
 Genomic language models increasingly support the generation of coding sequences, regulatory
-elements, and extended genomic sequences \cite{nguyen2024evo,wu2025generator,carbon2026}. A
+elements, genome-scale constructs, and functionally constrained DNA designs
+\cite{nguyen2024evo,wu2025generator,carbon2026,generatorv22026,king2026bacteriophages}. A
 nucleotide sequence, however, does not retain an inherent record of whether it originated in a
 biological sample, a computational design process, or a generative model. That provenance can be
 lost when a sequence is separated from the logs and metadata maintained by its generating system.
 Mechanisms that remain associated with a sequence throughout design and synthesis are therefore of
 increasing interest \cite{baker2024protein}.
 
-Watermarking offers one such mechanism by embedding a distributed statistical signal during
-generation. A verifier holding the corresponding key can later test for that signal without access
-to the model, prompt, or generation logs. In DNA, this becomes a synchronisation problem. Models
-that generate non-overlapping six-base tokens do not encode their token boundaries in the emitted
-sequence: an unknown boundary creates six possible phases, reverse complementation adds strand
-uncertainty, and surrounding sequence obscures the location and extent of the generated region.
+Watermarking provides one approach to this problem by embedding a statistical signal during
+generation \cite{kirchenbauer2023watermark}. A verifier holding the corresponding key can later
+test for that signal without access to the model, prompt, or generation logs. In DNA, this becomes
+a synchronization problem. Models that generate non-overlapping six-mer tokens do not encode their
+token boundaries in the emitted sequence, leaving six possible token phases. Reverse complementation
+changes token identities and their order, so verification must consider both strand orientations.
+Surrounding sequence can also obscure the generation boundaries: where the generated region begins
+and ends within the read.
 The verifier must search these alternatives while still controlling the false-positive probability
 of the final read-level decision.
 
 Here, we integrate the SynthID tournament watermark \cite{dathathri2024scalable} into Carbon-500M
-\cite{carbon2026} and GENERator-v2 1.2B \cite{generatorv22026}. The models share a direct
-canonical six-base-token policy but differ in size, training corpus, and tokenizer construction.
+\cite{carbon2026} and GENERator-v2 1.2B \cite{generatorv22026}. Under the evaluated policy, these
+models share non-overlapping six-mer tokenization and direct sampling from canonical tokens, but
+differ in size, training corpus, and tokenizer construction.
 We ask whether the sampler follows its intended fixed-key distribution, whether watermarking
 changes a pre-specified panel of model and sequence proxies, and whether a verifier can recover the
 mark without knowing the generation boundary, strand, or token phase. The detector searches both
@@ -127,9 +131,10 @@ complete search.
 In both models, the verifier detected every held-out marked read under the tested unedited and
 single-base edit conditions. The quality-proxy comparisons showed no statistically detectable
 difference after correction, while ordinary and wrong-key control counts were compatible with the
-declared false-positive target. The window-level results explain how the search recovers usable
-alignment after insertions and deletions. These findings establish statistical detection within the
-evaluated corpus, not biological function, secret-key security, or equivalence between the models.
+declared false-positive target. In both models, the window-level results are consistent with the
+search selecting regions with preserved or recovered six-mer token alignment after insertions and
+deletions. These findings establish statistical detection within the evaluated corpus, not biological
+function, secret-key security, or equivalence between the models.
 Distribution preservation denotes an expectation over fresh keyed functions; at a fixed key and
 context, sampling follows the explicitly reweighted distribution.
 
@@ -139,7 +144,7 @@ context, sampling follows the explicitly reweighted distribution.
 
 DNA watermarking predates its application to generative models. The first synthetic bacterial
 genome included watermark sequences encoding identifying information to distinguish the synthetic
-chromosome from its natural counterpart \cite{gibson2010creation}. DNA-Crypt formalised message
+chromosome from its natural counterpart \cite{gibson2010creation}. DNA-Crypt formalized message
 embedding through synonymous codon choices and error correction \cite{heider2007dna}. Related
 approaches embed information within an open reading frame while preserving the encoded amino acid
 sequence, with experimental evidence that embedded messages can persist during viral replication
@@ -150,7 +155,7 @@ modification of selected nucleotides. Their application requires suitable locati
 and consideration of the biological consequences of those changes. Generation-time watermarking
 addresses a complementary setting: the mark is introduced through the model's sampling
 distribution as the sequence is generated, without requiring a separately allocated payload
-region. A fixed, recognisable marker also differs from a distributed keyed signal in its
+region. A fixed, recognizable marker also differs from a distributed keyed signal in its
 susceptibility to targeted removal or copying.
 
 \subsection{Watermarking language-model output}
@@ -171,7 +176,7 @@ statistical detection after one non-adaptive base edit and does not evaluate tho
 
 We use the binary tournament construction of SynthID-Text \cite{dathathri2024scalable}. At each
 generation step, a secret key and a short context of recently generated tokens determine binary
-mark bits for each candidate token and tournament layer. Each layer favours candidates with a
+mark bits for each candidate token and tournament layer. Each layer favors candidates with a
 mark bit of 1. Averaged over fresh keyed functions, the tournament preserves the model's
 next-token distribution; at a fixed key and context, it samples from a reweighted distribution.
 Detection reconstructs the mark bits from the output and tests for an excess of 1s.
@@ -182,18 +187,20 @@ when a generated region is relocated or cropped. Second, the detector requires t
 and public settings without access to the generating model or its probabilities. SynthID-Text has
 also been evaluated in a large-scale text deployment \cite{dathathri2024scalable}.
 
-\subsection{Genomic tokenisation and alignment}
+\subsection{Genomic tokenization and alignment}
 
-Several generative genomic models, including both evaluated here, tokenise DNA into non-overlapping
+Several generative genomic models, including both evaluated here, tokenize DNA into non-overlapping
 six-base tokens to reduce token-sequence length \cite{wu2025generator,carbon2026,generatorv22026}.
-The watermark sampler operates on the realised distribution over those tokens. We therefore define
+The watermark sampler operates on the realized distribution over those tokens. We therefore define
 both models on their direct canonical 4{,}096-token distributions; for GENERator, this excludes the
 released base-by-base sampling path \cite{generatorv2checkpoint}. A shared vocabulary alone would
 not make the sampling comparison meaningful without a shared policy definition.
 
-Six-base tokenisation also creates the study's central synchronization problem: token boundaries
-are not represented in the emitted nucleotide sequence. A verifier must therefore consider all six
-phases, both strand orientations, and candidate locations and lengths of the generated region.
+Six-mer tokenization also creates the study's central synchronization problem: token boundaries
+are not represented in the emitted nucleotide sequence. Here, token phase is the nucleotide offset
+at which the sequence is partitioned into consecutive six-mers; it does not refer to alignment to a
+reference genome. A verifier must therefore consider all six phases, both strand orientations, and
+candidate locations and lengths of the generated region.
 Selecting the strongest window without correcting for that search would overstate the evidence. Our
 setting consequently addresses detection from an observed read, a key, and public settings without
 assuming a coding region, reference alignment, or known generation boundary. This is complementary
@@ -208,7 +215,7 @@ watermarking of protein generation \cite{chen2025protein}.
   Carbon-500M \cite{carbon2026,carbon500m} and GENERator-v2-eukaryote-1.2b-base
   \cite{generatorv22026,generatorv2checkpoint}, which are decoder-only genomic language models with
   non-overlapping six-base tokens. At every step, we restricted logits to the 4{,}096 canonical DNA
-  tokens and normalised once. For GENERator, this specifies its direct canonical token distribution,
+  tokens and normalized once. For GENERator, this specifies its direct canonical token distribution,
   not the base-by-base path used by its released code by default. Temperature was 1.0, with no top-$k$
   or top-$p$ truncation.
 
@@ -313,7 +320,7 @@ In each model, each prompt produced two marked and two ordinary continuations of
 (3{,}072 bases), so each model contributes 512 marked and 512 ordinary continuations. The
 two draws use different replay seeds in both arms, and the two marked draws use two different keys.
 Both keys are published for reproducibility. Deployment would require independently generated
-secret keys shared only with authorised generators and verifiers.
+secret keys shared only with authorized generators and verifiers.
 
 \subsection{Sampler validation}
 
@@ -442,7 +449,7 @@ the position-independent decision.
 \begin{table*}[t]
 \centering
 \caption{Positive detections for each model across 192 held-out prompts with two draws each.
-Each edit affects exactly one base. The final two rows of each block summarise unedited reads at
+Each edit affects exactly one base. The final two rows of each block summarize unedited reads at
 the prompt level, accounting for paired draws; intervals are exact and two-sided. All marked
 prompts also had both draws detected in every edit condition. Results are reported separately
 for each model.}
@@ -481,8 +488,9 @@ Exact 95\% interval  & 98.10--100\% & 0--1.903\% & 0.013--2.868\% \\
 of the best window in each unedited read, one point per read, on a log scale.
 The dashed line denotes the threshold corrected for the search over 16{,}136 windows. All marked
 reads exceed the threshold. \textbf{b,d}, Proportion of the 192 held-out prompts with positive
-detections, with exact 95\% intervals, split across a break in the axis. Results are the same in
-all four edit conditions. The control intervals reach above the 1\% target, so these data are
+detections, with exact 95\% intervals, split across a break in the axis. All marked prompts were
+detected in all four edit conditions. GENERator's wrong-key positive is absent after deletion.
+The control intervals reach above the 1\% target, so these data are
 consistent with a false-positive rate below 1\% without establishing one. Panels \textbf{a,b} show
 Carbon and panels \textbf{c,d} show GENERator.}
 \label{fig:detection}
@@ -548,21 +556,22 @@ model implementations. The detector depends on the observed read and public sett
 statistical procedure is unchanged between Carbon and GENERator. Their agreement in detection
 outcomes and the absence of measurable quality loss provide evidence beyond a single model
 application. However, the models share the same prompt cohort and token length, limiting
-extrapolation to other corpora and tokenisation schemes. This comparison also does not establish
+extrapolation to other corpora and tokenization schemes. This comparison also does not establish
 relative biological quality or equivalence between the models.
 
 The strongest-window results clarify the role of alignment search after insertions and deletions.
 A substitution preserves downstream token boundaries, whereas an insertion or deletion changes the
 alignment of every subsequent token within a window spanning the edit. The increased frequency of
 shorter strongest windows is consistent with the verifier selecting regions whose alignment remains
-usable. Exhaustive search over starting bases also permits recovery of the original alignment
-downstream of an edit. This interpretation explains the observed single-edit results, but provides
-no general guarantee against more extensive modification. Theoretical work on watermark removal
-further emphasises that robustness depends on the permitted adversarial capabilities
+usable in both Carbon-500M and GENERator-v2 1.2B. Exhaustive search over starting bases also permits
+recovery of the original alignment downstream of an edit. The strongest window does not identify
+the exact generation boundaries. This interpretation explains the observed single-edit results, but
+provides no general guarantee against more extensive modification. Theoretical work on watermark removal
+further emphasizes that robustness depends on the permitted adversarial capabilities
 \cite{zhang2024sand}. Here, each read received exactly one randomly specified edit, without access
 to the verifier's score.
 
-The alignment problem is related to synchronisation errors in coding theory. Synchronisation
+The alignment problem is related to synchronization errors in coding theory. Synchronization
 strings explicitly encode indexing information to support recovery from insertions and deletions
 \cite{haeupler2017synchronization}. Pseudorandom codes combine computational indistinguishability
 with decodability under specified error models, motivating their use in watermarking
@@ -578,14 +587,18 @@ our evaluation concerns detection in generated DNA without those assumptions. Co
 approaches may support broader provenance workflows, but their compatibility and biological
 consequences would require separate evaluation.
 
+Future work should evaluate the trade-off between watermark strength, detection power, and
+sequence-level distortion across different tournament depths in both Carbon-500M and
+GENERator-v2 1.2B.
+
 \section{Limitations}
 
 
 This is a scoped empirical evaluation rather than a general proof of watermark robustness,
 biological safety, or secret-key security. The study covers two models, one watermark construction,
-one verifier, and one shared prompt cohort. Each model contributes a single execution, and
-independent confirmatory replication remains outstanding. Both models use six-base tokens; models
-with single-base or variable-length tokenisation would present different alignment requirements.
+and one verifier. The evaluation used one execution per model on a shared prompt cohort.
+Both models use six-base tokens; models
+with single-base or variable-length tokenization would present different alignment requirements.
 The shared cohort limits extrapolation across genomic sources, and longer reads would increase the
 search correction. Generation was performed on GPU hardware and detection on x86-64 CPUs; neither
 result has been independently replicated across computing platforms. For Carbon, the retained
@@ -616,17 +629,29 @@ unedited condition and after each tested single-base substitution, insertion, or
 read-level correction over both strands, every starting base, and four window lengths. Control
 counts were compatible with the declared false-positive target, although 192 independent prompts
 provide limited precision near a 1\% rate. In both models, the strongest-window distributions
-support alignment recovery through the search after insertions and deletions. These findings
+are consistent with the search selecting regions with preserved or recovered token alignment after
+insertions and deletions. These findings
 support statistical provenance detection in model-generated DNA within the evaluated scope; they
 require independent replication, broader sequence coverage, and biological validation before
 broader conclusions can be drawn.
 
 \section*{Data and code availability}
 
-The two experimental keys are published as public fixtures for reproducibility. They are not
-deployment secrets, and the experiments do not assess resistance to secret-key recovery. The
-generated sequences, verifier outputs underlying the figures, prompt set, and analysis and figure
-code are available from the authors on request.
+The source code, prompt definitions, analysis and figure scripts, and evidence ledger are maintained
+in the \href{https://github.com/Georgakopoulos-Soares-lab/genomic-sampling-watermarks}{project GitHub repository}.
+Generated sequences and underlying result files not included in the repository are available from
+the authors on request. The two experimental keys are published as public fixtures for
+reproducibility. They are not deployment secrets, and the experiments do not assess resistance to
+secret-key recovery.
+
+\section*{Competing interests}
+
+The authors declare no competing financial or non-financial interests.
+
+\section*{Acknowledgments}
+
+This work has been supported by the National Institute of General Medical Sciences of the National
+Institutes of Health [R35GM155468 to I.G.S.]; and start-up funds awarded to I.G.S.
 
 \bibliographystyle{plain}
 \bibliography{refs}
