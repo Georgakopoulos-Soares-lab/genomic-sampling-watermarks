@@ -12,6 +12,7 @@
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage{fancyhdr}
+\usepackage{balance}
 \usepackage{hyperref}
 
 \graphicspath{{../../figures/}}
@@ -35,13 +36,17 @@
 \raggedbottom
 \setlength{\emergencystretch}{2em}
 
-%% full-width floats in two columns can only float forward to a page top;
-%% loosen the defaults so they land near their reference instead of drifting
+%% Keep full-width figures near their references and allow text below them.
 \setcounter{topnumber}{2}
 \setcounter{dbltopnumber}{2}
 \renewcommand{\dbltopfraction}{0.9}
 \renewcommand{\dblfloatpagefraction}{0.7}
 \renewcommand{\textfraction}{0.07}
+\setlength{\dbltextfloatsep}{14pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{12pt plus 2pt minus 2pt}
+\clubpenalty=10000
+\widowpenalty=10000
+\brokenpenalty=10000
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -74,24 +79,20 @@ no inherent record of their origin. Generation-time watermarking could supply su
 In DNA, however, the unknown location of the generated region, six-mer token boundaries, and strand
 orientation complicate detection, particularly when generated sequence is embedded within a longer read.
 
-We integrate the SynthID tournament watermark into Carbon-500M and GENERator-v2 1.2B---two genomic
-language models that process and generate non-overlapping six-mer tokens under the evaluated
-sampling policy. We evaluate whether a verifier can recover the mark using only DNA, a key, and
-fixed public settings. The
-verifier corrects one read-level test over both strands, every start position, and four window
-lengths. In each model, it detected all 384 held-out marked reads when unedited and after each
-tested single-base substitution, insertion, or deletion. Ordinary and wrong-key controls yielded
-no more than one positive result for each model, control family, and condition. Neither model showed
-a statistically detectable difference in model likelihood or the pre-specified sequence measures after
-multiple-testing correction. In both models, window-level results are consistent with preserved or
-recovered six-mer token alignment after insertions and deletions. These findings support statistical
-provenance detection
-within the tested corpus and portability of the implementation across the two evaluated models.
-They do not establish biological function, secret-key security, or robustness beyond the evaluated
-non-adaptive single-base edits.
-\end{minipage}
-\vspace{1.2em}
-\end{center}
+We integrate the SynthID tournament watermark into Carbon-500M and GENERator-v2 1.2B---two
+genomic language models that process and generate non-overlapping six-mer tokens under the
+evaluated sampling policy. We evaluate whether a verifier can recover the mark using only DNA, a
+key, and fixed public settings. The verifier applies one read-level correction across both
+strands, every start position, and four window lengths. In each model, it detected all 384
+held-out marked reads when unedited and after each tested single-base substitution, insertion,
+or deletion. Ordinary and wrong-key controls yielded no more than one positive result for each
+model, control family, and condition. Neither model showed a statistically detectable difference
+in model likelihood or the pre-specified sequence measures after multiple-testing correction. In
+both models, window-level results are consistent with preserved or recovered six-mer token
+alignment after insertions and deletions. These findings support statistical provenance
+detection within the tested corpus and portability of the implementation across the two
+evaluated models. They do not establish biological function, secret-key security, or robustness
+beyond the evaluated non-adaptive single-base edits. \end{minipage} \vspace{1.2em} \end{center}
 }]
 
 \thispagestyle{fancy}
@@ -101,10 +102,10 @@ non-adaptive single-base edits.
 Genomic language models increasingly support the generation of coding sequences, regulatory
 elements, genome-scale constructs, and functionally constrained DNA designs
 \cite{nguyen2024evo,wu2025generator,carbon2026,generatorv22026,king2026bacteriophages}. A
-nucleotide sequence, however, does not retain an inherent record of whether it originated in a
+nucleotide sequence, however, carries no inherent record of whether it originated in a
 biological sample, a computational design process, or a generative model. That provenance can be
 lost when a sequence is separated from the logs and metadata maintained by its generating system.
-Mechanisms that remain associated with a sequence throughout design and synthesis are therefore of
+Provenance mechanisms that remain associated with a sequence throughout design and synthesis are therefore of
 increasing interest \cite{baker2024protein}.
 
 Watermarking provides one approach to this problem by embedding a statistical signal during
@@ -115,7 +116,7 @@ token boundaries in the emitted sequence, leaving six possible token phases. Rev
 changes token identities and their order, so verification must consider both strand orientations.
 Surrounding sequence can also obscure the generation boundaries: where the generated region begins
 and ends within the read.
-The verifier must search these alternatives while still controlling the false-positive probability
+The verifier must search these alternatives while controlling the false-positive probability
 of the final read-level decision.
 
 Here, we integrate the SynthID tournament watermark \cite{dathathri2024scalable} into Carbon-500M
@@ -123,14 +124,14 @@ Here, we integrate the SynthID tournament watermark \cite{dathathri2024scalable}
 models share non-overlapping six-mer tokenization and direct sampling from canonical tokens, but
 differ in size, training corpus, and tokenizer construction.
 We ask whether the sampler follows its intended fixed-key distribution, whether watermarking
-changes a pre-specified panel of model and sequence proxies, and whether a verifier can recover the
+changes the pre-specified model and sequence proxies, and whether a verifier can recover the
 mark without knowing the generation boundary, strand, or token phase. The detector searches both
 strands, every start position, and four window lengths, then applies one correction covering the
 complete search.
 
 In both models, the verifier detected every held-out marked read under the tested unedited and
 single-base edit conditions. The quality-proxy comparisons showed no statistically detectable
-difference after correction, while ordinary and wrong-key control counts were compatible with the
+difference after correction, and ordinary and wrong-key control counts were compatible with the
 declared false-positive target. In both models, the window-level results are consistent with the
 search selecting regions with preserved or recovered six-mer token alignment after insertions and
 deletions. These findings establish statistical detection within the evaluated corpus, not biological
@@ -150,13 +151,13 @@ approaches embed information within an open reading frame while preserving the e
 sequence, with experimental evidence that embedded messages can persist during viral replication
 \cite{liss2012watermarks}.
 
-These approaches rely on explicit sequence design, through either insertion of a payload or
-modification of selected nucleotides. Their application requires suitable locations for embedding
-and consideration of the biological consequences of those changes. Generation-time watermarking
+These approaches rely on explicit sequence design, through either payload insertion or
+modification of selected nucleotides. They require suitable embedding locations and
+consideration of the biological consequences of those changes. Generation-time watermarking
 addresses a complementary setting: the mark is introduced through the model's sampling
-distribution as the sequence is generated, without requiring a separately allocated payload
-region. A fixed, recognizable marker also differs from a distributed keyed signal in its
-susceptibility to targeted removal or copying.
+distribution as the sequence is generated, without requiring a separate payload region. A fixed,
+recognizable marker also differs from a distributed keyed signal in its susceptibility to
+targeted removal or copying.
 
 \subsection{Watermarking language-model output}
 
@@ -167,9 +168,10 @@ fresh keyed randomness \cite{christ2024undetectable,kuditipudi2024robust,aaronso
 hu2024unbiased,wu2024dipmark}. SynthID belongs to the latter class. We study its application to DNA,
 rather than proposing a new watermark construction.
 
-Robustness depends on the permitted attacker and edits. Prior work identifies evasion, key-recovery,
-and forgery risks under stronger adaptive capabilities \cite{zhang2024sand,diaa2025adaptive,
-sadasivan2025reliably,jovanovic2024stealing,reynolds2025breaking}. The present study instead tests
+Robustness depends on the attacker's capabilities and the permitted edits. Prior work identifies
+evasion, key-recovery, and forgery risks under stronger adaptive capabilities
+\cite{zhang2024sand,diaa2025adaptive,
+sadasivan2025reliably,jovanovic2024stealing,reynolds2025breaking}. The present study tests
 statistical detection after one non-adaptive base edit and does not evaluate those attacks.
 
 \subsection{SynthID}
@@ -183,46 +185,49 @@ Detection reconstructs the mark bits from the output and tests for an excess of 
 
 Two properties motivate this construction for genomic sequences. First, the mark bits depend on
 local token context rather than absolute position, allowing detection to use contexts retained
-when a generated region is relocated or cropped. Second, the detector requires the output, key,
-and public settings without access to the generating model or its probabilities. SynthID-Text has
-also been evaluated in a large-scale text deployment \cite{dathathri2024scalable}.
+when a generated region is relocated or cropped. Second, the detector requires only the output,
+key, and public settings; it does not need the generating model or its probabilities.
+SynthID-Text has also been evaluated in a large-scale text deployment
+\cite{dathathri2024scalable}.
 
 \subsection{Genomic tokenization and alignment}
 
-Several generative genomic models, including both evaluated here, tokenize DNA into non-overlapping
-six-base tokens to reduce token-sequence length \cite{wu2025generator,carbon2026,generatorv22026}.
-The watermark sampler operates on the realized distribution over those tokens. We therefore define
-both models on their direct canonical 4{,}096-token distributions; for GENERator, this excludes the
-released base-by-base sampling path \cite{generatorv2checkpoint}. A shared vocabulary alone would
-not make the sampling comparison meaningful without a shared policy definition.
+Several generative genomic models, including both evaluated here, tokenize DNA into
+non-overlapping six-base tokens to reduce token-sequence length
+\cite{wu2025generator,carbon2026,generatorv22026}. The watermark sampler operates on the
+distribution used to sample those tokens. We therefore use each model's direct canonical
+4{,}096-token distribution; for GENERator, this excludes the released base-by-base sampling path
+\cite{generatorv2checkpoint}. This shared policy definition makes the sampling comparison
+meaningful; a shared vocabulary alone would not suffice.
 
 Six-mer tokenization also creates the study's central synchronization problem: token boundaries
-are not represented in the emitted nucleotide sequence. Here, token phase is the nucleotide offset
-at which the sequence is partitioned into consecutive six-mers; it does not refer to alignment to a
-reference genome. A verifier must therefore consider all six phases, both strand orientations, and
-candidate locations and lengths of the generated region.
-Selecting the strongest window without correcting for that search would overstate the evidence. Our
-setting consequently addresses detection from an observed read, a key, and public settings without
-assuming a coding region, reference alignment, or known generation boundary. This is complementary
-to genomic watermarking through synonymous codon substitution \cite{zhang2025securing} and keyed
+are not represented in the emitted nucleotide sequence. Here, token phase is the nucleotide
+offset at which the sequence is partitioned into consecutive six-mers; it does not refer to
+alignment to a reference genome. A verifier must therefore consider all six phases, both strand
+orientations, and candidate locations and lengths of the generated region. Selecting the
+strongest window without correcting for that search would overstate the evidence. Our verifier
+therefore uses an observed read, a key, and public settings without assuming a coding region,
+reference alignment, or known generation boundary. This setting is complementary to genomic
+watermarking through synonymous codon substitution \cite{zhang2025securing} and keyed
 watermarking of protein generation \cite{chen2025protein}.
 
 \section{Methods}
 
 \subsection{Shared model policy and sampling}
 
-  We first fixed the model-policy interface on which every comparison rests. Generation used
+  Generation used
   Carbon-500M \cite{carbon2026,carbon500m} and GENERator-v2-eukaryote-1.2b-base
-  \cite{generatorv22026,generatorv2checkpoint}, which are decoder-only genomic language models with
+  \cite{generatorv22026,generatorv2checkpoint}, two decoder-only genomic language models with
   non-overlapping six-base tokens. At every step, we restricted logits to the 4{,}096 canonical DNA
   tokens and normalized once. For GENERator, this specifies its direct canonical token distribution,
   not the base-by-base path used by its released code by default. Temperature was 1.0, with no top-$k$
   or top-$p$ truncation.
 
-  This policy defines the distribution $p$ used by both experimental arms: the ordinary arm samples
-  directly from $p$ without a key, whereas the marked arm applies the tournament below before
-  sampling. Both models were evaluated separately under the same generation, sampler-validation,
-  sequence-quality, and detection procedures; results are reported per model.
+This policy defines the distribution $p$ used by both experimental arms: the ordinary arm
+samples directly from $p$ without a key, whereas the marked arm applies the tournament below
+before sampling. We evaluated the models separately using the same generation,
+sampler-validation, sequence-quality, and detection procedures and report results for each
+model.
 
 Generation ran on GPU hardware. Model scoring ran on CPU for Carbon and on GPU for GENERator, and
 detection ran on x86-64 CPUs for both.
@@ -247,8 +252,8 @@ layers, each with its own mark bits, and samples a token from the resulting dist
 
 The first four generated tokens are sampled ordinarily so that subsequent watermark contexts can
 be reconstructed from the continuation alone. A repeated four-token context is also sampled
-ordinarily and excluded from the detector score, following the original construction. A history
-of 1{,}024 contexts is maintained for repetition detection.
+ordinarily and excluded from the detector score, following the original construction. The
+sampler maintains a history of 1{,}024 contexts to detect repetitions.
 
 Averaged over fresh keyed functions, Equation~\ref{eq:layer} leaves the model's next-token
 distribution unchanged. This identity does not imply equality at a fixed key and context, where
@@ -285,13 +290,10 @@ The Bonferroni correction by $M$ accounts for all searched windows, including ov
 without requiring independence between their tests. The threshold uses the pre-specified
 $\alpha = 0.01$ and is not fitted to the evaluated reads. Equivalently, a read is positive only if
 at least one window reaches
-strength $\log_{10}(M/\alpha) = 6.21$. Window lengths are 384, 768, 1{,}536 and 3{,}072 bases; a
-window whose length does not fit the read is not searched, and a read shorter than every
-pre-specified
-length is not scored. Reverse-complement coordinates are mapped back onto the supplied read, and
+strength $\log_{10}(M/\alpha) = 6.21$. The window lengths are 384, 768, 1{,}536, and 3{,}072 bases. The verifier skips window lengths that exceed the read length and does not score reads shorter than every pre-specified window length. Reverse-complement coordinates are mapped back onto the supplied read, and
 log-probabilities are retained throughout to avoid floating-point underflow.
 
-\begin{figure*}[t]
+\begin{figure*}[tp]
 \centering
 \includegraphics[width=\textwidth]{fig1_method}
 \caption{\textbf{SynthID embedding and position-independent detection.}
@@ -309,90 +311,86 @@ Equation~\ref{eq:layer} and is not a measurement.}
 
 \subsection{Prompts and generation}
 
-Both models use the same cohort of 256 prompts: 384-base forward-strand windows drawn
-from 16 accession-versioned RefSeq chromosome records across eight model organisms. Windows were
-chosen by hashing a fixed label, the
-accession, and a segment index, before generation. Human, patient, controlled-access,
-organelle, plasmid, and ambiguous-base spans were excluded. No prompt was added, moved, or removed
-after any model was run.
+Both models used the same cohort of 256 prompts: 384-base forward-strand windows drawn from 16
+accession-versioned RefSeq chromosome records across eight model organisms. Before generation,
+windows were chosen by hashing a fixed label, the accession, and a segment index. Human,
+patient, controlled-access, organelle, plasmid, and ambiguous-base spans were excluded. No
+prompt was added, moved, or removed after any model was run.
 
-In each model, each prompt produced two marked and two ordinary continuations of 512 tokens
-(3{,}072 bases), so each model contributes 512 marked and 512 ordinary continuations. The
-two draws use different replay seeds in both arms, and the two marked draws use two different keys.
-Both keys are published for reproducibility. Deployment would require independently generated
-secret keys shared only with authorized generators and verifiers.
+For each model, every prompt produced two marked and two ordinary continuations of 512 tokens
+(3{,}072 bases), yielding 512 marked and 512 ordinary continuations per model. The two draws
+used different replay seeds in both arms, and the two marked draws used different keys. Both
+keys are published for reproducibility. Deployment would require independently generated secret
+keys shared only with authorized generators and verifiers.
 
 \subsection{Sampler validation}
 
-For each model and prompt we fixed the model at token index 64 of its ordinary draw-zero trajectory
-and drew 5{,}000 samples per arm from that one state. Counts were compared with the exact intended
-law by a
-Monte Carlo goodness-of-fit test with 999 replicates. The marked arm was compared against $p_k$, not
-against $p$, because the distribution-preservation identity does not hold at a fixed key and
-context. Eight additional states per model used a deliberately incorrect sampler as a negative
-control.
+For each model and prompt, we fixed the model state at token index 64 of its ordinary draw-zero
+trajectory and drew 5{,}000 samples per arm from that state. We compared the counts with the
+exact intended distribution using a Monte Carlo goodness-of-fit test with 999 replicates. The
+marked arm was compared against $p_k$, not against $p$, because the distribution-preservation
+identity does not hold at a fixed key and context. Eight additional states per model used a
+deliberately incorrect sampler as a negative control.
 
 \subsection{Sequence measures}
 
-The model's score is the teacher-forced negative log-likelihood per generated token under the same
-model and token restriction used to generate, with the prompt supplied as context and excluded from
-the loss. Each model scores its own outputs, so the absolute scores are not used for comparisons
-between models. Thirteen additional measures were specified before analysis: GC content,
-purine content, CpG
-content, base, dinucleotide and trinucleotide entropy, distinct 6-mer fraction, longest and mean
-single-base run, Jensen--Shannon drift from the prompt at $k = 1, 2, 3$, and perplexity. All 14 form
-one multiple-testing family under Benjamini--Hochberg correction.
+The model score is the teacher-forced negative log-likelihood per generated token, using the
+same model and token restriction as generation. The prompt is supplied as context and excluded
+from the loss. Each model scores its own outputs, so absolute scores are not used for
+comparisons between models. Thirteen additional measures were specified before analysis: GC
+content, purine content, CpG content, base, dinucleotide, and trinucleotide entropy, distinct
+6-mer fraction, longest and mean single-base run, Jensen--Shannon drift from the prompt at $k =
+1, 2, 3$, and perplexity. All 14 form one multiple-testing family under Benjamini--Hochberg
+correction.
 
 \subsection{Edits and statistics}
 
-Each edited read contains exactly one substituted, inserted, or deleted base within the continuation,
-at a position and with a replacement base drawn by a fixed random rule that does not consult the
-verifier. Prompts are the independent unit; the two draws from a prompt are paired repetitions.
-Uncertainty on the sequence measures comes from an equal-weight bootstrap over prompts with 20{,}000
-replicates and a paired sign-flip test with 100{,}000 replicates. Detection intervals are exact
-two-sided binomial intervals at 95\% over the 192 held-out prompts. For control families, a prompt
-is positive if either draw is positive; marked-output recall is also assessed by requiring both
-draws to be detected. All reported read-level $P$-values include the correction over every searched
-strand, starting base, and window length.
+Each edited read contains exactly one substituted, inserted, or deleted base within the
+continuation. A fixed random rule selects the position and, where applicable, the replacement or
+inserted base without consulting the verifier. Prompts are the independent unit; the two draws
+from a prompt are paired repetitions. Uncertainty in the sequence measures is assessed using an
+equal-weight bootstrap over prompts with 20{,}000 replicates and a paired sign-flip test with
+100{,}000 replicates. Detection rates are reported with exact two-sided 95\% binomial intervals
+over the 192 held-out prompts. For control families, a prompt is positive if either draw is
+positive; marked-output recall is also assessed by requiring both draws to be detected. All
+reported read-level $P$-values include the correction over every searched strand, starting base,
+and window length.
 
 \section{Results}
 
-The evaluation addresses three linked questions. First, does the implemented sampler agree with
-its declared fixed-key distribution? Second, does watermarking produce a detectable change in the
-pre-specified model and sequence proxies? Third, can a verifier recover the mark when the read
-does not reveal where generation began, which strand was used, or how six-base tokens were
-aligned? The first two checks establish the conditions under which the detection result can be
-interpreted; the final question is the study's primary practical outcome. Unless otherwise stated,
-Carbon and GENERator are evaluated separately with the same cohort, read construction, and
-decision rule.
+We first report sampler fidelity and sequence-quality comparisons, then evaluate
+position-independent detection and its response to single-base edits. The first two checks
+provide context for interpreting detection, the study's primary practical outcome. Unless
+otherwise stated, results are reported separately for Carbon and GENERator using the same
+cohort, read construction, and decision rule.
 
 \subsection{Sampler fidelity}
 
-We first established that each sampler agreed with its intended distribution at the tested model
-states. Among 256 marked states, 13 Carbon states and 5 GENERator states fell below the nominal
-0.05 level, compared with 12.8 expected by chance; the corresponding ordinary-arm counts were 12
-and 14. No real arm produced a rejection after correction, whereas the deliberately incorrect
-sampler was rejected at all eight control states in each model. This supports sampler fidelity at
-the tested states and the resolution provided by 5{,}000 draws per state; it is not a proof of
-correctness at every possible model state.
+Each sampler agreed with its intended distribution at the tested model states. Among 256 marked
+states per model, tests for 13 Carbon states and 5 GENERator states yielded nominal $P$-values
+below 0.05, compared with 12.8 expected by chance; the corresponding ordinary-arm counts were 12
+and 14. Neither the marked nor the ordinary arm produced a rejection after correction in either
+model, whereas the deliberately incorrect sampler was rejected at all eight control states in
+each model. This supports sampler fidelity at the tested states and at the resolution provided
+by 5{,}000 draws per state; it is not a proof of correctness at every possible model state.
 
 \subsection{Sequence-quality proxies}
 
-For every model and prompt, we generated two marked and two ordinary continuations of 3{,}072 bases,
-giving 512 matched pairs from 256 prompts per model. Marked and ordinary output showed no
+For every model and prompt, we generated two marked and two ordinary continuations of 3{,}072
+bases, giving 512 matched pairs from 256 prompts per model. Marked and ordinary output showed no
 statistically detectable difference in either model across the pre-specified 14-measure family
-(Figure~\ref{fig:quality}). All intervals contained zero, and no comparison survived
-multiple-testing correction; the smallest adjusted $P$-value was 0.85 for Carbon and 0.73 for
-GENERator.
+(Figure~\ref{fig:quality}). All intervals contained zero, and no comparison was significant
+after multiple-testing correction; the smallest adjusted $P$-value was 0.85 for Carbon and 0.73
+for GENERator.
 
-The model-score estimates are consistent with this overall pattern. The paired marked-minus-ordinary
-difference was $+0.00852$ nats per token in Carbon (95\% interval $-0.04426$ to $+0.05973$;
-$P = 0.75$) and $-0.00564$ in GENERator (95\% interval $-0.05614$ to $+0.04378$; $P = 0.83$).
-The largest absolute standardized effects were 0.084 in Carbon and 0.111 in GENERator. These
-results indicate no measurable quality loss under the evaluated proxies, but they do not establish
-equivalence, relative biological quality between models, or biological function.
+The paired marked-minus-ordinary difference in model score was $+0.00852$ nats per token in
+Carbon (95\% interval $-0.04426$ to $+0.05973$; $P = 0.75$) and $-0.00564$ in GENERator (95\%
+interval $-0.05614$ to $+0.04378$; $P = 0.83$). The largest absolute standardized effects were
+0.084 in Carbon and 0.111 in GENERator. These results indicate no measurable quality loss under
+the evaluated proxies, but they do not establish equivalence, relative biological quality
+between models, or biological function.
 
-\begin{figure*}[t]
+\begin{figure*}[tp]
 \centering
 \makebox[\textwidth][l]{\small\textbf{Carbon-500M}}\par\vspace{0.15em}
 \includegraphics[width=\textwidth]{fig2_quality}
@@ -401,10 +399,8 @@ equivalence, relative biological quality between models, or biological function.
 \includegraphics[width=\textwidth]{fig2_quality_generator}
 \caption{\textbf{Model likelihood and sequence-quality proxies in Carbon and GENERator.}
 \textbf{a,c}, Paired difference in the model's score between marked and ordinary continuations, over
-512 matched pairs from 256 prompts. Positive values indicate lower model likelihood for marked
-continuations. The bar denotes the 95\% interval from a bootstrap over prompts.
-\textbf{b,d}, All 14 pre-specified measures on one scale, as the paired difference in standard
-deviations, with confidence intervals rescaled to the same units. Every interval includes zero and
+512 matched pairs from 256 prompts. Positive values indicate lower model likelihood for marked continuations. The horizontal bar denotes the 95\% interval from a bootstrap over prompts.
+\textbf{b,d}, Paired differences for all 14 pre-specified measures, expressed in standard deviations, with confidence intervals in the same units. Every interval includes zero and
 none of the 14 comparisons is significant after multiple-testing correction. Panels \textbf{a,b}
 show Carbon and panels \textbf{c,d} show GENERator.}
 \label{fig:quality}
@@ -413,32 +409,33 @@ show Carbon and panels \textbf{c,d} show GENERator.}
 \subsection{Recall and false-positive rate}
 
 The prompt split was specified before examining detection results: 64 prompts were reserved for
-selection between two window-score summaries, and 192 were held out for evaluation. Neither subset
-was used to fit the threshold. For each model, the 384-base prompt was prepended to each held-out
-continuation, producing a 3{,}456-base read whose generation boundary was withheld from the
-verifier. Three detection families were evaluated: marked reads with the correct key, ordinary
-reads, and marked reads with the other draw's key. Each family was evaluated unedited and after
-exactly one substitution, insertion, or deletion. The search depends on read and window lengths
-and is identical across models. Unedited reads require $M = 16{,}136$ windows and a threshold of
-6.21; the window count is recomputed for the read length after an edit.
+selection between two window-score summaries, and 192 were held out for evaluation. Neither
+subset was used to fit the detection threshold. For each model, the 384-base prompt was
+prepended to each held-out continuation, producing a 3{,}456-base read whose generation boundary
+was withheld from the verifier. Three detection families were evaluated: marked reads with the
+correct key, ordinary reads, and marked reads with the other draw's key. Each family was
+evaluated unedited and after exactly one substitution, insertion, or deletion. The search is
+determined by the read and window lengths and is identical across models. Unedited reads require
+$M = 16{,}136$ windows and a threshold of 6.21; the window count is recomputed for the read
+length after an edit.
 
+In both models, the verifier detected all 384 marked reads in every condition, including each
+tested single-base edit (Table~\ref{tab:detection}). Among the controls, Carbon produced one
+ordinary positive and no wrong-key positives; GENERator produced no ordinary positives and one
+wrong-key positive in the unedited, substitution, and insertion conditions. Each positive cell
+represents 1 of 384 reads (0.26\%). Recall and the two control rates are reported separately
+because a pooled accuracy would depend on the prevalence of marked and control reads in an
+application.
 
-The primary outcome is unambiguous: in both models, the verifier detected all 384 marked reads in
-every condition, including each tested single-base edit (Table~\ref{tab:detection}). The controls
-make the result interpretable. Carbon produced one ordinary positive and no wrong-key positives;
-GENERator produced no ordinary positives and one wrong-key positive in the unedited, substituted,
-and inserted conditions. Each positive cell represents 1 of 384 reads (0.26\%). Recall and the two
-control rates are reported separately because a pooled accuracy would depend on the prevalence of
-marked and control reads in an application.
-
-The paired panels in Figure~\ref{fig:detection} show why the detection result is not solely a
-thresholding artifact. In Carbon, the weakest unedited marked read had strength 124.8, compared
-with the 6.21 corrected threshold; in GENERator, the corresponding value was 19.6. Control values
-were concentrated near or below the threshold, with the few positive controls only slightly above
-it. At the prompt level, the exact 95\% interval for all marked prompts detected was 98.10--100\%
-in both models. The upper bound for a zero-positive control family was 1.903\%, and the interval
-for one positive prompt was 0.013--2.868\%; these data are compatible with, but do not establish,
-an operational false-positive rate below 1\%.
+Figure~\ref{fig:detection} shows the separation between marked reads and controls relative to
+the corrected detection threshold. In Carbon, the weakest unedited marked read had strength
+124.8, compared with the 6.21 corrected threshold; in GENERator, the corresponding value was
+19.6. Control strengths were concentrated near or below the threshold, with the few positive
+controls only slightly above it. At the prompt level, the exact 95\% interval for all marked
+prompts detected was 98.10--100\% in both models. For control families, the upper bound with
+zero positive prompts was 1.903\%, and the interval for one positive prompt was 0.013--2.868\%;
+these data are compatible with, but do not establish, an operational false-positive rate below
+1\%.
 
 The GENERator aligned-detector diagnostic provides a separate check of the analytic null under
 known token alignment. Across the four evaluated lengths, 2, 6, 6, and 4 ordinary-output prompts
@@ -446,38 +443,7 @@ were positive, versus approximately five expected at each length ($P = 0.25$--$0
 is compatible with the analytic null, but it does not replace the full-search correction used for
 the position-independent decision.
 
-\begin{table*}[t]
-\centering
-\caption{Positive detections for each model across 192 held-out prompts with two draws each.
-Each edit affects exactly one base. The final two rows of each block summarize unedited reads at
-the prompt level, accounting for paired draws; intervals are exact and two-sided. All marked
-prompts also had both draws detected in every edit condition. Results are reported separately
-for each model.}
-\label{tab:detection}
-\begin{tabular}{lccc}
-\toprule
-Edit applied to the read & Marked, right key & Ordinary & Marked, wrong key \\
-\midrule
-\multicolumn{4}{l}{\emph{Carbon}} \\
-None                 & 384/384 & 1/384 & 0/384 \\
-One substitution     & 384/384 & 1/384 & 0/384 \\
-One insertion        & 384/384 & 1/384 & 0/384 \\
-One deletion         & 384/384 & 1/384 & 0/384 \\
-Prompts with a positive draw & 192/192 & 1/192 & 0/192 \\
-Exact 95\% interval  & 98.10--100\% & 0.013--2.868\% & 0--1.903\% \\
-\midrule
-\multicolumn{4}{l}{\emph{GENERator}} \\
-None                 & 384/384 & 0/384 & 1/384 \\
-One substitution     & 384/384 & 0/384 & 1/384 \\
-One insertion        & 384/384 & 0/384 & 1/384 \\
-One deletion         & 384/384 & 0/384 & 0/384 \\
-Prompts with a positive draw & 192/192 & 0/192 & 1/192 \\
-Exact 95\% interval  & 98.10--100\% & 0--1.903\% & 0.013--2.868\% \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
-\begin{figure*}[t]
+\begin{figure*}[tp]
 \centering
 \makebox[\textwidth][l]{\small\textbf{Carbon-500M}}\par\vspace{0.15em}
 \includegraphics[width=\textwidth]{fig3_detection}
@@ -488,31 +454,43 @@ Exact 95\% interval  & 98.10--100\% & 0--1.903\% & 0.013--2.868\% \\
 of the best window in each unedited read, one point per read, on a log scale.
 The dashed line denotes the threshold corrected for the search over 16{,}136 windows. All marked
 reads exceed the threshold. \textbf{b,d}, Proportion of the 192 held-out prompts with positive
-detections, with exact 95\% intervals, split across a break in the axis. All marked prompts were
-detected in all four edit conditions. GENERator's wrong-key positive is absent after deletion.
+detections, with exact 95\% intervals, shown on a broken axis. All marked prompts were
+detected in all four edit conditions. The GENERator wrong-key positive is absent after deletion.
 The control intervals reach above the 1\% target, so these data are
 consistent with a false-positive rate below 1\% without establishing one. Panels \textbf{a,b} show
 Carbon and panels \textbf{c,d} show GENERator.}
 \label{fig:detection}
 \end{figure*}
 
-\subsection{Detection after single-base edits}
+\begin{table*}[tp]
+\centering
+\caption{Positive detections for each model across 192 held-out prompts with two draws each.
+Correct-key and wrong-key columns refer to marked reads. Each edit affects exactly one base.
+The final two rows summarize unedited reads at the prompt level to account for paired draws;
+intervals are exact and two-sided. All marked prompts also had both draws detected in every edit
+condition.}
+\label{tab:detection}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}lccc@{\hspace{12pt}}ccc@{}}
+\toprule
+& \multicolumn{3}{c}{\textbf{Carbon-500M}} & \multicolumn{3}{c}{\textbf{GENERator-v2 1.2B}} \\
+\cmidrule(lr){2-4}\cmidrule(l){5-7}
+Edit applied to the read & Correct key & Ordinary & Wrong key & Correct key & Ordinary & Wrong key \\
+\midrule
+None                 & 384/384 & 1/384 & 0/384 & 384/384 & 0/384 & 1/384 \\
+One substitution     & 384/384 & 1/384 & 0/384 & 384/384 & 0/384 & 1/384 \\
+One insertion        & 384/384 & 1/384 & 0/384 & 384/384 & 0/384 & 1/384 \\
+One deletion         & 384/384 & 1/384 & 0/384 & 384/384 & 0/384 & 0/384 \\
+\midrule
+Prompts with a positive draw & 192/192 & 1/192 & 0/192 & 192/192 & 0/192 & 1/192 \\
+Exact 95\% interval  & 98.10--100\% & 0.013--2.868\% & 0--1.903\% & 98.10--100\% & 0--1.903\% & 0.013--2.868\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
-
-The edit experiment addresses both whether detection persists and how the search responds to lost
-token alignment. Every marked read remained detectable after the tested substitution, insertion,
-and deletion in both models (Table~\ref{tab:detection}). A substitution perturbs token content and
-nearby watermark contexts while preserving downstream alignment; an insertion or deletion shifts
-the grouping of every subsequent token in a window spanning the edit.
-
-The strongest-window distribution provides a consistent explanation in both models
-(Figure~\ref{fig:edits}). For unedited reads, the full 3{,}072-base window carried the strongest
-evidence in 383 of 384 Carbon reads and 381 of 384 GENERator reads. After insertion, those counts
-fell to 203 and 200; after deletion, they were 232 and 227. The corresponding shift toward shorter
-windows is consistent with the search selecting regions whose alignment is preserved or recovered.
-It does not imply a general guarantee against more extensive or adversarial modification.
-
-\begin{figure*}[t]
+\begin{figure*}[tp]
 \centering
 \makebox[\textwidth][l]{\small\textbf{Carbon-500M}}\par\vspace{0.15em}
 \includegraphics[width=\textwidth]{fig4_edits}
@@ -521,35 +499,50 @@ It does not imply a general guarantee against more extensive or adversarial modi
 \includegraphics[width=\textwidth]{fig4_edits_generator}
 \caption{\textbf{Effects of single-base edits on detection in Carbon and GENERator.} \textbf{a,c},
 Strength of the best window in each of the 384 marked reads per condition, on a log scale, with the
-median shown as a bar. The dashed line is the detection threshold. \textbf{b,d}, Length of the
-window that carried the strongest evidence. Numbers inside the bars are read counts out of 384.
+median shown as a bar. The dashed line is the detection threshold. \textbf{b,d}, Length of the strongest window. Numbers inside the bars are read counts out of 384.
 The full 3{,}072-base window is strongest for nearly all unedited and substituted reads, whereas
 shorter windows are more frequent after insertion or deletion. Panels \textbf{a,b} show Carbon and
 panels \textbf{c,d} show GENERator.}
 \label{fig:edits}
 \end{figure*}
 
-\clearpage
+% Keep this short subsection together beneath its results figure.
+\begin{samepage}
+\subsection{Detection after single-base edits}
+
+The edit experiment evaluates whether detection persists and how the search responds to
+disrupted token alignment. Every marked read remained detectable after the tested substitution,
+insertion, and deletion in both models (Table~\ref{tab:detection}). A substitution perturbs
+token content and nearby watermark contexts while preserving downstream alignment; an insertion
+or deletion shifts the grouping of every subsequent token in a window spanning the edit.
+
+The distribution of strongest-window lengths shows a consistent pattern across models
+(Figure~\ref{fig:edits}). For unedited reads, the full 3{,}072-base window carried the strongest
+evidence in 383 of 384 Carbon reads and 381 of 384 GENERator reads. After insertion, those
+counts fell to 203 and 200; after deletion, they were 232 and 227. This shift toward shorter
+windows is consistent with the search selecting regions whose alignment is preserved or
+recovered. It does not imply a general guarantee against more extensive or adversarial
+modification.
+
+\end{samepage}
 
 \section{Discussion}
 
-This study evaluated the SynthID tournament watermark in Carbon-500M and GENERator-v2 1.2B
-under a common prompt cohort and a shared position-independent detector. Across the tested states,
-both models agreed with the intended sampling distribution, showed no statistically detectable
-loss in the declared quality proxies, and yielded positive detection for every held-out marked
-read under the evaluated unedited and single-base edit conditions. The central contribution is
-therefore methodological: the same watermarking and detection pipeline can be applied to two
-genomic language models while controlling for read-level uncertainty in strand orientation,
-start position, and window length.
+We evaluated the SynthID tournament watermark in Carbon-500M and GENERator-v2 1.2B using a
+shared prompt cohort and position-independent detector. For both models, the samplers agreed
+with their intended distributions at the tested states, the declared quality proxies showed no
+statistically detectable loss, and every held-out marked read was detected in the unedited and
+tested single-base edit conditions. The methodological contribution is a shared watermarking and
+detection procedure that accounts for uncertainty in strand orientation, start position, and
+window length at the read level.
 
-A central methodological result is that detection remained effective after explicit correction
-for alignment and location uncertainty. The verifier searches both strands, every starting base,
-and four window lengths, and includes every tested window in the read-level correction. In both
-models, the retained window-level results show that the signal accumulated over the evaluated
-continuations exceeded the corrected threshold. This margin should not be assumed for shorter
-continuations or longer surrounding reads: shorter generated regions provide fewer mark bits, while
-longer reads increase the number of candidate windows. The minimum detectable continuation length
-under these conditions remains to be established.
+Detection remained effective after correction for alignment and location uncertainty. The
+verifier searches both strands, every starting base, and four window lengths, and includes every
+tested window in the read-level correction. In both models, the window-level results show that
+the accumulated signal exceeded the corrected threshold. This margin should not be assumed for
+shorter continuations or longer surrounding reads: shorter generated regions provide fewer mark
+bits, while longer reads increase the number of candidate windows. The minimum detectable
+continuation length under these conditions remains to be established.
 
 Applying the same sampler and verifier to two models supports portability across the evaluated
 model implementations. The detector depends on the observed read and public settings, so its
@@ -559,26 +552,27 @@ application. However, the models share the same prompt cohort and token length, 
 extrapolation to other corpora and tokenization schemes. This comparison also does not establish
 relative biological quality or equivalence between the models.
 
-The strongest-window results clarify the role of alignment search after insertions and deletions.
-A substitution preserves downstream token boundaries, whereas an insertion or deletion changes the
-alignment of every subsequent token within a window spanning the edit. The increased frequency of
-shorter strongest windows is consistent with the verifier selecting regions whose alignment remains
-usable in both Carbon-500M and GENERator-v2 1.2B. Exhaustive search over starting bases also permits
-recovery of the original alignment downstream of an edit. The strongest window does not identify
-the exact generation boundaries. This interpretation explains the observed single-edit results, but
-provides no general guarantee against more extensive modification. Theoretical work on watermark removal
-further emphasizes that robustness depends on the permitted adversarial capabilities
-\cite{zhang2024sand}. Here, each read received exactly one randomly specified edit, without access
-to the verifier's score.
+The strongest-window results help explain how alignment search supports detection after
+insertions and deletions. A substitution preserves downstream token boundaries, whereas an
+insertion or deletion changes the alignment of every subsequent token within a window spanning
+the edit. The increased selection of shorter windows is consistent with the verifier selecting
+regions whose alignment remains usable in both Carbon-500M and GENERator-v2 1.2B. Exhaustive
+search over starting bases also permits recovery of the original alignment downstream of an
+edit. The strongest window does not identify the exact generation boundaries. This
+interpretation accounts for the observed single-edit results but provides no general guarantee
+against more extensive modification. Theoretical work on watermark removal further emphasizes
+that robustness depends on the permitted adversarial capabilities \cite{zhang2024sand}. Here,
+each read received exactly one randomly specified edit, without access to the verifier's score.
 
 The alignment problem is related to synchronization errors in coding theory. Synchronization
 strings explicitly encode indexing information to support recovery from insertions and deletions
-\cite{haeupler2017synchronization}. Pseudorandom codes combine computational indistinguishability
-with decodability under specified error models, motivating their use in watermarking
-\cite{christ2024prc}. Our verifier addresses alignment uncertainty through exhaustive search,
-without adding an explicit indexing code to the sequence. The resulting cost is the number of
-windows evaluated and the associated multiple-testing correction. This analogy concerns the
-alignment problem; it does not imply the error-correction guarantees of those coding constructions.
+\cite{haeupler2017synchronization}. Pseudorandom codes combine computational
+indistinguishability with decodability under specified error models, motivating their use in
+watermarking \cite{christ2024prc}. Our verifier addresses alignment uncertainty through
+exhaustive search, without adding an explicit indexing code to the sequence. The cost of this
+search is the number of windows evaluated and the associated multiple-testing correction. This
+analogy concerns the alignment problem; it does not imply the error-correction guarantees of
+those coding constructions.
 
 Watermarking designed coding sequences through synonymous substitution, including approaches that
 preserve the mark in translated proteins \cite{zhang2025securing}, addresses a complementary
@@ -593,56 +587,52 @@ GENERator-v2 1.2B.
 
 \section{Limitations}
 
+This evaluation covers two models, one watermark construction, and one verifier; it does not
+provide a general proof of watermark robustness, biological safety, or secret-key security. The
+evaluation used one execution per model on a shared prompt cohort. Both models use six-base
+tokens; single-base or variable-length tokenization would present different alignment
+requirements. The shared cohort limits extrapolation to other genomic sources, and longer reads
+would increase the search correction. Generation ran on GPUs and detection on x86-64 CPUs,
+without independent replication across computing platforms. For Carbon, the retained protocol
+document differs from the hash recorded in the detection result. This unresolved provenance
+discrepancy limits verification of that execution.
 
-This is a scoped empirical evaluation rather than a general proof of watermark robustness,
-biological safety, or secret-key security. The study covers two models, one watermark construction,
-and one verifier. The evaluation used one execution per model on a shared prompt cohort.
-Both models use six-base tokens; models
-with single-base or variable-length tokenization would present different alignment requirements.
-The shared cohort limits extrapolation across genomic sources, and longer reads would increase the
-search correction. Generation was performed on GPU hardware and detection on x86-64 CPUs; neither
-result has been independently replicated across computing platforms. For Carbon, the retained
-protocol document differs from the protocol hash recorded in the detection result. This unresolved
-provenance discrepancy further limits verification of that execution.
-
-
-The observed control counts are compatible with the 1\% target but do not establish an operational
-false-positive rate below it. With 192 independent prompts, the 95\% interval for one positive
-prompt reaches 2.87\%, while the upper bound for zero positives is 1.90\%. More independent prompts
-are needed to estimate rare-event rates near the declared target precisely.
+The observed control counts are compatible with the 1\% target but do not establish an
+operational false-positive rate below it. With 192 independent prompts, the 95\% interval
+reaches 2.87\% for one positive prompt; the upper bound for zero positives is 1.90\%. More
+independent prompts are needed for precise estimates near the target.
 
 Finally, the experiments use published keys for reproducibility and therefore do not evaluate
 secrecy, resistance to key recovery, or adversarial removal in deployment. The analytic null
-assumes that mark bits are independent fair binary values without the correct key. Whether attacks
-reported for text watermarking \cite{reynolds2025breaking,jovanovic2024stealing} transfer to this
-genomic setting is untested; the assumed attacker does not hold the key or observe the verifier's
-score. Likewise, model likelihood and sequence statistics are biological proxies, not measures of
-expression, replication, function, viability, or safety. Experimental assays would be required to
-address biological consequences.
+assumes independent fair mark bits without the correct key. Whether attacks reported for text
+watermarking \cite{reynolds2025breaking,jovanovic2024stealing} transfer to this genomic setting
+is untested; the assumed attacker does not hold the key or observe the verifier's score.
+Likewise, model likelihood and sequence statistics are biological proxies, not measures of
+expression, replication, function, viability, or safety. Assessing biological consequences would
+require experimental assays.
 
 \section{Conclusion}
 
-The SynthID tournament watermark was applied to Carbon-500M and GENERator-v2 1.2B without a
-statistically detectable loss in the evaluated model-likelihood and sequence-quality proxies.
-Position-independent verification detected all 384 held-out marked reads per model in the
-unedited condition and after each tested single-base substitution, insertion, or deletion, with
-read-level correction over both strands, every starting base, and four window lengths. Control
-counts were compatible with the declared false-positive target, although 192 independent prompts
-provide limited precision near a 1\% rate. In both models, the strongest-window distributions
-are consistent with the search selecting regions with preserved or recovered token alignment after
-insertions and deletions. These findings
-support statistical provenance detection in model-generated DNA within the evaluated scope; they
-require independent replication, broader sequence coverage, and biological validation before
-broader conclusions can be drawn.
+The SynthID tournament watermark produced no statistically detectable loss in the evaluated
+model-likelihood and sequence-quality proxies for Carbon-500M or GENERator-v2 1.2B. With
+read-level correction over both strands, every starting base, and four window lengths, the
+position-independent verifier detected all 384 held-out marked reads per model, unedited and
+after each tested single-base substitution, insertion, or deletion. Control counts were
+compatible with the declared false-positive target, but 192 independent prompts limit precision
+near 1\%. In both models, strongest-window distributions are consistent with the search
+selecting regions with preserved or recovered token alignment after insertions and deletions.
+These findings support statistical provenance detection within the evaluated scope. Broader
+conclusions require independent replication, wider sequence coverage, and biological validation.
 
 \section*{Data and code availability}
 
-The source code, prompt definitions, analysis and figure scripts, and evidence ledger are maintained
-in the \href{https://github.com/Georgakopoulos-Soares-lab/genomic-sampling-watermarks}{project GitHub repository}.
-Generated sequences and underlying result files not included in the repository are available from
-the authors on request. The two experimental keys are published as public fixtures for
-reproducibility. They are not deployment secrets, and the experiments do not assess resistance to
-secret-key recovery.
+The source code, prompt definitions, analysis and figure scripts, and evidence ledger are
+maintained in the
+\href{https://github.com/Georgakopoulos-Soares-lab/genomic-sampling-watermarks}{project GitHub
+repository}. Generated sequences and underlying result files not included in the repository are
+available from the authors on request. The two experimental keys are published as public
+fixtures for reproducibility. They are not deployment secrets, and the experiments do not assess
+resistance to secret-key recovery.
 
 \section*{Competing interests}
 
@@ -653,7 +643,11 @@ The authors declare no competing financial or non-financial interests.
 This work has been supported by the National Institute of General Medical Sciences of the National
 Institutes of Health [R35GM155468 to I.G.S.]; and start-up funds awarded to I.G.S.
 
+\begingroup
+\raggedright
+\balance
 \bibliographystyle{plain}
 \bibliography{refs}
+\endgroup
 
 \end{document}
