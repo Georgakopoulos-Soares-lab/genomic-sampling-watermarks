@@ -201,8 +201,9 @@ part of the method rather than an afterthought.
 
 The distinction is sharper than a difference of degree. Context-free constructions remove key
 desynchronization entirely, fixing the vocabulary partition once so that a positional shift
-cannot change which tokens carry the mark \cite{zhao2024provable}, which is what lets that
-construction state a robustness guarantee under bounded edit distance. It would still fail here, because the failure
+cannot change which tokens carry the mark \cite{zhao2024provable}, which in that paper's own
+analysis buys twice the edit tolerance of the context-dependent soft watermark rather than the
+guarantee itself. It would still fail here, because the failure
 under a frameshift is not desynchronization of the key but destruction of token identity: the
 downstream six-mers become different vocabulary items, and a different item carries an
 independent mark bit. Conversely, watermarks defined above the tokenizer, on sentence embeddings
@@ -710,9 +711,10 @@ strings explicitly encode indexing information to support recovery from insertio
 \cite{haeupler2017synchronization}. Pseudorandom codes combine computational
 indistinguishability with decodability under specified error models, motivating their use in
 watermarking \cite{christ2024prc}. A longer-standing alternative treats the offset as a latent variable rather than a hypothesis to
-be enumerated: watermark codes for insertion-deletion channels recover synchronization with a
-hidden Markov model whose state is the accumulated drift, integrating over offsets instead of
-testing them separately \cite{davey2001reliable}. That formulation presumes control of the
+be enumerated: watermark codes for insertion-deletion channels---where the watermark is a known pseudorandom
+carrier sequence rather than a provenance mark---recover synchronization with a hidden Markov
+model whose state is the accumulated drift, integrating over offsets instead of testing them
+separately \cite{davey2001reliable}. That formulation presumes control of the
 encoding, which a sampling watermark does not have. Our verifier instead addresses alignment
 uncertainty through exhaustive search, without adding an explicit indexing code to the
 sequence. The cost of this
