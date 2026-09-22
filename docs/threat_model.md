@@ -19,6 +19,16 @@ and affected base are selected by a frozen public random procedure, not by inspe
 behavior. Multiple edits and detector-guided editing are outside this threat model and are not
 planned experiments for this study.
 
+This boundary follows from the search geometry, not from convenience. Detection requires a
+contiguous region whose 6-mer alignment survives and that carries enough scored tokens to clear
+the corrected threshold: at `alpha = 0.01` and `M = 16,136` windows, a window needs at least 21
+scored tokens even if every mark bit is positive, and the shortest evaluated window spans 384
+bases. Independent indels arriving at rate `r` leave expected clean stretches near `1/r` bases,
+so raising the rate shortens the surviving region faster than it weakens the mark. Measuring the
+breakdown point would therefore require a shorter-window search with a correspondingly larger
+correction. That is a different verifier and a different study, and it is why the higher-rate
+sweep is declined here rather than deferred.
+
 ## Detection goal
 
 With the correct key, a watermarked read should pass the declared sequence-level threshold. An
