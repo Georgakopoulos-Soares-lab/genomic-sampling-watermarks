@@ -7,8 +7,11 @@
 @article{dathathri2024scalable,
   title   = {Scalable Watermarking for Identifying Large Language Model Outputs},
   author  = {Dathathri, Sumanth and See, Abigail and Ghaisas, Sumedh and Huang, Po-Sen and
-             Chen, Rob and Kushman, Nenad and Shumailov, Ilia and Tarassov, Eugene and
-             Kohli, Pushmeet and others},
+             McAdam, Rob and Welbl, Johannes and Bachani, Vandana and Kaskasoli, Alex and
+             Stanforth, Robert and Matejovicova, Tatiana and Hayes, Jamie and Vyas, Nidhi and
+             Al Merey, Majd and Brown-Cohen, Jonah and Bunel, Rudy and Balle, Borja and
+             Cemgil, Taylan and Ahmed, Zahra and Stacpoole, Kitty and Shumailov, Ilia and
+             Baetu, Ciprian and Gowal, Sven and Hassabis, Demis and Kohli, Pushmeet},
   journal = {Nature},
   volume  = {634},
   number  = {8035},
@@ -144,7 +147,8 @@
   author  = {Wu, Wei and Li, Qiuyi and Zhang, Yuanyuan and Zhan, Zhihao and Chen, Ruipu and
              Li, Mingyang and Fu, Kun and Qi, Junyan and Bao, Yongzhou and Wang, Chao and others},
   journal = {arXiv preprint arXiv:2502.07272},
-  year    = {2025}
+  year    = {2025},
+  note    = {Version 5, 31 January 2026}
 }
 
 @article{baker2024protein,
@@ -237,8 +241,27 @@
                Singleton Bound},
   author    = {Haeupler, Bernhard and Shahrasbi, Amirbehshad},
   booktitle = {Proceedings of the 49th Annual ACM SIGACT Symposium on Theory of Computing (STOC)},
+  pages     = {33--46},
   year      = {2017},
   doi       = {10.1145/3055399.3055498}
+}
+
+@inproceedings{golowich2024edit,
+  title     = {Edit Distance Robust Watermarks via Indexing Pseudorandom Codes},
+  author    = {Golowich, Noah and Moitra, Ankur},
+  booktitle = {Advances in Neural Information Processing Systems 37 (NeurIPS)},
+  year      = {2024},
+  note      = {arXiv:2406.02633}
+}
+
+@inproceedings{kirchenbauer2024reliability,
+  title     = {On the Reliability of Watermarks for Large Language Models},
+  author    = {Kirchenbauer, John and Geiping, Jonas and Wen, Yuxin and Shu, Manli and
+               Saifullah, Khalid and Kong, Kezhi and Fernando, Kasun and Saha, Aniruddha and
+               Goldblum, Micah and Goldstein, Tom},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2306.04634}
 }
 
 % --- attacks: stealing, spoofing, key reuse, adaptive removal
@@ -357,4 +380,82 @@
   year    = {2026},
   doi     = {10.64898/2026.01.27.702015},
   note    = {Version 2}
+}
+
+@inproceedings{nguyen2023hyenadna,
+  title     = {{HyenaDNA}: Long-Range Genomic Sequence Modeling at Single Nucleotide Resolution},
+  author    = {Nguyen, Eric and Poli, Michael and Faizi, Marjan and Thomas, Armin and
+               Wornow, Michael and Birch-Sykes, Callum and Massaroli, Stefano and
+               Patel, Aman and Rabideau, Clayton and Bengio, Yoshua and Ermon, Stefano and
+               R{\'e}, Christopher and Baccus, Stephen},
+  booktitle = {Advances in Neural Information Processing Systems 36 (NeurIPS)},
+  year      = {2023},
+  note      = {arXiv:2306.15794}
+}
+
+@inproceedings{schiff2024caduceus,
+  title     = {{Caduceus}: Bi-Directional Equivariant Long-Range {DNA} Sequence Modeling},
+  author    = {Schiff, Yair and Kao, Chia-Hsiang and Gokaslan, Aaron and Dao, Tri and
+               Gu, Albert and Kuleshov, Volodymyr},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  year      = {2024},
+  note      = {arXiv:2403.03234}
+}
+
+@inproceedings{zhao2024provable,
+  title     = {Provable Robust Watermarking for {AI}-Generated Text},
+  author    = {Zhao, Xuandong and Ananth, Prabhanjan and Li, Lei and Wang, Yu-Xiang},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2306.17439}
+}
+
+@inproceedings{hou2024semstamp,
+  title     = {{SemStamp}: A Semantic Watermark with Paraphrastic Robustness for Text Generation},
+  author    = {Hou, Abe and Zhang, Jingyu and He, Tianxing and Wang, Yichen and
+               Chuang, Yung-Sung and Wang, Hongwei and Shen, Lingfeng and
+               Van Durme, Benjamin and Khashabi, Daniel and Tsvetkov, Yulia},
+  booktitle = {Proceedings of the 2024 Conference of the North American Chapter of the
+               Association for Computational Linguistics: Human Language Technologies (NAACL-HLT)},
+  pages     = {4067--4082},
+  year      = {2024}
+}
+
+@article{davey2001reliable,
+  title   = {Reliable communication over channels with insertions, deletions, and substitutions},
+  author  = {Davey, Matthew C. and MacKay, David J. C.},
+  journal = {IEEE Transactions on Information Theory},
+  volume  = {47},
+  number  = {2},
+  pages   = {687--698},
+  year    = {2001},
+  doi     = {10.1109/18.910582}
+}
+
+@inproceedings{marin2024bend,
+  title     = {{BEND}: Benchmarking {DNA} Language Models on Biologically Meaningful Tasks},
+  author    = {Marin, Frederikke Isa and Teufel, Felix and Horlacher, Marc and Madsen, Dennis and
+               Pultz, Dennis and Winther, Ole and Boomsma, Wouter},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2311.12570}
+}
+
+@misc{liu2024genbench,
+  title        = {{GenBench}: A Benchmarking Suite for Systematic Evaluation of Genomic
+                  Foundation Models},
+  author       = {Liu, Zicheng and Li, Jiahui and Li, Siyuan and Zang, Zelin and Tan, Cheng and
+                  Huang, Yufei and Bai, Yajing and Li, Stan Z.},
+  year         = {2024},
+  note         = {arXiv:2406.01627}
+}
+
+@inproceedings{patel2024darteval,
+  title     = {{DART-Eval}: A Comprehensive {DNA} Language Model Evaluation Benchmark on
+               Regulatory {DNA}},
+  author    = {Patel, Aman and Singhal, Arpita and Wang, Austin and Pampari, Anusri and
+               Kasowski, Maya and Kundaje, Anshul},
+  booktitle = {Advances in Neural Information Processing Systems 37: Datasets and Benchmarks Track},
+  year      = {2024},
+  note      = {arXiv:2412.05430}
 }
