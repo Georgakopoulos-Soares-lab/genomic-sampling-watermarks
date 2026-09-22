@@ -28,11 +28,10 @@ responses change and so does the manuscript; the branch tables in the lane plan 
 We agree this is the most important open question, and we now state its answer as far as the design
 determines it.
 
-Detection requires a contiguous region whose 6-mer alignment survives and that carries at least 21
-scored tokens, and our shortest evaluated window spans 384 bases. Independent indels at rate *r*
-leave expected clean stretches near 1/*r* bases, so the method should degrade near *r* = 0.1% and
-fail near *r* = 1%, a rate reported for some long-read sequencing technologies, where the expected
-clean stretch falls below our shortest window. We have added this reasoning and its boundary
+Detection requires a contiguous region whose 6-mer alignment survives across one of the evaluated
+windows, the shortest of which spans 384 bases. Independent indels at rate *r* leave expected clean
+stretches near 1/*r* bases, so the method should degrade near *r* = 0.1% and fail near an
+illustrative *r* = 1%, where the expected clean stretch falls below our shortest window. We have added this reasoning and its boundary
 condition to the Limitations section, together with the observation that substitutions are milder
 than indels because a substitution corrupts the tokens overlapping it without shifting the frame.
 
@@ -58,7 +57,7 @@ a same-cohort empirical baseline as a limitation, rather than leaving it unremar
 ## W3, R6, D3 — biological validation benchmarks
 
 We agree, and we have added standardized in-silico benchmarks as the explicit next step. Our quality
-claim is deliberately confined to model likelihood and 14 declared sequence summaries, and it
+claim is deliberately confined to the 14 declared model-likelihood and sequence summaries, and it
 establishes only that watermarked and ordinary outputs are statistically indistinguishable under
 those measures. We make no claim about function, viability, or safety anywhere in the paper.
 
@@ -90,8 +89,10 @@ subsection.
 ## W5b, R4 — multiple-testing correction for the 256 state tests
 
 The 256 per-state tests form one family per arm. We report Benjamini–Hochberg correction at
-α = 0.05 as primary and also record Bonferroni correction at α/256 = 1.95 × 10⁻⁴. Neither the marked
-nor the ordinary arm produced a rejection under either correction in either model, against a chance
+α = 0.05 as the primary correction, and also record Bonferroni correction at α/256 = 1.95 × 10⁻⁴
+while noting that 999 Monte Carlo replicates bound the attainable P-value below at 10⁻³, so no
+state can reject at the Bonferroni level and that correction carries no information at this family
+size. Neither arm produced a rejection under either correction in either model, against a chance
 expectation of 12.8 nominal rejections per arm. We have added both corrections to the Results text
 so that "after correction" now names which correction it means.
 
@@ -99,8 +100,8 @@ so that "after correction" now names which correction it means.
 
 The two candidates were the released SynthID mean score over scored tokens and the upstream default
 weighted-mean score. They were compared on the 64 calibration prompts alone, at the shortest and
-longest of the four window lengths, over 128 trials per arm, by the separation between the marked
-and ordinary arms in units of the ordinary-arm standard deviation. The mean score separated the arms
+longest of the four window lengths, by the separation between the marked and ordinary arms in
+units of the ordinary-arm standard deviation, on continuations scored under known token alignment. The mean score separated the arms
 at least as well at both lengths and was selected. Evaluation prompts were never scored during this
 selection and no signal-matched weights were fitted. We have added this to the Results section, and
 a reader can now reproduce the selection from the paper alone.
@@ -108,7 +109,8 @@ a reader can now reproduce the selection from the paper alone.
 ## W7, R3 — the cross-model detection-strength gap
 
 The weakest marked read differs substantially between models, 124.8 in Carbon against 19.6 in
-GENERator, while both exceed the 6.21 corrected threshold by orders of magnitude. We do not
+GENERator, while both clear the 6.21 corrected threshold with wide margin — the weakest GENERator
+read by 13.4 orders of magnitude in the window p-value, the weakest Carbon read by 118.6. We do not
 attribute this difference in margin to a specific cause. Candidate explanations include the number
 of tokens actually scored per read after repeated-context exclusion, since a model that revisits
 four-token contexts more often yields fewer scored bits at identical watermark strength, and
@@ -133,7 +135,8 @@ The reviewer is right. The paper contains no formal theorems or proofs, and the 
 have said it did. We have corrected the statement to describe statistical derivations rather than
 proofs and added an explicit sentence that the paper contains no formal theorems or proofs, that the
 statistical development uses standard probability models and a Bonferroni correction, and that all
-derivations, numbers, and claims were verified by the authors against the evidence ledger. We have
+derivations, numbers, and claims were verified by the authors against the evidence ledger. We note
+that this check is what surfaced the mark-bit correction under M3 below. We have
 not narrowed the disclosure elsewhere.
 
 ## A2 — reproducibility and code availability
@@ -184,12 +187,17 @@ stricter than necessary.
 
 ## M3 — detectability constraints on short windows
 
-The reviewer's arithmetic is correct and we have recomputed it independently with an exact binomial
-tail. At the shortest evaluated length, 384 bases is 64 tokens, of which the first four supply
-unwatermarked context, leaving 60 scorable tokens; the corrected threshold then requires at least 49
-of those 60 mark bits to be positive. More generally, a window retaining fewer than 21 scored tokens
-cannot reach the corrected threshold even if every mark bit is positive. We have added this as a
-property of the design rather than as a concession, and it now carries most of the answer to W1.
+We have added the boundary to the paper as a property of the design, and in recomputing it with an
+exact binomial tail we found that the reviewer's figures rest on one bit per scored token. The
+sampler applies 30 tournament layers, each contributing its own mark bit, and the detector's
+binomial statistic is taken over all of them: at the shortest evaluated length, 384 bases is 64
+tokens, of which the first four supply unwatermarked context, leaving 60 scored tokens and 1,800
+mark bits, of which at least 1,004 must be positive. The floor on scored tokens is correspondingly
+much lower than the reviewer's estimate: 21 positive mark bits already reach the corrected
+threshold, so a single fully positive scored token would suffice. The binding constraint is
+therefore the shortest window the verifier evaluates, 384 bases, not the supply of mark bits. We
+are grateful for the prompt to check this: the conclusion the reviewer draws is right, and the
+mechanism is the window-length set rather than the bit count.
 
 ## M5 — algorithmic complexity
 

@@ -181,10 +181,13 @@ statistical detection after one non-adaptive base edit and does not evaluate tho
 
 Text-domain watermarks that target robustness to editing treat synchronization as a local
 problem. Kuditipudi et al.\ align a candidate text to a key sequence under an edit distance
-\cite{kuditipudi2024robust}, and related constructions use sliding windows or borrow from the
-synchronization codes of coding theory \cite{haeupler2017synchronization}, because an insertion
-or deletion in text perturbs
-tokenization near the edit and leaves distant tokens largely intact. Non-overlapping $k$-mer
+\cite{kuditipudi2024robust}; Kirchenbauer et al.\ search all contiguous spans for the strongest
+window and calibrate to a fixed false-positive rate under that search
+\cite{kirchenbauer2024reliability}; and Golowich and Moitra obtain robustness to a constant
+fraction of insertions, substitutions, and deletions by indexing a pseudorandom code
+\cite{golowich2024edit}, borrowing from the synchronization codes of coding theory
+\cite{haeupler2017synchronization}. All of these rely on an insertion or deletion in text
+perturbing tokenization near the edit while leaving distant tokens largely intact. Non-overlapping $k$-mer
 genomic tokenization removes that locality. A single inserted or deleted base shifts the reading
 frame, so every downstream token changes identity, and the keyed context that determines each
 mark bit changes with it: the damage is not local but total from the edit onward. An
@@ -201,8 +204,11 @@ sampling is distorted. Biased-logit schemes \cite{kirchenbauer2023watermark} dis
 distribution by construction and are typically verified on a sequence whose boundaries are
 known. Distribution-preserving schemes
 \cite{christ2024undetectable,kuditipudi2024robust,hu2024unbiased,wu2024dipmark,dathathri2024scalable}
-leave the distribution unchanged in expectation over fresh keyed randomness, and those targeting
-edit robustness recover synchronization by alignment to a key sequence. Watermarking of designed
+leave the distribution unchanged in expectation over fresh keyed randomness, SynthID in its
+non-distortionary configuration. Among them, edit robustness is pursued by different means:
+Kuditipudi et al.\ recover synchronization by alignment to a key sequence
+\cite{kuditipudi2024robust}, whereas DiPmark certifies a radius of token modifications under a
+context-hashed green-list statistic \cite{wu2024dipmark}. Watermarking of designed
 or generated biological sequence takes a different route again: synonymous codon substitution
 assumes a coding region and an identifiable reading frame \cite{zhang2025securing}, and keyed
 watermarking of protein generation operates on the generated protein rather than on the DNA
@@ -234,8 +240,9 @@ autoregressive text watermarks, including the red/green-list construction of Kir
 \cite{kirchenbauer2023watermark}. We adopt SynthID not because local context is unique to it but
 because it combines that property with tournament sampling, whose distribution-preservation
 identity holds in expectation over fresh keyed functions. Local context is what makes
-verification possible at an unknown location; distribution preservation is what keeps the
-generated sequence usable as a sample from the model's own law.
+verification possible at an unknown location; distribution preservation is what makes the
+generated sequence a draw from the model's own law in expectation over fresh keyed functions,
+with sampling at the fixed key following the calculated reweighted law.
 
 \subsection{Genomic tokenization and alignment}
 
@@ -362,17 +369,20 @@ therefore attained under a threshold stricter than necessary, and the reported c
 should be read as an upper bound on the operational false-positive rate rather than an estimate
 of it.
 
-The search geometry also imposes a floor on what any single window can prove. At the shortest
-evaluated length, 384 bases is 64 tokens, of which the first four supply unwatermarked context,
-leaving 60 scorable tokens; the corrected threshold then requires at least 49 of those 60 mark
-bits to be positive. More generally, because repeated contexts are excluded from scoring, a
-window retaining fewer than 21 scored tokens cannot reach the corrected threshold even if every
-one of its mark bits is positive. Detection therefore requires a contiguous region whose token
-alignment is preserved over at least that many scorable tokens, which is the precise sense in
-which the method depends on recoverable synchronization rather than on the absence of edits.
+The search geometry also imposes a floor on what any single window can prove. Each scored token
+contributes one mark bit per tournament layer, so a window carries $30$ bits per scored token. At
+the shortest evaluated length, 384 bases is 64 tokens, of which the first four supply
+unwatermarked context, leaving 60 scored tokens and 1{,}800 mark bits; the corrected threshold
+then requires at least 1{,}004 of those bits to be positive, or about 56\%. The floor on scored
+tokens themselves is far lower: 21 positive mark bits already reach the threshold, so a single
+scored token whose bits are all positive would suffice. The binding constraint is therefore not
+the mark-bit count but the shortest window the verifier evaluates, which is 384 bases. Detection
+requires a contiguous region whose token alignment is preserved across a window of at least that
+length, which is the precise sense in which the method depends on recoverable synchronization
+rather than on the absence of edits.
 
 The search cost is dominated by keyed hashing rather than by the window enumeration. For a read
-of $N$ bases there are twelve reading frames, two orientations by six phases, and the mark bits
+of $N$ bases there are twelve token frames, two orientations by six phases, and the mark bits
 of every token position in a frame are computed once in a single pass. Window statistics then
 follow from prefix sums over those per-token bit counts, so each window of a given length is
 evaluated in constant time; where a frame contains repeated four-token contexts, the
@@ -462,9 +472,11 @@ Each sampler agreed with its intended distribution at the tested model states. A
 states per model, tests for 13 Carbon states and 5 GENERator states yielded nominal $P$-values
 below 0.05, compared with 12.8 expected by chance; the corresponding ordinary-arm counts were 12
 and 14. The 256 per-state tests form one family per arm. We report Benjamini--Hochberg
-correction at $\alpha = 0.05$ as primary and also record Bonferroni correction at $\alpha/256 =
-1.95 \times 10^{-4}$. Neither the marked nor the ordinary arm produced a rejection under either
-correction in either model, whereas the deliberately incorrect sampler was rejected at all eight
+correction at $\alpha = 0.05$ as the primary correction. We also record Bonferroni correction at
+$\alpha/256 = 1.95 \times 10^{-4}$, but note that 999 Monte Carlo replicates bound the attainable
+$P$-value below at $10^{-3}$, so no state can reject at that level and the Bonferroni result
+carries no information at this family size. Neither the marked nor the ordinary arm produced a
+rejection under either correction in either model, whereas the deliberately incorrect sampler was rejected at all eight
 control states in each model. This supports sampler fidelity at the tested states and at the resolution provided
 by 5{,}000 draws per state; it is not a proof of correctness at every possible model state.
 
@@ -508,8 +520,8 @@ The prompt split was specified before examining detection results: 64 prompts we
 selection between two window-score summaries, and 192 were held out for evaluation. Neither
 subset was used to fit the detection threshold. The two candidate summaries were the released
 SynthID mean score over scored tokens and the upstream default weighted-mean score. They were
-compared on the 64 calibration prompts alone, at the shortest and longest of the four window
-lengths, over 128 trials per arm, by the separation between the marked and ordinary arms in
+compared on the 64 calibration prompts alone, at continuation lengths of 384 and 3{,}072 bases
+scored under known token alignment, by the separation between the marked and ordinary arms in
 units of the ordinary-arm standard deviation. The mean score separated the arms at least as
 well at both lengths and was selected. Evaluation prompts were never scored during this
 selection and no signal-matched weights were fitted. For each model, the 384-base prompt was
@@ -532,8 +544,9 @@ application.
 Figure~\ref{fig:detection} shows the separation between marked reads and controls relative to
 the corrected detection threshold. In Carbon, the weakest unedited marked read had strength
 124.8, compared with the 6.21 corrected threshold; in GENERator, the corresponding value was
-19.6. Both exceed the threshold by orders of magnitude, and we do not attribute the difference
-in margin to a specific cause. Candidate explanations include the number of tokens scored per
+19.6. Both clear the threshold with wide margin---the weakest GENERator read by 13.4 orders of
+magnitude in $P_{\mathrm{win}}$ and the weakest Carbon read by 118.6---and we do not attribute
+the difference in margin to a specific cause. Candidate explanations include the number of tokens scored per
 read after repeated-context exclusion and differences in predictive entropy between the models;
 distinguishing them requires per-token analysis we leave to future work. The detection decision
 is unaffected: every marked read in both models cleared the corrected threshold. Control
@@ -721,12 +734,10 @@ and we report it as an unresolved provenance gap rather than a resolved one.
 The robustness evaluation covers exactly one non-adaptive substitution, insertion, or deletion
 per read, an edit rate near 0.03\%, and this is a declared scope boundary rather than an
 incidental limit. The design makes the consequence of raising that rate explicit. Detection
-requires a contiguous region whose six-mer alignment survives, carrying at least 21 scored
-tokens, and the shortest window we evaluate spans 384 bases. Independent indels arriving at rate
+requires a contiguous region whose six-mer alignment survives across one of the evaluated
+windows, the shortest of which spans 384 bases. Independent indels arriving at rate
 $r$ leave expected clean stretches of about $1/r$ bases, so at $r = 0.1\%$ the expected clean
-stretch is near 1{,}000 bases and detection should often remain possible, whereas at $r = 1\%$,
-a rate reported for some long-read sequencing technologies, the expected clean stretch falls
-near 100 bases, below our shortest window, and the verifier should fail. Substitutions are
+stretch is near 1{,}000 bases and detection should often remain possible, whereas at an illustrative $r = 1\%$ the expected clean stretch falls near 100 bases, below our shortest window, and the verifier should fail. Substitutions are
 milder than indels in this respect: a substitution corrupts the tokens overlapping it without
 shifting the frame, whereas a single indel shifts every downstream token. We therefore claim
 provenance detection only in the single-edit regime, and we identify the search geometry, not
@@ -755,7 +766,7 @@ require experimental assays.
 Between sequence statistics and wet-lab assays lies a class of standardized in-silico
 evaluations---supervised downstream task suites and zero-shot variant-effect
 benchmarks---that we do not use here. Our quality claim is deliberately confined to model
-likelihood and the 14 declared sequence summaries, and it establishes only that watermarked and
+the 14 declared model-likelihood and sequence summaries, and it establishes only that watermarked and
 ordinary outputs are statistically indistinguishable under those measures. Evaluating
 watermarked sequences on standardized downstream genomic benchmarks would test whether
 functional signals are preserved, and is the natural next step before any claim about
@@ -814,8 +825,8 @@ analysis and figure scripts, the frozen protocol documents, and the evidence led
 number in this paper resolves to are all maintained in the
 \href{https://github.com/Georgakopoulos-Soares-lab/genomic-sampling-watermarks}{project GitHub
 repository}. Generated sequences and underlying result files not included in the repository are
-available from the authors on request; the committed artifacts include the summaries and
-digests needed to re-derive every reported value. The two experimental keys are published as public
+available from the authors on request. The committed artifacts cover the GENERator summaries
+and digests; the Carbon result files are not committed and are available on the same basis. The two experimental keys are published as public
 fixtures for reproducibility. They are not deployment secrets, and the experiments do not assess
 resistance to secret-key recovery.
 
