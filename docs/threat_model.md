@@ -22,9 +22,12 @@ planned experiments for this study.
 This boundary follows from the search geometry, not from convenience. Detection requires a
 contiguous region whose 6-mer alignment survives across one of the evaluated windows, the
 shortest of which spans 384 bases. At `alpha = 0.01` and `M = 16,136` windows, that shortest
-window carries 60 scored tokens and 1,800 mark bits, of which at least 1,004 must be positive.
-The mark-bit supply is not the binding constraint: 21 positive bits already clear the threshold,
-so the window-length set is what bounds detection. Independent indels arriving at rate `r` leave expected clean stretches near `1/r` bases,
+window carries at most 60 scored tokens and at most 1,800 mark bits, of which at least 1,004 must
+be positive. The mark-bit supply is not the binding constraint: a window of only 21 mark bits
+clears the threshold if all 21 are positive, and a single scored token already supplies 30 bits,
+so it is the window-length set that bounds detection.
+
+Independent indels arriving at rate `r` leave expected clean stretches near `1/r` bases,
 so raising the rate shortens the surviving region faster than it weakens the mark. Measuring the
 breakdown point would therefore require a shorter-window search with a correspondingly larger
 correction. That is a different verifier and a different study, and it is why the higher-rate

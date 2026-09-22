@@ -186,9 +186,11 @@ window and calibrate to a fixed false-positive rate under that search
 \cite{kirchenbauer2024reliability}; and Golowich and Moitra obtain robustness to a constant
 fraction of insertions, substitutions, and deletions by indexing a pseudorandom code
 \cite{golowich2024edit}, borrowing from the synchronization codes of coding theory
-\cite{haeupler2017synchronization}. All of these rely on an insertion or deletion in text
-perturbing tokenization near the edit while leaving distant tokens largely intact. Non-overlapping $k$-mer
-genomic tokenization removes that locality. A single inserted or deleted base shifts the reading
+\cite{haeupler2017synchronization}. The first two rely on an insertion or deletion in text
+perturbing tokenization near the edit while leaving distant tokens largely intact; the third
+does not, but it assumes the ability to index the stream, which we cannot do without altering
+the nucleotide sequence itself. Non-overlapping $k$-mer genomic tokenization removes that
+locality. A single inserted or deleted base shifts the reading
 frame, so every downstream token changes identity, and the keyed context that determines each
 mark bit changes with it: the damage is not local but total from the edit onward. An
 edit-distance alignment against a key sequence does not recover this, because there is no
@@ -199,8 +201,8 @@ part of the method rather than an afterthought.
 
 The distinction is sharper than a difference of degree. Context-free constructions remove key
 desynchronization entirely, fixing the vocabulary partition once so that a positional shift
-cannot change which tokens carry the mark \cite{zhao2024provable}; in text this is the most
-edit-tolerant variant of the biased-logit family. It would still fail here, because the failure
+cannot change which tokens carry the mark \cite{zhao2024provable}, which is what lets that
+construction state a robustness guarantee under bounded edit distance. It would still fail here, because the failure
 under a frameshift is not desynchronization of the key but destruction of token identity: the
 downstream six-mers become different vocabulary items, and a different item carries an
 independent mark bit. Conversely, watermarks defined above the tokenizer, on sentence embeddings
@@ -215,8 +217,8 @@ sampling is distorted. Biased-logit schemes \cite{kirchenbauer2023watermark} dis
 distribution by construction and are typically verified on a sequence whose boundaries are
 known. Distribution-preserving schemes
 \cite{christ2024undetectable,kuditipudi2024robust,hu2024unbiased,wu2024dipmark,dathathri2024scalable}
-leave the distribution unchanged in expectation over fresh keyed randomness, SynthID in its
-non-distortionary configuration. Among them, edit robustness is pursued by different means:
+leave the distribution unchanged in expectation over fresh keyed randomness; SynthID belongs to
+this class in its non-distortionary configuration. Among them, edit robustness is pursued by different means:
 Kuditipudi et al.\ recover synchronization by alignment to a key sequence
 \cite{kuditipudi2024robust}, whereas DiPmark certifies a radius of token modifications under a
 context-hashed green-list statistic \cite{wu2024dipmark}. Watermarking of designed
@@ -390,10 +392,11 @@ of it.
 The search geometry also imposes a floor on what any single window can prove. Each scored token
 contributes one mark bit per tournament layer, so a window carries $30$ bits per scored token. At
 the shortest evaluated length, 384 bases is 64 tokens, of which the first four supply
-unwatermarked context, leaving 60 scored tokens and 1{,}800 mark bits; the corrected threshold
-then requires at least 1{,}004 of those bits to be positive, or about 56\%. The floor on scored
-tokens themselves is far lower: 21 positive mark bits already reach the threshold, so a single
-scored token whose bits are all positive would suffice. The binding constraint is therefore not
+unwatermarked context, leaving at most 60 scored tokens and at most 1{,}800 mark bits, fewer
+where a four-token context repeats. With all 60 scored, the corrected threshold requires at least
+1{,}004 of the 1{,}800 bits to be positive, or about 56\%. The floor on scored tokens themselves
+is far lower: a window of only 21 mark bits reaches the threshold when all 21 are positive, so a
+single scored token, which supplies 30 bits, would already suffice. The binding constraint is therefore not
 the mark-bit count but the shortest window the verifier evaluates, which is 384 bases. Detection
 requires a contiguous region whose token alignment is preserved across a window of at least that
 length, which is the precise sense in which the method depends on recoverable synchronization
@@ -494,8 +497,8 @@ correction at $\alpha = 0.05$ as the primary correction. We also record Bonferro
 $\alpha/256 = 1.95 \times 10^{-4}$, but note that 999 Monte Carlo replicates bound the attainable
 $P$-value below at $10^{-3}$, so no state can reject at that level and the Bonferroni result
 carries no information at this family size. Neither the marked nor the ordinary arm produced a
-rejection under either correction in either model, whereas the deliberately incorrect sampler was rejected at all eight
-control states in each model. This supports sampler fidelity at the tested states and at the resolution provided
+rejection under either correction in either model, whereas the deliberately incorrect sampler, whose eight control
+states form their own family, was rejected at all eight in each model. This supports sampler fidelity at the tested states and at the resolution provided
 by 5{,}000 draws per state; it is not a proof of correctness at every possible model state.
 
 \subsection{Sequence-quality proxies}
@@ -793,8 +796,9 @@ claim is deliberately confined to the 14 declared model-likelihood and sequence 
 establishes only that watermarked and ordinary outputs are statistically indistinguishable under
 those measures. These suites do not transfer directly to the present setting. They score a
 model's reading of annotated DNA rather than the biological plausibility of what it writes, and
-their metrics are defined by held-out labels tied to genome coordinates that a de novo generation
-does not carry. Evaluating watermarked generations against them would therefore require either a
+their metrics are in almost every case defined by held-out labels tied to genome coordinates that
+a de novo generation does not carry. The narrow exceptions do not close the gap: a motif-based
+protocol needs no coordinates, but presence of the motif is then itself the ground truth. Evaluating watermarked generations against them would therefore require either a
 paired design, in which a generated sequence is scored against a deliberately altered copy of
 itself, or experimental assay. Constructing such an evaluation is the natural next step before
 any claim about biological consequence, and we do not make one here.
