@@ -227,3 +227,117 @@ tokenization has no frame — is unaffected and now stands against a named basel
   property of computational undetectability. Defensible as written, worth a qualifier.
 - The `\evtag` macro is defined and unused. It is scaffolding for Lane 3 and must be removed before
   submission.
+
+## Assumption register
+
+The lane plan carried six assumptions. Their status after implementation and audit:
+
+| ID | Assumption | Status |
+|---|---|---|
+| `ASM-01` | the clean-stretch length ≈ 1/r is an order-of-magnitude heuristic, not a measurement | **holds, and is now stated in the manuscript itself** — the Limitations paragraph says so in its own words, so the assumption is disclosed to the reader rather than only logged here |
+| `ASM-02` | any new false-positive-rate run keeps the 1% target and the four window lengths | **untested.** Lane 1 has not reported. The L2-17 text is on its inconclusive branch, which does not depend on this assumption; it becomes load-bearing only if a `synthid.v2.*` number lands |
+| `ASM-03` | the 124.8 and 19.6 strength values and the 6.21 threshold are stable | **holds.** All three traced to the ledger during audit: `synthid.detector.strength_separation` 124.78, `synthid.generator.detector.strength_separation` 19.614794, `threshold_strength_clean` 6.207795885205 |
+| `ASM-04` | `M = 16,136` and α = 0.01 hold for the reads discussed | **holds**, and `M` was confirmed independently from `hypotheses_searched: 16136` in every retained trial. But see `ASM-07`: this register named the wrong variables |
+| `ASM-05` | the submitted source will be supplied and its section titles match the repository's | **superseded.** The submitted source was never committed; the PDF comparison established that section titles and numbering match anyway, so every target location resolved. See the AD-5 section above |
+| `ASM-06` | the figure axes will read "Jensen–Shannon drift" | **outstanding.** Lane 1 work. The manuscript text is correct; the submitted PDF's appendix figure still reads "shift from prompt" |
+
+One assumption was missing, and it is the one that failed:
+
+| ID | Assumption | Status |
+|---|---|---|
+| `ASM-07` | the window-level binomial statistic is taken over one mark bit per scored token | **false.** The statistic is taken over `depth = 30` mark bits per scored token (`src/genomic_watermarks/synthid_boundary.py:126`). Every figure in L2-06 and every claim resting on it changed. See the audit section above |
+
+`ASM-04` tracked the two parameters the lane plan happened to name, `M` and α, and treated the
+window geometry as self-evident. Tournament depth enters the same arithmetic and was never listed,
+so the register gave false assurance: all four of its named inputs were correct while the result was
+wrong by a factor of 30 in the floor. A register is only as good as its coverage of the inputs, and
+coverage was assumed rather than derived from the code.
+
+## Deep-research pass, 2026-09-22
+
+The lane plan's Part B carried four research prompts. They were run after the prose landed, which
+means the prose was written from references already in the bibliography and the research then tested
+it. Two of the four findings changed what the manuscript claims rather than merely supporting it.
+
+### L2-16 contradicted the text that cited it
+
+The Limitations paragraph called a standardized benchmark study "the natural next step before any
+claim about biological consequence". The sweep found that **no standardized public benchmark, as of
+September 2026, scores de novo generated sequence**. BEND, GenBench, GENEB, Genomic Benchmarks and
+the Nucleotide Transformer task set are probe-or-finetune protocols: a metric exists only because a
+held-out label tied to a genome coordinate exists, and a generation carries neither. DART-Eval's
+motif-footprinting task needs no coordinates, but motif presence is itself the ground truth.
+
+The paragraph now states that the suites do not transfer, and that closing the gap requires either a
+paired design — a generated sequence scored against a deliberately altered copy of itself — or an
+assay. The W3 rebuttal response was rewritten to match. This is a better answer to the reviewer than
+the one the lane plan drafted: it engages with the specific benchmarks named instead of promising to
+use them.
+
+### L2-12 replaced an appeal to novelty with a falsifiable claim
+
+The §2.2 argument originally asserted that frameshift is structurally different from text-domain
+desynchronization. It now rests on a specific case: context-free green lists \cite{zhao2024provable}
+remove key desynchronization entirely — the strongest case available — and would still fail here,
+because the failure under frameshift is destruction of token identity rather than desynchronization
+of the key. A shifted six-mer is a different vocabulary item carrying an independent mark bit.
+
+The converse is also now stated: `hou2024semstamp` is tokenization-independent by construction, and
+fails for a different reason — it needs an encoder at verification and a natural segmentation into
+units, and we have neither.
+
+The Discussion gained `davey2001reliable`, the canonical treatment of offset as a latent drift
+variable integrated out by an HMM rather than enumerated as hypotheses. It presumes control of the
+encoding, which a sampling watermark lacks, which is precisely why our verifier searches and
+corrects instead.
+
+### L2-14 found a property of one of our own models
+
+GENERator's tokenizer "introduces a randomized starting position between 0 and 5 for each sample" —
+explicit phase augmentation at training time. §2.4 now records it, and records that it is a training
+augmentation rather than a verification mechanism: it does not reduce the verifier's search.
+
+The same pass tightened the scope of the phase claim. DNABERT's k-mers are overlapping, so every
+frame is present at once and there is no phase to choose. For BPE models the ambiguity is unbounded
+re-segmentation, not a mod-k phase, and cannot be resolved by trying k offsets. The manuscript's
+claim is now explicitly about fixed non-overlapping k-mer tokenization.
+
+### Bibliographic verification
+
+Eight entries were added. Two of the author lists supplied by the research agents were wrong:
+
+- `hou2024semstamp` listed an author who is not on the ACL Anthology page and omitted three who are.
+  Corrected against `https://aclanthology.org/2024.naacl-long.226/`.
+- `dathathri2024scalable`, found in the earlier citation audit, carried two people who are not
+  authors of that paper at all. Pre-existing, not introduced by this lane.
+
+The remaining six were checked against their arXiv listings and all matched exactly:
+`nguyen2023hyenadna`, `schiff2024caduceus`, `zhao2024provable`, `marin2024bend`, `liu2024genbench`,
+`patel2024darteval`. `davey2001reliable` is a 2001 IEEE Transactions paper and was not re-fetched;
+its metadata is stable and widely reproduced, but it is the one new entry not checked against a
+primary record in this pass.
+
+Two entries were deliberately **not** cited despite being useful:
+
+- Schwartzman, Gavrilov and Adler on peak detection as multiple testing would support the
+  Bonferroni-conservatism argument in §3.3, but the journal version could not be confirmed.
+- `GenBench` is cited as an arXiv preprint. Its NeurIPS 2024 record is a workshop poster under a
+  different title with a different author list, and citing it as a NeurIPS paper would be wrong.
+
+Both are recorded in `docs/research/literature_map.md` under "Do not cite without further checking",
+along with the finding that no primary source supports the common secondary claim that BPE is more
+indel-robust than k-mer tokenization.
+
+### Lane 2 coverage after this pass
+
+| Part | Status |
+|---|---|
+| Part A, L2-01 … L2-11 | complete, audited, corrected |
+| Part B prose, L2-12 … L2-16 | complete |
+| Part B research, four prompts | complete; two findings changed the text |
+| Part C, L2-17 … L2-19 | complete on default branches |
+| `docs/research/literature_map.md` | background section added |
+| Assumption register | logged, with `ASM-07` added |
+
+The lane plan is fully executed. What remains is not Lane 2 work: the Carbon evidence-ledger gap,
+the figure axis relabelling for `TERM-1`, and whatever Lane 1's runs return.

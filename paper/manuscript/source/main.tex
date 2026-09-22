@@ -197,6 +197,17 @@ This is why verification here is posed as a search over strands, phases, start p
 window lengths rather than as an alignment problem, and why the correction over that search is
 part of the method rather than an afterthought.
 
+The distinction is sharper than a difference of degree. Context-free constructions remove key
+desynchronization entirely, fixing the vocabulary partition once so that a positional shift
+cannot change which tokens carry the mark \cite{zhao2024provable}; in text this is the most
+edit-tolerant variant of the biased-logit family. It would still fail here, because the failure
+under a frameshift is not desynchronization of the key but destruction of token identity: the
+downstream six-mers become different vocabulary items, and a different item carries an
+independent mark bit. Conversely, watermarks defined above the tokenizer, on sentence embeddings
+rather than tokens, are tokenization-independent by construction \cite{hou2024semstamp} --- but
+they require an encoder at verification and a natural segmentation into units, and we have
+neither a model at verification time nor an intrinsic segmentation of genomic sequence.
+
 These constructions can be compared along four properties that bear directly on the present
 setting: whether verification needs the generating model or its probabilities; whether it needs
 an alignment, a known boundary, or a known strand; what edit model is claimed; and whether
@@ -255,14 +266,21 @@ distribution used to sample those tokens. We therefore use each model's direct c
 meaningful; a shared vocabulary alone would not suffice.
 
 The phase problem is specific to multi-mer tokenization. Single-nucleotide models place one
-token per base \cite{nguyen2024evo}, so an insertion or deletion shifts token positions without
-changing token identities, and a verifier faces an offset rather than a frame. Multi-mer
-tokenization is nevertheless widely used, including by the Nucleotide Transformer family
-\cite{dallatorre2025nucleotide}, because it shortens sequences by the token width and lets a
-model cover more bases within a fixed context, which is why both models evaluated here use
-non-overlapping six-mers. The cost is that six distinct phases must be
-considered at verification time, and that an indel changes the identity of every downstream
-token rather than only its position.
+token per base \cite{nguyen2024evo,nguyen2023hyenadna}, so an insertion or deletion shifts token
+positions without changing token identities, and a verifier faces an offset rather than a frame.
+Multi-mer tokenization is nevertheless widely used, because it shortens sequences by the token
+width and lets a model cover more bases within a fixed context: the Nucleotide Transformer
+selects six-mers as a trade-off between sequence length and embedding size
+\cite{dallatorre2025nucleotide}, and GENERator reports that a $k$-mer tokenizer outperforms
+byte-pair encoding for next-token pretraining \cite{wu2025generator}. Both models evaluated here
+use non-overlapping six-mers. The cost is that six distinct phases must be considered at
+verification time, and that an indel changes the identity of every downstream token rather than
+only its position. This cost is recognized in model design: Caduceus adopts character-level
+tokenization precisely because minor changes to an input sequence can otherwise produce
+drastically different tokenizations \cite{schiff2024caduceus}, while GENERator instead absorbs
+the problem during training by randomizing the tokenization start offset of each sample
+\cite{wu2025generator}. Neither remedy is available to a verifier that receives only DNA, which
+must recover the phase from the sequence itself.
 
 Six-mer tokenization also creates the study's central synchronization problem: token boundaries
 are not represented in the emitted nucleotide sequence. Here, token phase is the nucleotide
@@ -688,8 +706,13 @@ The alignment problem is related to synchronization errors in coding theory. Syn
 strings explicitly encode indexing information to support recovery from insertions and deletions
 \cite{haeupler2017synchronization}. Pseudorandom codes combine computational
 indistinguishability with decodability under specified error models, motivating their use in
-watermarking \cite{christ2024prc}. Our verifier addresses alignment uncertainty through
-exhaustive search, without adding an explicit indexing code to the sequence. The cost of this
+watermarking \cite{christ2024prc}. A longer-standing alternative treats the offset as a latent variable rather than a hypothesis to
+be enumerated: watermark codes for insertion-deletion channels recover synchronization with a
+hidden Markov model whose state is the accumulated drift, integrating over offsets instead of
+testing them separately \cite{davey2001reliable}. That formulation presumes control of the
+encoding, which a sampling watermark does not have. Our verifier instead addresses alignment
+uncertainty through exhaustive search, without adding an explicit indexing code to the
+sequence. The cost of this
 search is the number of windows evaluated and the associated multiple-testing correction. This
 analogy concerns the alignment problem; it does not imply the error-correction guarantees of
 those coding constructions.
@@ -764,13 +787,17 @@ expression, replication, function, viability, or safety. Assessing biological co
 require experimental assays.
 
 Between sequence statistics and wet-lab assays lies a class of standardized in-silico
-evaluations---supervised downstream task suites and zero-shot variant-effect
-benchmarks---that we do not use here. Our quality claim is deliberately confined to model
-the 14 declared model-likelihood and sequence summaries, and it establishes only that watermarked and
-ordinary outputs are statistically indistinguishable under those measures. Evaluating
-watermarked sequences on standardized downstream genomic benchmarks would test whether
-functional signals are preserved, and is the natural next step before any claim about
-biological consequence.
+evaluations---supervised downstream task suites and zero-shot variant-effect benchmarks
+\cite{marin2024bend,liu2024genbench,patel2024darteval}---that we do not use here. Our quality
+claim is deliberately confined to the 14 declared model-likelihood and sequence summaries, and it
+establishes only that watermarked and ordinary outputs are statistically indistinguishable under
+those measures. These suites do not transfer directly to the present setting. They score a
+model's reading of annotated DNA rather than the biological plausibility of what it writes, and
+their metrics are defined by held-out labels tied to genome coordinates that a de novo generation
+does not carry. Evaluating watermarked generations against them would therefore require either a
+paired design, in which a generated sequence is scored against a deliberately altered copy of
+itself, or experimental assay. Constructing such an evaluation is the natural next step before
+any claim about biological consequence, and we do not make one here.
 
 \section{Conclusion}
 

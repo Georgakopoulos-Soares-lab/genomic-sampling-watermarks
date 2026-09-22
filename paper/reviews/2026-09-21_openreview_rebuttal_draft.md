@@ -56,10 +56,20 @@ a same-cohort empirical baseline as a limitation, rather than leaving it unremar
 
 ## W3, R6, D3 — biological validation benchmarks
 
-We agree, and we have added standardized in-silico benchmarks as the explicit next step. Our quality
-claim is deliberately confined to the 14 declared model-likelihood and sequence summaries, and it
-establishes only that watermarked and ordinary outputs are statistically indistinguishable under
-those measures. We make no claim about function, viability, or safety anywhere in the paper.
+We agree that the gap between sequence statistics and function matters, and we have added it to
+Limitations. In checking the suites the reviewer names, we found that they do not transfer to this
+setting as directly as the request implies. BEND, GenBench, GENEB, Genomic Benchmarks and the
+Nucleotide Transformer task set are probe-or-finetune protocols: a metric exists only because a
+held-out label tied to a genome coordinate exists, and a de novo generation carries neither a label
+nor a coordinate. DART-Eval's motif-footprinting task needs no coordinates, but motif presence is
+itself the ground truth. As of September 2026 we could find no standardized public benchmark that
+scores unlabelled generated sequence.
+
+We have therefore written the limitation as what it is: evaluating watermarked generations against
+these suites would require either a paired design, in which a generated sequence is scored against a
+deliberately altered copy of itself, or experimental assay. Our quality claim remains confined to the
+14 declared model-likelihood and sequence summaries, and we make no claim about function, viability,
+or safety anywhere in the paper.
 
 ## W4 — false-positive-rate sample size
 
