@@ -22,7 +22,7 @@ PUBLIC_KEY = b"public-synthid-unit-test-key"
 # frozen lock is a legitimate configuration, so tests that require the accelerated path
 # skip rather than fail there; the tests that compare it against the pure-Python
 # reference remove NumPy deliberately and run in either configuration.
-NUMPY_AVAILABLE = synthid._numpy_module is not None
+NUMPY_AVAILABLE = synthid._numpy() is not None
 requires_numpy = unittest.skipUnless(
     NUMPY_AVAILABLE, "NumPy is not installed, so there is no accelerated path to compare"
 )
