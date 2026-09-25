@@ -7,13 +7,13 @@ identity covering Carbon-500M and GENERator-v2 1.2B together.
 - [x] Design the dual-model rebuild and separate scientific gates from software assurance.
 - [x] Update repository and paper scope instructions to make both models paper-bound.
 - [x] Mark all version-one evidence and the current manuscript map legacy/development-only.
-- [ ] Implement the shared local M5 supervisor, strict doctor, cross-model validator, and portable
+- [ ] Implement the shared resumable runner, environment checks, cross-model validator, and portable
   artifact manifest.
 - [ ] Approve the quality non-inferiority margin and blinded power calculation.
 - [ ] Build and freeze a new public prompt cohort disjoint from all prior prompts.
 - [ ] Freeze the complete protocol, configurations, gates, source, and cohort hashes.
-- [ ] Pass unit, upstream-parity, tamper, Ruff lint, Ruff format, schema, and M5 smoke gates.
-- [ ] Run both models on the M5 Pro through sampler, quality, clean detection, and one-base edit
+- [ ] Pass unit, upstream-parity, tamper, Ruff lint, Ruff format, schema, and GPU smoke gates.
+- [ ] Run both models on a documented GPU environment through sampler, quality, clean detection, and one-base edit
   evaluations.
 - [ ] Admit only new `synthid.v2.*` measurements and create an exact dual-model manuscript map.
 - [ ] Rebuild all manuscript sections and generate tables directly from the evidence ledger.

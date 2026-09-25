@@ -17,16 +17,15 @@ and its [September 11 panel-analysis extension](../docs/research/generator_v1_an
 The execution caveats are disclosed in the manuscript's Limitations section and tracked in
 `context/evidence_map.md`:
 
-1. generation ran on GPU hardware and detection on x86-64 CPUs, rather than the documented Apple
-   M5 Pro path;
+1. generation ran on GPU hardware and detection on x86-64 CPUs, with one execution per model;
 2. the Carbon protocol file recorded inside the stored detection result does not match the bytes of the
    retained protocol document, as recorded in
    `../docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`.
 
 Each model contributes one execution, so confirmatory replication remains outstanding. The September
 11 derivation supplies paired GENERator panels for Figures 2--4; the aligned-detector ordinary-null
-fit remains specific to GENERator. Confirmatory replication on the documented M5 Pro path, with a
-fresh cohort and a new evidence namespace, is still the intended next step and is described in the
+fit remains specific to GENERator. Confirmatory replication in a documented execution environment,
+with a fresh cohort and a new evidence namespace, is still the intended next step and is described in the
 [dual-model rebuild plan](../docs/research/dual_model_synthid_paper_rebuild_plan.md).
 
 ## Figures

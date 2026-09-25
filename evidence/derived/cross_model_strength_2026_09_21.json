@@ -1,0 +1,143 @@
+{
+  "analysis_id": "cross_model_strength_2026_09_21",
+  "data": {
+    "carbon": {
+      "detector": {
+        "excluded_contexts": 345,
+        "local_strength_negative_log10_p": {
+          "maximum": 880.6886352686053,
+          "median": 790.6151014720618,
+          "minimum": 124.77747726900617
+        },
+        "mark_bit_positive_fraction_in_winning_window": {
+          "maximum": 0.7517716535433071,
+          "median": 0.739238845144357,
+          "minimum": 0.5961286089238845
+        },
+        "pearson_r_strength_vs_scored_tokens": 0.4124420346477325,
+        "potential_scored_tokens": 194816,
+        "prompts": 192,
+        "reads": 384,
+        "repeated_context_exclusion_fraction": 0.001770901773981603,
+        "scored_tokens_in_winning_window": {
+          "maximum": 508,
+          "median": 508.0,
+          "minimum": 252
+        },
+        "winning_window_base_length_counts": {
+          "1536": 1,
+          "3072": 383
+        },
+        "winning_windows_with_repeated_contexts": 51
+      },
+      "quality_proxies": {
+        "ordinary_base_entropy_bits": 1.9483284448555112,
+        "ordinary_dinucleotide_entropy_bits": 3.8697015572192694,
+        "ordinary_self_nll_nats_per_6mer": 7.533859075047076,
+        "prompts": 256,
+        "watermarked_base_entropy_bits": 1.9498032716151965,
+        "watermarked_dinucleotide_entropy_bits": 3.8729433005257574,
+        "watermarked_nll_nats_per_6mer": 7.542379847727716
+      }
+    },
+    "conclusion": "Both medians have full winning-window scoring. The weakest GENERator read has many repeated-context exclusions and a much lower mark-bit fraction; count alone explains only a small arithmetic portion of the weakest-read strength gap. The available aggregated quality proxies do not resolve the predictive-entropy hypothesis.",
+    "generator": {
+      "detector": {
+        "excluded_contexts": 254,
+        "local_strength_negative_log10_p": {
+          "maximum": 872.5290601313103,
+          "median": 798.7803059254855,
+          "minimum": 19.614793673583744
+        },
+        "mark_bit_positive_fraction_in_winning_window": {
+          "maximum": 0.7506561679790026,
+          "median": 0.7402887139107611,
+          "minimum": 0.545808383233533
+        },
+        "pearson_r_strength_vs_scored_tokens": 0.7667906635879655,
+        "potential_scored_tokens": 194176,
+        "prompts": 192,
+        "reads": 384,
+        "repeated_context_exclusion_fraction": 0.0013080916282135794,
+        "scored_tokens_in_winning_window": {
+          "maximum": 508,
+          "median": 508.0,
+          "minimum": 124
+        },
+        "winning_window_base_length_counts": {
+          "1536": 2,
+          "3072": 381,
+          "768": 1
+        },
+        "winning_windows_with_repeated_contexts": 14
+      },
+      "quality_proxies": {
+        "ordinary_base_entropy_bits": 1.9492832128612727,
+        "ordinary_dinucleotide_entropy_bits": 3.8891032631508042,
+        "ordinary_self_nll_nats_per_6mer": 7.800290860701352,
+        "prompts": 256,
+        "watermarked_base_entropy_bits": 1.9479882759869154,
+        "watermarked_dinucleotide_entropy_bits": 3.88660640019748,
+        "watermarked_nll_nats_per_6mer": 7.794653714168817
+      }
+    },
+    "limits": [
+      "Each detector row describes the winning window; scored-token counts for every possible window or the entire read are not retained here.",
+      "The correlation uses two draws per prompt and selected winning windows; it is descriptive and has no independence-based p-value.",
+      "The quality proxies average all 256 prompts, while clean detector rows use 192 evaluation prompts; no per-read predictive entropy is linked to strength.",
+      "Ordinary self-NLL is a cohort-level proxy for model uncertainty on generated trajectories. Base and dinucleotide entropy describe outputs, not predictive entropy.",
+      "The worst-read counterfactual holds its observed mark-bit fraction fixed while changing scored-token count; this arithmetic cannot identify the cause of the cross-model gap."
+    ],
+    "quality_proxy_comparison": {
+      "generator_minus_carbon_ordinary_self_nll_nats_per_6mer": 0.2664317856542766
+    },
+    "weakest_window_comparison": {
+      "carbon_weakest_strength": 124.77747726900617,
+      "counterfactual_full_mark_bits": 15240,
+      "counterfactual_full_scored_tokens": 508,
+      "counterfactual_positive_bits_rounded": 8318,
+      "counterfactual_strength": 29.222302988450632,
+      "generator_weakest_mark_bit_positive_fraction": 0.545808383233533,
+      "generator_weakest_repeated_contexts": 174,
+      "generator_weakest_scored_tokens": 334,
+      "generator_weakest_strength": 19.614793673583744,
+      "interpretation": "Arithmetic sensitivity of the weakest selected GENERator window at its observed mark-bit fraction; it is not a causal attribution or a re-run detector result.",
+      "scored_token_count_sensitivity": 9.607509314866888,
+      "sensitivity_fraction_of_weakest_gap": 0.09135854075223589,
+      "weakest_strength_gap": 105.16268359542242
+    }
+  },
+  "detection_rerun": false,
+  "generation_rerun": false,
+  "provenance": {
+    "code_sha256": {
+      "scripts/derive_cross_model_strength_analysis.py": "d8865095ac47b08b4533454cf00d14214fc998f0bce81008a45acbb39ac08fc6"
+    },
+    "command": "python3 scripts/derive_cross_model_strength_analysis.py",
+    "device": "cpu",
+    "git_base_revision": "d79e074d5b4e6d22809bf6d612ea8ce3a7603044",
+    "machine": "x86_64",
+    "python": "3.13.5",
+    "system": "Linux"
+  },
+  "schema_version": 1,
+  "sources": {
+    "carbon_quality": {
+      "path": "outputs/carbon_synthid_e16_v1/sequence_comparison_summary.json",
+      "sha256": "6c9a73ea92592465b3a7c5121ab6a7e296839bc22a02edaa8050c36ebad7b0da"
+    },
+    "carbon_trials": {
+      "path": "outputs/carbon_synthid_position_independent_v1/trials.jsonl",
+      "sha256": "323d998561843dda5b204c33d3de9d6a281aaa700ceddc535b0d7af32e0ac81c"
+    },
+    "generator_quality": {
+      "path": "outputs/generator_synthid_e16_v1/sequence_comparison_summary.json",
+      "sha256": "d8e3c03b2d0e3a2639c521889ea29dd804e8a741d3cf43818cb79f31ae821401"
+    },
+    "generator_trials": {
+      "path": "outputs/generator_synthid_position_independent_v1/trials.jsonl",
+      "sha256": "3de1d8f7b8a946d3a5149f48ac30e357ceb2fa812eddbe6a11a5e836c7106d99"
+    }
+  },
+  "status": "A"
+}

@@ -1,0 +1,844 @@
+{
+  "cells": [
+    {
+      "detected": 0,
+      "edit_count": 0,
+      "edit_kind": "clean",
+      "edit_rate": 0.0,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.7100255924143806
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 1,
+      "edit_kind": "deletion",
+      "edit_rate": 0.0003,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.71101765598781
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 3,
+      "edit_kind": "deletion",
+      "edit_rate": 0.001,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.9370658516864765
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 15,
+      "edit_kind": "deletion",
+      "edit_rate": 0.005,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -3.8595476634723855
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 31,
+      "edit_kind": "deletion",
+      "edit_rate": 0.01,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -6.1274698088344035
+      }
+    },
+    {
+      "detected": 2,
+      "edit_count": 61,
+      "edit_kind": "deletion",
+      "edit_rate": 0.02,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.010416666666666666,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -5.602713281020584
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 154,
+      "edit_kind": "deletion",
+      "edit_rate": 0.05,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.5207142099230175
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 307,
+      "edit_kind": "deletion",
+      "edit_rate": 0.1,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -4.308826718561889
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 1,
+      "edit_kind": "indel",
+      "edit_rate": 0.0003,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.712010704728801
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 3,
+      "edit_kind": "indel",
+      "edit_rate": 0.001,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.2684126147307513
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 15,
+      "edit_kind": "indel",
+      "edit_rate": 0.005,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -5.052851449815286
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 31,
+      "edit_kind": "indel",
+      "edit_rate": 0.01,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -7.28831616672395
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 61,
+      "edit_kind": "indel",
+      "edit_rate": 0.02,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -5.506434518916818
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 154,
+      "edit_kind": "indel",
+      "edit_rate": 0.05,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -3.9274726241556515
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 307,
+      "edit_kind": "indel",
+      "edit_rate": 0.1,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -4.109807610506005
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 1,
+      "edit_kind": "insertion",
+      "edit_rate": 0.0003,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.707549730788177
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 3,
+      "edit_kind": "insertion",
+      "edit_rate": 0.001,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -4.304502219693564
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 15,
+      "edit_kind": "insertion",
+      "edit_rate": 0.005,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -5.988792054627023
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 31,
+      "edit_kind": "insertion",
+      "edit_rate": 0.01,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -5.594874153835486
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 61,
+      "edit_kind": "insertion",
+      "edit_rate": 0.02,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -5.67638281608486
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 154,
+      "edit_kind": "insertion",
+      "edit_rate": 0.05,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.500559686565188
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 307,
+      "edit_kind": "insertion",
+      "edit_rate": 0.1,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.716950081100432
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 1,
+      "edit_kind": "substitution",
+      "edit_rate": 0.0003,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.7100255924143806
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 3,
+      "edit_kind": "substitution",
+      "edit_rate": 0.001,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.7100255924143806
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 15,
+      "edit_kind": "substitution",
+      "edit_rate": 0.005,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -2.9315972822541454
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 31,
+      "edit_kind": "substitution",
+      "edit_rate": 0.01,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -3.609288218261126
+      }
+    },
+    {
+      "detected": 1,
+      "edit_count": 61,
+      "edit_kind": "substitution",
+      "edit_rate": 0.02,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.005208333333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -5.266503609841635
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 154,
+      "edit_kind": "substitution",
+      "edit_rate": 0.05,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -3.901862386908551
+      }
+    },
+    {
+      "detected": 0,
+      "edit_count": 307,
+      "edit_kind": "substitution",
+      "edit_rate": 0.1,
+      "family": "ordinary_corresponding_key",
+      "rate": 0.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -3.8395169486887895
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 0,
+      "edit_kind": "clean",
+      "edit_rate": 0.0,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -275.313658593423,
+        "median": -1826.4296359967493,
+        "min": -2001.5887026413084
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 1,
+      "edit_kind": "deletion",
+      "edit_rate": 0.0003,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -228.41054017462702,
+        "median": -1016.6718758221507,
+        "min": -1885.5732271537393
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 3,
+      "edit_kind": "deletion",
+      "edit_rate": 0.001,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -164.19036503940436,
+        "median": -848.4435287018631,
+        "min": -1569.5416448492049
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 15,
+      "edit_kind": "deletion",
+      "edit_rate": 0.005,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -65.53440712322377,
+        "median": -328.8022356224356,
+        "min": -678.6992508730658
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 31,
+      "edit_kind": "deletion",
+      "edit_rate": 0.01,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -27.839486608245068,
+        "median": -199.60866131591465,
+        "min": -435.0331519906154
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 61,
+      "edit_kind": "deletion",
+      "edit_rate": 0.02,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -22.50233774010419,
+        "median": -79.58943436327003,
+        "min": -249.56498971545852
+      }
+    },
+    {
+      "detected": 182,
+      "edit_count": 154,
+      "edit_kind": "deletion",
+      "edit_rate": 0.05,
+      "family": "watermarked_correct_key",
+      "rate": 0.9479166666666666,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -0.6737436639037924,
+        "median": -15.481744502319835,
+        "min": -90.24170863856529
+      }
+    },
+    {
+      "detected": 6,
+      "edit_count": 307,
+      "edit_kind": "deletion",
+      "edit_rate": 0.1,
+      "family": "watermarked_correct_key",
+      "rate": 0.03125,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -8.87555298449592
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 1,
+      "edit_kind": "indel",
+      "edit_rate": 0.0003,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -272.46339616169837,
+        "median": -1065.8522592771478,
+        "min": -1916.624498751094
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 3,
+      "edit_kind": "indel",
+      "edit_rate": 0.001,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -137.11272784296438,
+        "median": -873.9126676085483,
+        "min": -1568.5748605947026
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 15,
+      "edit_kind": "indel",
+      "edit_rate": 0.005,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -70.48494757574485,
+        "median": -324.3461667301378,
+        "min": -788.4903103233551
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 31,
+      "edit_kind": "indel",
+      "edit_rate": 0.01,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -50.79282244710261,
+        "median": -190.51045600616976,
+        "min": -384.592118590036
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 61,
+      "edit_kind": "indel",
+      "edit_rate": 0.02,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -13.873633823070994,
+        "median": -91.36708739370799,
+        "min": -241.57106734582027
+      }
+    },
+    {
+      "detected": 178,
+      "edit_count": 154,
+      "edit_kind": "indel",
+      "edit_rate": 0.05,
+      "family": "watermarked_correct_key",
+      "rate": 0.9270833333333334,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -0.38259487751122556,
+        "median": -13.90661736925763,
+        "min": -58.18458196575808
+      }
+    },
+    {
+      "detected": 13,
+      "edit_count": 307,
+      "edit_kind": "indel",
+      "edit_rate": 0.1,
+      "family": "watermarked_correct_key",
+      "rate": 0.06770833333333333,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -24.69047431027346
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 1,
+      "edit_kind": "insertion",
+      "edit_rate": 0.0003,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -174.42473451239886,
+        "median": -1075.9908511852893,
+        "min": -1886.636161914598
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 3,
+      "edit_kind": "insertion",
+      "edit_rate": 0.001,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -152.857384296643,
+        "median": -847.4224976855196,
+        "min": -1619.9499176907243
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 15,
+      "edit_kind": "insertion",
+      "edit_rate": 0.005,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -50.52225681549297,
+        "median": -321.93107247101807,
+        "min": -848.4141003889325
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 31,
+      "edit_kind": "insertion",
+      "edit_rate": 0.01,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -20.55623984099307,
+        "median": -196.47480340440472,
+        "min": -476.2903157321355
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 61,
+      "edit_kind": "insertion",
+      "edit_rate": 0.02,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -20.565411720756096,
+        "median": -87.22301958466808,
+        "min": -236.8819424330332
+      }
+    },
+    {
+      "detected": 176,
+      "edit_count": 154,
+      "edit_kind": "insertion",
+      "edit_rate": 0.05,
+      "family": "watermarked_correct_key",
+      "rate": 0.9166666666666666,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -1.4262574838026563,
+        "median": -13.070364693014959,
+        "min": -84.47001065071832
+      }
+    },
+    {
+      "detected": 11,
+      "edit_count": 307,
+      "edit_kind": "insertion",
+      "edit_rate": 0.1,
+      "family": "watermarked_correct_key",
+      "rate": 0.057291666666666664,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": 0.0,
+        "min": -11.97822463496964
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 1,
+      "edit_kind": "substitution",
+      "edit_rate": 0.0003,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -275.51048448569765,
+        "median": -1787.9402926786036,
+        "min": -1965.383455041969
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 3,
+      "edit_kind": "substitution",
+      "edit_rate": 0.001,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -261.20253631965824,
+        "median": -1720.4340317377028,
+        "min": -1881.3125465723494
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 15,
+      "edit_kind": "substitution",
+      "edit_rate": 0.005,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -188.1104850315708,
+        "median": -1336.7710360667932,
+        "min": -1515.2917042748024
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 31,
+      "edit_kind": "substitution",
+      "edit_rate": 0.01,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -158.35688222859324,
+        "median": -959.1395687603185,
+        "min": -1088.8774753618145
+      }
+    },
+    {
+      "detected": 192,
+      "edit_count": 61,
+      "edit_kind": "substitution",
+      "edit_rate": 0.02,
+      "family": "watermarked_correct_key",
+      "rate": 1.0,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -75.80484466731777,
+        "median": -516.4710799434932,
+        "min": -670.1184024078117
+      }
+    },
+    {
+      "detected": 191,
+      "edit_count": 154,
+      "edit_kind": "substitution",
+      "edit_rate": 0.05,
+      "family": "watermarked_correct_key",
+      "rate": 0.9947916666666666,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": -1.776967420092605,
+        "median": -75.12062760950411,
+        "min": -159.49738486312935
+      }
+    },
+    {
+      "detected": 33,
+      "edit_count": 307,
+      "edit_kind": "substitution",
+      "edit_rate": 0.1,
+      "family": "watermarked_correct_key",
+      "rate": 0.171875,
+      "reads": 192,
+      "sequence_log_p_value": {
+        "max": 0.0,
+        "median": -0.41479278081798476,
+        "min": -20.957118370559698
+      }
+    }
+  ],
+  "classification": "pilot_not_admitted_evidence",
+  "detector_unchanged": true,
+  "draws": [
+    0,
+    1
+  ],
+  "edit_label": "synthid-edit-rate-pilot/v1",
+  "kinds": [
+    "substitution",
+    "indel",
+    "insertion",
+    "deletion"
+  ],
+  "prompts": 96,
+  "protocol": "docs/research/synthid_v3_edit_rate_pilot_protocol_2026_09_24.md",
+  "rates": [
+    0.0,
+    0.0003,
+    0.001,
+    0.005,
+    0.01,
+    0.02,
+    0.05,
+    0.1
+  ],
+  "runtime_seconds": 1313.6507165569346,
+  "schema_version": 1,
+  "study": "L1-07 pilot: detection power against edit rate"
+}

@@ -10,10 +10,12 @@ the ignored prompt JSONL from that frozen manifest without changing selection.
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import json
 import sys
 import time
+import threading
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -42,6 +44,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--processed-root", type=Path, default=ROOT / "data/processed")
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--request-interval-seconds", type=float, default=0.36)
+    parser.add_argument("--freeze-workers", type=int, default=1)
     return parser.parse_args()
 
 
@@ -160,6 +163,8 @@ def validate_source_spec(spec: dict[str, Any]) -> None:
 
 
 def freeze_manifest(args: argparse.Namespace) -> dict[str, Any]:
+    if args.freeze_workers > 1:
+        return freeze_manifest_parallel(args)
     if args.offline:
         raise ValueError("--offline cannot be combined with initial manifest freezing")
     spec = load_yaml(args.source_spec)
@@ -274,6 +279,116 @@ def freeze_manifest(args: argparse.Namespace) -> dict[str, Any]:
         "prompt_count": sum(len(record["windows"]) for record in frozen_records),
         "manifest_sha256": hashlib.sha256(args.freeze_manifest.read_bytes()).hexdigest(),
     }
+
+
+def freeze_manifest_parallel(args: argparse.Namespace) -> dict[str, Any]:
+    """Fetch independent candidate windows concurrently with one global request limiter.
+
+    Completed public FASTA spans are reused after an interruption only when their
+    accession and exact deterministic coordinates match a declared attempt.
+    """
+
+    if args.offline:
+        raise ValueError("--offline cannot be combined with initial manifest freezing")
+    if args.freeze_workers <= 1 or args.request_interval_seconds < 0:
+        raise ValueError("invalid parallel freeze settings")
+    spec = load_yaml(args.source_spec)
+    validate_source_spec(spec)
+    selection = spec["selection"]
+    endpoint = str(spec["source"]["endpoint"])
+    cohort_id = str(spec["cohort_id"])
+    raw_dir = args.raw_root / cohort_id
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    segments = int(selection["windows_per_record"])
+    span_length = int(selection["source_span_length_bases"])
+    prompt_length = int(selection["prompt_length_bases"])
+    retries = int(selection["maximum_canonical_retries"])
+    label = str(selection["selection_label"])
+    limiter = threading.Lock()
+    next_request = [time.monotonic()]
+
+    def fetch_limited(url: str) -> str:
+        with limiter:
+            delay = next_request[0] - time.monotonic()
+            if delay > 0:
+                time.sleep(delay)
+            next_request[0] = time.monotonic() + args.request_interval_seconds
+        return fetch_text(url)
+
+    def one_window(record_index: int, segment_index: int) -> tuple[int, int, dict[str, Any]]:
+        record = spec["records"][record_index]
+        accession = str(record["accession"])
+        prompt_id = f"{record['id_prefix']}_s{segment_index:02d}"
+        raw_path = raw_dir / f"{prompt_id}.fasta"
+        cached = raw_path.read_text(encoding="utf-8") if raw_path.exists() else None
+        accepted = None
+        for attempt in range(retries):
+            start, stop, segment_start, segment_stop = candidate_coordinates(
+                record_length=int(record["record_length"]), span_length=span_length,
+                segment_index=segment_index, segments=segments, selection_label=label,
+                accession=accession, attempt=attempt,
+            )
+            coordinate = f"{accession}:{start}-{stop}"
+            if cached is not None and cached.startswith(f">{coordinate} "):
+                fasta_text = cached
+            else:
+                fasta_text = fetch_limited(efetch_url(endpoint, accession, start, stop))
+            header, span = parse_fasta(fasta_text)
+            if coordinate not in header or len(span) != span_length:
+                raise ValueError(f"FASTA identity or length mismatch for {prompt_id}")
+            if set(span) <= set("ACGT"):
+                if cached is not None and cached != fasta_text:
+                    raise ValueError(f"cached FASTA disagrees for {prompt_id}")
+                if cached is None:
+                    raw_path.write_text(fasta_text, encoding="utf-8")
+                accepted = (attempt, start, stop, segment_start, segment_stop, span)
+                break
+        if accepted is None:
+            raise RuntimeError(f"no canonical candidate found for {prompt_id}")
+        attempt, start, stop, segment_start, segment_stop, span = accepted
+        prompt = span[:prompt_length]
+        window = {
+            "id": prompt_id, "segment_index": segment_index,
+            "selection_attempt": attempt, "segment_start": segment_start,
+            "segment_stop": segment_stop, "source_span_start": start,
+            "source_span_stop": stop, "source_span_sha256": sequence_sha256(span),
+            "prompt_start": start, "prompt_stop": start + prompt_length - 1,
+            "sequence_sha256": sequence_sha256(prompt), "public_null_start": start,
+            "public_null_stop": stop, "public_null_sha256": sequence_sha256(span),
+            "strand": "forward",
+        }
+        print(json.dumps({"frozen": prompt_id, "record": accession,
+                          "segment": segment_index, "attempt": attempt}, sort_keys=True), flush=True)
+        return record_index, segment_index, window
+
+    tasks = [(i, s) for i in range(len(spec["records"])) for s in range(segments)]
+    windows_by_record: list[list[dict[str, Any] | None]] = [
+        [None] * segments for _ in spec["records"]
+    ]
+    with ThreadPoolExecutor(max_workers=args.freeze_workers) as executor:
+        futures = [executor.submit(one_window, i, s) for i, s in tasks]
+        for future in as_completed(futures):
+            i, s, window = future.result()
+            windows_by_record[i][s] = window
+    frozen_records = []
+    for record, windows in zip(spec["records"], windows_by_record, strict=True):
+        if any(window is None for window in windows):
+            raise RuntimeError("missing frozen candidate window")
+        frozen_records.append({**{k: v for k, v in record.items() if k != "id_prefix"},
+                               "windows": windows})
+    manifest = {
+        "schema_version": 1, "cohort_id": cohort_id, "purpose": spec["purpose"],
+        "created": spec["created"], "frozen_after_public_fetch": spec["created"],
+        "source": spec["source"], "selection": selection,
+        "source_spec_sha256": hashlib.sha256(args.source_spec.read_bytes()).hexdigest(),
+        "records": frozen_records,
+    }
+    validate_frozen_manifest(manifest)
+    assert args.freeze_manifest is not None
+    write_yaml(args.freeze_manifest, manifest)
+    return {"mode": "freeze_manifest", "manifest": str(args.freeze_manifest),
+            "prompt_count": len(tasks),
+            "manifest_sha256": hashlib.sha256(args.freeze_manifest.read_bytes()).hexdigest()}
 
 
 def validate_frozen_manifest(manifest: dict[str, Any]) -> None:

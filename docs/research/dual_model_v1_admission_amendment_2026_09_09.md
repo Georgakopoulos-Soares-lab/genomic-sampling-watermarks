@@ -10,6 +10,10 @@ manuscript numbers come from a `synthid.v2.*` namespace.
 The decision was taken deliberately and with the costs stated below. It is not a finding that the
 earlier rule was wrong.
 
+The M5-only execution rule mentioned below was superseded on 2026-09-21. New runs may use a
+documented GPU or CPU environment under a new evidence identity. The original execution details
+and protocol-hash caveat remain part of the version-one provenance record.
+
 ## What was decided
 
 The manuscript becomes a dual-model paper on Carbon-500M and GENERator-v2-eukaryote-1.2b-base, drawn
@@ -58,10 +62,10 @@ and a new identifier; a scope annotation is not a measured quantity.
 - It does not admit any measurement that does not already exist in the ledger.
 - It does not claim the two models, their distributions, or their biological usefulness are
   equivalent. Replication across two models supports portability of the implementation only.
-- It does not lift the hardware contract for future runs. New paper-bound runs still require the
-  documented M5 Pro path.
+- At the time of this amendment, it did not lift the then-active M5-only hardware contract.
+  The 2026-09-21 revision permits documented GPU or CPU execution for new paper-bound runs.
 - It does not close the gates in `dual_model_synthid_paper_rebuild_plan.md`. S0, S1, S3–S11 remain
-  unevaluated, and the confirmatory M5 replication remains the intended follow-up.
+  unevaluated, and confirmatory replication remains the intended follow-up.
 
 ## Asymmetry in what the two models can support
 

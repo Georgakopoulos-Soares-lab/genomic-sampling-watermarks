@@ -4,8 +4,8 @@
 evidence for the current dual-model manuscript, admitted by
 `../docs/research/dual_model_v1_admission_amendment_2026_09_09.md`, which also lists the execution
 caveats the manuscript must disclose. Any *new* paper evidence still requires the `synthid.v2.*`
-namespace, a fresh cohort, a new frozen protocol, and the M5 execution path defined in the active
-rebuild plan. Results from removed watermark methods and their experiments are not retained.
+namespace, a fresh cohort, a new frozen protocol, and a documented execution environment. Results
+from removed watermark methods and their experiments are not retained.
 
 Add an entry only when a result exists. Each entry needs:
 

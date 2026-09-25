@@ -1,0 +1,53 @@
+{
+  "configuration": {
+    "context_history_size": 1024,
+    "context_tokens": 4,
+    "depth": 30,
+    "detector_id": "synthid-position-independent-detector-v1",
+    "domain": "retained Carbon public generation domain; string omitted",
+    "key": "public fixture key index 0; raw bytes omitted",
+    "orientations": [
+      "forward",
+      "reverse_complement"
+    ],
+    "target_fpr": 0.01,
+    "window_base_lengths": [
+      384,
+      768,
+      1536,
+      3072
+    ]
+  },
+  "detector_seconds_per_read_max": 0.4790714539703913,
+  "detector_seconds_per_read_median": 0.24482069700025022,
+  "detector_seconds_per_read_min": 0.2398625229834579,
+  "environment": {
+    "cpu_model": "AMD EPYC 7763 64-Core Processor",
+    "device_used": "CPU",
+    "logical_cpus_visible": 128,
+    "platform": "Linux-4.18.0-553.150.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "python": "3.13.5",
+    "torch": {
+      "cuda_build": "12.8",
+      "version": "2.8.0+cu128"
+    }
+  },
+  "hypotheses_per_read": 43784,
+  "peak_worker_rss_mib": 40.43359375,
+  "read_bases": 6912,
+  "read_construction": "For each of 16 sorted evaluation groups, concatenate 1, 2, or 4 distinct retained prompt-plus-ordinary-continuation reads; 3456 bases per source read; draw 0. No DNA is written to this artifact.",
+  "rss_note": "Peak worker RSS comes from getrusage(RUSAGE_SELF); summing worker maxima is an upper bound, not a synchronized aggregate peak.",
+  "sample_reads": 16,
+  "schema_version": 1,
+  "source_sha256": {
+    "benchmark_source": "76d064a9a42a6dcff9101c24694430152da2de4ae4028361df9d0b22e67720db",
+    "cohort": "01867c1a987ae5e130ebdb6bed7f992e2967b2f7537554879662dc40499adfeb",
+    "detector_source": "db7a0116281d8c07b46b7c6c6196907526578480a22eb2ab6c55a9260f78c901",
+    "generation_draw_00": "3b363ff9e5640d0d24e2f0f65db0f576ac2bc5f60da13adbc51cf68e48530f9d",
+    "prompt_split": "c5945682f9cbd3b1a2a97b5efb0d70870d27d931fba223e62779381219e37698"
+  },
+  "sum_worker_peak_rss_mib_upper_bound": 40.43359375,
+  "wall_seconds_per_read_at_worker_count": 0.283763314877433,
+  "wall_seconds_total": 4.540213038038928,
+  "workers": 1
+}

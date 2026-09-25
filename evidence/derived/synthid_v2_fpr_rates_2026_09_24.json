@@ -1,0 +1,636 @@
+{
+  "bound_rule": "Beta^{-1}(0.95; positives + 1, prompts - positives); 1 when all positive",
+  "cells": [
+    {
+      "condition": "clean",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.carbon.detector.clean.correct_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 1,
+        "3072": 3087
+      }
+    },
+    {
+      "condition": "clean",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.carbon.detector.clean.ordinary_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0004008737588425518,
+        0.005667689314253598
+      ],
+      "prompt_one_sided_95_upper": 0.005014072432416639,
+      "prompt_positives": 3,
+      "prompt_rate": 0.0019430051813471502,
+      "read_detections": 3,
+      "read_rate": 0.0009715025906735751,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1543,
+        "reverse_complement": 1545
+      },
+      "winning_window_base_length_counts": {
+        "1536": 259,
+        "3072": 36,
+        "384": 2105,
+        "768": 688
+      }
+    },
+    {
+      "condition": "clean",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.carbon.detector.clean.wrong_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0010522911265491894,
+        0.007540902190547467
+      ],
+      "prompt_one_sided_95_upper": 0.0067968101423892535,
+      "prompt_positives": 5,
+      "prompt_rate": 0.003238341968911917,
+      "read_detections": 5,
+      "read_rate": 0.0016191709844559584,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1534,
+        "reverse_complement": 1554
+      },
+      "winning_window_base_length_counts": {
+        "1536": 223,
+        "3072": 35,
+        "384": 2141,
+        "768": 689
+      }
+    },
+    {
+      "condition": "substitution_1nt",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.carbon.detector.substitution_1nt.correct_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 1,
+        "3072": 3087
+      }
+    },
+    {
+      "condition": "substitution_1nt",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.carbon.detector.substitution_1nt.ordinary_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0004008737588425518,
+        0.005667689314253598
+      ],
+      "prompt_one_sided_95_upper": 0.005014072432416639,
+      "prompt_positives": 3,
+      "prompt_rate": 0.0019430051813471502,
+      "read_detections": 3,
+      "read_rate": 0.0009715025906735751,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1533,
+        "reverse_complement": 1555
+      },
+      "winning_window_base_length_counts": {
+        "1536": 256,
+        "3072": 40,
+        "384": 2110,
+        "768": 682
+      }
+    },
+    {
+      "condition": "substitution_1nt",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.carbon.detector.substitution_1nt.wrong_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0010522911265491894,
+        0.007540902190547467
+      ],
+      "prompt_one_sided_95_upper": 0.0067968101423892535,
+      "prompt_positives": 5,
+      "prompt_rate": 0.003238341968911917,
+      "read_detections": 5,
+      "read_rate": 0.0016191709844559584,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1553,
+        "reverse_complement": 1535
+      },
+      "winning_window_base_length_counts": {
+        "1536": 224,
+        "3072": 38,
+        "384": 2153,
+        "768": 673
+      }
+    },
+    {
+      "condition": "insertion_1nt",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.carbon.detector.insertion_1nt.correct_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 1364,
+        "3072": 1724
+      }
+    },
+    {
+      "condition": "insertion_1nt",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.carbon.detector.insertion_1nt.ordinary_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0004008737588425518,
+        0.005667689314253598
+      ],
+      "prompt_one_sided_95_upper": 0.005014072432416639,
+      "prompt_positives": 3,
+      "prompt_rate": 0.0019430051813471502,
+      "read_detections": 3,
+      "read_rate": 0.0009715025906735751,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1577,
+        "reverse_complement": 1511
+      },
+      "winning_window_base_length_counts": {
+        "1536": 243,
+        "3072": 43,
+        "384": 2096,
+        "768": 706
+      }
+    },
+    {
+      "condition": "insertion_1nt",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.carbon.detector.insertion_1nt.wrong_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0014273916132523925,
+        0.008438884701750013
+      ],
+      "prompt_one_sided_95_upper": 0.007655439885394133,
+      "prompt_positives": 6,
+      "prompt_rate": 0.0038860103626943004,
+      "read_detections": 6,
+      "read_rate": 0.0019430051813471502,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1560,
+        "reverse_complement": 1528
+      },
+      "winning_window_base_length_counts": {
+        "1536": 228,
+        "3072": 32,
+        "384": 2118,
+        "768": 710
+      }
+    },
+    {
+      "condition": "deletion_1nt",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.carbon.detector.deletion_1nt.correct_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 1424,
+        "3072": 1663,
+        "768": 1
+      }
+    },
+    {
+      "condition": "deletion_1nt",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.carbon.detector.deletion_1nt.ordinary_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0007063084514147383,
+        0.006619756394899254
+      ],
+      "prompt_one_sided_95_upper": 0.005918556492354565,
+      "prompt_positives": 4,
+      "prompt_rate": 0.0025906735751295338,
+      "read_detections": 4,
+      "read_rate": 0.0012953367875647669,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1545,
+        "reverse_complement": 1543
+      },
+      "winning_window_base_length_counts": {
+        "1536": 241,
+        "3072": 35,
+        "384": 2122,
+        "768": 690
+      }
+    },
+    {
+      "condition": "deletion_1nt",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.carbon.detector.deletion_1nt.wrong_key_rate",
+      "model": "carbon",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0026687580116178606,
+        0.011036328564064075
+      ],
+      "prompt_one_sided_95_upper": 0.01014968847424863,
+      "prompt_positives": 9,
+      "prompt_rate": 0.005829015544041451,
+      "read_detections": 9,
+      "read_rate": 0.0029145077720207253,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1531,
+        "reverse_complement": 1557
+      },
+      "winning_window_base_length_counts": {
+        "1536": 231,
+        "3072": 44,
+        "384": 2132,
+        "768": 681
+      }
+    },
+    {
+      "condition": "clean",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.generator.detector.clean.correct_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 3,
+        "3072": 3085
+      }
+    },
+    {
+      "condition": "clean",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.generator.detector.clean.ordinary_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0010522911265491894,
+        0.007540902190547467
+      ],
+      "prompt_one_sided_95_upper": 0.0067968101423892535,
+      "prompt_positives": 5,
+      "prompt_rate": 0.003238341968911917,
+      "read_detections": 5,
+      "read_rate": 0.0016191709844559584,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1586,
+        "reverse_complement": 1502
+      },
+      "winning_window_base_length_counts": {
+        "1536": 221,
+        "3072": 32,
+        "384": 2119,
+        "768": 716
+      }
+    },
+    {
+      "condition": "clean",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.generator.detector.clean.wrong_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0001569098084058844,
+        0.004671291652423719
+      ],
+      "prompt_one_sided_95_upper": 0.004071917817387638,
+      "prompt_positives": 2,
+      "prompt_rate": 0.0012953367875647669,
+      "read_detections": 2,
+      "read_rate": 0.0006476683937823834,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1549,
+        "reverse_complement": 1539
+      },
+      "winning_window_base_length_counts": {
+        "1536": 258,
+        "3072": 23,
+        "384": 2103,
+        "768": 704
+      }
+    },
+    {
+      "condition": "substitution_1nt",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.generator.detector.substitution_1nt.correct_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 3,
+        "3072": 3085
+      }
+    },
+    {
+      "condition": "substitution_1nt",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.generator.detector.substitution_1nt.ordinary_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0010522911265491894,
+        0.007540902190547467
+      ],
+      "prompt_one_sided_95_upper": 0.0067968101423892535,
+      "prompt_positives": 5,
+      "prompt_rate": 0.003238341968911917,
+      "read_detections": 5,
+      "read_rate": 0.0016191709844559584,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1600,
+        "reverse_complement": 1488
+      },
+      "winning_window_base_length_counts": {
+        "1536": 225,
+        "3072": 33,
+        "384": 2125,
+        "768": 705
+      }
+    },
+    {
+      "condition": "substitution_1nt",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.generator.detector.substitution_1nt.wrong_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0001569098084058844,
+        0.004671291652423719
+      ],
+      "prompt_one_sided_95_upper": 0.004071917817387638,
+      "prompt_positives": 2,
+      "prompt_rate": 0.0012953367875647669,
+      "read_detections": 2,
+      "read_rate": 0.0006476683937823834,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1535,
+        "reverse_complement": 1553
+      },
+      "winning_window_base_length_counts": {
+        "1536": 257,
+        "3072": 29,
+        "384": 2105,
+        "768": 697
+      }
+    },
+    {
+      "condition": "insertion_1nt",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.generator.detector.insertion_1nt.correct_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 1356,
+        "3072": 1732
+      }
+    },
+    {
+      "condition": "insertion_1nt",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.generator.detector.insertion_1nt.ordinary_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0014273916132523925,
+        0.008438884701750013
+      ],
+      "prompt_one_sided_95_upper": 0.007655439885394133,
+      "prompt_positives": 6,
+      "prompt_rate": 0.0038860103626943004,
+      "read_detections": 6,
+      "read_rate": 0.0019430051813471502,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1566,
+        "reverse_complement": 1522
+      },
+      "winning_window_base_length_counts": {
+        "1536": 245,
+        "3072": 32,
+        "384": 2094,
+        "768": 717
+      }
+    },
+    {
+      "condition": "insertion_1nt",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.generator.detector.insertion_1nt.wrong_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0001569098084058844,
+        0.004671291652423719
+      ],
+      "prompt_one_sided_95_upper": 0.004071917817387638,
+      "prompt_positives": 2,
+      "prompt_rate": 0.0012953367875647669,
+      "read_detections": 2,
+      "read_rate": 0.0006476683937823834,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1539,
+        "reverse_complement": 1549
+      },
+      "winning_window_base_length_counts": {
+        "1536": 261,
+        "3072": 35,
+        "384": 2098,
+        "768": 694
+      }
+    },
+    {
+      "condition": "deletion_1nt",
+      "family": "watermarked_correct_key",
+      "id": "synthid.v2.generator.detector.deletion_1nt.correct_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.997613681165654,
+        1.0
+      ],
+      "prompt_one_sided_95_upper": 1.0,
+      "prompt_positives": 1544,
+      "prompt_rate": 1.0,
+      "read_detections": 3088,
+      "read_rate": 1.0,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 3088
+      },
+      "winning_window_base_length_counts": {
+        "1536": 1417,
+        "3072": 1671
+      }
+    },
+    {
+      "condition": "deletion_1nt",
+      "family": "ordinary_corresponding_key",
+      "id": "synthid.v2.generator.detector.deletion_1nt.ordinary_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0018246579145449662,
+        0.009318670398982555
+      ],
+      "prompt_one_sided_95_upper": 0.008498668765004769,
+      "prompt_positives": 7,
+      "prompt_rate": 0.0045336787564766836,
+      "read_detections": 7,
+      "read_rate": 0.0022668393782383418,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1554,
+        "reverse_complement": 1534
+      },
+      "winning_window_base_length_counts": {
+        "1536": 248,
+        "3072": 39,
+        "384": 2104,
+        "768": 697
+      }
+    },
+    {
+      "condition": "deletion_1nt",
+      "family": "watermarked_wrong_key",
+      "id": "synthid.v2.generator.detector.deletion_1nt.wrong_key_rate",
+      "model": "generator",
+      "prompt_clusters": 1544,
+      "prompt_exact_two_sided_95_interval": [
+        0.0004008737588425518,
+        0.005667689314253598
+      ],
+      "prompt_one_sided_95_upper": 0.005014072432416639,
+      "prompt_positives": 3,
+      "prompt_rate": 0.0019430051813471502,
+      "read_detections": 3,
+      "read_rate": 0.0009715025906735751,
+      "read_trials": 3088,
+      "winning_orientation_counts": {
+        "forward": 1539,
+        "reverse_complement": 1549
+      },
+      "winning_window_base_length_counts": {
+        "1536": 227,
+        "3072": 41,
+        "384": 2117,
+        "768": 703
+      }
+    }
+  ],
+  "draws_per_prompt": 2,
+  "evaluation_prompts": 1544,
+  "predeclared_sub_one_percent_threshold_positives": 8,
+  "prompt_positive_rule": "a prompt is positive when either draw is detected",
+  "schema_version": 1,
+  "study": "L1-01 SynthID v2 false-positive-rate scaling"
+}

@@ -16,22 +16,29 @@ not know the secret key and cannot obtain, query, or optimize against the detect
 The retained experiment covers an unchanged read and exactly one ordinary nucleotide event inside
 the generated continuation: one substitution, one insertion, or one deletion. The event location
 and affected base are selected by a frozen public random procedure, not by inspecting detector
-behavior. Multiple edits and detector-guided editing are outside this threat model and are not
-planned experiments for this study.
+behavior.
 
-This boundary follows from the search geometry, not from convenience. Detection requires a
-contiguous region whose 6-mer alignment survives across one of the evaluated windows, the
-shortest of which spans 384 bases. At `alpha = 0.01` and `M = 16,136` windows, that shortest
-window carries at most 60 scored tokens and at most 1,800 mark bits, of which at least 1,004 must
-be positive. The mark-bit supply is not the binding constraint: a window of only 21 mark bits
-clears the threshold if all 21 are positive, and a single scored token already supplies 30 bits,
-so it is the window-length set that bounds detection.
+Editing at higher rates has since been measured rather than argued. A full-cohort run over 1,544
+evaluation prompts per model, both draws, applied independent public-replay edits at per-base
+rates of 0.0003, 0.001, 0.005, 0.01, 0.02, 0.05 and 0.10, as substitutions, mixed indels, and
+direction-pure insertions and deletions. Correct-key detection recovered every read through a 2%
+per-base rate for all four edit kinds on both models, fell to about 93% for indels at 5% while
+substitutions still recovered every read, and collapsed by 10%. Ordinary output under the
+corresponding key stayed at or below the 0.01 target at every rate and kind. The detector was
+unchanged throughout: same window set, same orientations, same correction. Results are admitted
+under `synthid.v3.*`; the protocol is
+`docs/research/synthid_v3_edit_rate_protocol_2026_09_24.md` and the execution record is
+`docs/research/synthid_v3_edit_rate_execution_2026_09_24.md`.
 
-Independent indels arriving at rate `r` leave expected clean stretches near `1/r` bases,
-so raising the rate shortens the surviving region faster than it weakens the mark. Measuring the
-breakdown point would therefore require a shorter-window search with a correspondingly larger
-correction. That is a different verifier and a different study, and it is why the higher-rate
-sweep is declined here rather than deferred.
+**The declared covered regime remains exactly one nucleotide event.** The measurement above
+describes what the detector withstands; it does not by itself widen what this study claims. Moving
+the covered regime is a separate decision recorded in
+`docs/research/threat_model_edit_rate_amendment_2026_09_24.md`.
+
+The edit channel is a non-adaptive public replay that never inspects the detector, the key, or any
+score. Detector-guided and detector-query editing remain outside this threat model, and no
+adversarial-robustness claim follows from these measurements: an adaptive editor placing edits
+where they hurt most has not been measured.
 
 ## Detection goal
 

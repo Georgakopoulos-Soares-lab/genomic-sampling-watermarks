@@ -28,7 +28,7 @@ Version-one Carbon and GENERator measurements are admitted as evidence for the c
 manuscript by `docs/research/dual_model_v1_admission_amendment_2026_09_09.md`, with their execution
 caveats disclosed in the paper rather than removed from it: generation on GPU hardware, detection on
 x86-64 CPUs, one execution per model, and the Carbon protocol-hash discrepancy. They are executed
-results, not settled ones. Confirmatory M5 Pro replication with a fresh cohort and a new evidence
+results, not settled ones. Confirmatory replication with a fresh cohort and a new evidence
 identity remains the intended next step; its design and gates are in
 `docs/research/dual_model_synthid_paper_rebuild_plan.md`.
 
@@ -42,5 +42,5 @@ study.
 
 The previous detector runs used Linux CPU and the previous generations used CUDA. The 2026-09-09
 admission amendment permits those version-one results in the current manuscript, with the stated
-caveats. Every new paper-bound stage for both models must run through the documented Apple M5 Pro
-path unless the hardware contract is explicitly revised before a new protocol is frozen.
+caveats. Every new paper-bound stage for both models must record its actual execution environment
+and use a new evidence identity under a frozen protocol.

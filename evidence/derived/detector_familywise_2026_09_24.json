@@ -1,0 +1,235 @@
+{
+  "decision_rule_unchanged": "the reported rule remains the full-search Bonferroni correction; these numbers quantify headroom and are not a replacement threshold",
+  "estimator": "M_eff = -n / sum(log(1 - p_min)); P(p_min > x) = (1 - x)^M_eff",
+  "family": "ordinary_corresponding_key",
+  "models": {
+    "carbon": {
+      "by_condition": {
+        "clean": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.7414850996163077,
+            "p05": 0.544443719946675,
+            "p95": 1.2333866272681249
+          },
+          "conservatism_factor_vs_target": 10.293333333333333,
+          "correction_inflation_factor": 19.404179269923937,
+          "effective_independent_windows": 831.5734345440961,
+          "empirical_familywise_rate": 0.0009715025906735751,
+          "hypotheses_searched": 16136,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006177977106641915,
+            "p05": 3.358146085950823e-05,
+            "p95": 0.004435265184678037
+          },
+          "prompts_fired": 3,
+          "reads": 3088,
+          "reads_fired": 3,
+          "target_false_positive_rate": 0.01
+        },
+        "deletion_1nt": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.8112236328650625,
+            "p05": 0.5419396373310684,
+            "p95": 1.2277238982049128
+          },
+          "conservatism_factor_vs_target": 7.72,
+          "correction_inflation_factor": 19.48417609728838,
+          "effective_independent_windows": 827.7486263452803,
+          "empirical_familywise_rate": 0.0012953367875647669,
+          "hypotheses_searched": 16128,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006790249975168599,
+            "p05": 3.358146085950823e-05,
+            "p95": 0.004435265184678037
+          },
+          "prompts_fired": 4,
+          "reads": 3088,
+          "reads_fired": 4,
+          "target_false_positive_rate": 0.01
+        },
+        "insertion_1nt": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.7463546165981609,
+            "p05": 0.5480205974536969,
+            "p95": 1.2414753733553674
+          },
+          "conservatism_factor_vs_target": 10.293333333333333,
+          "correction_inflation_factor": 19.28708370959079,
+          "effective_independent_windows": 837.0368606826835,
+          "empirical_familywise_rate": 0.0009715025906735751,
+          "hypotheses_searched": 16144,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006177977106641915,
+            "p05": 3.358146085950823e-05,
+            "p95": 0.004435265184678037
+          },
+          "prompts_fired": 3,
+          "reads": 3088,
+          "reads_fired": 3,
+          "target_false_positive_rate": 0.01
+        },
+        "substitution_1nt": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.7421502444033756,
+            "p05": 0.544932298472444,
+            "p95": 1.2344914980967148
+          },
+          "conservatism_factor_vs_target": 10.293333333333333,
+          "correction_inflation_factor": 19.38678122348453,
+          "effective_independent_windows": 832.3197035128949,
+          "empirical_familywise_rate": 0.0009715025906735751,
+          "hypotheses_searched": 16136,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006177977106641915,
+            "p05": 3.358146085950823e-05,
+            "p95": 0.004435265184678037
+          },
+          "prompts_fired": 3,
+          "reads": 3088,
+          "reads_fired": 3,
+          "target_false_positive_rate": 0.01
+        }
+      },
+      "pooled": {
+        "beta_model_observed_over_predicted": {
+          "median": 0.7420048393471959,
+          "p05": 0.5448254919703132,
+          "p95": 1.2342499660151396
+        },
+        "conservatism_factor_vs_target": 9.50153846153846,
+        "correction_inflation_factor": null,
+        "effective_independent_windows": 832.1565641733212,
+        "empirical_familywise_rate": 0.0010524611398963731,
+        "hypotheses_searched": [
+          16128,
+          16136,
+          16144
+        ],
+        "minimum_local_p_value_quantiles": {
+          "median": 0.0006177977106641915,
+          "p05": 3.358146085950823e-05,
+          "p95": 0.004435265184678037
+        },
+        "prompts_fired": 4,
+        "reads": 12352,
+        "reads_fired": 13,
+        "target_false_positive_rate": 0.01
+      }
+    },
+    "generator": {
+      "by_condition": {
+        "clean": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.8189178961463313,
+            "p05": 0.5580555186795518,
+            "p95": 1.099837953034881
+          },
+          "conservatism_factor_vs_target": 6.176,
+          "correction_inflation_factor": 18.930868422978676,
+          "effective_independent_windows": 852.364489545223,
+          "empirical_familywise_rate": 0.0016191709844559584,
+          "hypotheses_searched": 16136,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006656775361493338,
+            "p05": 3.358146085950823e-05,
+            "p95": 0.0038587210737257116
+          },
+          "prompts_fired": 5,
+          "reads": 3088,
+          "reads_fired": 5,
+          "target_false_positive_rate": 0.01
+        },
+        "deletion_1nt": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.8429130563937465,
+            "p05": 0.5522582688853326,
+            "p95": 1.0884322263821233
+          },
+          "conservatism_factor_vs_target": 4.411428571428572,
+          "correction_inflation_factor": 19.120114283074102,
+          "effective_independent_windows": 843.5096025695389,
+          "empirical_familywise_rate": 0.0022668393782383418,
+          "hypotheses_searched": 16128,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006923724588843859,
+            "p05": 3.358146085950823e-05,
+            "p95": 0.0038587210737257116
+          },
+          "prompts_fired": 7,
+          "reads": 3088,
+          "reads_fired": 7,
+          "target_false_positive_rate": 0.01
+        },
+        "insertion_1nt": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.8365255755975763,
+            "p05": 0.5485954103587316,
+            "p95": 1.0801954886520726
+          },
+          "conservatism_factor_vs_target": 5.1466666666666665,
+          "correction_inflation_factor": 19.28528397797663,
+          "effective_independent_windows": 837.1149742174445,
+          "empirical_familywise_rate": 0.0019430051813471502,
+          "hypotheses_searched": 16144,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006923724588843859,
+            "p05": 3.3613547321750006e-05,
+            "p95": 0.0038587210737257116
+          },
+          "prompts_fired": 6,
+          "reads": 3088,
+          "reads_fired": 6,
+          "target_false_positive_rate": 0.01
+        },
+        "substitution_1nt": {
+          "beta_model_observed_over_predicted": {
+            "median": 0.8473665212240828,
+            "p05": 0.5551771924308543,
+            "p95": 1.0941750259989034
+          },
+          "conservatism_factor_vs_target": 6.176,
+          "correction_inflation_factor": 19.02901882304271,
+          "effective_independent_windows": 847.9680507993676,
+          "empirical_familywise_rate": 0.0016191709844559584,
+          "hypotheses_searched": 16136,
+          "minimum_local_p_value_quantiles": {
+            "median": 0.0006923724588843859,
+            "p05": 3.358146085950823e-05,
+            "p95": 0.0038587210737257116
+          },
+          "prompts_fired": 5,
+          "reads": 3088,
+          "reads_fired": 5,
+          "target_false_positive_rate": 0.01
+        }
+      },
+      "pooled": {
+        "beta_model_observed_over_predicted": {
+          "median": 0.8446031591870927,
+          "p05": 0.5533660088201697,
+          "p95": 1.0906116354517954
+        },
+        "conservatism_factor_vs_target": 5.3704347826086964,
+        "correction_inflation_factor": null,
+        "effective_independent_windows": 845.2015965777429,
+        "empirical_familywise_rate": 0.0018620466321243522,
+        "hypotheses_searched": [
+          16128,
+          16136,
+          16144
+        ],
+        "minimum_local_p_value_quantiles": {
+          "median": 0.0006923724588843859,
+          "p05": 3.358146085950823e-05,
+          "p95": 0.0038587210737257116
+        },
+        "prompts_fired": 11,
+        "reads": 12352,
+        "reads_fired": 23,
+        "target_false_positive_rate": 0.01
+      }
+    }
+  },
+  "schema_version": 1,
+  "study": "L1-06 empirical family-wise error of the correlated window search"
+}

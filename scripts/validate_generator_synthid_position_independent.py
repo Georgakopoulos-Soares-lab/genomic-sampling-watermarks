@@ -42,6 +42,8 @@ TARGET_FPR = 0.01
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--experiment-id", default=EXPERIMENT_ID)
+    parser.add_argument("--expected-evaluation-prompts", type=int, default=EXPECTED_PROMPTS)
     return parser.parse_args()
 
 
@@ -201,11 +203,13 @@ def validate_rate(
     *,
     analysis_seed: int,
     bootstrap_replicates: int,
+    experiment_id: str = EXPERIMENT_ID,
+    expected_prompts: int = EXPECTED_PROMPTS,
 ) -> None:
     condition = str(cell["condition"])
     family = str(cell["family"])
     selected = [row for row in rows if row["condition"] == condition and row["family"] == family]
-    if len(selected) != EXPECTED_PROMPTS * len(EXPECTED_DRAWS):
+    if len(selected) != expected_prompts * len(EXPECTED_DRAWS):
         raise ValueError("summary cell has the wrong trial count")
     detections = sum(bool(row["detected"]) for row in selected)
     if int(cell["detections"]) != detections or int(cell["trials"]) != len(selected):
@@ -220,7 +224,7 @@ def validate_rate(
         by_prompt,
         replicates=bootstrap_replicates,
         seed=public_replay_seed(
-            EXPERIMENT_ID,
+            experiment_id,
             str(analysis_seed),
             condition,
             family,
@@ -240,12 +244,12 @@ def validate_rate(
         raise ValueError("prompt-any count is inconsistent")
     if int(cell["prompt_both_draws"]["detections"]) != prompt_both:
         raise ValueError("prompt-both count is inconsistent")
-    if int(cell["prompt_any_draw"]["trials"]) != EXPECTED_PROMPTS:
+    if int(cell["prompt_any_draw"]["trials"]) != expected_prompts:
         raise ValueError("prompt-any denominator is inconsistent")
-    if int(cell["prompt_both_draws"]["trials"]) != EXPECTED_PROMPTS:
+    if int(cell["prompt_both_draws"]["trials"]) != expected_prompts:
         raise ValueError("prompt-both denominator is inconsistent")
     for field, successes in (("prompt_any_draw", prompt_any), ("prompt_both_draws", prompt_both)):
-        expected_exact = exact_interval(successes, EXPECTED_PROMPTS)
+        expected_exact = exact_interval(successes, expected_prompts)
         observed_exact = cell[field]["exact_95_interval"]
         if not all(
             close(float(got), want)
@@ -290,7 +294,7 @@ def main() -> int:
     report_path = args.output_dir / "report.md"
     summary = json.loads(summary_path.read_text())
     rows = load_jsonl(trials_path)
-    if summary.get("schema_version") != 1 or summary.get("experiment_id") != EXPERIMENT_ID:
+    if summary.get("schema_version") != 1 or summary.get("experiment_id") != args.experiment_id:
         raise ValueError("result bundle has the wrong identity")
     if summary.get("watermark_scope") != "synthid-tournament-v1 only":
         raise ValueError("result bundle is not SynthID-only")
@@ -301,7 +305,7 @@ def main() -> int:
         or summary.get("calibration_rerun") is not False
     ):
         raise ValueError("result bundle reran generation or calibration")
-    if int(summary.get("evaluation_prompts", -1)) != EXPECTED_PROMPTS:
+    if int(summary.get("evaluation_prompts", -1)) != args.expected_evaluation_prompts:
         raise ValueError("result bundle has the wrong prompt count")
     if int(summary.get("draws_per_prompt", -1)) != len(EXPECTED_DRAWS):
         raise ValueError("result bundle has the wrong draw count")
@@ -316,14 +320,16 @@ def main() -> int:
     if not close(float(summary.get("target_sequence_false_positive_rate", -1)), TARGET_FPR):
         raise ValueError("result bundle has the wrong false-positive target")
 
-    expected_rows = EXPECTED_PROMPTS * len(EXPECTED_DRAWS) * len(CONDITIONS) * len(FAMILIES)
+    expected_rows = (
+        args.expected_evaluation_prompts * len(EXPECTED_DRAWS) * len(CONDITIONS) * len(FAMILIES)
+    )
     if len(rows) != expected_rows or int(summary.get("total_decisions", -1)) != expected_rows:
         raise ValueError("result bundle has the wrong number of decisions")
     identities = {(row["case_id"], row["draw_id"], row["condition"], row["family"]) for row in rows}
     if len(identities) != expected_rows:
         raise ValueError("result bundle contains duplicate decisions")
     prompt_ids = {str(row["case_id"]) for row in rows}
-    if len(prompt_ids) != EXPECTED_PROMPTS:
+    if len(prompt_ids) != args.expected_evaluation_prompts:
         raise ValueError("result bundle has the wrong number of prompt clusters")
     for case_id in prompt_ids:
         observed = {
@@ -356,6 +362,8 @@ def main() -> int:
             rows,
             analysis_seed=analysis_seed,
             bootstrap_replicates=bootstrap_replicates,
+            experiment_id=args.experiment_id,
+            expected_prompts=args.expected_evaluation_prompts,
         )
 
     if summary["trials_artifact"]["sha256"] != sha256_file(trials_path):
@@ -385,7 +393,7 @@ def main() -> int:
         json.dumps(
             {
                 "status": "ok",
-                "experiment_id": EXPERIMENT_ID,
+                "experiment_id": args.experiment_id,
                 "prompts": len(prompt_ids),
                 "decisions": len(rows),
                 "rate_cells": len(rates),

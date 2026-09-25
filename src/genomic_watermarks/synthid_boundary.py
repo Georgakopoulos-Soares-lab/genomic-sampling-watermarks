@@ -275,3 +275,104 @@ def deterministic_single_base_edit(
         return SingleBaseEdit(condition, position, None, inserted, edited)
     edited = dna[:position] + dna[position + 1 :]
     return SingleBaseEdit(condition, position, original, None, edited)
+
+
+@dataclass(frozen=True)
+class MultiBaseEdit:
+    """A reproducible multi-edit channel applied inside a generated continuation.
+
+    Used only by the edit-rate sweep. The single-edit channel above is unchanged and
+    remains the one the declared threat model covers.
+    """
+
+    edit_rate: float
+    edit_kind: str
+    edit_count: int
+    positions: tuple[int, ...]
+    sequence: str
+
+
+def deterministic_multi_base_edit(
+    sequence: str,
+    *,
+    edit_rate: float,
+    edit_kind: str,
+    case_id: str,
+    draw_id: int,
+    label: str,
+    max_indel_bases: int = 5,
+) -> MultiBaseEdit:
+    """Apply independent public-replay edits at a declared per-base rate.
+
+    ``edit_rate`` is a per-base probability realised as a fixed count
+    ``round(edit_rate * len(sequence))`` so every read in a cell carries the same
+    number of events. ``edit_kind`` is ``substitution`` (one base each) or ``indel``
+    (an insertion or deletion of 1..``max_indel_bases`` bases each). Positions are
+    drawn without replacement from a public digest stream, so the channel replays
+    from the label, case id, draw and rate alone. Edits are applied right to left so
+    earlier positions stay valid.
+    """
+
+    dna = normalize_dna(sequence)
+    if not dna:
+        raise ValueError("cannot edit an empty sequence")
+    if not 0.0 <= edit_rate <= 1.0:
+        raise ValueError("edit rate must lie in [0, 1]")
+    if edit_kind not in {"substitution", "indel", "insertion", "deletion"}:
+        raise ValueError("unsupported multi-edit kind")
+    if not case_id or draw_id < 0 or not label or max_indel_bases < 1:
+        raise ValueError("edit identity, label and indel bound must be valid")
+
+    count = int(round(edit_rate * len(dna)))
+    if edit_rate > 0.0 and count == 0:
+        count = 1
+    if count == 0:
+        return MultiBaseEdit(edit_rate, edit_kind, 0, (), dna)
+    if count > len(dna):
+        raise ValueError("edit count exceeds sequence length")
+
+    stream = _digest_stream(f"{label}\x00{edit_kind}\x00rate={edit_rate!r}\x00{case_id}\x00draw={draw_id}")
+    chosen: list[int] = []
+    seen: set[int] = set()
+    guard = 0
+    while len(chosen) < count:
+        guard += 1
+        if guard > 100 * count + 1000:
+            raise RuntimeError("could not place the requested edits")
+        position = int.from_bytes(bytes(next(stream) for _ in range(8)), "big") % len(dna)
+        if position in seen:
+            continue
+        seen.add(position)
+        chosen.append(position)
+
+    edited = dna
+    for position in sorted(chosen, reverse=True):
+        selector = next(stream)
+        if edit_kind == "substitution":
+            original = edited[position]
+            choices = tuple(base for base in BASES if base != original)
+            edited = edited[:position] + choices[selector % len(choices)] + edited[position + 1 :]
+            continue
+        span = (next(stream) % max_indel_bases) + 1
+        # "indel" mixes both directions, so cumulative frame offset random-walks and
+        # can return to zero. "insertion" and "deletion" hold one direction, which
+        # isolates the frame-shift mechanism without that cancellation.
+        insert = selector % 2 == 0 if edit_kind == "indel" else edit_kind == "insertion"
+        if insert:
+            inserted = "".join(BASES[next(stream) % len(BASES)] for _ in range(span))
+            edited = edited[:position] + inserted + edited[position:]
+        else:
+            edited = edited[:position] + edited[position + span :]
+    if not edited:
+        raise ValueError("multi-edit removed the entire sequence")
+    return MultiBaseEdit(edit_rate, edit_kind, count, tuple(sorted(chosen)), edited)
+
+
+def _digest_stream(seed: str):
+    """Yield an endless public byte stream from a labelled SHA-256 chain."""
+
+    counter = 0
+    while True:
+        block = hashlib.sha256(f"{seed}\x00block={counter}".encode()).digest()
+        yield from block
+        counter += 1
