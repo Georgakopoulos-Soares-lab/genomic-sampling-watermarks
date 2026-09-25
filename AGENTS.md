@@ -7,7 +7,7 @@ watermark on Carbon-500M and GENERator-v2 1.2B. Both models' version-one measure
 as paper evidence by `docs/research/dual_model_v1_admission_amendment_2026_09_09.md`, which
 supersedes the earlier `synthid.v2.*`-only rule for the current manuscript; the execution caveats
 that rule guarded against are disclosed in the manuscript's Limitations section. New runs still
-require the M5 Pro path and a new evidence identity.
+require a new evidence identity and a documented execution environment.
 
 ## Read order
 
@@ -22,11 +22,9 @@ Read `paper/AGENTS.md` before editing manuscript material.
 
 ## Hardware contract
 
-- All required experiments must run on the documented M5 Pro MacBook with 48 GB unified memory.
-- Prefer MPS, support CPU fallback, and keep batch sizes configurable.
-- Do not introduce CUDA-only kernels, SLURM jobs, distributed launchers, Brev dependencies, or remote services into the required path.
-- Carbon-500M and GENERator-v2 1.2B are the only retained models. Both must use the required M5
-  path for paper-bound evidence; other models are outside scope.
+- Required experiments may run on a documented local or HPC GPU or CPU environment, including A100 CUDA nodes. Record the device, accelerator and memory details, software environment, and exact commands with each result.
+- Keep batch sizes configurable and benchmark both model profiles before scaling.
+- Carbon-500M and GENERator-v2 1.2B are the only retained models; other models are outside scope.
 - Benchmark before increasing sample counts. Use sequential evidence gates instead of a large Cartesian sweep.
 
 ## Evidence rules

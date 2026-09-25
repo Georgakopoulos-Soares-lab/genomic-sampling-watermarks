@@ -122,7 +122,7 @@ ledger.
 A later manuscript audit found that the current working copy of the protocol document does not
 match the protocol hash stored in this immutable summary. All scientific trial and decision checks
 still pass before the validator reaches that final file-provenance check. The mismatch and its
-required resolution by a new M5 result identity are recorded in
+required resolution by a new result identity are recorded in
 `carbon_synthid_protocol_provenance_amendment_2026_09_03.md`.
 
 ## Interpretation boundaries
@@ -136,6 +136,5 @@ quality; it preserves the earlier generation-quality evidence.
 The declared edit scope is exactly one ordinary nucleotide event; multiple-edit and
 detector-guided settings are outside the threat model. The result also does not establish
 biological function, viability, sequence authenticity, or secret-key recovery resistance. The
-execution host was Linux x86-64 CPU. The detector is dependency-light and CPU/MPS-independent, but
-a paper-bound result subject to the repository's M5 Pro hardware contract still requires a replay
-on that documented machine.
+execution host was Linux x86-64 CPU. The detector is dependency-light and CPU/MPS-independent.
+Confirmatory replay requires a new result identity and documentation of the actual environment.

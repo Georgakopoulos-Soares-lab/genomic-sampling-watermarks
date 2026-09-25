@@ -1,0 +1,112 @@
+{
+  "benchmark_source_sha256": "76d064a9a42a6dcff9101c24694430152da2de4ae4028361df9d0b22e67720db",
+  "cells": [
+    {
+      "artifact": "evidence/derived/detector_search_timing_2026_09_21/N3456_w1.json",
+      "hypotheses_per_read": 16136,
+      "median_detector_seconds_per_read": 0.09561488300096244,
+      "peak_worker_rss_mib": 27.91796875,
+      "read_bases": 3456,
+      "sample_reads": 16,
+      "sha256": "7368fe4b1ae8da52aa974346d2a5556aea9e566ade5e0824f0fc435a394853fb",
+      "sum_worker_peak_rss_mib_upper_bound": 27.91796875,
+      "wall_seconds_per_read": 0.10529394587501884,
+      "workers": 1
+    },
+    {
+      "artifact": "evidence/derived/detector_search_timing_2026_09_21/N3456_w16.json",
+      "hypotheses_per_read": 16136,
+      "median_detector_seconds_per_read": 0.12210939850774594,
+      "peak_worker_rss_mib": 28.1640625,
+      "read_bases": 3456,
+      "sample_reads": 16,
+      "sha256": "cbae553323e5dcaa05909f339b9839034ce08eea200b3bc840844007d7ef2af0",
+      "sum_worker_peak_rss_mib_upper_bound": 409.30859375,
+      "wall_seconds_per_read": 0.016650974313961342,
+      "workers": 16
+    },
+    {
+      "artifact": "evidence/derived/detector_search_timing_2026_09_21/N6912_w1.json",
+      "hypotheses_per_read": 43784,
+      "median_detector_seconds_per_read": 0.24482069700025022,
+      "peak_worker_rss_mib": 40.43359375,
+      "read_bases": 6912,
+      "sample_reads": 16,
+      "sha256": "b546f6c64fba5f0c6d57c6897771e60882f4a4a00365f0246a9e89e6eb833f8e",
+      "sum_worker_peak_rss_mib_upper_bound": 40.43359375,
+      "wall_seconds_per_read": 0.283763314877433,
+      "workers": 1
+    },
+    {
+      "artifact": "evidence/derived/detector_search_timing_2026_09_21/N6912_w16.json",
+      "hypotheses_per_read": 43784,
+      "median_detector_seconds_per_read": 0.28182496401132084,
+      "peak_worker_rss_mib": 40.78515625,
+      "read_bases": 6912,
+      "sample_reads": 16,
+      "sha256": "6f532c96afaa30a73e63c3f83075c13552860fc4e783545c54f6c542b4507b9e",
+      "sum_worker_peak_rss_mib_upper_bound": 584.27734375,
+      "wall_seconds_per_read": 0.036862265438685426,
+      "workers": 16
+    },
+    {
+      "artifact": "evidence/derived/detector_search_timing_2026_09_21/N13824_w1.json",
+      "hypotheses_per_read": 99080,
+      "median_detector_seconds_per_read": 0.9022157324943691,
+      "peak_worker_rss_mib": 69.078125,
+      "read_bases": 13824,
+      "sample_reads": 16,
+      "sha256": "79c7e6cf22b1cfb9f02db0b018d87c53e7ac65b4bec5b7dabbb52c06a33e2e5f",
+      "sum_worker_peak_rss_mib_upper_bound": 69.078125,
+      "wall_seconds_per_read": 0.852667406812543,
+      "workers": 1
+    },
+    {
+      "artifact": "evidence/derived/detector_search_timing_2026_09_21/N13824_w16.json",
+      "hypotheses_per_read": 99080,
+      "median_detector_seconds_per_read": 0.9778038845106494,
+      "peak_worker_rss_mib": 67.6796875,
+      "read_bases": 13824,
+      "sample_reads": 16,
+      "sha256": "a5974a3be7eb2eeb1323e88f98b68b43302d7e459262823efadc134bc4aa48ec",
+      "sum_worker_peak_rss_mib_upper_bound": 950.03515625,
+      "wall_seconds_per_read": 0.09027133943527588,
+      "workers": 16
+    }
+  ],
+  "command": "/scratch/10899/kimopro/gsw-analysis-venv/bin/python scripts/benchmark_synthid_detector_search.py",
+  "configuration": {
+    "context_history_size": 1024,
+    "context_tokens": 4,
+    "depth": 30,
+    "detector_id": "synthid-position-independent-detector-v1",
+    "domain": "retained Carbon public generation domain; string omitted",
+    "key": "public fixture key index 0; raw bytes omitted",
+    "orientations": [
+      "forward",
+      "reverse_complement"
+    ],
+    "target_fpr": 0.01,
+    "window_base_lengths": [
+      384,
+      768,
+      1536,
+      3072
+    ]
+  },
+  "environment": {
+    "cpu_model": "AMD EPYC 7763 64-Core Processor",
+    "device_used": "CPU",
+    "logical_cpus_visible": 128,
+    "platform": "Linux-4.18.0-553.150.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "python": "3.13.5",
+    "torch": {
+      "cuda_build": "12.8",
+      "version": "2.8.0+cu128"
+    }
+  },
+  "memory_interpretation": "Peak worker RSS is per process. Sum of worker peaks is an upper bound on simultaneous aggregate RSS. Parallel wall seconds per read is throughput, not single-read latency.",
+  "schema_version": 1,
+  "source": "retained public Carbon ordinary draw-0 prompt-plus-continuation reads, concatenated in distinct groups to test longer lengths; no DNA retained in results",
+  "study": "L1-04 detector search cost"
+}

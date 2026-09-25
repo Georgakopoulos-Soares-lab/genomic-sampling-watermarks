@@ -1,4 +1,4 @@
-# Optional TACC Lonestar6 CUDA and Slurm execution record
+# TACC Lonestar6 CUDA and Slurm execution record
 
 This profile accelerated the completed Carbon SynthID validation and the later GENERator
 replication without changing either MPS/CPU-capable path. It uses the same scientific runners and
@@ -197,5 +197,6 @@ and validation amendment are in
 [`generator_synthid_execution_2026_09_03.md`](generator_synthid_execution_2026_09_03.md) and
 [`generator_synthid_validator_amendment_2026_09_03.md`](generator_synthid_validator_amendment_2026_09_03.md).
 
-The GENERator run is supplementary evidence under the current Carbon-only manuscript scope. It
-does not make CUDA or Slurm part of the required local reproduction path.
+The GENERator run was originally recorded as supplementary evidence under the Carbon-only manuscript
+scope. The 2026-09-09 amendment admitted it to the dual-model paper, and the 2026-09-21 hardware
+revision permits documented CUDA or CPU environments for new evidence identities.

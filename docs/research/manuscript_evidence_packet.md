@@ -7,7 +7,7 @@ the design, reviewed measurements, provenance, admissible wording, and unresolve
 the Carbon-500M paper run and the matched GENERator-v2 1.2B replication.
 
 The present manuscript is Carbon-only under `paper/AGENTS.md`. Carbon measurements below are the
-paper-targeted evidence, subject to the provenance and M5 replay gate stated at the end of this
+paper-targeted evidence, subject to the provenance and replication gate stated at the end of this
 packet. GENERator measurements are fully reviewed supplementary evidence but must remain outside
 the manuscript unless its scope is explicitly expanded. No removed watermark method,
 multiple-edit experiment, or detector-guided attack belongs in either result set.
@@ -282,12 +282,12 @@ avoid claiming that the models are numerically identical.
 
 The Carbon generation and final detector artifacts are complete, immutable, and represented in the
 ledger. Final manuscript readiness remains subject to replay of the paper-bound detector evaluation
-on the documented M5 Pro. The evidence audit also found that the retained Carbon protocol
+under a new evidence identity. The evidence audit also found that the retained Carbon protocol
 document's hash differs from the frozen hash inside the original detector summary. The scientific
 trials and decisions validate, but the original protocol bytes were not recovered. This is
 documented in `docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`.
 
-The clean resolution is to freeze the current protocol under a new result identity during the M5
-replay and admit that new artifact without overwriting the old one. Until that replay is completed
-or the contract is explicitly revised, the manuscript must retain its Linux-CPU limitation and the
+The clean resolution is to freeze the current protocol under a new result identity during the
+replay and admit that new artifact without overwriting the old one. Until that replay is completed,
+the manuscript must retain its execution-environment limitation and the
 protocol-provenance caveat.

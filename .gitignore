@@ -21,6 +21,10 @@ build/
 !/outputs/generator_synthid_e16_v1/*
 !/outputs/generator_synthid_position_independent_v1/
 !/outputs/generator_synthid_position_independent_v1/*
+!/outputs/carbon_synthid_v2_fpr_position_independent/
+!/outputs/carbon_synthid_v2_fpr_position_independent/*
+!/outputs/generator_synthid_v2_fpr_position_independent/
+!/outputs/generator_synthid_v2_fpr_position_independent/*
 /paper/manuscript/build/
 /paper/figures/generated/
 

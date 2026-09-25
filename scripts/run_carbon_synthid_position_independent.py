@@ -61,6 +61,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bootstrap-replicates", type=int, default=20_000)
     parser.add_argument("--analysis-seed", type=int, default=2718)
     parser.add_argument("--finalize-only", action="store_true")
+    parser.add_argument("--experiment-id", default=EXPERIMENT_ID)
+    parser.add_argument(
+        "--generation-experiment-id",
+        help="experiment id recorded in the generation rows; defaults to --experiment-id",
+    )
+    parser.add_argument("--experiment-label", default="carbon-synthid-validation-v1")
+    parser.add_argument("--expected-evaluation-prompts", type=int, default=EXPECTED_PROMPTS)
     return parser.parse_args()
 
 
@@ -76,6 +83,17 @@ def atomic_write_json(path: Path, value: dict[str, Any]) -> None:
     if temporary.exists():
         raise FileExistsError(f"temporary output already exists: {temporary}")
     temporary.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
+    os.replace(temporary, path)
+
+
+def write_if_identical_or_new(path: Path, payload: str) -> None:
+    if path.exists():
+        if path.read_text(encoding="utf-8") != payload:
+            raise FileExistsError(f"refusing to replace different artifact: {path}")
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    temporary.write_text(payload, encoding="utf-8")
     os.replace(temporary, path)
 
 
@@ -169,7 +187,7 @@ def evaluate_prompt(work: dict[str, Any]) -> dict[str, Any]:
                 )
     return {
         "schema_version": 1,
-        "experiment_id": EXPERIMENT_ID,
+        "experiment_id": str(work.get("experiment_id", EXPERIMENT_ID)),
         "case_id": case_id,
         "complete": True,
         "runtime_seconds": time.perf_counter() - started,
@@ -177,8 +195,10 @@ def evaluate_prompt(work: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def validate_prompt_shard(shard: dict[str, Any], case_id: str) -> None:
-    if shard.get("schema_version") != 1 or shard.get("experiment_id") != EXPERIMENT_ID:
+def validate_prompt_shard(
+    shard: dict[str, Any], case_id: str, experiment_id: str = EXPERIMENT_ID
+) -> None:
+    if shard.get("schema_version") != 1 or shard.get("experiment_id") != experiment_id:
         raise ValueError(f"invalid shard identity for {case_id}")
     if shard.get("case_id") != case_id or shard.get("complete") is not True:
         raise ValueError(f"incomplete shard for {case_id}")
@@ -307,7 +327,7 @@ def finalize(
         args.output_dir / "summary.json",
         args.output_dir / "report.md",
     )
-    if any(path.exists() for path in final_paths):
+    if final_paths[1].exists():
         raise FileExistsError("refusing to replace an existing finalized result")
     rows: list[dict[str, Any]] = []
     runtime_seconds = 0.0
@@ -316,16 +336,16 @@ def finalize(
         if not shard_path.exists():
             raise FileNotFoundError(f"missing prompt shard: {shard_path}")
         shard = json.loads(shard_path.read_text())
-        validate_prompt_shard(shard, case_id)
+        validate_prompt_shard(shard, case_id, args.experiment_id)
         rows.extend(shard["rows"])
         runtime_seconds += float(shard["runtime_seconds"])
-    expected_rows = EXPECTED_PROMPTS * len(DRAWS) * len(CONDITIONS) * len(FAMILIES)
+    expected_rows = args.expected_evaluation_prompts * len(DRAWS) * len(CONDITIONS) * len(FAMILIES)
     if len(rows) != expected_rows:
         raise RuntimeError(f"found {len(rows)} decisions, expected {expected_rows}")
     rows.sort(key=lambda row: (row["case_id"], row["draw_id"], row["condition"], row["family"]))
     trials_path = args.output_dir / "trials.jsonl"
     trials_text = "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows)
-    trials_path.write_text(trials_text)
+    write_if_identical_or_new(trials_path, trials_text)
 
     rates: list[dict[str, Any]] = []
     for condition in CONDITIONS:
@@ -341,7 +361,7 @@ def finalize(
                         selected,
                         bootstrap_replicates=args.bootstrap_replicates,
                         seed=public_replay_seed(
-                            EXPERIMENT_ID,
+                            args.experiment_id,
                             str(args.analysis_seed),
                             condition,
                             family,
@@ -352,14 +372,14 @@ def finalize(
             )
     summary: dict[str, Any] = {
         "schema_version": 1,
-        "experiment_id": EXPERIMENT_ID,
+        "experiment_id": args.experiment_id,
         "classification": "validation_result_pending_evidence_admission",
         "watermark_scope": "synthid-tournament-v1 only",
         "detector_id": POSITION_INDEPENDENT_SYNTHID_DETECTOR,
         "model_id": "HuggingFaceBio/Carbon-500M",
         "revision": "9796b752108258c1d365089f842e62e6c0547704",
         "policy_id": "C_tok",
-        "evaluation_prompts": EXPECTED_PROMPTS,
+        "evaluation_prompts": args.expected_evaluation_prompts,
         "draws_per_prompt": len(DRAWS),
         "families": list(FAMILIES),
         "conditions": list(CONDITIONS),
@@ -435,11 +455,16 @@ def finalize(
             "Fixture keys are public reproducibility material, not deployment secrets.",
             "Single edits are one nucleotide event, not a one-percent edit rate.",
             "This detector-only run does not re-evaluate model quality or biological function.",
-            "Prompt-correlated draws do not provide 384 independent prompt clusters.",
+            (
+                "Prompt-correlated draws do not provide 384 independent prompt clusters."
+                if args.expected_evaluation_prompts == EXPECTED_PROMPTS
+                else "Prompt-correlated draws provide "
+                f"{args.expected_evaluation_prompts} independent prompt clusters."
+            ),
         ],
     }
     report_path = args.output_dir / "report.md"
-    report_path.write_text(render_report(summary))
+    write_if_identical_or_new(report_path, render_report(summary))
     summary["report_artifact"] = {
         "path": str(report_path.resolve()),
         "sha256": sha256_file(report_path),
@@ -463,23 +488,35 @@ def main() -> int:
         for case_id, assignment in split["assignments"].items()
         if assignment == "evaluation"
     )
-    if len(evaluation_ids) != EXPECTED_PROMPTS:
+    if len(evaluation_ids) != args.expected_evaluation_prompts:
         raise ValueError(
-            f"expected {EXPECTED_PROMPTS} evaluation prompts, found {len(evaluation_ids)}"
+            f"expected {args.expected_evaluation_prompts} evaluation prompts, "
+            f"found {len(evaluation_ids)}"
         )
     if any(len(prompts[case_id]) != 384 for case_id in evaluation_ids):
         raise ValueError("every selected prompt must contain 384 bases")
 
     records: dict[tuple[str, int, str], dict[str, Any]] = {}
+    # Generation and detection carry distinct evidence identities in the v2 runs, so
+    # generation rows are matched against the generation id. It defaults to the
+    # detector id, which is how the version-one runs were invoked.
+    generation_experiment_id = args.generation_experiment_id or args.experiment_id
     generation_paths: list[Path] = []
     for draw_id in DRAWS:
         path = args.validation_root / f"generation/draw_{draw_id:02d}_sequences.jsonl"
         generation_paths.append(path)
         for row in load_jsonl(path):
+            if (
+                str(row.get("experiment_id", "carbon_synthid_validation_v1"))
+                != generation_experiment_id
+                or str(row.get("experiment_label")) != args.experiment_label
+                or str(row.get("policy_id")) != "C_tok"
+            ):
+                raise ValueError("generation record does not belong to the requested Carbon run")
             case_id = str(row["case_id"])
             if case_id in evaluation_ids:
                 records[(case_id, draw_id, str(row["scheme"]))] = row
-    expected_records = EXPECTED_PROMPTS * len(DRAWS) * 2
+    expected_records = args.expected_evaluation_prompts * len(DRAWS) * 2
     if len(records) != expected_records:
         raise ValueError(f"found {len(records)} generation records, expected {expected_records}")
 
@@ -489,7 +526,9 @@ def main() -> int:
         for case_id in evaluation_ids:
             shard_path = args.output_dir / "shards" / f"{case_id}.json"
             if shard_path.exists():
-                validate_prompt_shard(json.loads(shard_path.read_text()), case_id)
+                validate_prompt_shard(
+                    json.loads(shard_path.read_text()), case_id, args.experiment_id
+                )
                 continue
             selected_records = {
                 f"{draw}:{scheme}": records[(case_id, draw, scheme)]
@@ -497,16 +536,26 @@ def main() -> int:
                 for scheme in (SYNTHID_SCHEME, ORDINARY_SCHEME)
             }
             pending.append(
-                {"case_id": case_id, "prompt": prompts[case_id], "records": selected_records}
+                {
+                    "case_id": case_id,
+                    "prompt": prompts[case_id],
+                    "records": selected_records,
+                    "experiment_id": args.experiment_id,
+                }
             )
-        completed = EXPECTED_PROMPTS - len(pending)
+        completed = args.expected_evaluation_prompts - len(pending)
         if args.workers == 1:
             results = ((work["case_id"], evaluate_prompt(work)) for work in pending)
             for case_id, shard in results:
                 atomic_write_json(args.output_dir / "shards" / f"{case_id}.json", shard)
                 completed += 1
                 print(
-                    json.dumps({"completed_prompts": completed, "total_prompts": EXPECTED_PROMPTS}),
+                    json.dumps(
+                        {
+                            "completed_prompts": completed,
+                            "total_prompts": args.expected_evaluation_prompts,
+                        }
+                    ),
                     flush=True,
                 )
         else:
@@ -521,7 +570,10 @@ def main() -> int:
                     completed += 1
                     print(
                         json.dumps(
-                            {"completed_prompts": completed, "total_prompts": EXPECTED_PROMPTS}
+                            {
+                                "completed_prompts": completed,
+                                "total_prompts": args.expected_evaluation_prompts,
+                            }
                         ),
                         flush=True,
                     )

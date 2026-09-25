@@ -8,8 +8,9 @@ The user authorised deriving the GENERator counterparts of the Carbon quality, d
 and single-edit panels and updating the associated evidence and manuscript files. This amendment
 extends the 2026-09-09 dual-model admission to three derived `[A]` entries from already admitted,
 unchanged version-one artifacts. It introduces no generation, model scoring, detector search,
-calibration, new cohort, or new edit condition. Requirements for future experiments, including the
-M5 execution path and a new `synthid.v2.*` identity, remain unchanged.
+calibration, new cohort, or new edit condition. The then-current M5 execution rule was superseded
+on 2026-09-21; future experiments still require a new `synthid.v2.*` identity and a documented
+execution environment.
 
 The earlier manuscript and review notes incorrectly described GENERator's window strengths,
 strongest-window lengths, and per-measure effects as unavailable or not retained. They were absent

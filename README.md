@@ -82,7 +82,7 @@ uv run ruff check .
 
 The old model-backed paths remain documented for audit history. Model weights and source DNA are
 not stored in this repository. New paper-bound results must use the fresh dual-model study identity,
-new prompt cohort, M5 execution path, and `synthid.v2.*` evidence namespace.
+new prompt cohort, documented execution environment, and `synthid.v2.*` evidence namespace.
 
 ## Scope
 

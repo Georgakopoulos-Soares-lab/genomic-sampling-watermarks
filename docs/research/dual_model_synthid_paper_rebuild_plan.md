@@ -46,7 +46,7 @@ New work requires:
 - a new protocol and configuration hash;
 - a clean source commit or content-addressed source snapshot;
 - a new, previously uninspected prompt cohort;
-- new M5 Pro runs for both models;
+- new runs for both models in a documented execution environment;
 - new result directories and artifact manifests;
 - a new evidence namespace, proposed as `synthid.v2.*`; and
 - a manuscript generated only from the new evidence map.
@@ -69,13 +69,13 @@ that the models, their output distributions, or their biological usefulness are 
 
 ## Proposed locked design
 
-These are the recommended values to freeze after the M5 smoke benchmark and before inspecting any
+These are the recommended values to freeze after the GPU smoke benchmark and before inspecting any
 confirmatory result.
 
 | Item | Proposed value |
 |---|---|
 | Models | Carbon-500M and GENERator-v2 1.2B at exact pinned revisions |
-| Hardware | Documented M5 Pro with 48 GB unified memory for every paper-bound stage |
+| Hardware | Documented GPU or CPU environment for every paper-bound stage; record device, memory, and software stack |
 | Model policy | Direct normalized distribution over each model's 4,096 canonical DNA 6-mers |
 | Sampling | Temperature 1.0; no top-k or top-p truncation |
 | Prompts | 1,024 new public prompts, disjoint from every prior cohort |
@@ -187,7 +187,7 @@ genomic quality, biological function, detection power, or cryptographic security
 | Q3: validator tamper tests | Corrupt one count, hash, probability, key mapping, and path in test fixtures | Every corruption is rejected |
 | Q4: lint and formatting | Run Ruff lint and Ruff format checks | Both exit successfully under recorded Ruff version/configuration |
 | Q5: shell and schema checks | Check shell syntax and all machine-readable schemas | No syntax or schema errors |
-| Q6: strict M5 doctor | Verify machine, memory, Python, MPS/CPU support, cache, and pinned revisions | Every required field matches the M5 profile |
+| Q6: environment check | Verify device, memory, Python, accelerator availability, cache, and pinned revisions | Every required field matches the recorded execution profile |
 | Q7: evidence audit | Parse the ledger, recompute every cited value, and recursively verify manifests | No missing, duplicate, stale, or mismatched reference |
 | Q8: release-bundle audit | Reject absolute paths, raw keys, credentials, model weights, and disallowed sequence data | Portable content-addressed bundle passes |
 | Q9: manuscript build | Generate tables from evidence and build LaTeX | PDF builds with no unresolved references; generated-table hashes match the manifest |
@@ -203,7 +203,7 @@ uv run --frozen python -m unittest discover -s tests -v
 
 uv run --frozen ruff check .
 uv run --frozen ruff format --check .
-python3 scripts/doctor.py --strict --profile m5-pro-48gb
+python3 scripts/doctor.py
 python3 scripts/check_evidence.py --strict
 python3 scripts/validate_dual_model_release.py --bundle outputs/synthid_dual_model_confirmatory_v2
 cd paper && ./scripts/build.sh
@@ -226,10 +226,10 @@ Exit condition: no active instruction or paper file describes GENERator as suppl
 
 ### Phase 1: make one shared implementation path
 
-1. Replace model-specific orchestration duplication with one parameterized local supervisor.
+1. Replace model-specific orchestration duplication with one parameterized resumable runner.
 2. Add Carbon and GENERator as model profiles under one shared study configuration.
-3. Make every required path work on MPS with CPU fallback; no CUDA or remote service belongs in the
-   required workflow.
+3. Keep the scientific runners device independent and support CUDA, MPS, or CPU according to the
+   recorded execution profile.
 4. Create one cross-model validator and bundle-relative artifact paths.
 5. Strengthen the environment doctor and evidence checker as described by gates Q6–Q8.
 6. Add direct tests for the doctor, evidence checker, release validator, paper table generator, and
@@ -250,17 +250,17 @@ Exit condition: the offline test and lint gates pass with the frozen upstream co
 Exit condition: one top-level pre-run manifest binds every frozen input, and no confirmatory model
 output has been inspected.
 
-### Phase 3: M5 smoke and benchmark
+### Phase 3: smoke and benchmark
 
-1. Run the strict doctor on the documented M5 Pro.
+1. Record the actual machine, accelerator, memory, and software environment.
 2. Run four prompts/model end to end without changing scientific parameters other than the declared
    smoke size and shorter continuation.
 3. Measure memory, model-load time, generation speed, likelihood speed, and detector speed.
 4. Select only engineering batch sizes and worker counts that do not change sampling mathematics.
 5. Estimate full runtime and disk use before authorizing the full cohort.
 
-Exit condition: both models fit within 48 GB, reproduce deterministic fixtures, and pass the smoke
-validator. A scientific-parameter change returns to Phase 2 with a new protocol hash.
+Exit condition: both models fit within the recorded device memory, reproduce deterministic fixtures,
+and pass the smoke validator. A scientific-parameter change returns to Phase 2 with a new protocol hash.
 
 ### Phase 4: generate and analyze the full cohort
 
@@ -356,7 +356,7 @@ outputs/synthid_dual_model_confirmatory_v2/
     cohort_manifest.yaml
   environment/
     lock_digest.json
-    m5_doctor.json
+    environment_check.json
     benchmark.json
   qa/
     unit_tests.json
@@ -398,7 +398,7 @@ rejected.
 
 The rebuild is complete only when:
 
-- both models have new M5-generated evidence under the same frozen study identity;
+- both models have new evidence under the same frozen study identity with documented execution environments;
 - both primary quality bounds pass the pre-specified margin;
 - the correct-key and null detector gates are evaluated and reported without retuning;
 - every required scientific, software, evidence, and manuscript gate has a machine-readable

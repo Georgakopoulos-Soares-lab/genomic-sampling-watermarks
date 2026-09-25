@@ -8,5 +8,5 @@ detector on both Carbon-500M and GENERator-v2 1.2B under one new study identity.
 version-one results are development history and are not confirmatory evidence for that paper.
 
 No result has yet been admitted under the proposed `synthid.v2.*` evidence namespace. The scope
-reset is complete. The next action is Phase 1 of the rebuild plan: create the shared M5 execution,
+reset is complete. The next action is Phase 1 of the rebuild plan: create the shared execution,
 validation, and portable-artifact path before altering the manuscript or running new experiments.

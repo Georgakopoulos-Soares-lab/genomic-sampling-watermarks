@@ -2,7 +2,7 @@ schema_version: 1
 
 # Version-one Carbon and GENERator measurements admitted to the current manuscript by the
 # 2026-09-09 amendment; additional derived GENERator panels are admitted by the 2026-09-11
-# analysis amendment. New experiments require a fresh synthid.v2.* identity and the M5 path.
+# analysis amendment. New experiments require a fresh synthid.v2.* identity and a documented environment.
 # Public fixture keys provide reproducibility, not evidence of resistance to key recovery.
 
 measurements:
@@ -161,8 +161,8 @@ measurements:
       Every tested region is included in one Bonferroni-corrected decision. The immutable result
       summary carries its original pending-review label; these ledger entries record the later
       evidence review. The retained protocol text does not match the protocol hash recorded in the
-      result, as documented by the provenance amendment. A new paper-bound replay on the documented
-      M5 Pro remains required and must use a new result identity.
+      result, as documented by the provenance amendment. A new paper-bound replay requires a new
+      result identity and a documented environment.
 
   - id: synthid.detector.clean.correct_key_rate
     status: V
@@ -965,3 +965,1278 @@ measurements:
       window is not an estimate of the exact generation boundary. No sequence was regenerated,
       no additional edit was introduced, and no detection search was repeated.
     notes: The single clean other-key chance signal did not survive the deletion.
+
+  - id: synthid.v2.strength_gap.scored_tokens_per_read
+    status: A
+    value: {carbon_median: 508, generator_median: 508}
+    unit: scored 6-mer tokens per winning window
+    quantity: >-
+      Median scored-token count in the clean correct-key detector's winning window for each model.
+      The artifact does not retain a whole-read scored-token count.
+    derivation: >-
+      Select 384 clean correct-key trials per model from the admitted version-one trial artifacts;
+      check each winning window's depth-30 mark-bit total, context accounting, and exact local
+      binomial tail, then summarize the scored-token counts.
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters_per_model: 192
+      paired_draws_per_prompt: 2
+      read_count_per_model: 384
+      confidence_interval: not estimated for this descriptive derivation
+      carbon_range: [252, 508]
+      generator_range: [124, 508]
+      carbon_pearson_r_local_strength_vs_count: 0.4124420346477325
+      generator_pearson_r_local_strength_vs_count: 0.7667906635879655
+    scope:
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohort: ncbi_refseq_eukaryote_windows_large_v1
+      source_evidence: admitted version-one trials
+      read_condition: clean
+      family: watermarked_correct_key
+      detector: synthid-position-independent-detector-v1
+      window_base_lengths: [384, 768, 1536, 3072]
+      generation_rerun: false
+      detector_search_rerun: false
+    source: &cross_model_strength_source
+      artifact: evidence/derived/cross_model_strength_2026_09_21.json
+      sha256: 42b52a3de86df6790858a3961c9cadc0024ad2735dc190bc92cf5a65f43dd975
+      execution: docs/research/cross_model_strength_analysis_2026_09_21.md
+      command: python3 scripts/derive_cross_model_strength_analysis.py
+      verification_command: python3 scripts/derive_cross_model_strength_analysis.py --check
+      provenance_artifact_field: provenance
+      upstream_sources_artifact_field: sources
+    notes: >-
+      Values describe detector-selected winning windows and do not establish how many tokens would
+      score elsewhere in a read. The two draws per prompt are paired. Correlations are descriptive,
+      have no independent-read p-value, and are confounded by selected window length and mark-bit
+      fraction. This derived analysis does not supply new v2 generation evidence.
+
+  - id: synthid.v2.strength_gap.repeated_context_exclusion_rate
+    status: A
+    value: {carbon: 0.001770901773981603, generator: 0.0013080916282135794}
+    unit: fraction of potential scored tokens in clean correct-key winning windows
+    quantity: >-
+      Aggregate repeated-context exclusion fraction within the selected winning windows of the
+      clean correct-key detector reads for each model.
+    derivation: >-
+      Sum stored repeated_contexts across selected windows and divide by the sum of scored_tokens
+      plus repeated_contexts, model by model, after verifying the four-context-token exclusion.
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters_per_model: 192
+      paired_draws_per_prompt: 2
+      read_count_per_model: 384
+      confidence_interval: not estimated for this descriptive derivation
+      carbon_excluded_contexts: 345
+      carbon_potential_scored_tokens: 194816
+      generator_excluded_contexts: 254
+      generator_potential_scored_tokens: 194176
+    scope:
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohort: ncbi_refseq_eukaryote_windows_large_v1
+      source_evidence: admitted version-one trials
+      read_condition: clean
+      family: watermarked_correct_key
+      detector: synthid-position-independent-detector-v1
+      generation_rerun: false
+      detector_search_rerun: false
+    source: *cross_model_strength_source
+    notes: >-
+      GENERator's extreme weakest read contains 174 repeated-context exclusions, but its aggregate
+      exclusion fraction is lower than Carbon's. This statistic does not support a general claim
+      that repeated-context masking is greater in GENERator.
+
+  - id: synthid.v2.strength_gap.explained_component
+    status: A
+    value: 0.09135854075223589
+    unit: fraction of weakest-read local-strength gap in an arithmetic sensitivity calculation
+    quantity: >-
+      Fraction of the 105.16-unit gap between the models' weakest clean local strengths represented
+      by the change in the weakest GENERator window's calculated strength when its scored-token
+      count is set to 508 while its observed positive mark-bit fraction is held fixed.
+    derivation: >-
+      Recompute the exact local fair-binomial tail for 508 scored tokens at depth 30, rounding the
+      observed positive fraction to 8318 of 15240 bits; subtract the stored GENERator strength
+      and divide by the difference between stored weakest Carbon and GENERator strengths.
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters_per_model: 192
+      confidence_interval: not estimated for this post-selection sensitivity
+      carbon_weakest_local_strength: 124.77747726900617
+      generator_weakest_local_strength: 19.614793673583744
+      weakest_gap: 105.16268359542242
+      generator_observed_scored_tokens: 334
+      generator_repeated_contexts: 174
+      generator_observed_positive_fraction: 0.545808383233533
+      generator_counterfactual_local_strength: 29.222302988450632
+      arithmetic_strength_change: 9.607509314866888
+    scope:
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohort: ncbi_refseq_eukaryote_windows_large_v1
+      source_evidence: admitted version-one trials and quality summaries
+      read_condition: clean
+      family: watermarked_correct_key
+      detector: synthid-position-independent-detector-v1
+      generation_rerun: false
+      detector_search_rerun: false
+    source: *cross_model_strength_source
+    notes: >-
+      This is a conditional arithmetic sensitivity, not a causal attribution or a detector rerun.
+      The weakest-read gap is not typical: median local strengths are 790.62 for Carbon and 798.78
+      for GENERator. Model-score and sequence-entropy summaries are cohort-level proxies and do not
+      link per-read predictive entropy to mark-bit fraction. The predictive-entropy explanation
+      remains inconclusive; local strengths are not globally corrected p-values.
+
+  # ---------------------------------------------------------------------------
+  # L1-01: SynthID v2 false-positive-rate scaling. New cohort, new evidence
+  # identity, 1,544 independent evaluation prompts per model (8.04x version one).
+  # Same watermark, same detector, same single-edit regime, same threat model.
+  # ---------------------------------------------------------------------------
+
+  - id: synthid.v2.cohort.identity
+    status: V
+    value: 1608
+    unit: prompts
+    quantity: >-
+      output-blind public cohort frozen before any v2 model inference, supplying 64 calibration
+      and 1544 independent evaluation prompts per model
+    derivation: >-
+      build the frozen candidate manifest from the public source specification, then rebuild the
+      processed cohort offline and recompute the ordered per-case digest
+    uncertainty:
+      cohort_id: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      cohort_content_sha256: f6075a85bc056f5159952031618c544fb3a82864ed9029c913e7f5a7d03c5dc5
+      source_spec_sha256: 8ecdbdf10eda6ebbefad90031552914e62671d16039b209b2025d5210fd53b1d
+      frozen_manifest_sha256: 7adad76712848a0d0b19e9660c24197293d751610a98ecb8db1bda35534b5c55
+      prompts_file_sha256: cb19e90662fcb25f774b0840e2e696132e2dc9c54439d97597bd186d4948f775
+      prompt_bases: 384
+      calibration_prompts: 64
+      evaluation_prompts: 1544
+      accessions: 12
+      organisms: 6
+      selection_used_model_output: false
+    scope: &v2_cohort_scope
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      provenance: accession-versioned non-human RefSeq chromosomes
+      split_rule: rank sha256(frozen label, case_id); first 64 calibration, rest evaluation
+      split_label: carbon_synthid_validation_v1/prompt-split/v1
+    source: &v2_cohort_source
+      protocol: docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md
+      execution: docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md
+      command: >-
+        python3 scripts/build_large_public_prompt_cohort.py --source-spec
+        data/public_prompt_cohort_fpr_v2_sources.yaml --freeze-manifest
+        data/public_prompt_cohort_fpr_v2_1608.yaml --raw-root data/raw
+    notes: >-
+      The processed build ran offline, so no prompt could be reselected once model output
+      existed. The prompt split is byte-identical across the two models.
+
+  - id: synthid.v2.carbon.detector.clean.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      clean read
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 1, "3072": 3087}
+    scope: &v2_carbon_scope
+      model: HuggingFaceBio/Carbon-500M
+      revision: 9796b752108258c1d365089f842e62e6c0547704
+      policy: canonical 4096-way DNA 6-mer categorical distribution
+      policy_id: C_tok
+      watermark: synthid-tournament-v1
+      detector: synthid-position-independent-detector-v1
+      detector_inputs: DNA, runtime key, public domain, and fixed public settings
+      detector_unknowns: prompt boundary, strand, and 6-mer phase
+      window_base_lengths: [384, 768, 1536, 3072]
+      orientations: 2
+      target_sequence_false_positive_rate: 0.01
+      evaluation_prompts: 1544
+      draws_per_prompt: 2
+      sequence_trials_per_cell: 3088
+      experiment_label: carbon-synthid-fpr-v2
+      fixture_keys: public reproducibility material
+      detection_device: linux x86-64 cpu
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+    source: &v2_carbon_source
+      summary_artifact: outputs/carbon_synthid_v2_fpr_position_independent/summary.json
+      summary_sha256: 1483ae4002cde98687771528d1d169abf6421338afe7925c943a363b3167000e
+      trials_artifact: outputs/carbon_synthid_v2_fpr_position_independent/trials.jsonl.gz
+      trials_sha256: a299c61368eef4645fb1c09ca01145f4beb3bf672870082c35bd55be38698414
+      protocol: docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md
+      execution: docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md
+      command: >-
+        bash scripts/hpc/synthid_v2_fpr_direct.sh carbon detection
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.carbon.detector.clean.ordinary_rate
+    status: V
+    value: 0.0019430051813471502
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      clean read
+    counts: {prompt_positives: 3, prompt_clusters: 1544, read_detections: 3, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0009715025906735751
+      exact_two_sided_95_interval: [0.0004008737588425518, 0.005667689314253598]
+      exact_one_sided_95_upper: 0.005014072432416639
+      winning_window_base_length_counts: {"1536": 259, "3072": 36, "384": 2105, "768": 688}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.carbon.detector.clean.wrong_key_rate
+    status: V
+    value: 0.003238341968911917
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      clean read
+    counts: {prompt_positives: 5, prompt_clusters: 1544, read_detections: 5, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0016191709844559584
+      exact_two_sided_95_interval: [0.0010522911265491894, 0.007540902190547467]
+      exact_one_sided_95_upper: 0.0067968101423892535
+      winning_window_base_length_counts: {"1536": 223, "3072": 35, "384": 2141, "768": 689}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.carbon.detector.substitution_1nt.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      one-nucleotide substitution
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 1, "3072": 3087}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.carbon.detector.substitution_1nt.ordinary_rate
+    status: V
+    value: 0.0019430051813471502
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      one-nucleotide substitution
+    counts: {prompt_positives: 3, prompt_clusters: 1544, read_detections: 3, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0009715025906735751
+      exact_two_sided_95_interval: [0.0004008737588425518, 0.005667689314253598]
+      exact_one_sided_95_upper: 0.005014072432416639
+      winning_window_base_length_counts: {"1536": 256, "3072": 40, "384": 2110, "768": 682}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.carbon.detector.substitution_1nt.wrong_key_rate
+    status: V
+    value: 0.003238341968911917
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      one-nucleotide substitution
+    counts: {prompt_positives: 5, prompt_clusters: 1544, read_detections: 5, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0016191709844559584
+      exact_two_sided_95_interval: [0.0010522911265491894, 0.007540902190547467]
+      exact_one_sided_95_upper: 0.0067968101423892535
+      winning_window_base_length_counts: {"1536": 224, "3072": 38, "384": 2153, "768": 673}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.carbon.detector.insertion_1nt.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      one-nucleotide insertion
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 1364, "3072": 1724}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.carbon.detector.insertion_1nt.ordinary_rate
+    status: V
+    value: 0.0019430051813471502
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      one-nucleotide insertion
+    counts: {prompt_positives: 3, prompt_clusters: 1544, read_detections: 3, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0009715025906735751
+      exact_two_sided_95_interval: [0.0004008737588425518, 0.005667689314253598]
+      exact_one_sided_95_upper: 0.005014072432416639
+      winning_window_base_length_counts: {"1536": 243, "3072": 43, "384": 2096, "768": 706}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.carbon.detector.insertion_1nt.wrong_key_rate
+    status: V
+    value: 0.0038860103626943004
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      one-nucleotide insertion
+    counts: {prompt_positives: 6, prompt_clusters: 1544, read_detections: 6, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0019430051813471502
+      exact_two_sided_95_interval: [0.0014273916132523925, 0.008438884701750013]
+      exact_one_sided_95_upper: 0.007655439885394133
+      winning_window_base_length_counts: {"1536": 228, "3072": 32, "384": 2118, "768": 710}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.carbon.detector.deletion_1nt.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      one-nucleotide deletion
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 1424, "3072": 1663, "768": 1}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.carbon.detector.deletion_1nt.ordinary_rate
+    status: V
+    value: 0.0025906735751295338
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      one-nucleotide deletion
+    counts: {prompt_positives: 4, prompt_clusters: 1544, read_detections: 4, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0012953367875647669
+      exact_two_sided_95_interval: [0.0007063084514147383, 0.006619756394899254]
+      exact_one_sided_95_upper: 0.005918556492354565
+      winning_window_base_length_counts: {"1536": 241, "3072": 35, "384": 2122, "768": 690}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.carbon.detector.deletion_1nt.wrong_key_rate
+    status: V
+    value: 0.005829015544041451
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      one-nucleotide deletion
+    counts: {prompt_positives: 9, prompt_clusters: 1544, read_detections: 9, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0029145077720207253
+      exact_two_sided_95_interval: [0.0026687580116178606, 0.011036328564064075]
+      exact_one_sided_95_upper: 0.01014968847424863
+      winning_window_base_length_counts: {"1536": 231, "3072": 44, "384": 2132, "768": 681}
+    scope: *v2_carbon_scope
+    source: *v2_carbon_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.generator.detector.clean.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      clean read
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 3, "3072": 3085}
+    scope: &v2_generator_scope
+      model: GenerTeam/GENERator-v2-eukaryote-1.2b-base
+      revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
+      policy: canonical 4096-way DNA 6-mer categorical distribution
+      policy_id: G_tok
+      watermark: synthid-tournament-v1
+      detector: synthid-position-independent-detector-v1
+      detector_inputs: DNA, runtime key, public domain, and fixed public settings
+      detector_unknowns: prompt boundary, strand, and 6-mer phase
+      window_base_lengths: [384, 768, 1536, 3072]
+      orientations: 2
+      target_sequence_false_positive_rate: 0.01
+      evaluation_prompts: 1544
+      draws_per_prompt: 2
+      sequence_trials_per_cell: 3088
+      experiment_label: generator-synthid-fpr-v2
+      fixture_keys: public reproducibility material
+      detection_device: linux x86-64 cpu
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+    source: &v2_generator_source
+      summary_artifact: outputs/generator_synthid_v2_fpr_position_independent/summary.json
+      summary_sha256: 7c0b0f888f2d04267adf6934b70e2869b15dbee427986b7883cfe9b8640f923f
+      trials_artifact: outputs/generator_synthid_v2_fpr_position_independent/trials.jsonl.gz
+      trials_sha256: 96f6ad073c25ec0e562d4f1d565ac75ffdfd1ca5697d75bfce9e388a4c609977
+      protocol: docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md
+      execution: docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md
+      command: >-
+        bash scripts/hpc/synthid_v2_fpr_direct.sh generator detection
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.generator.detector.clean.ordinary_rate
+    status: V
+    value: 0.003238341968911917
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      clean read
+    counts: {prompt_positives: 5, prompt_clusters: 1544, read_detections: 5, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0016191709844559584
+      exact_two_sided_95_interval: [0.0010522911265491894, 0.007540902190547467]
+      exact_one_sided_95_upper: 0.0067968101423892535
+      winning_window_base_length_counts: {"1536": 221, "3072": 32, "384": 2119, "768": 716}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.generator.detector.clean.wrong_key_rate
+    status: V
+    value: 0.0012953367875647669
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      clean read
+    counts: {prompt_positives: 2, prompt_clusters: 1544, read_detections: 2, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0006476683937823834
+      exact_two_sided_95_interval: [0.0001569098084058844, 0.004671291652423719]
+      exact_one_sided_95_upper: 0.004071917817387638
+      winning_window_base_length_counts: {"1536": 258, "3072": 23, "384": 2103, "768": 704}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.generator.detector.substitution_1nt.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      one-nucleotide substitution
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 3, "3072": 3085}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.generator.detector.substitution_1nt.ordinary_rate
+    status: V
+    value: 0.003238341968911917
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      one-nucleotide substitution
+    counts: {prompt_positives: 5, prompt_clusters: 1544, read_detections: 5, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0016191709844559584
+      exact_two_sided_95_interval: [0.0010522911265491894, 0.007540902190547467]
+      exact_one_sided_95_upper: 0.0067968101423892535
+      winning_window_base_length_counts: {"1536": 225, "3072": 33, "384": 2125, "768": 705}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.generator.detector.substitution_1nt.wrong_key_rate
+    status: V
+    value: 0.0012953367875647669
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      one-nucleotide substitution
+    counts: {prompt_positives: 2, prompt_clusters: 1544, read_detections: 2, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0006476683937823834
+      exact_two_sided_95_interval: [0.0001569098084058844, 0.004671291652423719]
+      exact_one_sided_95_upper: 0.004071917817387638
+      winning_window_base_length_counts: {"1536": 257, "3072": 29, "384": 2105, "768": 697}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.generator.detector.insertion_1nt.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      one-nucleotide insertion
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 1356, "3072": 1732}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.generator.detector.insertion_1nt.ordinary_rate
+    status: V
+    value: 0.0038860103626943004
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      one-nucleotide insertion
+    counts: {prompt_positives: 6, prompt_clusters: 1544, read_detections: 6, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0019430051813471502
+      exact_two_sided_95_interval: [0.0014273916132523925, 0.008438884701750013]
+      exact_one_sided_95_upper: 0.007655439885394133
+      winning_window_base_length_counts: {"1536": 245, "3072": 32, "384": 2094, "768": 717}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.generator.detector.insertion_1nt.wrong_key_rate
+    status: V
+    value: 0.0012953367875647669
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      one-nucleotide insertion
+    counts: {prompt_positives: 2, prompt_clusters: 1544, read_detections: 2, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0006476683937823834
+      exact_two_sided_95_interval: [0.0001569098084058844, 0.004671291652423719]
+      exact_one_sided_95_upper: 0.004071917817387638
+      winning_window_base_length_counts: {"1536": 261, "3072": 35, "384": 2098, "768": 694}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.generator.detector.deletion_1nt.correct_key_rate
+    status: V
+    value: 1.0
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for correct-key SynthID on a
+      one-nucleotide deletion
+    counts: {prompt_positives: 1544, prompt_clusters: 1544, read_detections: 3088, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 1.0
+      exact_two_sided_95_interval: [0.997613681165654, 1.0]
+      exact_one_sided_95_upper: 1.0
+      winning_window_base_length_counts: {"1536": 1417, "3072": 1671}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      Detection succeeded on every read. The lower exact bound is the informative end;
+      the protocol's failure thresholds are 0.95 clean and 0.90 under a single edit.
+
+  - id: synthid.v2.generator.detector.deletion_1nt.ordinary_rate
+    status: V
+    value: 0.0045336787564766836
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for ordinary output under the corresponding key on a
+      one-nucleotide deletion
+    counts: {prompt_positives: 7, prompt_clusters: 1544, read_detections: 7, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0022668393782383418
+      exact_two_sided_95_interval: [0.0018246579145449662, 0.009318670398982555]
+      exact_one_sided_95_upper: 0.008498668765004769
+      winning_window_base_length_counts: {"1536": 248, "3072": 39, "384": 2104, "768": 697}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      This is the primary control family for the 1% operational target. The
+      one-sided 95% upper bound is the quantity the protocol predeclared.
+
+  - id: synthid.v2.generator.detector.deletion_1nt.wrong_key_rate
+    status: V
+    value: 0.0019430051813471502
+    unit: fraction of prompts
+    quantity: >-
+      position-independent prompt-level detection rate for SynthID output under the other draw's key on a
+      one-nucleotide deletion
+    counts: {prompt_positives: 3, prompt_clusters: 1544, read_detections: 3, read_trials: 3088}
+    derivation: >-
+      a prompt counts as positive when either of its two draws is detected; read counts
+      are the underlying per-draw decisions
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      read_rate: 0.0009715025906735751
+      exact_two_sided_95_interval: [0.0004008737588425518, 0.005667689314253598]
+      exact_one_sided_95_upper: 0.005014072432416639
+      winning_window_base_length_counts: {"1536": 227, "3072": 41, "384": 2117, "768": 703}
+    scope: *v2_generator_scope
+    source: *v2_generator_source
+    notes: >-
+      Reported separately from the primary control. Wrong-key decisions are not the
+      declared 1% operational quantity.
+
+  - id: synthid.v2.detector.fpr_upper_bound
+    status: A
+    value: 0.008498668765004769
+    unit: fraction of prompts
+    quantity: >-
+      largest exact one-sided 95% upper bound on the prompt-level false-positive rate across
+      both models and all four read conditions, in the primary ordinary corresponding-key family
+    derivation: >-
+      Beta^{-1}(0.95; positives + 1, prompts - positives) at 1544 evaluation prompts, taken
+      over the eight primary control cells; a prompt is positive when either draw is detected
+    uncertainty:
+      bound_rule: exact one-sided Clopper-Pearson upper bound
+      evaluation_prompts: 1544
+      predeclared_sub_one_percent_threshold_positives: 8
+      primary_family_cells:
+        - {model: carbon, condition: clean, positives: 3, upper: 0.005014072432416639}
+        - {model: carbon, condition: deletion_1nt, positives: 4, upper: 0.005918556492354565}
+        - {model: carbon, condition: insertion_1nt, positives: 3, upper: 0.005014072432416639}
+        - {model: carbon, condition: substitution_1nt, positives: 3, upper: 0.005014072432416639}
+        - {model: generator, condition: clean, positives: 5, upper: 0.0067968101423892535}
+        - {model: generator, condition: deletion_1nt, positives: 7, upper: 0.008498668765004769}
+        - {model: generator, condition: insertion_1nt, positives: 6, upper: 0.007655439885394133}
+        - {model: generator, condition: substitution_1nt, positives: 5, upper: 0.0067968101423892535}
+      wrong_key_family_cells:
+        - {model: carbon, condition: clean, positives: 5, upper: 0.0067968101423892535}
+        - {model: carbon, condition: deletion_1nt, positives: 9, upper: 0.01014968847424863}
+        - {model: carbon, condition: insertion_1nt, positives: 6, upper: 0.007655439885394133}
+        - {model: carbon, condition: substitution_1nt, positives: 5, upper: 0.0067968101423892535}
+        - {model: generator, condition: clean, positives: 2, upper: 0.004071917817387638}
+        - {model: generator, condition: deletion_1nt, positives: 3, upper: 0.005014072432416639}
+        - {model: generator, condition: insertion_1nt, positives: 2, upper: 0.004071917817387638}
+        - {model: generator, condition: substitution_1nt, positives: 2, upper: 0.004071917817387638}
+    scope:
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      detector: synthid-position-independent-detector-v1
+      family: ordinary corresponding key (primary); wrong key reported separately
+      read_condition: clean and each single-nucleotide edit
+      evaluation_prompts: 1544
+      draws_per_prompt: 2
+    source:
+      artifact: evidence/derived/synthid_v2_fpr_rates_2026_09_24.json
+      sha256: 7259381e772a270fe7fd04fc4c87f6868c59b7e37f4e51b4a4408f6676fd30fc
+      protocol: docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md
+      execution: docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md
+      command: >-
+        python3 scripts/derive_synthid_v2_fpr_evidence.py --output
+        evidence/derived/synthid_v2_fpr_rates_2026_09_24.json
+    notes: >-
+      All eight primary control cells fall at or below the predeclared eight-positive
+      threshold, so every primary one-sided bound is below the 1% target; the largest is
+      0.8499% (generator, deletion_1nt). In the separately reported
+      wrong-key family, carbon deletion_1nt has 9 positive prompts and a bound of
+      1.0150%, which exceeds 1%. That cell is reported as observed; no claim is
+      made that the 1% operational rate was established for the wrong-key family.
+
+  # ---------------------------------------------------------------------------
+  # L1-04: measured cost of the position-independent search. The theoretical
+  # complexity argument is written separately; these are the measured halves.
+  # ---------------------------------------------------------------------------
+
+  - id: synthid.v2.detector.windows_per_read
+    status: A
+    value: 16136
+    unit: candidate windows/read
+    quantity: >-
+      realized number of searched orientation-by-start-by-length hypotheses for one 3456-base
+      read, and its growth with read length
+    derivation: >-
+      two orientations times the sum of N-L+1 over the frozen window set {384, 768, 1536, 3072};
+      counted directly by the benchmark at each read length
+    uncertainty:
+      windows_by_read_bases: {3456: 16136, 6912: 43784, 13824: 99080}
+      growth: linear in read length once N exceeds the longest window
+      window_base_lengths: [384, 768, 1536, 3072]
+      orientations: 2
+    scope: &v2_timing_scope
+      detector: synthid-position-independent-detector-v1
+      window_base_lengths: [384, 768, 1536, 3072]
+      orientations: 2
+      target_sequence_false_positive_rate: 0.01
+      tournament_depth: 30
+      context_tokens: 4
+      context_history_size: 1024
+      read_bases_tested: [3456, 6912, 13824]
+      sample_reads_per_cell: 16
+      measurement: detector search only; no model inference
+    source: &v2_timing_source
+      artifact: evidence/derived/detector_search_timing_2026_09_21/summary.json
+      sha256: 1a31e145e94ef1da907f6a4076d78f249e0230ba5f90d560fe4a421ca85d40c1
+      protocol: docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md
+      execution: docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md
+      command: python3 scripts/benchmark_synthid_detector_search.py
+    notes: >-
+      Every counted window enters the single corrected decision for its read. Reads were built
+      from retained public ordinary output; no DNA, domain string, or key bytes are retained in
+      the result.
+
+  - id: synthid.v2.detector.search_seconds_per_read
+    status: V
+    value: 0.09561488300096244
+    unit: seconds/read
+    quantity: >-
+      median single-threaded detector search time for one 3456-base read over all 16136 searched
+      hypotheses
+    derivation: median over 16 sampled reads of the detector search wall time, excluding process
+    uncertainty:
+      sample_reads: 16
+      single_threaded_median_seconds_by_read_bases:
+        3456: 0.09561488300096244
+        6912: 0.24482069700025022
+        13824: 0.9022157324943691
+      wall_seconds_per_read_at_16_workers:
+        3456: 0.016650974313961342
+        6912: 0.036862265438685426
+        13824: 0.09027133943527588
+      hardware: AMD EPYC 7763 64-Core Processor
+      logical_cpus_visible: 128
+      device: CPU
+      python: '3.13.5'
+      torch: '2.8.0+cu128'
+    scope: *v2_timing_scope
+    source: *v2_timing_source
+    notes: >-
+      Sixteen workers cut wall time per read to 0.0167 s at 3456 bases, a 6.3x speed-up, because
+      the search over windows is embarrassingly parallel. Times are detector cost only and
+      exclude generation.
+
+  - id: synthid.v2.detector.peak_memory_mib
+    status: V
+    value: 27.91796875
+    unit: MiB
+    quantity: peak resident set size of one detector worker on a 3456-base read
+    derivation: peak worker RSS sampled during the benchmark, per process
+    uncertainty:
+      peak_worker_rss_mib_by_read_bases:
+        3456: 27.91796875
+        6912: 40.43359375
+        13824: 69.078125
+      sum_of_worker_peaks_mib_at_16_workers:
+        3456: 409.30859375
+        6912: 584.27734375
+        13824: 950.03515625
+      hardware: AMD EPYC 7763 64-Core Processor
+      device: CPU
+    scope: *v2_timing_scope
+    source: *v2_timing_source
+    notes: >-
+      Peak RSS is per process. The sum of worker peaks is an upper bound on simultaneous
+      aggregate memory, not a measured concurrent total. Memory grows sublinearly in read
+      length: 27.9 MiB at 3456 bases against 69.1 MiB at 13824.
+
+  # ---------------------------------------------------------------------------
+  # L1-02: characterisation of the version-one Carbon protocol-hash discrepancy.
+  # ---------------------------------------------------------------------------
+
+  - id: synthid.v2.carbon.provenance.audit
+    status: A
+    value: confined_to_document_text
+    unit: audit verdict
+    quantity: >-
+      whether the version-one Carbon protocol-hash mismatch could have altered the generative
+      distribution or the detection statistic, or is confined to document text
+    derivation: >-
+      recompute the retained protocol digest, compare with the value recorded in the immutable
+      result, then recover each governed parameter from the artifact's own fields rather than
+      from the document
+    uncertainty:
+      parameters_enumerated: 9
+      parameters_recovered_from_artifact: 8
+      parameters_not_fully_recoverable: [context_history_size]
+      recovered_parameters:
+        - {name: cohort_id, recovery: "summary cohort digest, matching input, generation rows"}
+        - {name: prompt_split_rule, recovery: "summary split digest and matching split assignments"}
+        - {name: window_base_lengths, recovery: "summary and every trial"}
+        - {name: orientations, recovery: "summary and every trial"}
+        - {name: target_sequence_fpr, recovery: "summary, every trial, and validator"}
+        - {name: tournament_depth, recovery: "trial g_total/scored_tokens and digest-identified detector source"}
+        - {name: context_tokens, recovery: "trial scoring accounting and digest-identified detector source"}
+        - {name: context_history_size, recovery: "digest-identified historical runner and detector defaults; no row-level history trace"}
+        - {name: edit_rule, recovery: "trial condition, edit position and read length, digest-identified boundary source; changed base omitted from trial"}
+      recorded_protocol_sha256: f0feca50e0af76119d2f9d40f3e6b203c6af2a04191383aa4cdec6737241684c
+      affected_trials: 4608
+    scope:
+      model: HuggingFaceBio/Carbon-500M
+      revision: 9796b752108258c1d365089f842e62e6c0547704
+      detector: synthid-position-independent-detector-v1
+      cohort: ncbi_refseq_eukaryote_windows_large_v1
+      applies_to: version-one Carbon position-independent result only
+    source:
+      artifact: docs/research/carbon_provenance_discrepancy_audit_2026_09_21.md
+      sha256: 41ea12d88436db0788a81a36ceacb8b7e53a520d96c2a4d8aeab67382802f5a4
+      protocol: docs/research/carbon_synthid_position_independent_validation_protocol.md
+      amendment: docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md
+      execution: docs/research/carbon_synthid_position_independent_execution_2026_09_02.md
+      command: >-
+        sha256sum docs/research/carbon_synthid_position_independent_validation_protocol.md;
+        python3 scripts/check_evidence.py
+    notes: >-
+      Eight of the nine governed parameters are independently recoverable from the result
+      artifact itself. Only context_history_size rests on the digest-identified runner and
+      detector defaults, with no row-level trace, and it is listed as such rather than assumed.
+      The version-one result files stay immutable; this entry records the later audit. The v2
+      runs avoid the failure mode outright: their recorded protocol digest matches the protocol
+      document exactly for both models.
+
+  # ---------------------------------------------------------------------------
+  # L1-06: headroom in the full-search Bonferroni correction. The reported
+  # decision rule is unchanged; these quantify conservatism only.
+  # ---------------------------------------------------------------------------
+
+  - id: synthid.v2.detector.empirical_familywise_rate
+    status: V
+    value: 0.0010524611398963731
+    unit: fraction of reads
+    quantity: >-
+      realized rate at which the full-search Bonferroni-corrected read-level decision fires on
+      unmarked reads, against the declared 0.01 target
+    counts: {reads_fired: 13, reads: 12352}
+    derivation: >-
+      fraction of ordinary corresponding-key reads whose corrected p-value meets the 0.01
+      threshold, pooled over the clean and three single-edit conditions
+    uncertainty:
+      carbon_pooled_rate: 0.0010524611398963731
+      generator_pooled_rate: 0.0018620466321243522
+      carbon_conservatism_factor_vs_target: 9.50153846153846
+      generator_conservatism_factor_vs_target: 5.3704347826086964
+      reads_per_model: 12352
+      by_condition_rate:
+        - {model: carbon, condition: clean, fired: 3, reads: 3088}
+        - {model: carbon, condition: deletion_1nt, fired: 4, reads: 3088}
+        - {model: carbon, condition: insertion_1nt, fired: 3, reads: 3088}
+        - {model: carbon, condition: substitution_1nt, fired: 3, reads: 3088}
+        - {model: generator, condition: clean, fired: 5, reads: 3088}
+        - {model: generator, condition: deletion_1nt, fired: 7, reads: 3088}
+        - {model: generator, condition: insertion_1nt, fired: 6, reads: 3088}
+        - {model: generator, condition: substitution_1nt, fired: 5, reads: 3088}
+    scope: &v2_fwer_scope
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      detector: synthid-position-independent-detector-v1
+      family: ordinary corresponding key (unmarked, null)
+      read_condition: clean and each single-nucleotide edit, pooled
+      window_base_lengths: [384, 768, 1536, 3072]
+      orientations: 2
+      target_sequence_false_positive_rate: 0.01
+      decision_rule: unchanged full-search Bonferroni correction
+    source: &v2_fwer_source
+      artifact: evidence/derived/detector_familywise_2026_09_24.json
+      sha256: 983546d4dda5d6d898fbc375860adff65767471da0c395c1b393b1daa8188514
+      protocol: docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md
+      execution: docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md
+      command: >-
+        python3 scripts/derive_detector_familywise_conservatism.py --output
+        evidence/derived/detector_familywise_2026_09_24.json
+    notes: >-
+      The reported decision rule remains the full-search Bonferroni correction. This number
+      quantifies headroom, not a new threshold, and must not be used as one. The realized rate
+      is 9.5 times below the 0.01 target for Carbon and 5.4 times below for GENERator, which is
+      the expected direction when the searched windows are positively correlated.
+
+  - id: synthid.v2.detector.effective_independent_windows
+    status: A
+    value: 831.6
+    unit: effective independent tests/read
+    quantity: >-
+      effective number of independent window tests implied by the observed per-read minimum
+      local p-value on unmarked clean reads, against the 16136 hypotheses actually searched
+    derivation: >-
+      maximum-likelihood fit of P(p_min > x) = (1 - x)^M_eff, giving
+      M_eff = -n / sum(log(1 - p_min)) over the null reads of each cell
+    uncertainty:
+      by_model_and_condition:
+        - {model: carbon, condition: clean, hypotheses_searched: 16136, effective_windows: 831.6, inflation: 19.4}
+        - {model: carbon, condition: deletion_1nt, hypotheses_searched: 16128, effective_windows: 827.7, inflation: 19.48}
+        - {model: carbon, condition: insertion_1nt, hypotheses_searched: 16144, effective_windows: 837.0, inflation: 19.29}
+        - {model: carbon, condition: substitution_1nt, hypotheses_searched: 16136, effective_windows: 832.3, inflation: 19.39}
+        - {model: generator, condition: clean, hypotheses_searched: 16136, effective_windows: 852.4, inflation: 18.93}
+        - {model: generator, condition: deletion_1nt, hypotheses_searched: 16128, effective_windows: 843.5, inflation: 19.12}
+        - {model: generator, condition: insertion_1nt, hypotheses_searched: 16144, effective_windows: 837.1, inflation: 19.29}
+        - {model: generator, condition: substitution_1nt, hypotheses_searched: 16136, effective_windows: 848.0, inflation: 19.03}
+      inflation_range: [18.9, 19.5]
+      beta_model_observed_over_predicted_carbon_clean: {"median": 0.741, "p05": 0.544, "p95": 1.233}
+    scope: *v2_fwer_scope
+    source: *v2_fwer_source
+    notes: >-
+      M_eff matches the mean of log(1 - p_min) and is an effective summary, not a distributional
+      fit: the Beta(1, M_eff) model reproduces the observed quantiles only to within a factor of
+      0.54 to 1.23, because local p-values are discrete binomial tails and neighbouring windows
+      share phase and nearly all tokens. Read it as an order-of-magnitude statement that the
+      correction is roughly nineteen times more severe than the effective test count, not as a
+      calibrated test count. The decision rule is unchanged.
+
+  # ---------------------------------------------------------------------------
+  # L1-07: edit-rate breakdown, full cohort. AD-2 signed 2026-09-24. Non-adaptive
+  # public-replay editing only; detector-guided editing remains out of scope and
+  # no adversarial-robustness claim follows from these numbers.
+  # ---------------------------------------------------------------------------
+
+  - id: synthid.v3.carbon.detector.edit_rate_full_detection_ceiling
+    status: V
+    value: 0.02
+    unit: per-base edit rate
+    quantity: >-
+      highest tested per-base edit rate at which correct-key detection still recovers every
+      read for all four edit kinds
+    derivation: >-
+      re-score the frozen v2 reads after applying independent public-replay edits at each
+      declared rate; take the largest rate whose four kinds all reach a detection rate of 1
+    uncertainty:
+      evaluation_prompts: 1544
+      reads_per_cell: 3088
+      correct_key_detection_rate_by_kind_and_rate:
+        substitution: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 1.0, 0.05: 1.0, 0.1: 0.19689119170984457}
+        indel: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 1.0, 0.05: 0.9349093264248705, 0.1: 0.05505181347150259}
+        insertion: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 1.0, 0.05: 0.935880829015544, 0.1: 0.054404145077720206}
+        deletion: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 1.0, 0.05: 0.9326424870466321, 0.1: 0.0586139896373057}
+      median_sequence_log_p_value_by_rate:
+        substitution: {0.0003: -1778.65, 0.001: -1708.32, 0.005: -1335.01, 0.01: -959.88, 0.02: -518.07, 0.05: -74.48, 0.1: -0.61}
+        indel: {0.0003: -994.67, 0.001: -873.91, 0.005: -326.11, 0.01: -196.51, 0.02: -84.02, 0.05: -14.2, 0.1: 0.0}
+      events_per_read_by_rate: {0.0003: 1, 0.001: 3, 0.005: 15, 0.01: 31, 0.02: 61, 0.05: 154, 0.1: 307}
+    scope: &v3_scope
+      model: HuggingFaceBio/Carbon-500M
+      revision: 9796b752108258c1d365089f842e62e6c0547704
+      watermark: synthid-tournament-v1
+      detector: synthid-position-independent-detector-v1
+      detector_unchanged_from_admitted_runs: true
+      window_base_lengths: [384, 768, 1536, 3072]
+      orientations: 2
+      target_sequence_false_positive_rate: 0.01
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      evaluation_prompts: 1544
+      draws_per_prompt: 2
+      edit_channel: non-adaptive public replay, synthid-edit-rate-v3
+      edit_channel_sees_detector: false
+      generation_rerun: false
+    source: &v3_carbon_source
+      artifact: evidence/derived/edit_rate_v3_carbon_2026_09_24.json
+      sha256: 25c90fe505ef1118e2ba01c3a3337b37b7f07f5b1bc67d6a8e05881780806808
+      protocol: docs/research/synthid_v3_edit_rate_protocol_2026_09_24.md
+      execution: docs/research/synthid_v3_edit_rate_execution_2026_09_24.md
+      command: >-
+        python3 scripts/run_synthid_edit_rate_pilot.py --prompts 1544 --workers 64
+        --edit-label synthid-edit-rate-v3 --protocol
+        docs/research/synthid_v3_edit_rate_protocol_2026_09_24.md
+    notes: >-
+      Detection is complete through this rate for substitutions, mixed indels and the
+      direction-pure insertion and deletion channels, degrades near 5%, and collapses by 10%.
+      The margin explains the tolerance: the clean statistic is far above the firing
+      threshold, so heavy damage is absorbed before a decision changes. This is
+      non-adaptive editing chosen without reference to the detector; it is not an
+      adversarial-robustness result.
+
+  - id: synthid.v3.carbon.detector.edit_rate_null_rate
+    status: V
+    value: 0.0014740039306771484
+    unit: fraction of reads
+    quantity: >-
+      ordinary-output detection rate under the corresponding key, pooled over every edit rate
+      and kind, as the falsification check for the edit channel
+    counts: {detections: 132, reads: 89552}
+    derivation: >-
+      pool the ordinary corresponding-key cells across all rates and kinds; a null that rises
+      with edit rate would mean the channel manufactures structure and would void the power
+      readings
+    uncertainty:
+      target_false_positive_rate: 0.01
+      cells_above_target: 0
+      worst_cell: {kind: deletion, rate: 0.05, value: 0.0022668393782383418}
+    scope: *v3_scope
+    source: *v3_carbon_source
+    notes: >-
+      The null does not climb with edit rate and no cell exceeds the 0.01 target, so the
+      predeclared falsification check passes and the power readings stand.
+
+  - id: synthid.v3.generator.detector.edit_rate_full_detection_ceiling
+    status: V
+    value: 0.01
+    unit: per-base edit rate
+    quantity: >-
+      highest tested per-base edit rate at which correct-key detection still recovers every
+      read for all four edit kinds
+    derivation: >-
+      re-score the frozen v2 reads after applying independent public-replay edits at each
+      declared rate; take the largest rate whose four kinds all reach a detection rate of 1
+    uncertainty:
+      evaluation_prompts: 1544
+      reads_per_cell: 3088
+      correct_key_detection_rate_by_kind_and_rate:
+        substitution: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 1.0, 0.05: 0.9996761658031088, 0.1: 0.1871761658031088}
+        indel: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 0.9996761658031088, 0.05: 0.929080310880829, 0.1: 0.05375647668393782}
+        insertion: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 1.0, 0.05: 0.939119170984456, 0.1: 0.045660621761658034}
+        deletion: {0.0003: 1.0, 0.001: 1.0, 0.005: 1.0, 0.01: 1.0, 0.02: 1.0, 0.05: 0.9316709844559585, 0.1: 0.05310880829015544}
+      median_sequence_log_p_value_by_rate:
+        substitution: {0.0003: -1795.19, 0.001: -1722.46, 0.005: -1346.47, 0.01: -970.95, 0.02: -523.42, 0.05: -74.48, 0.1: -0.51}
+        indel: {0.0003: -1003.81, 0.001: -882.16, 0.005: -330.56, 0.01: -199.75, 0.02: -85.64, 0.05: -14.11, 0.1: 0.0}
+      events_per_read_by_rate: {0.0003: 1, 0.001: 3, 0.005: 15, 0.01: 31, 0.02: 61, 0.05: 154, 0.1: 307}
+    scope: &v3_gen_scope
+      model: GenerTeam/GENERator-v2-eukaryote-1.2b-base
+      revision: c41b0018da9ee13b9e96ee54647de8da381ccd72
+      watermark: synthid-tournament-v1
+      detector: synthid-position-independent-detector-v1
+      detector_unchanged_from_admitted_runs: true
+      window_base_lengths: [384, 768, 1536, 3072]
+      orientations: 2
+      target_sequence_false_positive_rate: 0.01
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      evaluation_prompts: 1544
+      draws_per_prompt: 2
+      edit_channel: non-adaptive public replay, synthid-edit-rate-v3
+      edit_channel_sees_detector: false
+      generation_rerun: false
+    source: &v3_generator_source
+      artifact: evidence/derived/edit_rate_v3_generator_2026_09_24.json
+      sha256: 3911289bf8b884fce8fab27be143c38f4c4e4359977a0f4a72024cac92f4437f
+      protocol: docs/research/synthid_v3_edit_rate_protocol_2026_09_24.md
+      execution: docs/research/synthid_v3_edit_rate_execution_2026_09_24.md
+      command: >-
+        python3 scripts/run_synthid_edit_rate_pilot.py --prompts 1544 --workers 64
+        --edit-label synthid-edit-rate-v3 --protocol
+        docs/research/synthid_v3_edit_rate_protocol_2026_09_24.md
+    notes: >-
+      Detection is complete through this rate for substitutions, mixed indels and the
+      direction-pure insertion and deletion channels, degrades near 5%, and collapses by 10%.
+      The margin explains the tolerance: the clean statistic is far above the firing
+      threshold, so heavy damage is absorbed before a decision changes. This is
+      non-adaptive editing chosen without reference to the detector; it is not an
+      adversarial-robustness result.
+
+  - id: synthid.v3.generator.detector.edit_rate_null_rate
+    status: V
+    value: 0.0012953367875647669
+    unit: fraction of reads
+    quantity: >-
+      ordinary-output detection rate under the corresponding key, pooled over every edit rate
+      and kind, as the falsification check for the edit channel
+    counts: {detections: 116, reads: 89552}
+    derivation: >-
+      pool the ordinary corresponding-key cells across all rates and kinds; a null that rises
+      with edit rate would mean the channel manufactures structure and would void the power
+      readings
+    uncertainty:
+      target_false_positive_rate: 0.01
+      cells_above_target: 0
+      worst_cell: {kind: indel, rate: 0.01, value: 0.0029145077720207253}
+    scope: *v3_gen_scope
+    source: *v3_generator_source
+    notes: >-
+      The null does not climb with edit rate and no cell exceeds the 0.01 target, so the
+      predeclared falsification check passes and the power readings stand.
+
+  - id: synthid.v3.source_manifest
+    status: V
+    value: e8f868772de29c4796d810f67c50276f6eb263db50e47ef02c7423ef401679a4
+    unit: source tree sha256
+    quantity: frozen digest of every scientific source and frozen input behind the v3 run
+    derivation: >-
+      hash each listed source and frozen input, then hash the ordered path and digest pairs
+    uncertainty:
+      files: 85
+      supersedes_manifest: e8f868772de29c4796d810f6 differs from the v2 manifest 3a9b71f8 by
+        three files: two new batch wrappers and the appended edit channel in
+        src/genomic_watermarks/synthid_boundary.py
+      boundary_digest_note: docs/research/synthid_boundary_digest_provenance_note_2026_09_24.md
+    scope:
+      applies_to: the L1-07 full-cohort edit-rate run
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      generation_rerun: false
+    source:
+      artifact: evidence/derived/synthid_v3_edit_rate_source_manifest_2026_09_24.json
+      sha256: 9253173e225152bdc8507576c5b181912ca5ce37398b075da99ace989f24ad4c
+      protocol: docs/research/synthid_v3_edit_rate_protocol_2026_09_24.md
+      execution: docs/research/synthid_v3_edit_rate_execution_2026_09_24.md
+      command: >-
+        python3 scripts/hpc/freeze_source_manifest.py --output
+        evidence/derived/synthid_v3_edit_rate_source_manifest_2026_09_24.json
+    notes: >-
+      The v2 manifest remains the record for the v2 false-positive-rate run and is not reissued.
+      The digest of src/genomic_watermarks/synthid_boundary.py moved between the two because the
+      edit channel was appended to it; the linked note records the evidence that the change is
+      purely additive and that the v2 results are unaffected.

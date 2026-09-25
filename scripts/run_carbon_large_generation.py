@@ -61,6 +61,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--draw-index", type=int, required=True, choices=(0, 1))
     parser.add_argument("--steps", type=int, default=512)
     parser.add_argument("--experiment-label", default=DEFAULT_LABEL)
+    parser.add_argument("--experiment-id", default=EXPERIMENT_ID)
     parser.add_argument("--tournament-depth", type=int, default=DEFAULT_DEPTH)
     parser.add_argument("--context-tokens", type=int, default=DEFAULT_CONTEXT_TOKENS)
     parser.add_argument("--context-history-size", type=int, default=DEFAULT_CONTEXT_HISTORY_SIZE)
@@ -111,6 +112,7 @@ def validate_shard(
     draw_index: int,
     steps: int,
     experiment_label: str,
+    experiment_id: str,
     cohort_id: str,
     device: str,
     dtype: str,
@@ -122,6 +124,7 @@ def validate_shard(
         "policy_id": "C_tok",
         "cohort_id": cohort_id,
         "experiment_label": experiment_label,
+        "experiment_id": experiment_id,
         "generated_tokens": steps,
         "prompt_sequence_sha256": case.sequence_sha256,
         "device": device,
@@ -152,6 +155,11 @@ def shard_records(shard: dict[str, Any]) -> list[dict[str, Any]]:
         "draw_id": shard["draw_id"],
         "cohort_id": shard["cohort_id"],
         "policy_id": shard["policy_id"],
+        **(
+            {"experiment_id": shard["experiment_id"]}
+            if shard["experiment_id"] != EXPERIMENT_ID
+            else {}
+        ),
         "experiment_label": shard["experiment_label"],
         "fixture_key_index": shard["fixture_key_index"],
         "fixture_key_label": f"public_fixture_index_{shard['fixture_key_index']}",
@@ -204,6 +212,7 @@ def finalize(
             draw_index=args.draw_index,
             steps=args.steps,
             experiment_label=args.experiment_label,
+            experiment_id=args.experiment_id,
             cohort_id=all_cases[0].cohort_id,
             device=args.device,
             dtype=args.dtype,
@@ -246,7 +255,7 @@ def finalize(
         "schema_version": 1,
         "classification": "validation_artifact_not_admitted_evidence",
         "complete": True,
-        "experiment_id": EXPERIMENT_ID,
+        "experiment_id": args.experiment_id,
         "experiment_label": args.experiment_label,
         "policy_id": "C_tok",
         "model_id": "HuggingFaceBio/Carbon-500M",
@@ -359,6 +368,7 @@ def main() -> int:
                 draw_index=args.draw_index,
                 steps=args.steps,
                 experiment_label=args.experiment_label,
+                experiment_id=args.experiment_id,
                 cohort_id=cohort_id,
                 device=args.device,
                 dtype=args.dtype,
@@ -443,7 +453,7 @@ def main() -> int:
                 "schema_version": 1,
                 "classification": "validation_artifact_not_admitted_evidence",
                 "complete": True,
-                "experiment_id": EXPERIMENT_ID,
+                "experiment_id": args.experiment_id,
                 "experiment_label": args.experiment_label,
                 "policy_id": "C_tok",
                 "model_id": adapter.policy.model_id,

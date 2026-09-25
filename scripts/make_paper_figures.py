@@ -12,6 +12,7 @@ without rerunning it.
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
 import json
 import math
@@ -168,9 +169,9 @@ METRIC_LABEL = {
     "mean_homopolymer_run": "Mean single-base run",
     "purine_fraction": "Purine content",
     "cpg_fraction": "CpG content",
-    "js_divergence_from_prompt_k1_bits": "1-mer shift from prompt",
-    "js_divergence_from_prompt_k2_bits": "2-mer shift from prompt",
-    "js_divergence_from_prompt_k3_bits": "3-mer shift from prompt",
+    "js_divergence_from_prompt_k1_bits": "1-mer Jensen-Shannon drift from prompt",
+    "js_divergence_from_prompt_k2_bits": "2-mer Jensen-Shannon drift from prompt",
+    "js_divergence_from_prompt_k3_bits": "3-mer Jensen-Shannon drift from prompt",
     "mean_negative_log_likelihood_per_token": "Model score",
     "perplexity": "Perplexity",
 }
@@ -185,9 +186,24 @@ def load_quality() -> dict[str, Any]:
     return quality
 
 
-def load_trials() -> list[dict[str, Any]]:
-    check_digest(TRIALS_ARTIFACT, TRIALS_SHA256)
-    with TRIALS_ARTIFACT.open(encoding="utf-8") as handle:
+def set_evaluation_prompts(count: int) -> None:
+    """Point the grid check at a cohort of a different size."""
+
+    global EVALUATION_PROMPTS
+    if count <= 0:
+        raise ValueError("evaluation prompts must be positive")
+    EVALUATION_PROMPTS = count
+
+
+def load_trials(
+    artifact: Path | None = None, digest: str | None = None
+) -> list[dict[str, Any]]:
+    """Load a verified trial file. Accepts .jsonl or .jsonl.gz."""
+
+    path = artifact or TRIALS_ARTIFACT
+    check_digest(path, digest or TRIALS_SHA256)
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rt", encoding="utf-8") as handle:
         return [json.loads(line) for line in handle if line.strip()]
 
 
@@ -493,8 +509,8 @@ def figure_quality(
     grid = figure.add_gridspec(
         1,
         2,
-        width_ratios=[1.0, 1.28],
-        wspace=0.55,
+        width_ratios=[1.0, 1.0],
+        wspace=0.85,
         left=0.075,
         right=0.985,
         top=0.86,
@@ -687,7 +703,10 @@ def figure_detection(
     strip.spines["left"].set_visible(False)
     strip.set_xlabel("Window strength,  $-\\log_{10}P_{\\mathrm{win}}$")
     strip.set_title(
-        f"{len(FAMILIES) * 384:,} unedited reads, one point each",
+        # Derived from the data, not a constant: the same code renders cohorts of
+        # different sizes and a hardcoded count would silently misreport them.
+        f"{sum(len(select(trials, family, 'clean')) for family, _ in FAMILIES):,}"
+        " unedited reads, one point each",
         fontsize=6.5,
         color=INK_SOFT,
         pad=5,
@@ -880,7 +899,8 @@ def figure_edits(
     spread.set_ylabel("Window strength,  $-\\log_{10}P_{\\mathrm{win}}$")
     spread.set_xlabel("Edit applied to the read")
     spread.set_title(
-        "384 marked reads per condition; bar is the median",
+        f"{len(select(trials, 'watermarked_correct_key', 'clean')):,}"
+        " marked reads per condition; bar is the median",
         fontsize=6.5,
         color=INK_SOFT,
         pad=5,
@@ -922,12 +942,19 @@ def figure_edits(
                 )
             left += share
 
-    for length in (768, 1536, 3072):
+    # Only advertise lengths that actually occur: a legend key with no bar segment
+    # invites a reader to hunt for data that is not there.
+    present = [
+        length
+        for length in WINDOW_LENGTHS
+        if any(counts[condition][length] for condition, _ in CONDITIONS)
+    ]
+    for length in present:
         mix.plot([], [], color=WINDOW_COLOUR[length], linewidth=4, label=f"{length:,} bases")
     mix.legend(
         loc="lower center",
         bbox_to_anchor=(0.5, 1.0),
-        ncol=3,
+        ncol=max(1, len(present)),
         handlelength=1.1,
         handletextpad=0.5,
         columnspacing=1.4,
@@ -1038,9 +1065,73 @@ def main() -> int:
         default=FIGURE_DIR / "figure_values.json",
         help="where to write the plotted values and figure digests",
     )
+    parser.add_argument(
+        "--trials",
+        type=Path,
+        help="trial file to plot instead of the pinned version-one artifact; .jsonl or .jsonl.gz",
+    )
+    parser.add_argument("--trials-sha256", help="expected digest of --trials")
+    parser.add_argument(
+        "--evaluation-prompts",
+        type=int,
+        default=EVALUATION_PROMPTS,
+        help="prompt-cluster count the trial grid must contain",
+    )
+    parser.add_argument(
+        "--stem-suffix",
+        default="",
+        help="appended to figure file stems, so a rebuild never overwrites another run's figures",
+    )
+    parser.add_argument(
+        "--panels",
+        choices=("ab", "cd"),
+        default="ab",
+        help="panel letters; GENERator panels are lettered c and d",
+    )
     arguments = parser.parse_args()
 
     plt.rcParams.update(RC_PARAMS)
+
+    if arguments.trials is not None:
+        # Accept a relative path from the repository root as well as an absolute one.
+        arguments.trials = (
+            arguments.trials if arguments.trials.is_absolute() else (ROOT / arguments.trials)
+        ).resolve()
+        # Direct-trials mode. Renders only the detection and edit figures, because
+        # quality and method panels come from artifacts this mode does not touch.
+        # The version-one figures and their manifest are left exactly as they are.
+        if not arguments.trials_sha256:
+            raise SystemExit("--trials requires --trials-sha256")
+        set_evaluation_prompts(arguments.evaluation_prompts)
+        letters = ("a", "b") if arguments.panels == "ab" else ("c", "d")
+        trials = load_trials(arguments.trials, arguments.trials_sha256)
+        manifest = (
+            json.loads(arguments.manifest.read_text()) if arguments.manifest.exists() else {}
+        )
+        manifest.setdefault("sources", {}).update(
+            {
+                "trials_artifact": str(arguments.trials.relative_to(ROOT)),
+                "trials_sha256": arguments.trials_sha256,
+                "evaluation_prompts": arguments.evaluation_prompts,
+            }
+        )
+        suffix = arguments.stem_suffix
+        manifest.setdefault("figures", {}).update(
+            {
+                f"fig3_detection{suffix}": figure_detection(
+                    f"fig3_detection{suffix}", trials, letters
+                ),
+                f"fig4_edits{suffix}": figure_edits(f"fig4_edits{suffix}", trials, letters),
+            }
+        )
+        arguments.manifest.parent.mkdir(parents=True, exist_ok=True)
+        arguments.manifest.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        for name, record in manifest["figures"].items():
+            print(f"{name}: {record['pdf']} {record['pdf_sha256'][:16]}")
+        return 0
+
     if arguments.model == "generator":
         manifest = add_generator_figures(arguments.manifest)
     else:

@@ -26,7 +26,7 @@ ledger, and the scientific validator reaches only this final protocol-file check
 The original result must not be edited to replace its recorded protocol hash with the current one.
 
 The current Carbon detector numbers remain transparently labeled draft evidence, with this
-amendment attached. The repository's already-open M5 Pro replay requirement is the clean resolution:
+amendment attached. A new paper-bound replay is the clean resolution:
 freeze the current protocol under a new result identity, rerun the model-free detector on the same
 immutable generations, and admit the new artifact rather than overwriting the old result. Until
 that replay is complete, manuscript review must retain both the Linux-CPU limitation and this

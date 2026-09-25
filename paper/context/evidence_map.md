@@ -145,9 +145,9 @@ detection on x86-64 CPUs without independent replication across platforms, and t
 inside the Carbon detection result does not match the bytes of the retained protocol document (see
 `docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`). Neither is resolved. The
 manuscript also states the scope limit that follows: one execution per model on one shared corpus,
-whose confirmatory replication is outstanding. The M5 Pro replication remains the intended next step,
+whose confirmatory replication is outstanding. Replication in a documented execution environment remains the intended next step,
 and the gates must be closed before the result is described as settled rather than as executed once.
 
 The 2026-09-11 editorial revision removes references to pinned model revisions and a prescribed
 replication machine from the manuscript at the user's request. Exact revisions and execution
-environments remain in the evidence trail; the hardware requirements for future runs are unchanged.
+environments remain in the evidence trail; future runs must document their actual environment.

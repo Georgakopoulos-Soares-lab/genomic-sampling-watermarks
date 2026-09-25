@@ -38,6 +38,15 @@ SCIENTIFIC_SCRIPTS = (
     "scripts/summarize_generator_large_generation.py",
     "scripts/validate_generator_large_validation.py",
     "scripts/validate_generator_synthid_position_independent.py",
+    # Carbon's position-independent pair was missing while GENERator's was listed.
+    "scripts/run_carbon_synthid_position_independent.py",
+    "scripts/validate_carbon_synthid_position_independent.py",
+    # v2 false-positive-rate scaling run (L1-01).
+    "scripts/hpc/run_direct_synthid_fpr.py",
+    "scripts/hpc/check_v2_fpr_node.py",
+    "scripts/hpc/synthid_v2_fpr_direct.sh",
+    "scripts/derive_synthid_v2_fpr_evidence.py",
+    "scripts/benchmark_synthid_detector_search.py",
 )
 ROOT_INPUTS = (
     "configs/carbon_synthid_validation_hpc_v1.toml",
@@ -51,6 +60,12 @@ ROOT_INPUTS = (
     "pyproject.toml",
     "sources.yaml",
     "uv.lock",
+    # v2 false-positive-rate scaling inputs (L1-01).
+    "configs/carbon_synthid_v2_fpr_hpc.toml",
+    "configs/generator_synthid_v2_fpr_hpc.toml",
+    "docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md",
+    "data/public_prompt_cohort_fpr_v2_1608.yaml",
+    "data/public_prompt_cohort_fpr_v2_sources.yaml",
 )
 
 

@@ -27,6 +27,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cohort-jsonl", type=Path, default=DEFAULT_COHORT)
     parser.add_argument("--draw-index", type=int, action="append", default=[])
     parser.add_argument("--expected-case-count", type=int, required=True)
+    parser.add_argument("--experiment-id", default="carbon_synthid_validation_v1")
     return parser.parse_args()
 
 
@@ -72,6 +73,11 @@ def main() -> int:
             identities.add(identity)
             if int(record["draw_id"]) != draw_index:
                 raise ValueError("a sequence is stored under the wrong draw file")
+            if (
+                str(record.get("experiment_id", "carbon_synthid_validation_v1"))
+                != args.experiment_id
+            ):
+                raise ValueError("a sequence has the wrong experiment ID")
             if str(record["policy_id"]) != "C_tok":
                 raise ValueError("large validation accepts C_tok only")
             dna = str(record["generated_dna"])
@@ -88,6 +94,8 @@ def main() -> int:
         if set(counts.values()) != {args.expected_case_count}:
             raise ValueError(f"draw {draw_index} does not have matched arms")
         report = json.loads(report_path.read_text(encoding="utf-8"))
+        if str(report["experiment_id"]) != args.experiment_id:
+            raise ValueError("a draw report has the wrong experiment ID")
         if not bool(report.get("all_keyed_recomputations_match")):
             raise ValueError(f"draw {draw_index} failed keyed recomputation")
         artifacts.append(
@@ -123,7 +131,7 @@ def main() -> int:
         "schema_version": 1,
         "classification": "validation_artifact_not_admitted_evidence",
         "complete": True,
-        "experiment_id": "carbon_synthid_validation_v1",
+        "experiment_id": args.experiment_id,
         "experiment_label": next(iter(experiment_labels)),
         "policy_id": "C_tok",
         "model_id": "HuggingFaceBio/Carbon-500M",

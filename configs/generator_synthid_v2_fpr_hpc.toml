@@ -1,0 +1,85 @@
+schema_version = 1
+experiment_id = "generator_synthid_v2_fpr_generation"
+detector_experiment_id = "generator_synthid_v2_fpr_position_independent"
+classification = "validation_not_automatically_admitted_evidence"
+execution_profile = "lonestar6_a100_direct"
+protocol = "docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md"
+protocol_sha256 = "ad950bfdda3d664d7691574d4d88e3403d84cd438a7961f6ebfb25a787523d32"
+policy_id = "G_tok"
+model_id = "GenerTeam/GENERator-v2-eukaryote-1.2b-base"
+model_revision = "c41b0018da9ee13b9e96ee54647de8da381ccd72"
+cohort_id = "ncbi_refseq_eukaryote_windows_fpr_v2_1608"
+cohort_sha256 = "f6075a85bc056f5159952031618c544fb3a82864ed9029c913e7f5a7d03c5dc5"
+cohort_manifest_sha256 = "7adad76712848a0d0b19e9660c24197293d751610a98ecb8db1bda35534b5c55"
+cohort_prompts_file_sha256 = "cb19e90662fcb25f774b0840e2e696132e2dc9c54439d97597bd186d4948f775"
+prompt_bases = 384
+prompt_count = 1608
+draw_indices = [0, 1]
+generated_tokens = 512
+generated_bases = 3072
+temperature = 1.0
+truncation = "none"
+device = "cuda"
+dtype = "bfloat16"
+cache_dir = "runtime:GSW_HF_CACHE"
+local_files_only = true
+
+[hpc]
+cluster = "lonestar6"
+gpu_architecture = "NVIDIA A100"
+cuda_module = "cuda/12.8"
+conda_environment = "tacc_watermark"
+torch_build = "2.11.0+cu128"
+gpu_partition_default = "gpu-a100"
+gpu_partition_smoke = "gpu-a100-dev"
+gpu_processes_per_node = 2
+slurm_gres_requested = false
+slurm_gres_reason = "Lonestar6 GPU partitions schedule whole GPU nodes without generic GRES"
+execution_mode = "direct in-allocation resumable runner"
+runner = "scripts/hpc/run_direct_synthid_fpr.py"
+
+[generation]
+experiment_label = "generator-synthid-fpr-v2"
+watermark_scheme = "synthid-tournament-v1"
+control_scheme = "ordinary-categorical-v1"
+fixture_key_mapping = "draw index equals published fixture-key index"
+prf_domain = "experiment_label/cohort_id/policy_id"
+prf_domain_includes_draw = false
+replay_seed_parts = ["experiment_label", "policy_id", "case_id", "draw=<draw_id>", "scheme"]
+
+[tournament]
+kind = "non-distortionary binary SynthID tournament"
+num_leaves_per_node = 2
+depth = 30
+context_tokens = 4
+context_history_size = 1024
+first_context_tokens_unwatermarked = true
+repeated_contexts_sampled_ordinary_and_masked = true
+candidate_prf = "domain-separated HMAC-SHA-256; first depth output bits"
+
+[detection]
+base_lengths = [384, 768, 1536, 3072]
+calibration_prompts = 64
+evaluation_prompts = 1544
+split_rule = "SHA-256 rank of frozen label and case_id"
+split_label = "carbon_synthid_validation_v1/prompt-split/v1"
+threshold_null_family = "ordinary_corresponding_key"
+target_fpr = 0.01
+threshold_source = "analytic_exact_fair_binomial_upper_tail"
+orientation = "both"
+offset_search = true
+windows = "every base start, both orientations, four window lengths"
+hypotheses_searched_clean = 16136
+hypotheses_searched_substitution = 16136
+hypotheses_searched_insertion = 16144
+hypotheses_searched_deletion = 16128
+multiplicity_correction = "nominal tail multiplied by searched hypothesis count, capped at one"
+conditions = ["clean", "substitution", "insertion", "deletion"]
+families = ["watermarked_correct_key", "ordinary_corresponding_key", "watermarked_other_draw_key"]
+read_level_decisions = 37056
+prompt_level_interval = "exact one-sided 95% Clopper-Pearson upper bound"
+
+[smoke]
+prompts = 4
+draw_indices = [0, 1]
+generated_tokens = 64

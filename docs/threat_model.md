@@ -16,8 +16,14 @@ not know the secret key and cannot obtain, query, or optimize against the detect
 The retained experiment covers an unchanged read and exactly one ordinary nucleotide event inside
 the generated continuation: one substitution, one insertion, or one deletion. The event location
 and affected base are selected by a frozen public random procedure, not by inspecting detector
-behavior. Multiple edits and detector-guided editing are outside this threat model and are not
-planned experiments for this study.
+behavior.
+
+A separate pilot, not admitted as evidence, has measured detection against higher rates of the same
+public-replay editing; see `docs/research/threat_model_edit_rate_amendment_2026_09_24.md`. It
+indicates tolerance well beyond a single event under non-adaptive editing, but **the declared
+covered regime remains the single event** until a full-cohort run exists under a non-pilot
+protocol. Detector-guided and detector-query editing remain outside this threat model, and no
+adversarial-robustness claim follows from the pilot.
 
 ## Detection goal
 
