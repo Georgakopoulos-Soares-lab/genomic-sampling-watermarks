@@ -19,27 +19,43 @@ Figure 2 (detection) is Figure 3. Any response that names a figure number should
 PDF's numbering, which is what the reviewer sees. Any revised PDF must be regenerated so the
 numbering the response cites still holds.
 
-**Part C is on its default branches.** The responses to W4, W7, and W8 below are written for the
-case where no new measurement lands. If Lane 1 delivers `synthid.v2.*` numbers, those three
-responses change and so does the manuscript; the branch tables in the lane plan supply both.
+**Part C landed 2026-09-29.** Lane 1's `synthid.v2.*`/`synthid.v3.*` measurements arrived after this
+draft was first written and after Lane 2's PR had already merged; a 2026-09-29 reconciliation pass
+(`paper/reviews/2026-09-29_lane3_reconciliation.md`) updated the manuscript and the W4, W6, W7, W8, M2, M5, and
+W1 responses below to the confirmed branches. W7 (cross-model strength gap) landed on its
+inconclusive branch — Lane 1's own measurement could not separate the candidate mechanisms — so
+that response is unchanged from the original draft.
 
 ## W1, M4, R2, D1 — edit rate and the scope of the edit regime
 
-We agree this is the most important open question, and we now state its answer as far as the design
-determines it.
+We agree this is the most important open question, and we have now run a measurement to answer it,
+not only an argument.
 
-Detection requires a contiguous region whose 6-mer alignment survives across one of the evaluated
-windows, the shortest of which spans 384 bases. Independent indels at rate *r* leave expected clean
-stretches near 1/*r* bases, so the method should degrade near *r* = 0.1% and fail near an
-illustrative *r* = 1%, where the expected clean stretch falls below our shortest window. We have added this reasoning and its boundary
-condition to the Limitations section, together with the observation that substitutions are milder
-than indels because a substitution corrupts the tokens overlapping it without shifting the frame.
+Our primary, fully controlled condition remains exactly one non-adaptive edit per read (an edit
+rate near 0.03%), evaluated with matched ordinary and wrong-key controls over 384 held-out reads
+per model. We additionally ran a full-cohort measurement (1,544 prompts per model, both models,
+`synthid.v3.*`, author sign-off recorded in the repository) of correct-key detection under
+independent, non-adaptive public-replay edits at per-base rates from 0.03% to 10%, as
+substitutions, mixed indels, and pure insertions and deletions. Detection recovered every read for
+all four edit kinds through a 2% per-base rate on Carbon and a 1% rate on GENERator; at 2%
+GENERator still recovered every read under substitution and under pure insertion and deletion, and
+missed one read in 3,088 under mixed indels. Detection fell to roughly 93% for indels at 5%, where
+substitutions recovered every Carbon read and all but one GENERator read, and collapsed by 10%;
+the corresponding ordinary-output null stayed at or below the 1% target throughout. This falsifies
+our own originally planned order-of-magnitude prediction (an expected clean-stretch length of 1/*r*
+against our shortest, 384-base window predicted failure near *r* = 1%). The relative cost of the
+two edit kinds is what that reasoning predicted — at the lowest tested rate the median correct-key
+sequence log *P*-value is −994.67 after one indel against −1778.65 after one substitution — but the
+heuristic omitted the size of the surplus the clean statistic begins with, which absorbs far more
+damage than it implied before any decision changes.
 
-We have not run the sweep. Multiple-edit robustness is outside this study's declared threat model,
-and a credible sweep needs a shorter-window search with a correspondingly larger correction, which
-is a different verifier and a different study. We identify the search geometry, not the watermark
-strength, as the binding constraint at higher rates, and we name the sweep as the most useful
-direction for the next study.
+This measurement is a non-adaptive public replay that never inspects the detector, the key, or any
+score, so it is not an adversarial-robustness result, and it used correct-key detection and the
+null check only, not the full wrong-key/false-positive-rate battery used for the primary
+evaluation — we present it as a coarser, confirmatory characterization alongside the primary
+result, not a replacement for it. Detector-guided or detector-query editing remains outside this
+study's declared threat model, and we continue to name that as the most useful direction for the
+next study.
 
 ## W2, R5 — absence of comparative baselines
 
@@ -73,17 +89,24 @@ or safety anywhere in the paper.
 
 ## W4 — false-positive-rate sample size
 
-We agree that 192 independent prompts cannot validate a 1% target, which is why we report the
-interval rather than a point estimate: 2.87% for one positive prompt and 1.90% for none. We have
-sharpened the Limitations text to say that we did not scale the cohort for this version and that
-precise estimation near a 1% target requires roughly an order of magnitude more independent prompts,
-which we identify as required future work rather than a resolved question.
+We agree that 192 independent prompts cannot validate a 1% target, which is why the paper reports
+the interval rather than a point estimate: 2.87% for one positive prompt and 1.90% for none in the
+primary cohort. We have since scaled the cohort: a second, independently frozen cohort of 1,608
+prompts (1,544 held out for evaluation) gives correct-key detection of 3,088/3,088 reads in every
+condition for both models, and the largest one-sided 95% upper bound on the ordinary-control rate
+across both models and all four primary conditions is 0.8499% (GENERator, deletion) — below the
+declared 1% target rather than merely consistent with it. One secondary wrong-key cell (Carbon,
+deletion) reaches an observed one-sided upper bound of 1.0150%; wrong-key decisions are reported
+separately and are not the declared operational quantity.
 
-We would add one point in the paper's favor that the current text now makes explicit. The windows
-are strongly positively correlated: two windows of the same length whose starts differ by a multiple
-of six bases share a token phase and all but a few tokens. Bonferroni correction is valid without
-independence but conservative in such a family, so the realized false-positive rate is below the
-declared target and our reported control counts should be read as an upper bound rather than an
+We would add one point in the paper's favor that the current text now makes explicit and, since
+this rebuttal was first drafted, has also measured directly. The windows are strongly positively
+correlated: two windows of the same length whose starts differ by a multiple of six bases share a
+token phase and all but a few tokens. Bonferroni correction is valid without independence but
+conservative in such a family; on unmarked reads the corrected decision fires at 0.105% for Carbon
+and 0.186% for GENERator against the 1% target (9.5× and 5.4× below it), and the effective number
+of independent tests implied by the data is about 830–850 against the 16,136 searched, roughly a
+19-fold inflation. Our reported control counts should be read as an upper bound rather than an
 estimate.
 
 ## W5a — the goodness-of-fit test statistic
@@ -109,12 +132,15 @@ so that "after correction" now names which correction it means.
 ## W6, R1 — the two window-score summaries and the selection rule
 
 The two candidates were the released SynthID mean score over scored tokens and the upstream default
-weighted-mean score. They were compared on the 64 calibration prompts alone, at the shortest and
-longest of the four window lengths, by the separation between the marked and ordinary arms in
-units of the ordinary-arm standard deviation, on continuations scored under known token alignment. The mean score separated the arms
-at least as well at both lengths and was selected. Evaluation prompts were never scored during this
-selection and no signal-matched weights were fitted. We have added this to the Results section, and
-a reader can now reproduce the selection from the paper alone.
+weighted-mean score. For GENERator, they were compared on the 64 calibration prompts alone, at the
+shortest and longest of the four window lengths, by the separation between the marked and ordinary
+arms in units of the ordinary-arm standard deviation, on continuations scored under known token
+alignment; the mean score separated the arms at least as well at both lengths and was selected.
+Evaluation prompts were never scored during this selection and no signal-matched weights were
+fitted. We apply the same selected summary to Carbon, but note in the text that the equivalent
+Carbon comparison was not retained as a committed artifact, so the selection is independently
+verified for GENERator only. We have added this to the Results section, and a reader can now
+reproduce the selection from the paper alone.
 
 ## W7, R3 — the cross-model detection-strength gap
 
@@ -132,12 +158,14 @@ decision is unaffected: every marked read in both models cleared the corrected t
 
 We have expanded this in Limitations to enumerate what the retained protocol document governs: the
 cohort identity, the prompt split rule, the four window lengths, both orientations, the declared
-false-positive target, and the tournament and context settings. All of these are independently
-recorded in the result artifact's own configuration and command fields and agree with the reported
-analysis. We were nonetheless unable to determine which revision of the document the recorded hash
-corresponds to, so the document-level chain for this execution cannot be closed. We report it as an
-unresolved provenance gap rather than a resolved one, and we do not rely on its resolution for any
-claim.
+false-positive target, and the tournament and context settings, and we have since completed an
+audit of it. Each of these parameters is independently recorded in the result artifact's own
+configuration and command fields and agrees with the reported analysis, so the discrepancy is
+confined to the document's text and does not affect the generative distribution or the detection
+statistic. We were nonetheless unable to recover the original protocol document bytes, so we
+continue to treat the execution as unverified at the document level even though the substantive
+question — whether the mismatch could have changed the reported numbers — is now resolved in the
+negative.
 
 ## W9, A1 — AI Use Statement accuracy
 
@@ -217,7 +245,10 @@ position in a frame are computed once in a single pass. Window statistics then f
 sums over the per-token bit counts, so each window of a given length is evaluated in constant time;
 where a frame contains repeated four-token contexts, the first-occurrence rule is enforced with
 Fenwick trees and each window costs O(log *N*). The work is O(*N*) keyed hash evaluations and
-O(*N* log *N*) additional time with O(*N*) space per read.
+O(*N* log *N*) additional time with O(*N*) space per read. Measured: verifying one 3,456-base read
+took a median 0.0956 s single-threaded (0.245 s at 6,912 bases; 0.902 s at 13,824) on an AMD EPYC
+7763, with peak resident memory of 27.9–69.1 MiB; parallelizing across reads at 16 workers reduced
+wall-clock time per read to 0.0167 s, a 6.3× speed-up.
 
 ## T1–T5 — typography and hyphenation
 

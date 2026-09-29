@@ -17,10 +17,6 @@
 
 \graphicspath{{../../figures/}}
 
-%% Placeholder for an evidence identity whose value is not yet in the ledger.
-%% Every use must be resolved or removed before submission.
-\newcommand{\evtag}[1]{\textbf{[EV:#1]}}
-
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!60!black,
@@ -89,14 +85,19 @@ evaluated sampling policy. We evaluate whether a verifier can recover the mark u
 key, and fixed public settings. The verifier applies one read-level correction across both
 strands, every start position, and four window lengths. In each model, it detected all 384
 held-out marked reads when unedited and after each tested single-base substitution, insertion,
-or deletion. Ordinary and wrong-key controls yielded no more than one positive result for each
-model, control family, and condition. Neither model showed a statistically detectable difference
-in model likelihood or the pre-specified sequence measures after multiple-testing correction. In
+or deletion. In that cohort, ordinary and wrong-key controls yielded no more than one positive
+result for each model, control family, and condition; a subsequent, independently frozen cohort
+of 1{,}608 prompts bounded the operational false-positive rate at 0.8499\% or below across both
+models and all four conditions. Neither model showed a statistically detectable difference
+in model likelihood or the pre-specified sequence measures after multiple-testing correction. A
+full-cohort measurement of non-adaptive public-replay editing recovered every read through a
+2\% per-base edit rate on Carbon and a 1\% rate on GENERator, with collapse by 10\%. In
 both models, window-level results are consistent with preserved or recovered six-mer token
 alignment after insertions and deletions. These findings support statistical provenance
 detection within the tested corpus and portability of the implementation across the two
 evaluated models. They do not establish biological function, secret-key security, or robustness
-beyond the evaluated non-adaptive single-base edits. \end{minipage} \vspace{1.2em} \end{center}
+against an adaptive editor that inspects the detector, the key, or any score.
+\end{minipage} \vspace{1.2em} \end{center}
 }]
 
 \thispagestyle{fancy}
@@ -136,7 +137,10 @@ complete search.
 In both models, the verifier detected every held-out marked read under the tested unedited and
 single-base edit conditions. The quality-proxy comparisons showed no statistically detectable
 difference after correction, and ordinary and wrong-key control counts were compatible with the
-declared false-positive target. In both models, the window-level results are consistent with the
+declared false-positive target. A larger, independently frozen cohort subsequently bounded the
+operational false-positive rate below that target, and a full-cohort measurement placed the
+non-adaptive editing ceiling for full recovery at a 2\% per-base rate on Carbon and a 1\% rate
+on GENERator. In both models, the window-level results are consistent with the
 search selecting regions with preserved or recovered six-mer token alignment after insertions and
 deletions. These findings establish statistical detection within the evaluated corpus, not biological
 function, secret-key security, or equivalence between the models.
@@ -177,7 +181,8 @@ Robustness depends on the attacker's capabilities and the permitted edits. Prior
 evasion, key-recovery, and forgery risks under stronger adaptive capabilities
 \cite{zhang2024sand,diaa2025adaptive,
 sadasivan2025reliably,jovanovic2024stealing,reynolds2025breaking}. The present study tests
-statistical detection after one non-adaptive base edit and does not evaluate those attacks.
+statistical detection after non-adaptive editing, from a single base edit to a characterized
+breakdown rate, and does not evaluate those attacks.
 
 Text-domain watermarks that target robustness to editing treat synchronization as a local
 problem. Kuditipudi et al.\ align a candidate text to a key sequence under an edit distance
@@ -388,7 +393,13 @@ than $M$, so the realized false-positive rate is below the declared target and t
 per-window evidence is higher than a correlation-aware correction would demand. Our recall is
 therefore attained under a threshold stricter than necessary, and the reported control counts
 should be read as an upper bound on the operational false-positive rate rather than an estimate
-of it.
+of it. A direct empirical check on unmarked reads confirms this: the corrected decision fires at
+0.105\% for Carbon and 0.186\% for GENERator against the 1\% target, 9.5$\times$ and 5.4$\times$
+below it, and the effective number of independent tests implied by the observed minimum local
+$P$-value is about 830--850 against the 16{,}136 hypotheses actually searched, a roughly 19-fold
+inflation stable across both models and all four conditions. This is a moment-matched,
+order-of-magnitude summary, not a calibrated test count, and the reported decision rule is
+unchanged.
 
 The search geometry also imposes a floor on what any single window can prove. Each scored token
 contributes one mark bit per tournament layer, so a window carries $30$ bits per scored token. At
@@ -410,7 +421,11 @@ follow from prefix sums over those per-token bit counts, so each window of a giv
 evaluated in constant time; where a frame contains repeated four-token contexts, the
 first-occurrence rule is enforced with Fenwick trees and each window costs $O(\log N)$ instead.
 The work is therefore $O(N)$ keyed hash evaluations and $O(N \log N)$ additional time with
-$O(N)$ space per read, with $M$ growing linearly in $N$ for a fixed window set.
+$O(N)$ space per read, with $M$ growing linearly in $N$ for a fixed window set. Verification of
+one 3{,}456-base read took a median 0.0956 s single-threaded (0.245 s at 6{,}912 bases; 0.902 s at
+13{,}824), measured on an AMD EPYC 7763 with peak resident memory of 27.9--69.1 MiB;
+parallelizing across reads at 16 workers reduced wall-clock time per read to 0.0167 s, a
+6.3$\times$ speed-up.
 
 \begin{figure*}[tp]
 \centering
@@ -481,6 +496,7 @@ reported read-level $P$-values include the correction over every searched strand
 and window length.
 
 \section{Results}
+\label{sec:results}
 
 We first report sampler fidelity and sequence-quality comparisons, then evaluate
 position-independent detection and its response to single-base edits. The first two checks
@@ -541,12 +557,14 @@ show Carbon and panels \textbf{c,d} show GENERator.}
 The prompt split was specified before examining detection results: 64 prompts were reserved for
 selection between two window-score summaries, and 192 were held out for evaluation. Neither
 subset was used to fit the detection threshold. The two candidate summaries were the released
-SynthID mean score over scored tokens and the upstream default weighted-mean score. They were
-compared on the 64 calibration prompts alone, at continuation lengths of 384 and 3{,}072 bases
-scored under known token alignment, by the separation between the marked and ordinary arms in
-units of the ordinary-arm standard deviation. The mean score separated the arms at least as
-well at both lengths and was selected. Evaluation prompts were never scored during this
-selection and no signal-matched weights were fitted. For each model, the 384-base prompt was
+SynthID mean score over scored tokens and the upstream default weighted-mean score. For
+GENERator, they were compared on the 64 calibration prompts alone, at continuation lengths of 384
+and 3{,}072 bases scored under known token alignment, by the separation between the marked and
+ordinary arms in units of the ordinary-arm standard deviation; the mean score separated the arms
+at least as well at both lengths and was selected. Evaluation prompts were never scored during
+this selection and no signal-matched weights were fitted. We apply the same selected summary,
+the mean score, to Carbon as well, but the equivalent Carbon comparison was not retained as a
+committed artifact, so this selection is independently verified for GENERator only. For each model, the 384-base prompt was
 prepended to each held-out continuation, producing a 3{,}456-base read whose generation boundary
 was withheld from the verifier. Three detection families were evaluated: marked reads with the
 correct key, ordinary reads, and marked reads with the other draw's key. Each family was
@@ -577,7 +595,15 @@ slightly above it. At the prompt level, the exact 95\% interval for all marked
 prompts detected was 98.10--100\% in both models. For control families, the upper bound with
 zero positive prompts was 1.903\%, and the interval for one positive prompt was 0.013--2.868\%;
 these data are compatible with, but do not establish, an operational false-positive rate below
-1\%.
+1\%. A larger, independently frozen cohort of 1{,}608 prompts (1{,}544 held out for evaluation)
+subsequently tightened this bound: correct-key detection was 3{,}088/3{,}088 reads in every
+condition for both models, and the largest one-sided 95\% upper bound on the prompt-level
+ordinary-control rate across both models and all four conditions was 0.8499\% (GENERator,
+deletion), with every other primary-family cell lower still. One secondary wrong-key cell,
+Carbon under deletion, reached an observed one-sided upper bound of 1.0150\%; wrong-key decisions
+are reported separately and are not the declared operational quantity. The operational
+false-positive rate is therefore bounded near the declared 1\% target rather than merely
+consistent with it.
 
 The GENERator aligned-detector diagnostic provides a separate check of the analytic null under
 known token alignment. Across the four evaluated lengths, 2, 6, 6, and 4 ordinary-output prompts
@@ -598,8 +624,9 @@ The dashed line denotes the threshold corrected for the search over 16{,}136 win
 reads exceed the threshold. \textbf{b,d}, Proportion of the 192 held-out prompts with positive
 detections, with exact 95\% intervals, shown on a broken axis. All marked prompts were
 detected in all four edit conditions. The GENERator wrong-key positive is absent after deletion.
-The control intervals reach above the 1\% target, so these data are
-consistent with a false-positive rate below 1\% without establishing one. Panels \textbf{a,b} show
+In this 192-prompt cohort the control intervals reach above the 1\% target, so these data are
+consistent with a false-positive rate below 1\% without establishing one; the scaled cohort
+reported in the text bounds that rate below the target. Panels \textbf{a,b} show
 Carbon and panels \textbf{c,d} show GENERator.}
 \label{fig:detection}
 \end{figure*}
@@ -674,7 +701,11 @@ We evaluated the SynthID tournament watermark in Carbon-500M and GENERator-v2 1.
 shared prompt cohort and position-independent detector. For both models, the samplers agreed
 with their intended distributions at the tested states, the declared quality proxies showed no
 statistically detectable loss, and every held-out marked read was detected in the unedited and
-tested single-base edit conditions. The methodological contribution is a shared watermarking and
+tested single-base edit conditions. A scaled, independently frozen control cohort subsequently
+bounded the operational false-positive rate below the declared 1\% target, and a full-cohort
+edit-rate measurement located where non-adaptive editing finally defeats the verifier: full
+recovery through a 2\% per-base rate on Carbon and a 1\% rate on GENERator, and collapse by
+10\%. The methodological contribution is a shared watermarking and
 detection procedure that accounts for uncertainty in strand orientation, start position, and
 window length at the read level.
 
@@ -701,10 +732,11 @@ the edit. The increased selection of shorter windows is consistent with the veri
 regions whose alignment remains usable in both Carbon-500M and GENERator-v2 1.2B. Exhaustive
 search over starting bases also permits recovery of the original alignment downstream of an
 edit. The strongest window does not identify the exact generation boundaries. This
-interpretation accounts for the observed single-edit results but provides no general guarantee
-against more extensive modification. Theoretical work on watermark removal further emphasizes
+interpretation accounts for the observed single-edit results, and the full-cohort measurement
+extends it to far heavier non-adaptive damage, but neither provides a guarantee against an editor
+that chooses where to cut. Theoretical work on watermark removal further emphasizes
 that robustness depends on the permitted adversarial capabilities \cite{zhang2024sand}. Here,
-each read received exactly one randomly specified edit, without access to the verifier's score.
+every edit was specified at random, without access to the verifier's score.
 
 The alignment problem is related to synchronization errors in coding theory. Synchronization
 strings explicitly encode indexing information to support recovery from insertions and deletions
@@ -749,38 +781,65 @@ evaluation used one execution per model on a shared prompt cohort. Both models u
 tokens; single-base or variable-length tokenization would present different alignment
 requirements. The shared cohort limits extrapolation to other genomic sources, and longer reads
 would increase the search correction. Generation ran on GPUs and detection on x86-64 CPUs,
-without independent replication across computing platforms. For Carbon, the retained protocol
-document differs from the hash recorded in the detection result. This unresolved provenance
-discrepancy limits verification of that execution. We were unable to determine which revision of
-the protocol document the recorded hash corresponds to. The parameters that document governs are
-the cohort identity, the prompt split rule, the four window lengths, both orientations, the
-declared false-positive target, and the tournament and context settings; all of these are
-independently recorded in the result artifact's own configuration and command fields and agree
-with the reported analysis, but the document-level chain for this execution cannot be closed,
-and we report it as an unresolved provenance gap rather than a resolved one.
+without independent replication across computing platforms for the primary 192-prompt cohort. A
+second, independently documented execution environment and a second, larger, independently
+frozen prompt cohort (1{,}608 prompts) were subsequently used for the false-positive-rate,
+timing, and conservatism measurements reported above; the headline detection and quality numbers
+in Table~\ref{tab:detection} and Figures~\ref{fig:quality}--\ref{fig:edits} still come from the
+original single-execution cohort. For Carbon, the retained protocol document does not match the
+hash recorded in the detection result. A subsequent audit characterized this discrepancy: the
+document governs the cohort identity, the prompt split rule, the four window lengths, both
+orientations, the declared false-positive target, and the tournament and context settings, and
+each of these is independently recorded in the result artifact's own configuration and command
+fields and agrees with the reported analysis. The discrepancy is therefore confined to the
+document's text and does not affect the generative distribution or the detection statistic. We
+nonetheless treat the execution as unverified at the document level, because the original
+protocol document bytes remain unavailable.
 
-The robustness evaluation covers exactly one non-adaptive substitution, insertion, or deletion
-per read, an edit rate near 0.03\%, and this is a declared scope boundary rather than an
-incidental limit. The design makes the consequence of raising that rate explicit. Detection
-requires a contiguous region whose six-mer alignment survives across one of the evaluated
-windows, the shortest of which spans 384 bases. Independent indels arriving at rate
-$r$ leave expected clean stretches of about $1/r$ bases, so at $r = 0.1\%$ the expected clean
-stretch is near 1{,}000 bases and detection should often remain possible, whereas at an illustrative $r = 1\%$ the expected clean stretch falls near 100 bases, below our shortest window, and the verifier should fail. Substitutions are
-milder than indels in this respect: a substitution corrupts the tokens overlapping it without
-shifting the frame, whereas a single indel shifts every downstream token. We therefore claim
-provenance detection only in the single-edit regime, and we identify the search geometry, not
-the watermark strength, as the binding constraint at higher rates. This clean-stretch argument
-is an order-of-magnitude consequence of the search geometry, not a measurement. Establishing
-the empirical breakdown point requires a shorter-window search with a correspondingly larger
-correction, which is outside this study's declared threat model and is the most useful direction
-for the next one.
+The robustness evaluation's primary, fully controlled condition covers exactly one non-adaptive
+substitution, insertion, or deletion per read, an edit rate near 0.03\%, evaluated with matched
+ordinary and wrong-key controls over 384 held-out reads per model; this is a declared scope
+boundary rather than an incidental limit. Detection requires a contiguous region whose six-mer
+alignment survives across one of the evaluated windows, the shortest of which spans 384 bases.
+Substitutions are milder than indels in this respect: a substitution corrupts the tokens
+overlapping it without shifting the frame, whereas a single indel shifts every downstream token.
 
-The observed control counts are compatible with the 1\% target but do not establish an
-operational false-positive rate below it. With 192 independent prompts, the 95\% interval
-reaches 2.87\% for one positive prompt; the upper bound for zero positives is 1.90\%. We did not
-scale the cohort for this version; precise estimation near a 1\% target requires roughly an
-order of magnitude more independent prompts, which we identify as required future work rather
-than a resolved question.
+A separate, subsequently authorized full-cohort measurement (\texttt{synthid.v3.*}; author
+sign-off recorded in
+\path{docs/research/threat_model_edit_rate_v3_admission_2026_09_29.md}) tested correct-key
+detection under independent, non-adaptive public-replay edits at per-base rates from 0.03\% to
+10\%, as substitutions, mixed indels, and direction-pure insertions and deletions, over the same
+1{,}544-prompt cohort, on both models. Correct-key detection recovered every read for all four
+edit kinds through a 2\% per-base rate on Carbon and a 1\% rate on GENERator; at 2\% GENERator
+still recovered every read under substitution and under direction-pure insertion and deletion,
+and missed one read in 3{,}088 under mixed indels. Detection fell to roughly 93\% for indels at
+5\%, where substitutions recovered every Carbon read and all but one GENERator read, and
+collapsed by 10\%; the corresponding ordinary-output null stayed at or below the 1\% target
+throughout, so the channel manufactures no structure. This falsifies our original,
+order-of-magnitude clean-stretch prediction of failure near a 1\% rate ($1/r$ expected
+clean-stretch length against a 384-base window). The relative cost of the two edit kinds is what
+frame-shift reasoning predicts---at the lowest tested rate the median correct-key sequence
+log $P$-value is $-994.67$ after one indel against $-1778.65$ after one substitution---but the
+heuristic omitted the size of the surplus the clean statistic begins with, which absorbs far more
+damage than it implied before any decision changes. This
+measurement used correct-key detection and the ordinary-output null only, not the matched
+wrong-key and full false-positive-rate battery used for the primary 384-read evaluation above, so
+it is a coarser, confirmatory characterization rather than a like-for-like replacement for it. The
+edit channel throughout is a non-adaptive public replay that never inspects the detector, the
+key, or any score; it is not an adversarial-robustness result, and the declared threat model is
+widened only to that non-adaptive regime, not beyond it (\path{docs/threat_model.md}). Detection
+under an adaptive, detector-guided editor remains outside this study's declared threat model and
+is the most useful direction for the next one.
+
+The observed control counts in the primary 192-prompt cohort are compatible with the 1\% target
+but do not by themselves establish an operational false-positive rate below it: the 95\%
+interval reaches 2.87\% for one positive prompt, and the upper bound for zero positives is
+1.90\%. A subsequent, independently frozen 1{,}608-prompt cohort (Section~\ref{sec:results})
+tightened the bound to at most 0.8499\% across both models and all four primary conditions,
+which we read as bounding the operational rate near the declared target rather than merely being
+consistent with it; one secondary wrong-key cell (Carbon, deletion) exceeded 1\% at an observed
+1.0150\%, reported separately since wrong-key decisions are not the declared operational
+quantity.
 
 Finally, the experiments use published keys for reproducibility and therefore do not evaluate
 secrecy, resistance to key recovery, or adversarial removal in deployment. The analytic null
@@ -812,8 +871,10 @@ model-likelihood and sequence-quality proxies for Carbon-500M or GENERator-v2 1.
 read-level correction over both strands, every starting base, and four window lengths, the
 position-independent verifier detected all 384 held-out marked reads per model, unedited and
 after each tested single-base substitution, insertion, or deletion. Control counts were
-compatible with the declared false-positive target, but 192 independent prompts limit precision
-near 1\%. In both models, strongest-window distributions are consistent with the search
+compatible with the declared false-positive target in the primary cohort, and a subsequently
+scaled, independently frozen 1{,}608-prompt cohort tightened the one-sided 95\% upper bound on
+the operational false-positive rate to at most 0.8499\% across both models and all four primary
+conditions. In both models, strongest-window distributions are consistent with the search
 selecting regions with preserved or recovered token alignment after insertions and deletions.
 These findings support statistical provenance detection within the evaluated scope. Broader
 conclusions require independent replication, wider sequence coverage, and biological validation.

@@ -92,3 +92,27 @@ Nothing here concerns biological function, viability, or key secrecy.
 | `scripts/hpc/synthid_v3_edit_rate.sbatch` | source manifest | batch wrapper |
 | `src/genomic_watermarks/synthid_boundary.py` | source manifest | edit channel |
 | `tests/test_multi_base_edit.py` | — | 10 tests; full suite 126 passing |
+
+## Correction, 2026-09-29 (Lane 3 reconciliation)
+
+The summary line above — "Full-detection ceiling: a 2% per-base rate for both models and all four
+kinds" — is wrong for GENERator and is superseded by the ledger entries this document's own
+artifacts produced. GENERator's mixed-indel cell at a 2% per-base rate detects 3,087 of 3,088
+reads (0.9996761658), so its full-detection ceiling is **1%**, not 2%; Carbon's is 2%. The ledger
+records this correctly and always did:
+`synthid.v3.carbon.detector.edit_rate_full_detection_ceiling` = 0.02,
+`synthid.v3.generator.detector.edit_rate_full_detection_ceiling` = 0.01. At 2% GENERator still
+recovers every read under substitution and under direction-pure insertion and deletion. At 5%,
+substitutions recover every Carbon read but all but one GENERator read.
+
+No result file, artifact, digest or evidence identity is changed by this note. The error was
+confined to this document's prose summary, and it propagated from here into `docs/threat_model.md`,
+`paper/context/evidence_map.md`, `paper/manuscript/source/main.tex` and the OpenReview rebuttal
+draft before being caught; all four were corrected on 2026-09-29. See
+`paper/reviews/2026-09-29_lane3_reconciliation.md`, CONF-13.
+
+The "roughly seventeen times" per-event indel cost and the "about 290 times" clean-statistic margin
+stated above are derived from the 96-prompt pilot's clean baseline, which is not in
+`evidence/measurements.yaml`. They were removed from the manuscript on 2026-09-29 under the rule
+that every manuscript number resolves to the ledger. They remain valid as execution-record
+reasoning and are unaffected here.

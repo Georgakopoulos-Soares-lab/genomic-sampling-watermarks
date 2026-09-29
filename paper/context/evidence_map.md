@@ -124,6 +124,46 @@ Figure 3b plots the prompt-level rate. Its point estimates are the ledger fields
 - The detection result's protocol-file hash mismatch is disclosed in
   `docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`.
 
+## Version-two and version-three confirmatory evidence (2026-09-29 reconciliation)
+
+Lane 1 (`2026-09-21_lane1_hpc_runs.md`) reported 45 results in its delta packet
+(`evidence/derived/2026-09-21_results_delta.json`) after the version-one manuscript numbers above
+were already admitted. Forty of those are ledger entries — 35 under `synthid.v2.*` and 5 under
+`synthid.v3.*`; the remaining five are accounted for below. Lane 3 reconciled the manuscript
+against them on 2026-09-29; these rows are the ones the revised `main.tex` now cites, by number
+rather than by literal identifier (as with every v1 entry above).
+
+| Manuscript claim | Evidence identifier | Reviewed value |
+|---|---|---:|
+| Scaled cohort identity | `synthid.v2.cohort.identity` | 1,608 prompts; 1,544 evaluation |
+| Correct-key detection, scaled cohort, both models, all 4 conditions | the 8 `synthid.v2.{carbon,generator}.detector.*.correct_key_rate` entries | 3,088/3,088 in every cell |
+| Largest primary-family (ordinary-control) one-sided 95% upper bound | `synthid.v2.detector.fpr_upper_bound` | 0.8499% (GENERator, deletion) |
+| Secondary wrong-key cell exceeding 1% | `synthid.v2.carbon.detector.deletion_1nt.wrong_key_rate` | observed one-sided upper 1.0150% |
+| Carbon protocol-hash discrepancy, resolved verdict | `synthid.v2.carbon.provenance.audit` | `confined_to_document_text` |
+| Detector search cost, measured | `synthid.v2.detector.search_seconds_per_read`, `synthid.v2.detector.peak_memory_mib` | 0.0956 s/read at N=3,456; 27.9 MiB |
+| Bonferroni conservatism, measured | `synthid.v2.detector.empirical_familywise_rate`, `synthid.v2.detector.effective_independent_windows` | 0.105%/0.186% fired vs 1% target; M_eff ≈ 830–850 vs 16,136 |
+| Full-cohort edit-rate ceiling, Carbon | `synthid.v3.carbon.detector.edit_rate_full_detection_ceiling` | full detection through 2%/base, collapse by 10% |
+| Full-cohort edit-rate ceiling, GENERator | `synthid.v3.generator.detector.edit_rate_full_detection_ceiling` | full detection through 1%/base (3,087/3,088 indels at 2%), collapse by 10% |
+| Full-cohort edit-rate null check | `synthid.v3.{carbon,generator}.detector.edit_rate_null_rate` | ≤0.15% pooled, at or below the 1% target throughout |
+
+The `synthid.v3.*` entries are admitted under the sign-off recorded in
+`docs/research/threat_model_edit_rate_v3_admission_2026_09_29.md` (see also
+`paper/reviews/2026-09-29_lane3_reconciliation.md`, CONF-01).
+
+Five delta-packet results are deliberately not ledger entries and are cited by no manuscript
+sentence. Four are the superseded 96-prompt edit-rate pilot (`synthid.pilot.*`, outcome
+`inconclusive`), replaced in full by the `synthid.v3.*` cohort above; the pilot's execution record
+is retained at `docs/research/synthid_edit_rate_pilot_execution_2026_09_24.md`. The fifth pair of
+delta rows, `synthid.v2.{carbon,generator}.figures.detection_rebuilt`, records that both models'
+figure sets were regenerated with the corrected drift labels and that every previously plotted
+numeric value is unchanged; it is a regeneration receipt against
+`paper/figures/figure_values.json`, carries no measured quantity, and so states no claim requiring
+a ledger identity.
+
+The cross-model strength-gap entries (`synthid.v2.strength_gap.*`) are ledger entries but remain
+`inconclusive`, and are intentionally not cited by number in the manuscript, matching the inconclusive branch already
+in §4.3.
+
 ## Writing boundaries
 
 The manuscript may say that no measurable quality loss was found in either model and that every
@@ -138,15 +178,23 @@ Claims that rest on one model only must name that model. The aligned-detector or
 specific to GENERator. Figures 2--4 display Carbon in panels \textbf{a,b} and GENERator in panels
   extbf{c,d}; Figure 1 is illustrative except for its reported search count.
 
-Two execution gates remain open and are now disclosed in the manuscript's Limitations section rather
-than tracked only here, because the numbers they qualify are paper-bound under
-`docs/research/dual_model_v1_admission_amendment_2026_09_09.md`: generation ran on GPU hardware and
-detection on x86-64 CPUs without independent replication across platforms, and the protocol file recorded
-inside the Carbon detection result does not match the bytes of the retained protocol document (see
-`docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`). Neither is resolved. The
-manuscript also states the scope limit that follows: one execution per model on one shared corpus,
-whose confirmatory replication is outstanding. Replication in a documented execution environment remains the intended next step,
-and the gates must be closed before the result is described as settled rather than as executed once.
+Two execution gates were open for the version-one result and are disclosed in the manuscript's
+Limitations section rather than tracked only here, because the numbers they qualify are paper-bound
+under `docs/research/dual_model_v1_admission_amendment_2026_09_09.md`. Generation ran on GPU
+hardware and detection on x86-64 CPUs without independent replication across platforms **for the
+primary 192-prompt cohort**; a second, independently documented execution environment (TACC
+Lonestar6, A100 GPUs, Slurm) and a second, larger, independently frozen cohort (1,608 prompts) were
+subsequently used for the false-positive-rate, timing, and conservatism measurements in the section
+above, though the headline detection and quality numbers still come from the original
+single-execution cohort. The protocol file recorded inside the Carbon detection result does not
+match the bytes of the retained protocol document (see
+`docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`); this was **resolved**
+by `synthid.v2.carbon.provenance.audit` (2026-09-21): every parameter the document governs is
+independently recoverable from the result artifact and agrees with the reported analysis, so the
+discrepancy is confined to the document's text and does not affect the generative distribution or
+detection statistic. The manuscript still states the scope limit that follows from the primary
+result: one execution per model on one shared corpus for the headline numbers, whose confirmatory
+replication in a fully independent environment remains the intended next step.
 
 The 2026-09-11 editorial revision removes references to pinned model revisions and a prescribed
 replication machine from the manuscript at the user's request. Exact revisions and execution

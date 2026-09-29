@@ -115,22 +115,35 @@ is not in this repository.
 
 ## Open items
 
-- **T7 is not closed.** The submitted PDF's appendix figure (quality proxies) labels its axes
-  "1-mer shift from prompt", "2-mer shift from prompt", "3-mer shift from prompt", while §3.6 reads
-  "Jensen–Shannon drift". The text side is already correct in the repository. Relabelling the figure
-  axes is Lane 1 work under `scripts/make_paper_figures.py`; the manuscript must not be edited to
-  match a figure that still says "shift".
+- **2026-09-29 update.** A Lane 3 reconciliation pass
+  (`paper/reviews/2026-09-29_lane3_reconciliation.md`) landed Lane 1's
+  `synthid.v2.*`/`synthid.v3.*` measurements into `main.tex`, superseding the "Part C is on its
+  default branches" state below. A second pass the same day corrected the per-model edit-rate
+  ceiling and finished propagating the changed claims into the Abstract, Introduction and
+  Discussion. See that document's conflict ledger (§8, CONF-01 through CONF-23) for the full list
+  of what changed and why.
+- **T7 partially closed.** `scripts/make_paper_figures.py` now labels figure axes
+  "Jensen-Shannon drift" (matching the text side, which was already correct). One cosmetic gap
+  remains: the script uses a plain hyphen where the prose uses an en dash
+  ("Jensen–Shannon"); figures were not regenerated for this reconciliation pass because doing so
+  safely for Carbon requires artifacts (`outputs/carbon_synthid_e16_v1/`,
+  `outputs/carbon_synthid_position_independent_v1/`) that are not present on this machine. The
+  submitted PDF's separate appendix figure lineage still reads "shift"; that is the AD-5
+  mapping-table issue below, not an in-repository T7 miss.
 - **The ICLR source is not in the repository.** Whatever is submitted for the revision has to be
-  reconciled against this source. Either the ICLR version is regenerated from `main.tex` under the
-  conference template, or the two lineages continue to diverge. This pass changed only `main.tex`.
-- **Carbon has no committed detector-comparison artifact.** Only
-  `outputs/generator_synthid_e16_v1/detector_comparison.json` exists. The §4.3 selection sentence is
-  written from that artifact and from `scripts/compare_synthid_detectors.py`. If the Carbon
-  comparison produced a different outcome, the sentence is wrong for Carbon.
-- **Part C is on its default branches.** L2-17, L2-18, and L2-19 use the inconclusive and unresolved
-  branches, with no `\evtag` placeholders in the body, so the document is submission-clean as it
-  stands. The `\evtag` macro is defined in the preamble for Lane 3. If Lane 1 lands
-  `synthid.v2.*` numbers, the branch tables in the lane plan supply the replacements.
+  reconciled against this source. Authors chose (2026-09-29) to edit the repository version as-is
+  and accept that PAT's figure/section numbers will not match; the decision is recorded in
+  `paper/reviews/2026-09-29_lane3_reconciliation.md`, CONF-12, and the numbering any response must
+  use is stated in the header of `2026-09-21_openreview_rebuttal_draft.md`. Either the ICLR version is regenerated from
+  `main.tex` under the conference template, or the two lineages continue to diverge.
+- **Carbon has no committed detector-comparison artifact — now disclosed in-text.** Only
+  `outputs/generator_synthid_e16_v1/detector_comparison.json` exists. The §4.3 selection sentence
+  now says explicitly that the mean-score selection is independently verified for GENERator only,
+  and that the same summary is applied to Carbon without an equivalent committed comparison.
+- **Carbon v1 artifacts are absent from every checkout, not only stale.** `outputs/carbon_synthid_e16_v1/`
+  and `outputs/carbon_synthid_position_independent_v1/` were never committed and are not
+  gitignore-exempted, so `scripts/check_evidence.py` cannot pass on any machine that lacks them
+  locally. This predates Lane 1/2/3 and is tracked, not fixed, by this reconciliation.
 
 ## Declines recorded in the paper
 

@@ -372,6 +372,15 @@ without written author sign-off in this file.**
   recorded below. It does not cover a full-cohort `synthid.v3.*` run, which would need its own
   non-pilot protocol, nor any detector-guided or detector-query experiment, which `AGENTS.md`
   continues to forbid.
+- **2026-09-29 update:** the full-cohort `synthid.v3.*` run below (L1-07 pilot outcome section) was
+  in fact executed and admitted to the ledger without that separate, independent sign-off — the
+  only authorization recorded at the time was self-referential text inside the run's own protocol
+  and execution documents. A 2026-09-29 Lane 3 reconciliation review flagged this
+  (`paper/reviews/2026-09-29_lane3_reconciliation.md`, CONF-01) and the author has now recorded an independent
+  sign-off covering the full-cohort run in
+  `docs/research/threat_model_edit_rate_v3_admission_2026_09_29.md`, which also supplies the
+  previously-missing independent record of authorization for this document's own
+  `docs/threat_model.md` write-boundary crossing (CONF-09).
 
 ---
 
