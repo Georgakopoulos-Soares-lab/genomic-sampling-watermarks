@@ -1,0 +1,310 @@
+\begin{thebibliography}{10}
+
+\bibitem{aaronson2022watermark}
+Scott Aaronson and Hendrik Kirchner.
+\newblock Watermarking {GPT} outputs.
+\newblock Talk slides, 2022.
+\newblock \url{https://www.scottaaronson.com/talks/watermark.ppt}.
+
+\bibitem{arita2004secret}
+Masanori Arita and Yoshiaki Ohashi.
+\newblock Secret signatures inside genomic {DNA}.
+\newblock {\em Biotechnology Progress}, 20(5):1605--1607, 2004.
+
+\bibitem{baker2024protein}
+David Baker and George Church.
+\newblock Protein design meets biosecurity.
+\newblock {\em Science}, 383(6681):349, 2024.
+\newblock Editorial.
+
+\bibitem{carbon2026}
+Loubna Ben~Allal, Qiuyi Li, Maurizio Fiusco, Lewis Tunstall, Kashif Rasul,
+  Ed~Beeching, Dana Aubakirova, Carlos Pati{\~n}o, Thibaud Frere, Anton
+  Lozhkov, Georgia Channing, Thomas Wolf, Diego di~Bernardo, and Leandro von
+  Werra.
+\newblock {Carbon}: Decoding the language of life.
+\newblock {\em bioRxiv}, 2026.
+\newblock Preprint, version 1, posted 25 May 2026,
+  doi:10.64898/2026.05.22.727119.
+
+\bibitem{chen2025protein}
+Yanshuo Chen, Zhengmian Hu, Yihan Wu, Ruibo Chen, Yongrui Jin, Marcus Zhan,
+  Chengjin Xie, Wei Chen, and Heng Huang.
+\newblock Enhancing privacy in biosecurity with watermarked protein design.
+\newblock {\em Bioinformatics}, 41(7):btaf141, 2025.
+
+\bibitem{christ2024prc}
+Miranda Christ and Sam Gunn.
+\newblock Pseudorandom error-correcting codes.
+\newblock In {\em Advances in Cryptology --- CRYPTO 2024}, Lecture Notes in
+  Computer Science, pages 325--347. Springer, 2024.
+\newblock IACR ePrint 2024/235.
+
+\bibitem{christ2024undetectable}
+Miranda Christ, Sam Gunn, and Or~Zamir.
+\newblock Undetectable watermarks for language models.
+\newblock In {\em Proceedings of the 37th Annual Conference on Learning Theory
+  (COLT)}, volume 247 of {\em PMLR}, pages 1125--1139, 2024.
+\newblock arXiv:2306.09194.
+
+\bibitem{dallatorre2025nucleotide}
+Hugo Dalla-Torre, Liam Gonzalez, Javier Mendoza-Revilla, Nicolas
+  Lopez~Carranza, Adam~Henryk Grzywaczewski, Francesco Oteri, Christian
+  Dallago, Evan Trop, Bernardo~P. de~Almeida, et~al.
+\newblock {Nucleotide Transformer}: building and evaluating robust foundation
+  models for human genomics.
+\newblock {\em Nature Methods}, 22(2):287--297, 2025.
+
+\bibitem{dathathri2024scalable}
+Sumanth Dathathri, Abigail See, Sumedh Ghaisas, Po-Sen Huang, Rob McAdam,
+  Johannes Welbl, Vandana Bachani, Alex Kaskasoli, Robert Stanforth, Tatiana
+  Matejovicova, Jamie Hayes, Nidhi Vyas, Majd Al~Merey, Jonah Brown-Cohen, Rudy
+  Bunel, Borja Balle, Taylan Cemgil, Zahra Ahmed, Kitty Stacpoole, Ilia
+  Shumailov, Ciprian Baetu, Sven Gowal, Demis Hassabis, and Pushmeet Kohli.
+\newblock Scalable watermarking for identifying large language model outputs.
+\newblock {\em Nature}, 634(8035):818--823, 2024.
+
+\bibitem{davey2001reliable}
+Matthew~C. Davey and David J.~C. MacKay.
+\newblock Reliable communication over channels with insertions, deletions, and
+  substitutions.
+\newblock {\em IEEE Transactions on Information Theory}, 47(2):687--698, 2001.
+
+\bibitem{diaa2025adaptive}
+Abdulrahman Diaa, Toluwani Aremu, and Nils Lukas.
+\newblock Optimizing adaptive attacks against watermarks for language models.
+\newblock In {\em Proceedings of the 42nd International Conference on Machine
+  Learning (ICML)}, volume 267 of {\em PMLR}, pages 13546--13569, 2025.
+
+\bibitem{generatorv2checkpoint}
+{GenerTeam}.
+\newblock {GENERator-v2-eukaryote-1.2b-base} model card and released modeling
+  code.
+\newblock
+  \url{https://huggingface.co/GenerTeam/GENERator-v2-eukaryote-1.2b-base},
+  2026.
+
+\bibitem{gibson2010creation}
+Daniel~G. Gibson, John~I. Glass, Carole Lartigue, Vladimir~N. Noskov, Ray-Yuan
+  Chuang, Mikkel~A. Algire, Gwynedd~A. Benders, Michael~G. Montague, Li~Ma,
+  et~al.
+\newblock Creation of a bacterial cell controlled by a chemically synthesized
+  genome.
+\newblock {\em Science}, 329(5987):52--56, 2010.
+
+\bibitem{golowich2024edit}
+Noah Golowich and Ankur Moitra.
+\newblock Edit distance robust watermarks via indexing pseudorandom codes.
+\newblock In {\em Advances in Neural Information Processing Systems 37
+  (NeurIPS)}, volume~37, pages 20645--20693. Curran Associates, Inc., 2024.
+\newblock arXiv:2406.02633.
+
+\bibitem{synthidtextcode}
+{Google DeepMind}.
+\newblock {SynthID-Text} reference implementation.
+\newblock \url{https://github.com/google-deepmind/synthid-text}, 2024.
+\newblock Commit addb4a15, 13 June 2025.
+
+\bibitem{haeupler2017synchronization}
+Bernhard Haeupler and Amirbehshad Shahrasbi.
+\newblock Synchronization strings: Codes for insertions and deletions
+  approaching the {Singleton} bound.
+\newblock In {\em Proceedings of the 49th Annual ACM SIGACT Symposium on Theory
+  of Computing (STOC)}, pages 33--46, 2017.
+
+\bibitem{han2025synthid}
+Xia Han, Qi~Li, Jianbing Ni, and Mohammad Zulkernine.
+\newblock Robustness assessment and enhancement of text watermarking for
+  {Google's} {SynthID}, 2025.
+\newblock arXiv:2508.20228; accepted at IEEE TrustCom 2025.
+
+\bibitem{heider2007dna}
+Dominik Heider and Angelika Barnekow.
+\newblock {DNA}-based watermarks using the {DNA-Crypt} algorithm.
+\newblock {\em BMC Bioinformatics}, 8:176, 2007.
+
+\bibitem{hou2024semstamp}
+Abe Hou, Jingyu Zhang, Tianxing He, Yichen Wang, Yung-Sung Chuang, Hongwei
+  Wang, Lingfeng Shen, Benjamin Van~Durme, Daniel Khashabi, and Yulia Tsvetkov.
+\newblock {SemStamp}: A semantic watermark with paraphrastic robustness for
+  text generation.
+\newblock In {\em Proceedings of the 2024 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies (Volume 1: Long Papers)}, pages 4067--4082. Association for
+  Computational Linguistics, 2024.
+
+\bibitem{hu2024unbiased}
+Zhengmian Hu, Lichang Chen, Xidong Wu, Yihan Wu, Hongyang Zhang, and Heng
+  Huang.
+\newblock Unbiased watermark for large language models.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2024.
+\newblock arXiv:2310.10669.
+
+\bibitem{carbon500m}
+{HuggingFaceBio}.
+\newblock {Carbon-500M} model card.
+\newblock \url{https://huggingface.co/HuggingFaceBio/Carbon-500M}, 2026.
+
+\bibitem{jovanovic2024stealing}
+Nikola Jovanovi{\'c}, Robin Staab, and Martin Vechev.
+\newblock Watermark stealing in large language models.
+\newblock In {\em Proceedings of the 41st International Conference on Machine
+  Learning (ICML)}, volume 235 of {\em PMLR}, pages 22570--22593, 2024.
+\newblock arXiv:2402.19361.
+
+\bibitem{king2026bacteriophages}
+Samuel~H. King, Claudia~L. Driscoll, David~B. Li, Daniel Guo, Aditi~T.
+  Merchant, Garyk Brixi, Max~E. Wilkinson, and Brian~L. Hie.
+\newblock Generative design of bacteriophages with genome language models.
+\newblock {\em Science}, 393(6811):eaec2657, 2026.
+\newblock PMID: 42561074.
+
+\bibitem{kirchenbauer2023watermark}
+John Kirchenbauer, Jonas Geiping, Yuxin Wen, Jonathan Katz, Ian Miers, and Tom
+  Goldstein.
+\newblock A watermark for large language models.
+\newblock In {\em Proceedings of the 40th International Conference on Machine
+  Learning (ICML)}, volume 202 of {\em PMLR}, pages 17061--17084, 2023.
+\newblock arXiv:2301.10226.
+
+\bibitem{kirchenbauer2024reliability}
+John Kirchenbauer, Jonas Geiping, Yuxin Wen, Manli Shu, Khalid Saifullah, Kezhi
+  Kong, Kasun Fernando, Aniruddha Saha, Micah Goldblum, and Tom Goldstein.
+\newblock On the reliability of watermarks for large language models.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2024.
+\newblock arXiv:2306.04634.
+
+\bibitem{kuditipudi2024robust}
+Rohith Kuditipudi, John Thickstun, Tatsunori Hashimoto, and Percy Liang.
+\newblock Robust distortion-free watermarks for language models.
+\newblock {\em Transactions on Machine Learning Research}, 2024.
+\newblock arXiv:2307.15593.
+
+\bibitem{generatorv22026}
+Qiuyi Li, Zhihao Zhan, Shikun Feng, Yiheng Zhu, Yuan He, Wei Wu, Zhenghang Shi,
+  Shengjie Wang, Zongyong Hu, Zhao Yang, Jiaoyang Li, Jian Tang, Haiguang Liu,
+  and Tao Qin.
+\newblock {GENERator-v2}: Reconciling coarse tokenization with
+  single-nucleotide resolution in genomic language modeling.
+\newblock {\em bioRxiv}, 2026.
+\newblock Preprint, version 2, posted 4 May 2026,
+  doi:10.64898/2026.01.27.702015.
+
+\bibitem{liss2012watermarks}
+Michael Liss, Daniela Daubert, Kathrin Brunner, Kristina Kliche, Ulrich Hammes,
+  Andreas Leiherer, and Ralf Wagner.
+\newblock Embedding permanent watermarks in synthetic genes.
+\newblock {\em PLoS ONE}, 7(8):e42465, 2012.
+
+\bibitem{liu2024genbench}
+Zicheng Liu, Jiahui Li, Siyuan Li, Zelin Zang, Cheng Tan, Yufei Huang, Yajing
+  Bai, and Stan~Z. Li.
+\newblock {GenBench}: A benchmarking suite for systematic evaluation of genomic
+  foundation models, 2024.
+\newblock arXiv:2406.01627.
+
+\bibitem{marin2024bend}
+Frederikke~Isa Marin, Felix Teufel, Marc Horlacher, Dennis Madsen, Dennis
+  Pultz, Ole Winther, and Wouter Boomsma.
+\newblock {BEND}: Benchmarking {DNA} language models on biologically meaningful
+  tasks.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2024.
+\newblock arXiv:2311.12570.
+
+\bibitem{nguyen2024evo}
+Eric Nguyen, Michael Poli, Matthew~G. Durrant, Brian Kang, Dhruva Katrekar,
+  David~B. Li, Liam~J. Bartie, Armin~W. Thomas, Samuel~H. King, Garyk Brixi,
+  et~al.
+\newblock Sequence modeling and design from molecular to genome scale with
+  {Evo}.
+\newblock {\em Science}, 386(6723):eado9336, 2024.
+
+\bibitem{nguyen2023hyenadna}
+Eric Nguyen, Michael Poli, Marjan Faizi, Armin Thomas, Michael Wornow, Callum
+  Birch-Sykes, Stefano Massaroli, Aman Patel, Clayton Rabideau, Yoshua Bengio,
+  Stefano Ermon, Christopher R{\'e}, and Stephen Baccus.
+\newblock {HyenaDNA}: Long-range genomic sequence modeling at single nucleotide
+  resolution.
+\newblock In {\em Advances in Neural Information Processing Systems 36
+  (NeurIPS)}, pages 43177--43201, 2023.
+\newblock arXiv:2306.15794.
+
+\bibitem{omidi2026synthid}
+Romina Omidi, Yun Dong, and Binghui Wang.
+\newblock On {Google's} {SynthID-Text} {LLM} watermarking system: Theoretical
+  analysis and empirical validation, 2026.
+\newblock arXiv:2603.03410.
+
+\bibitem{patel2024darteval}
+Aman Patel, Arpita Singhal, Austin Wang, Anusri Pampari, Maya Kasowski, and
+  Anshul Kundaje.
+\newblock {DART-Eval}: A comprehensive {DNA} language model evaluation
+  benchmark on regulatory {DNA}.
+\newblock In {\em Advances in Neural Information Processing Systems 37:
+  Datasets and Benchmarks Track}, volume~37, pages 62024--62061, 2024.
+\newblock arXiv:2412.05430.
+
+\bibitem{reynolds2025breaking}
+Shayleen Reynolds, Hengzhi He, Dung Daniel~T. Ngo, Saheed Obitayo, Niccol{\`o}
+  Dalmasso, Guang Cheng, Vamsi~K. Potluru, and Manuela Veloso.
+\newblock Breaking distortion-free watermarks in large language models, 2025.
+
+\bibitem{sadasivan2025reliably}
+Vinu~Sankar Sadasivan, Aounon Kumar, Sriram Balasubramanian, Wenxiao Wang, and
+  Soheil Feizi.
+\newblock Can {AI}-generated text be reliably detected? stress testing {AI}
+  text detectors under various attacks.
+\newblock {\em Transactions on Machine Learning Research}, 2025.
+
+\bibitem{schiff2024caduceus}
+Yair Schiff, Chia-Hsiang Kao, Aaron Gokaslan, Tri Dao, Albert Gu, and Volodymyr
+  Kuleshov.
+\newblock {Caduceus}: Bi-directional equivariant long-range {DNA} sequence
+  modeling.
+\newblock In {\em Proceedings of the 41st International Conference on Machine
+  Learning (ICML)}, volume 235 of {\em PMLR}, pages 43632--43648, 2024.
+\newblock arXiv:2403.03234.
+
+\bibitem{wu2025generator}
+Wei Wu, Qiuyi Li, Yuanyuan Zhang, Zhihao Zhan, Ruipu Chen, Mingyang Li, Kun Fu,
+  Junyan Qi, Yongzhou Bao, Chao Wang, et~al.
+\newblock {GENERator}: A long-context generative genomic foundation model.
+\newblock {\em arXiv preprint arXiv:2502.07272}, 2025.
+\newblock Version 5, 31 January 2026.
+
+\bibitem{wu2024dipmark}
+Yihan Wu, Zhengmian Hu, Junfeng Guo, Hongyang Zhang, and Heng Huang.
+\newblock A resilient and accessible distribution-preserving watermark for
+  large language models.
+\newblock In {\em Proceedings of the 41st International Conference on Machine
+  Learning (ICML)}, volume 235 of {\em PMLR}, pages 53443--53470, 2024.
+\newblock arXiv:2310.07710.
+
+\bibitem{zhang2024sand}
+Hanlin Zhang, Benjamin~L. Edelman, Danilo Francati, Daniele Venturi, Giuseppe
+  Ateniese, and Boaz Barak.
+\newblock Watermarks in the sand: Impossibility of strong watermarking for
+  language models.
+\newblock In {\em Proceedings of the 41st International Conference on Machine
+  Learning (ICML)}, volume 235 of {\em PMLR}, pages 58851--58880, 2024.
+\newblock arXiv:2311.04378.
+
+\bibitem{zhang2025securing}
+Zaixi Zhang, Ruofan Jin, Le~Cong, and Mengdi Wang.
+\newblock Securing the language of life: Inheritable watermarks from {DNA}
+  language models to proteins.
+\newblock In {\em Advances in Neural Information Processing Systems 38
+  (NeurIPS)}, volume~38, pages 152050--152080, 2025.
+\newblock arXiv:2509.18207.
+
+\bibitem{zhao2024provable}
+Xuandong Zhao, Prabhanjan Ananth, Lei Li, and Yu-Xiang Wang.
+\newblock Provable robust watermarking for {AI}-generated text.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2024.
+\newblock arXiv:2306.17439.
+
+\end{thebibliography}
