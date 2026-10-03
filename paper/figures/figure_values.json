@@ -2,9 +2,9 @@
   "figures": {
     "fig1_method": {
       "pdf": "paper/figures/fig1_method.pdf",
-      "pdf_sha256": "f6b3dff9a2be169710742a50c702915185bae5cf4f0de3028ba07966b8b04cb1",
+      "pdf_sha256": "50afd8868cd633a332f95677189fc6bb2d7a420db59fa84bf8e60b0ef09add06",
       "png": "paper/figures/fig1_method.png",
-      "png_sha256": "30542c9feab823e92f4c67e6ce87b8968fce74dbde4cab10b4afb9d09b457dee",
+      "png_sha256": "6483a7b404c92e185bcd1600858b2054681e9518c252fc395e3f09afa3dfc659",
       "values": {
         "illustrative_mark_bits": [
           1,

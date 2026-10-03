@@ -44,7 +44,9 @@ Read `paper/AGENTS.md` before editing manuscript material.
 - State clearly that SynthID preservation is an expectation over fresh keyed functions; a fixed key
   and context use a deliberately reweighted distribution.
 - Do not infer biological function, viability, or safety from sequence statistics or model likelihood.
-- Do not reintroduce removed watermark methods or multiple-edit and detector-guided attack studies.
+- Do not reintroduce removed watermark methods or add detector-guided attack studies. The only
+  multiple-edit study in scope is the non-adaptive edit-rate series admitted by
+  `docs/research/threat_model_edit_rate_v3_admission_2026_09_29.md`; do not add others.
 
 ## Engineering conventions
 

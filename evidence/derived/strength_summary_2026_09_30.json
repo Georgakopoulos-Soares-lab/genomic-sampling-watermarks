@@ -1,0 +1,123 @@
+{
+  "analysis_id": "strength_summary_2026_09_30",
+  "data": {
+    "edit_rate_model_agreement": {
+      "at": {
+        "edit_kind": "substitution",
+        "edit_rate": 0.1
+      },
+      "cells_compared": 28,
+      "maximum_absolute_difference": 0.009715025906735758
+    },
+    "limits": [
+      "Strength is the uncorrected local strength of each read's winning window.",
+      "The two draws per prompt are paired; medians and extremes are descriptive.",
+      "The edit-rate comparison covers correct-key detection only, over 28 cells."
+    ],
+    "primary_cohort_clean_correct_key": {
+      "carbon": {
+        "median": 790.6151014720618,
+        "median_mark_bit_positive_fraction": 0.739238845144357,
+        "minimum": 124.77747726900617,
+        "reads": 384
+      },
+      "generator": {
+        "median": 798.7803059254855,
+        "median_mark_bit_positive_fraction": 0.7402887139107611,
+        "minimum": 19.614793673583744,
+        "reads": 384
+      }
+    },
+    "second_cohort_correct_key": {
+      "carbon": {
+        "clean": {
+          "maximum": 911.3128330814155,
+          "median": 792.8784062488764,
+          "minimum": 237.6304639955447,
+          "reads": 3088
+        },
+        "deletion_1nt": {
+          "maximum": 842.6731747726723,
+          "median": 437.65521469900455,
+          "minimum": 159.6614551815941,
+          "reads": 3088
+        },
+        "insertion_1nt": {
+          "maximum": 845.9608679274719,
+          "median": 441.79752830629127,
+          "minimum": 192.2000837224597,
+          "reads": 3088
+        },
+        "substitution_1nt": {
+          "maximum": 893.2533710321386,
+          "median": 777.5606752603187,
+          "minimum": 231.29533050019546,
+          "reads": 3088
+        }
+      },
+      "generator": {
+        "clean": {
+          "maximum": 885.5089866600564,
+          "median": 799.6905117917436,
+          "minimum": 123.7749986049241,
+          "reads": 3088
+        },
+        "deletion_1nt": {
+          "maximum": 830.061098230913,
+          "median": 438.52458195165224,
+          "minimum": 85.59741561877738,
+          "reads": 3088
+        },
+        "insertion_1nt": {
+          "maximum": 851.6141019707028,
+          "median": 443.1103726523684,
+          "minimum": 112.17255060737887,
+          "reads": 3088
+        },
+        "substitution_1nt": {
+          "maximum": 864.4134731408175,
+          "median": 783.8473361859766,
+          "minimum": 121.48003321923402,
+          "reads": 3088
+        }
+      }
+    }
+  },
+  "detection_rerun": false,
+  "generation_rerun": false,
+  "provenance": {
+    "code_sha256": {
+      "scripts/derive_strength_summary.py": "a312b2d835d249078e60be4fdbc1f64b6a55e1e45867f79fc679feeb299e95bf"
+    },
+    "command": "python3 scripts/derive_strength_summary.py",
+    "device": "cpu",
+    "git_base_revision": "647de7b0181ff0de217484d1af25ffe30b17920f",
+    "machine": "x86_64",
+    "python": "3.14.2",
+    "system": "Linux"
+  },
+  "schema_version": 1,
+  "sources": {
+    "carbon_edit_rate": {
+      "path": "evidence/derived/edit_rate_v3_carbon_2026_09_24.json",
+      "sha256": "25c90fe505ef1118e2ba01c3a3337b37b7f07f5b1bc67d6a8e05881780806808"
+    },
+    "carbon_second_cohort_trials": {
+      "path": "outputs/carbon_synthid_v2_fpr_position_independent/trials.jsonl.gz",
+      "sha256": "a299c61368eef4645fb1c09ca01145f4beb3bf672870082c35bd55be38698414"
+    },
+    "generator_edit_rate": {
+      "path": "evidence/derived/edit_rate_v3_generator_2026_09_24.json",
+      "sha256": "3911289bf8b884fce8fab27be143c38f4c4e4359977a0f4a72024cac92f4437f"
+    },
+    "generator_second_cohort_trials": {
+      "path": "outputs/generator_synthid_v2_fpr_position_independent/trials.jsonl.gz",
+      "sha256": "96f6ad073c25ec0e562d4f1d565ac75ffdfd1ca5697d75bfce9e388a4c609977"
+    },
+    "primary_cohort_strength": {
+      "path": "evidence/derived/cross_model_strength_2026_09_21.json",
+      "sha256": "42b52a3de86df6790858a3961c9cadc0024ad2735dc190bc92cf5a65f43dd975"
+    }
+  },
+  "status": "A"
+}

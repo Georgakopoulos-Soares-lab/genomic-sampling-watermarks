@@ -1,0 +1,773 @@
+{
+  "figures": {
+    "fig5_edit_rate": {
+      "pdf": "paper/figures/fig5_edit_rate.pdf",
+      "pdf_sha256": "d91091a744e81e8a9978369ee8ad8362c0318b766c145b01ca4cf62156ee29d8",
+      "png": "paper/figures/fig5_edit_rate.png",
+      "png_sha256": "dc103795038f8829a271a186dba4e3d8f38f1685b5adb52a592e319d4aa50dc5",
+      "values": {
+        "carbon": {
+          "deletion": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 2880,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                92.32234349357637,
+                94.12314131434985
+              ],
+              "percent": 93.26424870466322,
+              "reads": 3088
+            },
+            {
+              "detected": 181,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                5.0588412487357175,
+                6.748778485373583
+              ],
+              "percent": 5.86139896373057,
+              "reads": 3088
+            }
+          ],
+          "indel": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 2887,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                92.5627213436576,
+                94.33566536223834
+              ],
+              "percent": 93.49093264248705,
+              "reads": 3088
+            },
+            {
+              "detected": 170,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                4.727011817513827,
+                6.368920294313704
+              ],
+              "percent": 5.505181347150259,
+              "reads": 3088
+            }
+          ],
+          "insertion": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 2890,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                92.66583142888159,
+                94.42665547780342
+              ],
+              "percent": 93.5880829015544,
+              "reads": 3088
+            },
+            {
+              "detected": 168,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                4.6667781613164525,
+                6.299756981818041
+              ],
+              "percent": 5.4404145077720205,
+              "reads": 3088
+            }
+          ],
+          "substitution": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 608,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                18.29962744223657,
+                21.136268248097515
+              ],
+              "percent": 19.689119170984455,
+              "reads": 3088
+            }
+          ]
+        },
+        "edit_rates": [
+          0.0003,
+          0.001,
+          0.005,
+          0.01,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "edits_per_read": {
+          "0.0003": 1,
+          "0.001": 3,
+          "0.005": 15,
+          "0.01": 31,
+          "0.02": 61,
+          "0.05": 154,
+          "0.1": 307
+        },
+        "generator": {
+          "deletion": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 2877,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                92.21941278379057,
+                94.0319706291916
+              ],
+              "percent": 93.16709844559585,
+              "reads": 3088
+            },
+            {
+              "detected": 164,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                4.546406572330005,
+                6.16133541494862
+              ],
+              "percent": 5.310880829015544,
+              "reads": 3088
+            }
+          ],
+          "indel": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3087,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.81970463541799,
+                99.99918012615942
+              ],
+              "percent": 99.96761658031087,
+              "reads": 3088
+            },
+            {
+              "detected": 2869,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                91.94518003926403,
+                93.7885980638069
+              ],
+              "percent": 92.90803108808291,
+              "reads": 3088
+            },
+            {
+              "detected": 166,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                4.6065762320836585,
+                6.23056220029862
+              ],
+              "percent": 5.375647668393782,
+              "reads": 3088
+            }
+          ],
+          "insertion": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 2900,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                93.00994495216356,
+                94.72953974005202
+              ],
+              "percent": 93.9119170984456,
+              "reads": 3088
+            },
+            {
+              "detected": 141,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                3.8569715447985606,
+                5.36273334523213
+              ],
+              "percent": 4.566062176165803,
+              "reads": 3088
+            }
+          ],
+          "substitution": [
+            {
+              "detected": 3088,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3088,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                99.88061279175524,
+                100.0
+              ],
+              "percent": 100.0,
+              "reads": 3088
+            },
+            {
+              "detected": 3087,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                99.81970463541799,
+                99.99918012615942
+              ],
+              "percent": 99.96761658031087,
+              "reads": 3088
+            },
+            {
+              "detected": 578,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                17.35582547582555,
+                20.138930274081385
+              ],
+              "percent": 18.71761658031088,
+              "reads": 3088
+            }
+          ]
+        },
+        "ordinary_pooled_over_edit_types": {
+          "carbon": [
+            {
+              "detected": 15,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                0.0679832552823901,
+                0.20021425013621907
+              ],
+              "percent": 0.12143782383419689,
+              "reads": 12352
+            },
+            {
+              "detected": 16,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                0.07405724498104577,
+                0.21026957096701576
+              ],
+              "percent": 0.12953367875647667,
+              "reads": 12352
+            },
+            {
+              "detected": 18,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                0.08638825020241053,
+                0.23021153247891935
+              ],
+              "percent": 0.14572538860103626,
+              "reads": 12352
+            },
+            {
+              "detected": 18,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                0.08638825020241053,
+                0.23021153247891935
+              ],
+              "percent": 0.14572538860103626,
+              "reads": 12352
+            },
+            {
+              "detected": 19,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                0.09263504611885955,
+                0.24010715966435717
+              ],
+              "percent": 0.15382124352331605,
+              "reads": 12352
+            },
+            {
+              "detected": 28,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                0.1506810549741759,
+                0.3274560254896007
+              ],
+              "percent": 0.2266839378238342,
+              "reads": 12352
+            },
+            {
+              "detected": 15,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                0.0679832552823901,
+                0.20021425013621907
+              ],
+              "percent": 0.12143782383419689,
+              "reads": 12352
+            }
+          ],
+          "generator": [
+            {
+              "detected": 18,
+              "edit_rate": 0.0003,
+              "exact_95_percent_interval": [
+                0.08638825020241053,
+                0.23021153247891935
+              ],
+              "percent": 0.14572538860103626,
+              "reads": 12352
+            },
+            {
+              "detected": 22,
+              "edit_rate": 0.001,
+              "exact_95_percent_interval": [
+                0.11165245255029997,
+                0.26953542567104194
+              ],
+              "percent": 0.17810880829015543,
+              "reads": 12352
+            },
+            {
+              "detected": 14,
+              "edit_rate": 0.005,
+              "exact_95_percent_interval": [
+                0.061978524569472386,
+                0.19009551422166804
+              ],
+              "percent": 0.1133419689119171,
+              "reads": 12352
+            },
+            {
+              "detected": 16,
+              "edit_rate": 0.01,
+              "exact_95_percent_interval": [
+                0.07405724498104577,
+                0.21026957096701576
+              ],
+              "percent": 0.12953367875647667,
+              "reads": 12352
+            },
+            {
+              "detected": 12,
+              "edit_rate": 0.02,
+              "exact_95_percent_interval": [
+                0.05020871276743747,
+                0.16964039171758566
+              ],
+              "percent": 0.09715025906735751,
+              "reads": 12352
+            },
+            {
+              "detected": 17,
+              "edit_rate": 0.05,
+              "exact_95_percent_interval": [
+                0.08019407231824635,
+                0.22026706188813328
+              ],
+              "percent": 0.13762953367875647,
+              "reads": 12352
+            },
+            {
+              "detected": 12,
+              "edit_rate": 0.1,
+              "exact_95_percent_interval": [
+                0.05020871276743747,
+                0.16964039171758566
+              ],
+              "percent": 0.09715025906735751,
+              "reads": 12352
+            }
+          ]
+        },
+        "threshold_rule": "unchanged: full-search Bonferroni correction at 0.01"
+      }
+    }
+  },
+  "plot_provenance": {
+    "command": "python3 scripts/make_paper_figures.py --edit-rate",
+    "matplotlib": "3.10.7",
+    "numpy": "2.2.6",
+    "script_sha256": "0b7618b728e9e7e683fc9324ecc41f05111b1139b1f350bfdae80a80d4fe1c24"
+  },
+  "sources": {
+    "carbon": {
+      "artifact": "evidence/derived/edit_rate_v3_carbon_2026_09_24.json",
+      "sha256": "25c90fe505ef1118e2ba01c3a3337b37b7f07f5b1bc67d6a8e05881780806808"
+    },
+    "generator": {
+      "artifact": "evidence/derived/edit_rate_v3_generator_2026_09_24.json",
+      "sha256": "3911289bf8b884fce8fab27be143c38f4c4e4359977a0f4a72024cac92f4437f"
+    }
+  }
+}

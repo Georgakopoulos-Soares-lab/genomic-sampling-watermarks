@@ -116,3 +116,30 @@ stated above are derived from the 96-prompt pilot's clean baseline, which is not
 `evidence/measurements.yaml`. They were removed from the manuscript on 2026-09-29 under the rule
 that every manuscript number resolves to the ledger. They remain valid as execution-record
 reasoning and are unaffected here.
+
+## Units correction, 2026-09-30
+
+The "Why tolerance is this high" section compares quantities on two different scales.
+`sequence_log_p_value` is the natural logarithm of the corrected read-level p-value (`ln P_read`,
+`src/genomic_watermarks/synthid_position_independent.py`), so the clean median of about −1822 is in
+natural-log units, whereas the "firing threshold near −6.2" is `log10(α/M)` for a single window.
+The "about 290 times" ratio divides one by the other and is wrong. On one scale, the clean median
+window strength is about 793 (`-log10 P_win`) against a threshold of 6.21, a ratio of about 127;
+equivalently, the read-level decision fires at `ln P_read ≤ ln 0.01 ≈ −4.61`. The 2026-09-29 note
+above calls this figure "valid as execution-record reasoning"; that sentence is superseded.
+
+The per-edit comparison is now reported on the manuscript's scale from the second-cohort
+single-edit reads (`synthid.v2.detector.correct_key_strength_by_condition`): one substitution
+lowers the median strength by about 2%, one insertion or deletion by about 45%. The GENERator
+full-detection ceiling of 1% differs from Carbon's 2% because of one read in 3,088; the two
+models' curves agree within one percentage point in every cell
+(`synthid.v3.detector.edit_rate_model_agreement`). No result file, artifact, or digest changes.
+
+## Edit span, 2026-10-01
+
+The full-cohort protocol does not state how many bases an insertion or deletion event changes. The
+code does: `deterministic_multi_base_edit` (in `src/genomic_watermarks/synthid_boundary.py`, whose
+digest matches the v3 source manifest) draws a span of 1–5 bases per insertion or deletion event
+from the public stream, and `scripts/run_synthid_edit_rate_pilot.py` keeps that default. Each
+substitution changes one base. The per-base rate is therefore an event rate, as the pilot protocol
+stated. The manuscript's Methods now say so. No result, artifact, or digest changes.

@@ -2240,3 +2240,123 @@ measurements:
       The digest of src/genomic_watermarks/synthid_boundary.py moved between the two because the
       edit channel was appended to it; the linked note records the evidence that the change is
       purely additive and that the v2 results are unaffected.
+
+  # ---------------------------------------------------------------------------
+  # 2026-09-30 revision: derived summaries of already-admitted artifacts. No
+  # generation, scoring, or detector search was rerun.
+  # ---------------------------------------------------------------------------
+
+  - id: synthid.v2.strength_gap.cohort_strength_summary
+    status: A
+    value:
+      primary_cohort:
+        carbon: {median: 790.6151014720618, minimum: 124.77747726900617}
+        generator: {median: 798.7803059254855, minimum: 19.614793673583744}
+      second_cohort:
+        carbon: {median: 792.8784062488764, minimum: 237.6304639955447}
+        generator: {median: 799.6905117917436, minimum: 123.7749986049241}
+    unit: -log10 of the winning window's exact local binomial tail
+    quantity: >-
+      Median and minimum clean correct-key window strength for each model in the primary
+      (192 evaluation prompts, 384 reads) and second (1,544 evaluation prompts, 3,088 reads)
+      cohorts.
+    derivation: >-
+      Copy the primary-cohort medians and minima from the digest-checked cross-model strength
+      analysis; recompute the second-cohort values from every clean correct-key trial in the
+      digest-checked v2 trial files after checking the complete prompt and draw grid.
+    uncertainty:
+      independent_unit: prompt
+      paired_draws_per_prompt: 2
+      confidence_interval: not estimated for these descriptive summaries
+      primary_cohort_median_mark_bit_positive_fraction:
+        carbon: 0.739238845144357
+        generator: 0.7402887139107611
+    scope:
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohorts: [ncbi_refseq_eukaryote_windows_large_v1, ncbi_refseq_eukaryote_windows_fpr_v2_1608]
+      read_condition: clean
+      family: watermarked_correct_key
+      detector: synthid-position-independent-detector-v1
+      generation_rerun: false
+      detector_search_rerun: false
+    source: &strength_summary_source
+      artifact: evidence/derived/strength_summary_2026_09_30.json
+      sha256: 961d62301cf09bc2d701700ed31cfe0394032ff4389c6f974b48ace09d878ad4
+      protocol: docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md
+      execution: docs/research/cross_model_strength_analysis_2026_09_21.md
+      command: python3 scripts/derive_strength_summary.py
+      verification_command: python3 scripts/derive_strength_summary.py --check
+    notes: >-
+      Typical strength is nearly equal between the models in both cohorts. The minimum is a
+      single-read extreme that moves between cohorts by roughly 100 units in each model, so the
+      primary-cohort difference between the weakest reads is not a model-level difference.
+
+  - id: synthid.v2.detector.correct_key_strength_by_condition
+    status: A
+    value:
+      carbon:
+        clean: 792.8784062488764
+        substitution_1nt: 777.5606752603187
+        insertion_1nt: 441.79752830629127
+        deletion_1nt: 437.65521469900455
+      generator:
+        clean: 799.6905117917436
+        substitution_1nt: 783.8473361859766
+        insertion_1nt: 443.1103726523684
+        deletion_1nt: 438.52458195165224
+    unit: median -log10 of the winning window's exact local binomial tail
+    quantity: >-
+      Median correct-key window strength in the second cohort, unedited and after exactly one
+      substitution, insertion, or deletion, for each model (3,088 reads per cell).
+    derivation: >-
+      Recompute each read's strength from the stored minimum local log p-value in the
+      digest-checked v2 trial files and take the median per model and read condition.
+    uncertainty:
+      independent_unit: prompt
+      prompt_clusters: 1544
+      paired_draws_per_prompt: 2
+      reads_per_cell: 3088
+      confidence_interval: not estimated for these descriptive medians
+    scope:
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      family: watermarked_correct_key
+      detector: synthid-position-independent-detector-v1
+      generation_rerun: false
+      detector_search_rerun: false
+    source: *strength_summary_source
+    notes: >-
+      One insertion or deletion roughly halves the median strength, whereas one substitution
+      lowers it by about 2%. These are the manuscript's per-edit comparison on the same scale as
+      the detection figures, replacing the natural-log sequence p-values previously quoted.
+
+  - id: synthid.v3.detector.edit_rate_model_agreement
+    status: A
+    value: 0.009715025906735758
+    unit: fraction of reads (absolute difference in correct-key detection rate)
+    quantity: >-
+      Largest absolute difference between Carbon and GENERator correct-key detection rates over
+      the 28 edited cells (seven rates by four edit kinds) of the full-cohort edit-rate series.
+    derivation: >-
+      Pair the two models' digest-checked v3 cells by edit kind and rate, check each stored rate
+      against its counts, and take the largest absolute difference.
+    uncertainty:
+      cells_compared: 28
+      largest_difference_at: {edit_kind: substitution, edit_rate: 0.1}
+      confidence_interval: not estimated for this descriptive maximum
+    scope:
+      models: [HuggingFaceBio/Carbon-500M, GenerTeam/GENERator-v2-eukaryote-1.2b-base]
+      cohort: ncbi_refseq_eukaryote_windows_fpr_v2_1608
+      family: watermarked_correct_key
+      edit_channel: non-adaptive public replay, synthid-edit-rate-v3
+      generation_rerun: false
+    source:
+      artifact: evidence/derived/strength_summary_2026_09_30.json
+      sha256: 961d62301cf09bc2d701700ed31cfe0394032ff4389c6f974b48ace09d878ad4
+      protocol: docs/research/synthid_v3_edit_rate_protocol_2026_09_24.md
+      execution: docs/research/synthid_v3_edit_rate_execution_2026_09_24.md
+      command: python3 scripts/derive_strength_summary.py
+    notes: >-
+      The two models' edit-rate curves agree within one percentage point in every cell. The
+      per-model full-detection ceilings (2% Carbon, 1% GENERator) differ because of a single
+      GENERator read at 2% and should not be read as a difference in robustness.

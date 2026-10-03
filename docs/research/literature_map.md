@@ -53,7 +53,7 @@ second.
 | Edit-distance alignment to a key sequence | `kuditipudi2024robust` | a surviving token sequence to align | there is none; the whole suffix re-tokenizes |
 | Span search with calibrated FPR (WinMax) | `kirchenbauer2024reliability` | token identities stable within the span | identities change, not just positions |
 | Context-free green lists | `zhao2024provable` | nothing about context — the strongest case | removes key desync entirely and still fails, because a shifted six-mer is a different vocabulary item with an independent mark bit |
-| Indexed pseudorandom codes | `golowich2024edit` | ability to index the stream | conceptual transfer only; we cannot insert index symbols into DNA |
+| Indexed pseudorandom codes | `golowich2024edit` | a token alphabet that grows with the security parameter, with each token read as an index into a pseudorandom codeword (no index symbols are inserted) | a different watermark construction, not a verifier for an existing sampler; corrected 2026-10-01 |
 | Semantic/embedding-level units | `hou2024semstamp` | an encoder at verification, and natural segmentation | we verify without model access, and DNA has no intrinsic segmentation |
 | Drift as a latent variable (HMM forward-backward) | `davey2001reliable` | the decoder controls the encoding | a sampling watermark has no inner code; but this is the principled alternative to enumerating offsets |
 

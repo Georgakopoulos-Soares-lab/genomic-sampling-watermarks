@@ -587,3 +587,12 @@ which is no longer true, and to point at
 remains the single nucleotide event**; expanding it needs a full-cohort run under `synthid.v3.*`.
 That edit crosses this document's own write boundary for `docs/threat_model.md` and was made on the
 author's explicit instruction.
+
+### Correction, 2026-09-30
+
+The L1-07 pilot outcome above states that the clean statistic "sits near -1822 against a firing
+threshold near -6.2, about 290 times the evidence firing requires". The first value is a natural-log
+read-level p-value and the second a log10 window threshold, so the ratio is not meaningful. On a
+single scale the clean median window strength is about 793 against 6.21, roughly 127 times. See
+the units correction appended to `docs/research/synthid_v3_edit_rate_execution_2026_09_24.md` and
+`paper/reviews/2026-09-30_post_lane_revision_plan.md`.

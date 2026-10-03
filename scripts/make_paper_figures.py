@@ -42,13 +42,23 @@ QUALITY_ARTIFACT = ROOT / "outputs/carbon_synthid_e16_v1/sequence_comparison_sum
 QUALITY_SHA256 = "6c9a73ea92592465b3a7c5121ab6a7e296839bc22a02edaa8050c36ebad7b0da"
 TRIALS_ARTIFACT = ROOT / "outputs/carbon_synthid_position_independent_v1/trials.jsonl"
 TRIALS_SHA256 = "323d998561843dda5b204c33d3de9d6a281aaa700ceddc535b0d7af32e0ac81c"
+EDIT_RATE_ARTIFACTS = {
+    "carbon": (
+        ROOT / "evidence/derived/edit_rate_v3_carbon_2026_09_24.json",
+        "25c90fe505ef1118e2ba01c3a3337b37b7f07f5b1bc67d6a8e05881780806808",
+    ),
+    "generator": (
+        ROOT / "evidence/derived/edit_rate_v3_generator_2026_09_24.json",
+        "3911289bf8b884fce8fab27be143c38f4c4e4359977a0f4a72024cac92f4437f",
+    ),
+}
 
 # ---------------------------------------------------------------------------
 # Shared vocabulary.  The manuscript, the figures, and this script use one name
 # per concept; nothing below invents a synonym.
 # ---------------------------------------------------------------------------
 FAMILIES = (
-    ("watermarked_correct_key", "Marked, right key"),
+    ("watermarked_correct_key", "Marked, correct key"),
     ("ordinary_corresponding_key", "Ordinary"),
     ("watermarked_wrong_key", "Marked, wrong key"),
 )
@@ -169,9 +179,9 @@ METRIC_LABEL = {
     "mean_homopolymer_run": "Mean single-base run",
     "purine_fraction": "Purine content",
     "cpg_fraction": "CpG content",
-    "js_divergence_from_prompt_k1_bits": "1-mer Jensen-Shannon drift from prompt",
-    "js_divergence_from_prompt_k2_bits": "2-mer Jensen-Shannon drift from prompt",
-    "js_divergence_from_prompt_k3_bits": "3-mer Jensen-Shannon drift from prompt",
+    "js_divergence_from_prompt_k1_bits": "1-mer Jensen–Shannon drift from prompt",
+    "js_divergence_from_prompt_k2_bits": "2-mer Jensen–Shannon drift from prompt",
+    "js_divergence_from_prompt_k3_bits": "3-mer Jensen–Shannon drift from prompt",
     "mean_negative_log_likelihood_per_token": "Model score",
     "perplexity": "Perplexity",
 }
@@ -395,7 +405,7 @@ def figure_method(path_stem: str) -> dict[str, Any]:
     read.text(
         READ_BASES,
         5.16,
-        f"{READ_BASES:,}-base read",
+        f"{READ_BASES:,}-base sequence",
         ha="right",
         va="top",
         fontsize=6.2,
@@ -706,7 +716,7 @@ def figure_detection(
         # Derived from the data, not a constant: the same code renders cohorts of
         # different sizes and a hardcoded count would silently misreport them.
         f"{sum(len(select(trials, family, 'clean')) for family, _ in FAMILIES):,}"
-        " unedited reads, one point each",
+        " unedited sequences, one point each",
         fontsize=6.5,
         color=INK_SOFT,
         pad=5,
@@ -752,7 +762,7 @@ def figure_detection(
     high.text(
         0.02,
         0.94,
-        "Marked, right key",
+        "Marked, correct key",
         transform=high.transAxes,
         fontsize=6.4,
         color=SERIES_COLOUR["watermarked_correct_key"],
@@ -801,7 +811,7 @@ def figure_detection(
     low.set_xlim(-0.55, positions[-1] + 0.55)
     low.set_xticks(positions)
     low.set_xticklabels([label for _, label in CONDITIONS], fontsize=6.0)
-    low.set_xlabel("Edit applied to the read")
+    low.set_xlabel("Edit applied to the sequence")
     low.spines["top"].set_visible(False)
 
     for axes, y_position in ((high, 0.0), (low, 1.0)):
@@ -897,10 +907,10 @@ def figure_edits(
     spread.set_xticks(positions)
     spread.set_xticklabels([label for _, label in CONDITIONS], fontsize=6.2)
     spread.set_ylabel("Window strength,  $-\\log_{10}P_{\\mathrm{win}}$")
-    spread.set_xlabel("Edit applied to the read")
+    spread.set_xlabel("Edit applied to the sequence")
     spread.set_title(
         f"{len(select(trials, 'watermarked_correct_key', 'clean')):,}"
-        " marked reads per condition; bar is the median",
+        " marked sequences per condition; bar is the median",
         fontsize=6.5,
         color=INK_SOFT,
         pad=5,
@@ -966,7 +976,7 @@ def figure_edits(
     mix.tick_params(axis="y", length=0)
     mix.set_xlim(0, 100)
     mix.set_xticks([0, 25, 50, 75, 100])
-    mix.set_xlabel("Reads whose best window had this length (%)")
+    mix.set_xlabel("Sequences whose best window had this length (%)")
     mix.set_ylim(-0.6, len(CONDITIONS) - 0.4)
     mix.spines["left"].set_visible(False)
 
@@ -1051,6 +1061,223 @@ def add_generator_figures(manifest_path: Path) -> dict[str, Any]:
     return manifest
 
 
+# ---------------------------------------------------------------------------
+# Figure 5: detection as random edits accumulate
+# ---------------------------------------------------------------------------
+# Edit class carries the colour: substitutions keep the reading frame, the three
+# insertion/deletion series do not. Within that class, marker and dash separate the
+# series, which overlap by design.
+KEEPS_FRAME = SERIES_COLOUR["watermarked_correct_key"]
+SHIFTS_FRAME = SERIES_COLOUR["ordinary_corresponding_key"]
+EDIT_KINDS = (
+    ("substitution", "Substitutions", KEEPS_FRAME, "o", "-"),
+    ("indel", "Mixed insertions and deletions", SHIFTS_FRAME, "s", "-"),
+    ("insertion", "Insertions only", SHIFTS_FRAME, "^", (0, (3, 1.5))),
+    ("deletion", "Deletions only", SHIFTS_FRAME, "v", (0, (1, 1.2))),
+)
+EDIT_MODEL_LABEL = {"carbon": "Carbon-500M", "generator": "GENERator-v2 1.2B"}
+
+
+def load_edit_rate_cells() -> dict[str, list[dict[str, Any]]]:
+    cells = {}
+    for model, (path, expected) in EDIT_RATE_ARTIFACTS.items():
+        check_digest(path, expected)
+        cells[model] = json.loads(path.read_text(encoding="utf-8"))["cells"]
+    return cells
+
+
+def exact_interval(detected: int, reads: int) -> list[float]:
+    from scipy.stats import beta
+
+    lower = 0.0 if detected == 0 else float(beta.ppf(0.025, detected, reads - detected + 1))
+    upper = 1.0 if detected == reads else float(beta.ppf(0.975, detected + 1, reads - detected))
+    return [100 * lower, 100 * upper]
+
+
+def figure_edit_rate(path_stem: str, cells: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    rates = sorted(
+        {cell["edit_rate"] for model in cells.values() for cell in model if cell["edit_rate"] > 0}
+    )
+    events = {}
+    for model in cells.values():
+        for cell in model:
+            if cell["edit_rate"] > 0:
+                events.setdefault(cell["edit_rate"], cell["edit_count"])
+                if events[cell["edit_rate"]] != cell["edit_count"]:
+                    raise ValueError("edit count differs between cells at one rate")
+    x = np.array([100 * rate for rate in rates])
+
+    figure = plt.figure(figsize=(DOUBLE_COLUMN, 2.45))
+    grid = figure.add_gridspec(
+        1,
+        3,
+        width_ratios=[1.0, 1.0, 0.92],
+        wspace=0.36,
+        left=0.065,
+        right=0.985,
+        top=0.78,
+        bottom=0.19,
+    )
+    panels = [figure.add_subplot(grid[0, index]) for index in range(3)]
+
+    def rate_axis(axes: Any) -> None:
+        axes.set_xscale("log")
+        axes.set_xlim(0.022, 14)
+        axes.set_xticks(x)
+        axes.set_xticklabels([f"{value:g}" for value in x])
+        axes.minorticks_off()
+        axes.set_xlabel("Edits per base (%)")
+        top = axes.secondary_xaxis("top")
+        top.set_xticks(x)
+        top.set_xticklabels([f"{events[rate]:,}" for rate in rates])
+        top.minorticks_off()
+        top.tick_params(colors=MUTED, labelsize=6.0, length=2.0)
+        top.spines["top"].set_color(AXIS)
+        top.set_xlabel(
+            "Edits per 3,072-base continuation", fontsize=6.3, color=INK_SOFT, labelpad=3
+        )
+
+    values: dict[str, Any] = {"edit_rates": rates, "edits_per_read": events}
+    for index, model in enumerate(("carbon", "generator")):
+        axes = panels[index]
+        values[model] = {}
+        for kind, label, colour, marker, dash in EDIT_KINDS:
+            chosen = sorted(
+                (
+                    cell
+                    for cell in cells[model]
+                    if cell["family"] == "watermarked_correct_key" and cell["edit_kind"] == kind
+                ),
+                key=lambda cell: cell["edit_rate"],
+            )
+            if [cell["edit_rate"] for cell in chosen] != rates:
+                raise ValueError(f"incomplete edit-rate series for {model} {kind}")
+            percent = np.array([100 * cell["detected"] / cell["reads"] for cell in chosen])
+            intervals = [exact_interval(cell["detected"], cell["reads"]) for cell in chosen]
+            lower = np.array([interval[0] for interval in intervals])
+            upper = np.array([interval[1] for interval in intervals])
+            axes.errorbar(
+                x,
+                percent,
+                yerr=[percent - lower, upper - percent],
+                color=colour,
+                linestyle=dash,
+                linewidth=0.9,
+                marker=marker,
+                markersize=3.4,
+                markeredgecolor=SURFACE,
+                markeredgewidth=0.5,
+                elinewidth=0.6,
+                capsize=0,
+                label=label,
+                zorder=3,
+            )
+            values[model][kind] = [
+                {
+                    "edit_rate": cell["edit_rate"],
+                    "detected": cell["detected"],
+                    "reads": cell["reads"],
+                    "percent": float(value),
+                    "exact_95_percent_interval": interval,
+                }
+                for cell, value, interval in zip(chosen, percent, intervals, strict=True)
+            ]
+        rate_axis(axes)
+        axes.set_ylim(-4, 106)
+        axes.set_yticks([0, 25, 50, 75, 100])
+        axes.set_ylabel("Marked sequences detected (%)" if index == 0 else "")
+        axes.grid(axis="y", zorder=0)
+        axes.set_title(EDIT_MODEL_LABEL[model], fontsize=7, color=INK, pad=24, loc="left")
+        panel_letter(axes, "ab"[index], x=-0.17, y=1.20)
+
+    handles, labels = panels[0].get_legend_handles_labels()
+    panels[0].legend(
+        handles,
+        labels,
+        loc="lower left",
+        bbox_to_anchor=(0.0, 0.06),
+        handlelength=2.2,
+        handletextpad=0.5,
+        labelspacing=0.3,
+        labelcolor=INK_SOFT,
+        fontsize=6.0,
+    )
+
+    null_axes = panels[2]
+    values["ordinary_pooled_over_edit_types"] = {}
+    for model, marker, dash in (("carbon", "o", "-"), ("generator", "s", (0, (3, 1.5)))):
+        detected = []
+        reads = []
+        for rate in rates:
+            chosen = [
+                cell
+                for cell in cells[model]
+                if cell["family"] == "ordinary_corresponding_key" and cell["edit_rate"] == rate
+            ]
+            if len(chosen) != len(EDIT_KINDS):
+                raise ValueError(f"incomplete ordinary-output cells for {model} at {rate}")
+            detected.append(sum(cell["detected"] for cell in chosen))
+            reads.append(sum(cell["reads"] for cell in chosen))
+        percent = np.array([100 * d / n for d, n in zip(detected, reads, strict=True)])
+        intervals = [exact_interval(d, n) for d, n in zip(detected, reads, strict=True)]
+        lower = np.array([interval[0] for interval in intervals])
+        upper = np.array([interval[1] for interval in intervals])
+        null_axes.errorbar(
+            x,
+            percent,
+            yerr=[percent - lower, upper - percent],
+            color=INK_SOFT,
+            linestyle=dash,
+            linewidth=0.9,
+            marker=marker,
+            markersize=3.4,
+            markeredgecolor=SURFACE,
+            markeredgewidth=0.5,
+            elinewidth=0.6,
+            capsize=0,
+            label=EDIT_MODEL_LABEL[model],
+            zorder=3,
+        )
+        values["ordinary_pooled_over_edit_types"][model] = [
+            {
+                "edit_rate": rate,
+                "detected": d,
+                "reads": n,
+                "percent": float(value),
+                "exact_95_percent_interval": interval,
+            }
+            for rate, d, n, value, interval in zip(
+                rates, detected, reads, percent, intervals, strict=True
+            )
+        ]
+    null_axes.axhline(
+        100 * TARGET_FALSE_POSITIVE_RATE,
+        color=INK,
+        linewidth=0.7,
+        linestyle=(0, (2.5, 1.6)),
+        zorder=2,
+    )
+    null_axes.text(0.03, 1.035, "1% target", fontsize=6.2, color=INK, va="bottom", ha="left")
+    rate_axis(null_axes)
+    null_axes.set_ylim(0, 1.2)
+    null_axes.set_yticks([0, 0.25, 0.5, 0.75, 1.0])
+    null_axes.set_ylabel("Ordinary sequences detected (%)")
+    null_axes.grid(axis="y", zorder=0)
+    null_axes.set_title("Ordinary output, both models", fontsize=7, color=INK, pad=24, loc="left")
+    null_axes.legend(
+        loc="upper left",
+        bbox_to_anchor=(0.0, 0.84),
+        handlelength=2.2,
+        handletextpad=0.5,
+        labelspacing=0.3,
+        labelcolor=INK_SOFT,
+        fontsize=6.0,
+    )
+    panel_letter(null_axes, "c", x=-0.22, y=1.20)
+    values["threshold_rule"] = "unchanged: full-search Bonferroni correction at 0.01"
+    return save_figure(figure, path_stem, values)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -1088,9 +1315,41 @@ def main() -> int:
         default="ab",
         help="panel letters; GENERator panels are lettered c and d",
     )
+    parser.add_argument(
+        "--edit-rate",
+        action="store_true",
+        help=(
+            "render only the edit-rate figure from the digest-checked edit-rate cells; "
+            "its values go to figure_values_edit_rate.json"
+        ),
+    )
     arguments = parser.parse_args()
 
     plt.rcParams.update(RC_PARAMS)
+
+    if arguments.edit_rate:
+        manifest_path = FIGURE_DIR / "figure_values_edit_rate.json"
+        manifest = {
+            "sources": {
+                model: {"artifact": str(path.relative_to(ROOT)), "sha256": digest}
+                for model, (path, digest) in EDIT_RATE_ARTIFACTS.items()
+            },
+            "figures": {
+                "fig5_edit_rate": figure_edit_rate("fig5_edit_rate", load_edit_rate_cells())
+            },
+            "plot_provenance": {
+                "command": "python3 scripts/make_paper_figures.py --edit-rate",
+                "matplotlib": matplotlib.__version__,
+                "numpy": np.__version__,
+                "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            },
+        }
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        print(f"fig5_edit_rate: {manifest['figures']['fig5_edit_rate']['pdf']}")
+        print(f"values: {manifest_path.relative_to(ROOT)}")
+        return 0
 
     if arguments.trials is not None:
         # Accept a relative path from the repository root as well as an absolute one.
