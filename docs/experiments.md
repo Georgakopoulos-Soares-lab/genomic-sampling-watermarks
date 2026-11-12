@@ -1,8 +1,11 @@
 # Experiments actually performed
 
-> The runs below are version-one development history. Their numbers are not confirmatory evidence
-> for the planned dual-model paper. The new study has not run yet; its design is in
-> `docs/research/dual_model_synthid_paper_rebuild_plan.md`.
+> Historical record of the development-cohort runs, as first written up. These runs are manuscript
+> evidence under `docs/research/dual_model_v1_admission_amendment_2026_09_09.md`. The later
+> detection cohort and edit-rate series are recorded in
+> `docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md` and
+> `docs/research/synthid_v3_edit_rate_execution_2026_09_24.md`. Section 9 below is superseded: the
+> manuscript is dual-model and `paper/context/evidence_map.md` is its current map.
 
 This document describes completed SynthID work only. Sections 1–7 report the Carbon paper
 experiment. Section 8 reports the separately labeled GENERator replication. Counts that refer to

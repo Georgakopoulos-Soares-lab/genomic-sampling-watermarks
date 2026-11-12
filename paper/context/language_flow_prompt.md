@@ -19,7 +19,7 @@ internal project vocabulary and machine-written tics listed below.
 
 ## Read first
 
-1. `paper/AGENTS.md`: manuscript rules.
+1. `paper/CLAUDE.md`: manuscript rules.
 2. The "Writing boundaries" section of `paper/context/evidence_map.md`: what the paper may and may
    not claim.
 3. `paper/manuscript/source/main.tex`, read end to end before changing anything. Note where the

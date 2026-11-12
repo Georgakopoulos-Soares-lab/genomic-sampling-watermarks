@@ -245,3 +245,20 @@ not that it is resolved.
 The 2026-09-11 editorial revision removes references to pinned model revisions and a prescribed
 replication machine from the manuscript at the user's request. Exact revisions and execution
 environments remain in the evidence trail; future runs must document their actual environment.
+
+## ICLR review integration (2026-11-12)
+
+The 2026-11-12 pass (`paper/reviews/2026-11-12_iclr_review_integration.md`) added scope and
+limitation sentences to the manuscript and no new number or identifier. Three added statements
+rest on repository documents and implementation tests, not on ledger measurements:
+
+- the implementation-test sentence in Limitations (flanked synthetic region, reverse complement):
+  `tests/test_synthid_position_independent.py`;
+- the cause and configuration of the Carbon protocol mismatch:
+  `docs/research/carbon_provenance_discrepancy_audit_2026_09_21.md`;
+- the matching protocol hash in the second cohort:
+  `docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md`.
+
+The manuscript must keep saying that region length, flank length, placement, strand, and initial
+phase were not varied, that no narrower detector was compared, and that the full search was not
+calibrated across many keys or on DNA that no model generated.

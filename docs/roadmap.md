@@ -1,24 +1,48 @@
-# Dual-model SynthID paper roadmap
+# Roadmap
 
-The prior Carbon-first roadmap is complete development history. The active work is a fresh paper
-identity covering Carbon-500M and GENERator-v2 1.2B together.
+Updated 2026-11-12.
 
-- [x] Audit the existing manuscript, evidence, tests, validators, and artifacts.
-- [x] Design the dual-model rebuild and separate scientific gates from software assurance.
-- [x] Update repository and paper scope instructions to make both models paper-bound.
-- [x] Mark all version-one evidence and the current manuscript map legacy/development-only.
-- [ ] Implement the shared resumable runner, environment checks, cross-model validator, and portable
-  artifact manifest.
-- [ ] Approve the quality non-inferiority margin and blinded power calculation.
-- [ ] Build and freeze a new public prompt cohort disjoint from all prior prompts.
-- [ ] Freeze the complete protocol, configurations, gates, source, and cohort hashes.
-- [ ] Pass unit, upstream-parity, tamper, Ruff lint, Ruff format, schema, and GPU smoke gates.
-- [ ] Run both models on a documented GPU environment through sampler, quality, clean detection, and one-base edit
-  evaluations.
-- [ ] Admit only new `synthid.v2.*` measurements and create an exact dual-model manuscript map.
-- [ ] Rebuild all manuscript sections and generate tables directly from the evidence ledger.
-- [ ] Pass the release validator, evidence audit, LaTeX build, and final claim review.
-- [ ] Archive the portable release with a DOI and top-level SHA-256 digest.
+## Done
 
-See the [full rebuild plan](research/dual_model_synthid_paper_rebuild_plan.md) for gate definitions,
-failure rules, artifacts, and paper structure.
+- [x] Development cohort: sampler checks, 14 quality proxies, detection, single-base edits, both
+  models. Admitted 2026-09-09.
+- [x] Detection cohort of 1,608 prompts: detection, false-positive bounds, single-base edits.
+- [x] Non-adaptive edit-rate series, admitted 2026-09-29.
+- [x] Strength analysis, search cost, correction conservatism, Carbon protocol audit.
+- [x] arXiv submission, 2026-10-03.
+- [x] ICLR 2027 reviews received (submission 32263) and integrated into the manuscript text,
+  2026-11-12: `paper/reviews/2026-11-12_iclr_review_integration.md`.
+
+## ICLR revision, open
+
+Wording cannot close these. Items 1 to 3 rescore stored detection-cohort sequences, need no new
+generation, and each need a dated protocol and a new evidence namespace before the first outcome is
+read.
+
+1. [ ] Detection by region length, flank length, placement, strand, and initial phase (all three
+   reviewers).
+2. [ ] Comparison with narrower detectors (aligned, phase-only, span search) at the same
+   sequence-level false-positive target, with runtime (Reviewer GmoA).
+3. [ ] Calibration of the full search across many independent keys and on genomic DNA that no
+   model generated (Reviewer zdRG).
+4. [ ] Per-token entropy against strength; needs model inference on stored sequences (Reviewer
+   ot4K).
+5. [ ] Author confirmation that no verifier setting changed after outcomes were observed (Reviewer
+   zdRG).
+6. [ ] Decide whether to admit more of the existing GENERator aligned-prefix validation artifact.
+7. [ ] ICLR-format, anonymized build of the revised manuscript, and the author responses.
+
+## Outstanding from before the reviews
+
+- [ ] Restore the five Carbon development-cohort result files so `scripts/check_evidence.py`
+  passes on a fresh clone and the development-cohort figures can be regenerated with current
+  labels (`paper/reviews/2026-10-01_remaining_fixes.md`).
+- [ ] Written co-author confirmation of the edit-rate sign-off
+  (`docs/research/threat_model_edit_rate_v3_admission_2026_09_29.md`).
+- [ ] Independent replication with a fresh cohort in a documented environment
+  (`docs/research/dual_model_synthid_paper_rebuild_plan.md`).
+
+## Out of scope
+
+Other watermark constructions, detector-query or detector-guided attacks, and further multiple-edit
+experiments (`CLAUDE.md`).

@@ -2,6 +2,11 @@
 
 ## Status
 
+> Updated 2026-11-12. This plan has not been run. The current manuscript instead uses the
+> development-cohort results admitted by `dual_model_v1_admission_amendment_2026_09_09.md`, plus
+> the detection cohort and the edit-rate series. The plan remains the design for an independent
+> replication. The text below is unchanged from the original proposal.
+
 This is the proposed authoritative plan for rebuilding the paper around the current SynthID
 tournament sampler and position-independent detector for both Carbon-500M and GENERator-v2 1.2B.
 It is a plan, not a claim that the new experiment has already run.

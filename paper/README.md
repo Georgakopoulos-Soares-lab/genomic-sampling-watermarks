@@ -1,47 +1,58 @@
 # Paper workspace
 
 `manuscript/source/main.tex` is the dual-model Carbon-500M and GENERator-v2 1.2B SynthID
-manuscript. It reports sampler validation, sequence-quality proxies, and position-independent
-detection for one watermark (`synthid-tournament-v1`) and one verifier
-(`synthid-position-independent-detector-v1`). Every printed number resolves to an identifier in
-[`context/evidence_map.md`](context/evidence_map.md) and from there to
-[`../evidence/measurements.yaml`](../evidence/measurements.yaml).
+manuscript. It reports sampler validation, sequence-quality proxies, position-independent
+detection, single-base edits, and a non-adaptive edit-rate series for one watermark
+(`synthid-tournament-v1`) and one verifier (`synthid-position-independent-detector-v1`). Every
+printed number resolves to an identifier in [`context/evidence_map.md`](context/evidence_map.md)
+and from there to [`../evidence/measurements.yaml`](../evidence/measurements.yaml).
 
-The manuscript uses one word and one symbol per idea; the list is Table 1 of the paper itself. Any
-edit that introduces a synonym for `read`, `window`, `mark`, `ordinary`, `draw`, or a symbol already
-in that table should be rejected.
+## Versions
 
-Version-one Carbon and GENERator evidence is admitted for the current manuscript by the
-[dual-model admission amendment](../docs/research/dual_model_v1_admission_amendment_2026_09_09.md)
-and its [September 11 panel-analysis extension](../docs/research/generator_v1_analysis_amendment_2026_09_11.md).
-The execution caveats are disclosed in the manuscript's Limitations section and tracked in
-`context/evidence_map.md`:
+| Version | Where | Notes |
+|---|---|---|
+| ICLR 2027 submission 32263 | [OpenReview](https://openreview.net/forum?id=vo1qxcMxxx&noteId=LyX9i394f8); PDF not in the repository | development cohort only; the version the reviewers read |
+| arXiv, 2026-10-03 | `submission/arxiv_2026-10-03/` | adds the detection cohort and the edit-rate series |
+| ICLR revision, in progress | `manuscript/source/main.tex`, branch `iclr-2027-revision` | review comments integrated 2026-11-12 |
 
-1. generation ran on GPU hardware and detection on x86-64 CPUs, with one execution per model;
-2. the Carbon protocol file recorded inside the stored detection result does not match the bytes of the
-   retained protocol document, as recorded in
-   `../docs/research/carbon_synthid_protocol_provenance_amendment_2026_09_03.md`.
+Reviewers cite the submitted PDF's numbering. The mapping to the current manuscript is in
+`reviews/2026-09-21_openreview_rebuttal_draft.md`, and the review-by-review status is in
+`reviews/2026-11-12_iclr_review_integration.md`.
 
-Each model contributes one execution, so confirmatory replication remains outstanding. The September
-11 derivation supplies paired GENERator panels for Figures 2--4; the aligned-detector ordinary-null
-fit remains specific to GENERator. Confirmatory replication in a documented execution environment,
-with a fresh cohort and a new evidence namespace, is still the intended next step and is described in the
-[dual-model rebuild plan](../docs/research/dual_model_synthid_paper_rebuild_plan.md).
+## Terminology
+
+The manuscript holds one term per concept: marked sequence, ordinary sequence, wrong-key control,
+development cohort, detection cohort, window, strength, token phase, per-base edit rate, verifier.
+Reject an edit that introduces a synonym. `context/language_flow_prompt.md` lists the internal
+vocabulary that must not appear and the checks to run after a prose edit.
+
+## Disclosed caveats
+
+The Limitations section states these, and `context/evidence_map.md` tracks them:
+
+1. every test sequence has one layout, a 384-base prompt followed by a 3,072-base generated region;
+2. the detection cohort is not an independent replication;
+3. the Carbon development-cohort protocol document does not match the hash recorded in its result
+   (`../docs/research/carbon_provenance_discrepancy_audit_2026_09_21.md`);
+4. edits are random and never consult the detector;
+5. no narrower detector and no other watermark construction was compared.
 
 ## Figures
 
-`figures/*.pdf` are built by `../scripts/make_paper_figures.py`. Figures 2--4 pair Carbon panels
-`a,b` with GENERator panels `c,d`. The script verifies the SHA-256 of every source artifact before
-plotting and writes each plotted value, with figure digests, to `figures/figure_values.json`.
-Regenerate with:
+`figures/*.pdf` are built by `../scripts/make_paper_figures.py`, which verifies the SHA-256 of
+every source artifact and writes each plotted value to a manifest.
 
-```bash
-# from the repository root
-python3 scripts/make_paper_figures.py
-```
+| Figure | Content | Manifest |
+|---|---|---|
+| 1 | method illustration and search count | `figure_values.json` |
+| 2 | quality proxies, development cohort | `figure_values.json` |
+| 3, 4 | detection and single-base edits, detection cohort | `figure_values_v2.json`, `figure_values_generator_v2.json` |
+| 5 | edit-rate series | `figure_values_edit_rate.json` |
+| S1, S2 | detection and single-base edits, development cohort | `figure_values.json` |
 
-Generated experiment outputs are not tracked in the repository, so the run directories the script
-reads must be present locally.
+Carbon is in panels `a,b` and GENERator in `c,d`, except Figure 5. Regenerating the
+development-cohort figures needs the Carbon development-cohort result files, which are not in the
+repository; the commands are in `reviews/2026-10-01_remaining_fixes.md`.
 
 ## Build
 
@@ -49,4 +60,9 @@ reads must be present locally.
 ./scripts/build.sh
 ```
 
-The script uses `tectonic` if present and otherwise `latexmk`.
+The script uses `tectonic` if present and otherwise `latexmk`, and writes
+`manuscript/build/main.pdf`. Copy it to `manuscript/main.pdf` when the tracked PDF should change.
+
+## Review notes
+
+Add a dated note under `reviews/` for every pass. Do not overwrite earlier notes.

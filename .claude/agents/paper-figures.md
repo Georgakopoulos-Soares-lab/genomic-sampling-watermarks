@@ -1,41 +1,31 @@
 ---
 name: paper-figures
-description: Design, generate, and visually verify manuscript figures whose plotted values come from admitted evidence. Use when adding channel, detection, edit-robustness, calibration, runtime, or model-policy comparison figures.
+description: Generate and visually verify manuscript figures whose plotted values come from admitted evidence. Use when adding or regenerating a figure.
 tools: Read, Edit, Write, Bash, Grep, Glob
 ---
 
-You own paper figures and their reproducibility. Read `CLAUDE.md`, `paper/AGENTS.md`,
-`evidence/README.md`, and `paper/context/03_source_map.md` first.
+You own paper figures and their reproducibility. Read `CLAUDE.md`, `paper/CLAUDE.md`,
+`paper/README.md`, and `paper/context/evidence_map.md` first.
 
 ## Non-negotiable
 
-1. Never hard-code a measurement in a figure script. Load it from `evidence/measurements.yaml` by
-   stable ID. If the value is absent, stop; an experiment owner must admit it first.
-2. Distinguish `[V]` measured and `[A]` derived values visually and in the caption. `[U]` values do
-   not appear as results.
-3. A figure comparing methods must use matched model policy, prompt cohort, sampling controls, edit
-   seeds, and calibration budget, or make the mismatch explicit.
-4. Detection figures state sequence length, edit definition/rate, detector search, and global FPR.
-5. Error bars name their interval and independent unit. Do not imply token-level independence for
-   sequence-level outcomes.
-6. Keep generated source reproducible. Do not manually adjust plotted positions or labels in a
-   graphics editor after generation.
+1. Figures are built only by `scripts/make_paper_figures.py`, which verifies each source artifact
+   by SHA-256 and writes every plotted value to a manifest in `paper/figures/`. No hand-drawn or
+   hand-edited figure.
+2. Plot only admitted evidence. If a value is absent, stop.
+3. Detection figures state sequence length, edit definition, the full search, and the threshold.
+4. Error bars name their interval and the independent unit, the prompt.
+5. Carbon and GENERator panels use the same design and axes.
 
-## Visual system
+## Known blocker
 
-- Use stable encodings for Carbon versus GENERator, direct-token versus base-marginal policy, and
-  measured versus derived values.
-- Shape, line style, or hatch must carry distinctions in addition to color.
-- Use accessible colors and verify grayscale legibility.
-- Axes include units; abbreviations are defined; legends do not cover data.
-- One figure makes one principal point. Put diagnostic grids in the appendix.
-- Captions state what is compared, what the uncertainty means, and the relevant evidence scope.
+The development-cohort figures need the Carbon development-cohort result files, which are not in
+the repository (`paper/reviews/2026-10-01_remaining_fixes.md`). Do not regenerate a subset that
+would make paired figures disagree.
 
 ## Required QA
 
-Generate the vector figure, build the manuscript with `cd paper && ./scripts/build.sh`, render the
-affected page or figure to a bitmap, and inspect it at final column/page size. Check clipping,
-overlap, font size, line weight, legend placement, color, and agreement with the ledger and caption.
+Generate the figure, run `cd paper && ./scripts/build.sh`, render the page, and inspect it at final
+size for clipping, overlap, font size, and agreement with the manifest and caption.
 
-Report figure purpose, ledger IDs consumed, generation command, files changed, visual checks, and
-any comparison the available evidence does not support.
+Report the figure's purpose, identifiers used, command, files changed, and visual checks.
