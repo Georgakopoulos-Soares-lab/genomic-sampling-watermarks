@@ -1,0 +1,37 @@
+\begin{tabular}{@{}l r rrrr@{\hspace{10pt}}rrrr@{}}
+\toprule
+& & \multicolumn{4}{c}{\textbf{Carbon-500M}} & \multicolumn{4}{c}{\textbf{GENERator-v2 1.2B}} \\
+\cmidrule(lr){3-6}\cmidrule(l){7-10}
+Detector & Windows & Marked & Ordinary & Strength & ms & Marked & Ordinary & Strength & ms \\
+\midrule
+\multicolumn{10}{@{}l}{\textit{Standard layout}} \\
+\quad Aligned oracle & 1 & 512 & 2 & 791.5 & 4.92 & 512 & 4 & 798.3 & 4.97 \\
+\quad Phase only & 12 & 512 & 6 & 696.4 & 28.8 & 512 & 6 & 701.3 & 29.0 \\
+\quad Verifier & 16{,}136 & 512 & 2 & 787.3 & 45.1 & 512 & 0 & 794.1 & 44.4 \\
+\quad Fine grid & 101{,}442 & 512 & 0 & 786.6 & 224.1 & 512 & 0 & 793.3 & 224.6 \\
+\midrule
+\multicolumn{10}{@{}l}{\textit{Standard layout, one insertion}} \\
+\quad Aligned oracle & 1 & 486 & 3 & 197.2 & 1.76 & 483 & 2 & 202.5 & 1.78 \\
+\quad Phase only & 12 & 512 & 3 & 397.8 & 27.3 & 512 & 2 & 403.7 & 27.5 \\
+\quad Verifier & 16{,}144 & 512 & 1 & 451.2 & 41.6 & 512 & 0 & 460.9 & 41.5 \\
+\quad Fine grid & 101{,}508 & 512 & 0 & 591.8 & 221.8 & 512 & 0 & 596.3 & 222.5 \\
+\midrule
+\multicolumn{10}{@{}l}{\textit{768-base region, embedded}} \\
+\quad Aligned oracle & 1 & 512 & 5 & 194.2 & 0.48 & 512 & 1 & 195.3 & 0.49 \\
+\quad Phase only & 12 & 511 & 2 & 22.2 & 54.8 & 511 & 5 & 22.9 & 55.3 \\
+\quad Verifier & 37{,}640 & 512 & 0 & 189.6 & 91.4 & 512 & 1 & 190.7 & 90.8 \\
+\quad Fine grid & 351{,}482 & 512 & 0 & 188.6 & 739.1 & 512 & 0 & 189.7 & 742.8 \\
+\midrule
+\multicolumn{10}{@{}l}{\textit{1,152-base region, embedded}} \\
+\quad Aligned oracle & 1 & 512 & 4 & 294.7 & 1.92 & 512 & 2 & 295.8 & 1.95 \\
+\quad Phase only & 12 & 511 & 5 & 51.8 & 50.6 & 512 & 7 & 52.9 & 51.1 \\
+\quad Verifier & 37{,}640 & 512 & 1 & 219.4 & 96.7 & 512 & 2 & 219.4 & 97.0 \\
+\quad Fine grid & 351{,}482 & 512 & 0 & 289.2 & 741.9 & 512 & 1 & 290.3 & 746.2 \\
+\midrule
+\multicolumn{10}{@{}l}{\textit{3,072-base region, embedded}} \\
+\quad Aligned oracle & 1 & 512 & 2 & 791.5 & 4.99 & 512 & 4 & 798.3 & 5.04 \\
+\quad Phase only & 12 & 512 & 2 & 381.5 & 49.7 & 512 & 4 & 385.0 & 50.1 \\
+\quad Verifier & 37{,}640 & 512 & 1 & 786.9 & 93.4 & 512 & 0 & 793.7 & 92.4 \\
+\quad Fine grid & 351{,}482 & 512 & 1 & 786.0 & 739.8 & 512 & 0 & 792.8 & 740.3 \\
+\bottomrule
+\end{tabular}

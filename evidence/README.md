@@ -7,6 +7,7 @@
 | `synthid.carbon.*`, `synthid.detector.*`, `synthid.generator.*` | development cohort, both models | `../docs/research/dual_model_v1_admission_amendment_2026_09_09.md` |
 | `synthid.v2.*` | detection cohort, strength analysis, search cost, conservatism, Carbon protocol audit | `../docs/research/synthid_v2_fpr_scaling_protocol_2026_09_21.md` |
 | `synthid.v3.*` | non-adaptive edit-rate series | `../docs/research/threat_model_edit_rate_v3_admission_2026_09_29.md` |
+| `synthid.v5.*` | local review studies S0 to S4 on a locally regenerated 512-prompt cohort; compact results in `derived/synthid_v5/` | `../docs/research/synthid_v5_review_studies_execution_2026_11_13.md` (protocol `../docs/research/synthid_v5_review_studies_protocol_2026_11_12.md`) |
 
 Any new evidence needs a new namespace, a dated protocol, and a documented execution environment.
 Results from removed watermark methods are not retained.

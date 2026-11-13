@@ -24,6 +24,7 @@ All under `research/`. The ledger cites these files; do not rename or rewrite th
 | Edit-rate series | `synthid_v3_edit_rate_protocol_2026_09_24.md` (pilot: `synthid_v3_edit_rate_pilot_protocol_2026_09_24.md`) | `synthid_v3_edit_rate_execution_2026_09_24.md`, `synthid_edit_rate_pilot_execution_2026_09_24.md`, `threat_model_edit_rate_amendment_2026_09_24.md`, `threat_model_edit_rate_v3_admission_2026_09_29.md` |
 | Sampler fidelity recheck | `synthid_v4_sampler_fidelity_protocol_2026_10_01.md`, `second_cohort_quality_sampler_plan_2026_10_01.md` | |
 | Strength analysis | | `cross_model_strength_analysis_2026_09_21.md` |
+| Local review studies S0 to S4 (`synthid.v5.*`) | `synthid_v5_review_studies_protocol_2026_11_12.md` | `synthid_v5_review_studies_execution_2026_11_13.md` |
 
 Supporting references: `literature_map.md`, `model_source_audit.md`,
 `public_prompt_cohort_large_v1.md`, `tacc_slurm_execution.md`, `carbon_synthid_hpc_smoke_2026_08_29.md`.

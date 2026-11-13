@@ -1,0 +1,282 @@
+{
+  "bootstrap": {
+    "interval": "percentile 95%",
+    "replicates": 10000,
+    "seed_label": "synthid-review-v5/s4-bootstrap",
+    "unit": "prompt (both draws kept together)"
+  },
+  "classification": "review_study_result_pending_evidence_admission",
+  "code_sha256": {
+    "scripts/analyze_synthid_v5_entropy.py": "9bd4868bcc52b3d041a0daf1100e5c9313bf378fa3f518aaf8c417551c205ae8",
+    "src/genomic_watermarks/large_validation.py": "9b0d7ee95575de350f6db573ca1a245eaaa59ad6e261903dff2e2960171264c2",
+    "src/genomic_watermarks/synthid.py": "a50fa22c451548e901c75d59b0e6583d9e9015fd6e414cf379d57c7258933082",
+    "src/genomic_watermarks/synthid_boundary.py": "d9193912afa4257a05f0595138be8e3fffd0b223649a281eff81ff0202626270"
+  },
+  "experiment_id": "synthid.v5.s4_entropy_analysis",
+  "flags": [
+    "A correlation is not a causal attribution.",
+    "Keys are public fixtures; no secret-key claim follows."
+  ],
+  "inputs": [
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/studies/s4_entropy/sequences.jsonl",
+      "role": "carbon_entropy_sequences",
+      "sha256": "85513fce4e6bba9b636b369df54b525d279d438d59f469cf5e51377dd962a44c"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/position_independent/trials.jsonl",
+      "role": "carbon_s0_trials",
+      "sha256": "2f8d42e6e918771bc763954a36985fda950459e9995475a60f094debaed6fc8c"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/generation/draw_00_sequences.jsonl",
+      "role": "carbon_generation_draw",
+      "sha256": "4c2f832beb7432fb83fe6607eb9b9f2c4663e742b216a3568e065b8e0b7c7983"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/generation/draw_01_sequences.jsonl",
+      "role": "carbon_generation_draw",
+      "sha256": "babd06b52aac8ead8a9db65b941585059c396f3a66918bd2180042c33aacb682"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/studies/s4_entropy/sequences.jsonl",
+      "role": "generator_entropy_sequences",
+      "sha256": "a8fd8f343fe5a9a1be33ca983dfcb65ea69496c4707ca5d312c6bb2040457c82"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/position_independent/trials.jsonl",
+      "role": "generator_s0_trials",
+      "sha256": "962bacd9fec2a6a9e1857b5e6b4c527575ca976cd6eb63f98a536d1f6920a6e5"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/generation/draw_00_sequences.jsonl",
+      "role": "generator_generation_draw",
+      "sha256": "e919cec722ae4e06be44c2a3f52da89139b8678e40c5581ad3903263546137f0"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/generation/draw_01_sequences.jsonl",
+      "role": "generator_generation_draw",
+      "sha256": "bb8811e49f0fb8e46e0fd947a96deed1996fd50c11cfee42f5a6f2d5fc74f076"
+    }
+  ],
+  "joined_artifact": {
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/shared/s4_entropy_analysis/marked_sequences_joined.jsonl",
+    "sha256": "583dd0c456dc2b2f549716fdbabbffe37f9d787b14ed3f14bf200e757dee6df6"
+  },
+  "mark_bit_definition": "g_ones/g_total of the 3,072-base continuation tokenised from its first base, scored with the generating fixture key and domain by the verifier's window scorer",
+  "models": {
+    "carbon": {
+      "bootstrap_seed_label": "synthid-review-v5/s4-bootstrap/carbon/2718",
+      "mark_bit_fraction": {
+        "count": 1024,
+        "mean": 0.7385086869466869,
+        "quantiles": {
+          "0": 0.6427165354330708,
+          "0.05": 0.7281927539187083,
+          "0.25": 0.7358923884514436,
+          "0.5": 0.7393700787401575,
+          "0.75": 0.7423884514435696,
+          "0.95": 0.74625,
+          "1": 0.7528215223097113
+        },
+        "std": 0.0066612511006725935
+      },
+      "mean_entropy_nats": {
+        "marked": {
+          "count": 1024,
+          "mean": 7.595226842070822,
+          "quantiles": {
+            "0": 4.472637970536057,
+            "0.05": 7.037135572306362,
+            "0.25": 7.489803700860486,
+            "0.5": 7.6571455885625355,
+            "0.75": 7.774061272995629,
+            "0.95": 7.95398997290972,
+            "1": 8.153909030460738
+          },
+          "std": 0.30505027903280996
+        },
+        "ordinary": {
+          "count": 1024,
+          "mean": 7.597872393688451,
+          "quantiles": {
+            "0": 2.169003965939726,
+            "0.05": 7.074884640997091,
+            "0.25": 7.487649520256602,
+            "0.5": 7.658439740216972,
+            "0.75": 7.788027097054918,
+            "0.95": 7.941199147540964,
+            "1": 8.130860996854942
+          },
+          "std": 0.3348746603704457
+        }
+      },
+      "model": "carbon",
+      "prior_expectation": "positive (protocol Section 8); reported whatever its sign",
+      "s0_strength_neg_log10_smallest_window_p": {
+        "count": 1024,
+        "mean": 786.538776671817,
+        "quantiles": {
+          "0": 380.62723905640456,
+          "0.05": 717.1243644541157,
+          "0.25": 766.8700902955038,
+          "0.5": 791.519979993372,
+          "0.75": 813.414857070323,
+          "0.95": 840.3293396430312,
+          "1": 888.4085367050785
+        },
+        "std": 42.65357401837037
+      },
+      "scored_tokens_per_continuation": {
+        "count": 1024,
+        "mean": 507.4453125,
+        "quantiles": {
+          "0": 484.0,
+          "0.05": 504.0,
+          "0.25": 508.0,
+          "0.5": 508.0,
+          "0.75": 508.0,
+          "0.95": 508.0,
+          "1": 508.0
+        },
+        "std": 2.241294116294875
+      },
+      "spearman_entropy_vs_mark_bit_fraction": {
+        "bootstrap_95_interval": [
+          0.6098132032380905,
+          0.6938142577251531
+        ],
+        "bootstrap_replicates": 10000,
+        "bootstrap_valid_replicates": 10000,
+        "estimate": 0.6529797964555597,
+        "prompts": 512,
+        "sequences": 1024
+      },
+      "spearman_entropy_vs_s0_strength": {
+        "bootstrap_95_interval": [
+          0.6202827344473236,
+          0.7031191532791292
+        ],
+        "bootstrap_replicates": 10000,
+        "bootstrap_valid_replicates": 10000,
+        "estimate": 0.6630333591554346,
+        "prompts": 512,
+        "sequences": 1024
+      }
+    },
+    "generator": {
+      "bootstrap_seed_label": "synthid-review-v5/s4-bootstrap/generator/2718",
+      "mark_bit_fraction": {
+        "count": 1024,
+        "mean": 0.7390944612865555,
+        "quantiles": {
+          "0": 0.5578947368421052,
+          "0.05": 0.7300623359580053,
+          "0.25": 0.7370570866141732,
+          "0.5": 0.7400918635170604,
+          "0.75": 0.7426509186351706,
+          "0.95": 0.7463254593175853,
+          "1": 0.7538057742782153
+        },
+        "std": 0.008372928669147567
+      },
+      "mean_entropy_nats": {
+        "marked": {
+          "count": 1024,
+          "mean": 7.562825960486225,
+          "quantiles": {
+            "0": 1.073999513696817,
+            "0.05": 7.101193668381084,
+            "0.25": 7.481802289156114,
+            "0.5": 7.642899853954075,
+            "0.75": 7.752241769482527,
+            "0.95": 7.83504855333422,
+            "1": 7.898572456498319
+          },
+          "std": 0.3646024763243034
+        },
+        "ordinary": {
+          "count": 1024,
+          "mean": 7.563322713790527,
+          "quantiles": {
+            "0": 0.5719401077704807,
+            "0.05": 6.975741634589127,
+            "0.25": 7.509034721422131,
+            "0.5": 7.649716343975883,
+            "0.75": 7.748470773550178,
+            "0.95": 7.8381486034800405,
+            "1": 7.8955638265310695
+          },
+          "std": 0.37475211609588216
+        }
+      },
+      "model": "generator",
+      "prior_expectation": "positive (protocol Section 8); reported whatever its sign",
+      "s0_strength_neg_log10_smallest_window_p": {
+        "count": 1024,
+        "mean": 791.3957495370285,
+        "quantiles": {
+          "0": 29.73638881709293,
+          "0.05": 729.2280859927735,
+          "0.25": 776.5530227489564,
+          "0.5": 797.4161083831577,
+          "0.75": 815.2548846118791,
+          "0.95": 841.2664222400304,
+          "1": 895.6815380043299
+        },
+        "std": 47.29558204040164
+      },
+      "scored_tokens_per_continuation": {
+        "count": 1024,
+        "mean": 507.6337890625,
+        "quantiles": {
+          "0": 323.0,
+          "0.05": 508.0,
+          "0.25": 508.0,
+          "0.5": 508.0,
+          "0.75": 508.0,
+          "0.95": 508.0,
+          "1": 508.0
+        },
+        "std": 6.58782838226464
+      },
+      "spearman_entropy_vs_mark_bit_fraction": {
+        "bootstrap_95_interval": [
+          0.5312874208960622,
+          0.6261357661685788
+        ],
+        "bootstrap_replicates": 10000,
+        "bootstrap_valid_replicates": 10000,
+        "estimate": 0.5800428559644651,
+        "prompts": 512,
+        "sequences": 1024
+      },
+      "spearman_entropy_vs_s0_strength": {
+        "bootstrap_95_interval": [
+          0.5320170405542879,
+          0.6269232508565854
+        ],
+        "bootstrap_replicates": 10000,
+        "bootstrap_valid_replicates": 10000,
+        "estimate": 0.5808284684342248,
+        "prompts": 512,
+        "sequences": 1024
+      }
+    }
+  },
+  "protocol": {
+    "id": "synthid_v5_review_studies_protocol_2026_11_12",
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/docs/research/synthid_v5_review_studies_protocol_2026_11_12.md",
+    "section": "8 S4",
+    "sha256": "49509bc664a5dadfcdddce486a45d4be708da6eae1921424482f6b0cd19de317"
+  },
+  "provenance": {
+    "command": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/.venv/bin/python /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/scripts/analyze_synthid_v5_entropy.py --carbon-entropy-dir /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/studies/s4_entropy --carbon-s0-trials /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/position_independent/trials.jsonl --carbon-generation-root /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged --generator-entropy-dir /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/studies/s4_entropy --generator-s0-trials /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/position_independent/trials.jsonl --generator-generation-root /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged --output-dir /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/shared/s4_entropy_analysis",
+    "numpy": "2.5.2",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "python": "3.12.16",
+    "wall_seconds": 18.440998000005493
+  },
+  "schema_version": 1,
+  "strength_definition": "-log10 of the smallest window P-value, S0 clean, correct key"
+}

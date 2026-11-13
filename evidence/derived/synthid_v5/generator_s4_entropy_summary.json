@@ -1,0 +1,71 @@
+{
+  "classification": "review_study_result_pending_evidence_admission",
+  "code_sha256": {
+    "scripts/run_synthid_v5_entropy.py": "6b155ffd13649b32898303e91f19c84578254deb70ff4685cd3da6b5af26e44c",
+    "scripts/run_synthid_v5_null_calibration.py": "af3f081e373da5ed56951dd8aa863d921373ce828713ed5448d6c4744395487f",
+    "src/genomic_watermarks/models/huggingface.py": "ec372c3c7fb72121efe0b7626fd290ba66b920a4296ad6782af026e64d3f0eb7",
+    "src/genomic_watermarks/models/policy_math.py": "fc1aa001a1664b9e6c7466e74ea73f2bb471af156107f91303f2065b6df6d5e6",
+    "src/genomic_watermarks/models/runtime.py": "ab6d6d3e3eed1cd27b7259ad7b01022314e98b3562f3e8fc7fefe9d59464ef3f",
+    "src/genomic_watermarks/models/vocabulary.py": "45a992cc39d52584bd1817e9c840618603ed1418d8123a4f20607fe620d5139b",
+    "src/genomic_watermarks/pilot.py": "28930af5169e6318e0a3b312d104315329ca5e3e115af7e514bf93321af4859b"
+  },
+  "cohort_id": "ncbi_refseq_eukaryote_windows_fpr_v2_1608",
+  "crosscheck_max_abs_difference": null,
+  "crosscheck_nll": false,
+  "device": "mps",
+  "dtype": "bfloat16",
+  "entropy_definition": "Shannon entropy in nats of the canonical 4,096-token next-token distribution (log-softmax over the canonical logits, temperature 1.0, normalised once), float64, teacher-forced on prompt + continuation",
+  "evaluated_prompts": 512,
+  "experiment_id": "synthid.v5.s4_entropy",
+  "experiment_label": "generator-synthid-local-v5",
+  "inputs": [
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/data/processed/ncbi_refseq_eukaryote_windows_fpr_v2_1608/prompts.jsonl",
+      "role": "cohort_prompts",
+      "sha256": "cb19e90662fcb25f774b0840e2e696132e2dc9c54439d97597bd186d4948f775"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/generation/draw_00_sequences.jsonl",
+      "role": "generation_draw",
+      "sha256": "e919cec722ae4e06be44c2a3f52da89139b8678e40c5581ad3903263546137f0"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/generation/draw_01_sequences.jsonl",
+      "role": "generation_draw",
+      "sha256": "bb8811e49f0fb8e46e0fd947a96deed1996fd50c11cfee42f5a6f2d5fc74f076"
+    }
+  ],
+  "mean_forward_seconds_per_sequence": 0.08937118144511658,
+  "model": "generator",
+  "partial_run": false,
+  "policy_id": "G_tok",
+  "positions_per_sequence": 512,
+  "protocol": {
+    "id": "synthid_v5_review_studies_protocol_2026_11_12",
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/docs/research/synthid_v5_review_studies_protocol_2026_11_12.md",
+    "section": "8 S4",
+    "sha256": "49509bc664a5dadfcdddce486a45d4be708da6eae1921424482f6b0cd19de317"
+  },
+  "provenance": {
+    "command": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/.venv/bin/python /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/scripts/run_synthid_v5_entropy.py --model generator --generation-root /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged --experiment-label generator-synthid-local-v5 --generation-experiment-id generator_synthid_v5_local_generation --n-eval 512 --output-dir /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/studies/s4_entropy --device mps --dtype bfloat16",
+    "cpu_model": "Apple M5 Pro",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "python": "3.12.16",
+    "wall_seconds": 187.6221699170128
+  },
+  "schema_version": 1,
+  "selected_prompts": 512,
+  "sequences": 2048,
+  "sequences_artifact": {
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/studies/s4_entropy/sequences.jsonl",
+    "sha256": "a8fd8f343fe5a9a1be33ca983dfcb65ea69496c4707ca5d312c6bb2040457c82"
+  },
+  "session": {
+    "computed_now": 512,
+    "model_load_seconds": 3.329276457981905,
+    "run_seconds": 183.5596162910224,
+    "seconds_per_sequence": 0.08962871889210078,
+    "sequences": 2048,
+    "torch_version": "2.13.0"
+  }
+}

@@ -1,0 +1,37 @@
+\begin{tabular}{@{}l rr@{\hspace{12pt}}rr@{}}
+\toprule
+& \multicolumn{2}{c}{\textbf{Carbon-500M}} & \multicolumn{2}{c}{\textbf{GENERator-v2 1.2B}} \\
+\cmidrule(lr){2-3}\cmidrule(l){4-5}
+Detector & Marked prompts & Ordinary prompts (bound) & Marked prompts & Ordinary prompts (bound) \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Standard layout}} \\
+\quad Aligned oracle & 256 & 2 (2.44) & 256 & 4 (3.54) \\
+\quad Phase only & 256 & 6 (4.57) & 256 & 5 (4.06) \\
+\quad Verifier & 256 & 2 (2.44) & 256 & 0 (1.16) \\
+\quad Fine grid & 256 & 0 (1.16) & 256 & 0 (1.16) \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Standard layout, one insertion}} \\
+\quad Aligned oracle & 230 & 3 (3.00) & 227 & 2 (2.44) \\
+\quad Phase only & 256 & 3 (3.00) & 256 & 2 (2.44) \\
+\quad Verifier & 256 & 1 (1.84) & 256 & 0 (1.16) \\
+\quad Fine grid & 256 & 0 (1.16) & 256 & 0 (1.16) \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{768-base region, embedded}} \\
+\quad Aligned oracle & 256 & 5 (4.06) & 256 & 1 (1.84) \\
+\quad Phase only & 255 & 2 (2.44) & 255 & 5 (4.06) \\
+\quad Verifier & 256 & 0 (1.16) & 256 & 1 (1.84) \\
+\quad Fine grid & 256 & 0 (1.16) & 256 & 0 (1.16) \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{1,152-base region, embedded}} \\
+\quad Aligned oracle & 256 & 4 (3.54) & 256 & 2 (2.44) \\
+\quad Phase only & 255 & 5 (4.06) & 256 & 7 (5.07) \\
+\quad Verifier & 256 & 1 (1.84) & 256 & 2 (2.44) \\
+\quad Fine grid & 256 & 0 (1.16) & 256 & 1 (1.84) \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{3,072-base region, embedded}} \\
+\quad Aligned oracle & 256 & 2 (2.44) & 256 & 4 (3.54) \\
+\quad Phase only & 256 & 2 (2.44) & 256 & 4 (3.54) \\
+\quad Verifier & 256 & 1 (1.84) & 256 & 0 (1.16) \\
+\quad Fine grid & 256 & 1 (1.84) & 256 & 0 (1.16) \\
+\bottomrule
+\end{tabular}

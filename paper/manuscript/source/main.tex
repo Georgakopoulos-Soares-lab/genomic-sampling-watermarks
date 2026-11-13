@@ -85,9 +85,14 @@ or deleted base. For ordinary sequences, the one-sided 95\% upper confidence bou
 false-positive rate was at most 0.850\%; one bound for the wrong-key control reached 1.015\%
 (Carbon, after a deletion). In a development cohort, neither model showed a detectable change in
 likelihood or in predefined sequence measures. Under random edits placed without reference to the
-detector, detection stayed complete or nearly complete up to a 2\% per-base edit rate. Every test
-sequence had the same layout, a 384-base prompt followed by a 3{,}072-base generated region, so
-other region lengths and placements remain untested. These results show statistical detection, not
+detector, detection stayed complete or nearly complete up to a 2\% per-base edit rate. The
+detection and development cohorts share one layout, a 384-base prompt followed by a 3{,}072-base
+generated region. In a third, local cohort of 512 prompts generated on a different machine by the same
+authors, 54 layouts per model varied the region length from 384 to 3{,}072 bases, the natural DNA
+around the region, the strand, the token phase, and cropping, and at least 1{,}023 of 1{,}024
+marked reads were detected in every layout. Under 64 keys never used in generation, no calibration
+fraction exceeded its nominal level on model output or on genomic DNA that no model generated.
+Regions shorter than 384 bases were not tested. These results show statistical detection, not
 biological function, secret-key security, or robustness to an editor who sees the detector.
 \end{minipage} \vspace{1.2em} \end{center}
 }]
@@ -125,10 +130,12 @@ from a deliberately reweighted distribution. We ask whether the sampler follows 
 whether watermarking changes likelihood or simple sequence statistics, and whether a verifier can
 find the mark without knowing the start, strand, or token phase.
 
-The study uses two cohorts of prompts with separate roles. A development cohort of 256 prompts
+The study uses three cohorts of prompts with separate roles. A development cohort of 256 prompts
 serves the sampler check, the quality comparison, and the choice of how to score a window. A
 detection cohort of 1{,}608 prompts, of which 1{,}544 are held out, serves detection, the
-false-positive rate, and the edit experiments.
+false-positive rate, and the edit experiments. A third, local cohort re-generates 512 of those
+held-out prompts on a different machine and serves the layout, detector-comparison, calibration,
+and entropy studies. It is not an independent replication.
 
 In both models, the verifier found every marked sequence in the detection cohort, unedited and after
 one edited base. For ordinary sequences, every one-sided 95\% upper confidence bound on the
@@ -136,6 +143,8 @@ false-positive rate lay below the 1\% target. Neither model showed a detectable 
 quality measures. Random edits placed without reference to the detector left detection complete or
 nearly complete up to a 2\% per-base edit rate. After an insertion or deletion, the windows the
 verifier selected are consistent with regions where the token phase is preserved or recovered.
+In the local cohort, at least 1{,}023 of 1{,}024 marked reads were detected in each of 54 layouts
+per model, and calibration under 64 unused keys showed no fraction above its nominal level.
 
 \section{Background}
 \label{sec:background}
@@ -345,9 +354,10 @@ Every prompt produced two marked and two ordinary continuations of 512 tokens (3
 model. The two draws used different seeds, and the two marked draws used different keys, both
 published for reproducibility. Prepending the prompt to a held-out continuation gives the
 3{,}456-base test sequence that the verifier receives, either a marked sequence or an ordinary
-sequence; its generation boundary is withheld. Every test sequence therefore has the same layout:
-the generated region is its last 3{,}072 bases, lies on the forward strand, and starts a multiple
-of six bases from the first base (Section~\ref{sec:limitations}). Scoring each marked sequence with the other marked draw's key gives the wrong-key control,
+sequence; its generation boundary is withheld. In these two cohorts every test sequence therefore
+has the same standard layout: the generated region is its last 3{,}072 bases, lies on the forward
+strand, and starts a multiple of six bases from the first base. The local cohort varies this layout
+(Section~\ref{sec:local-methods}). Scoring each marked sequence with the other marked draw's key gives the wrong-key control,
 which tests whether a positive depends on the correct key. The three rates are reported
 separately, because a pooled accuracy would depend on how common marked sequences are in an
 application.
@@ -415,6 +425,79 @@ detector setting changed. Marked sequences were scored with the correct key and 
 corresponding key, 3{,}088 sequences per model, rate, and series, without wrong-key controls. The
 analysis plan required the ordinary-sequence rate to stay at or below 1\% in every cell, because a
 rise with edit rate would mean that the edits themselves create apparent signal.
+
+\subsection{Local cohort and layout studies}
+\label{sec:local-methods}
+
+The detection and development cohorts cannot show how detection depends on the layout, whether the
+$P$-value is valid across keys, or what explains differences in strength. We therefore generated a
+third cohort on one Apple M5 Pro machine (PyTorch MPS backend, bfloat16) and ran four studies on it,
+with detection on the machine's CPU (Supplementary Section~\ref{supp:cost}). The local cohort uses
+the first 512 held-out prompts of the detection cohort in its split order, with two marked and two
+ordinary continuations of 512 tokens per prompt and model. New generation labels gave both models
+new keyed functions and new sampling seeds, and all other settings matched the detection cohort. The
+same authors generated and scored this cohort with the same code. It repeats the detection cohort's
+design on a subset of its prompts on different hardware. It is not an independent replication, and
+we do not pool it with the detection cohort. With 512 prompts, a control with no positive prompt has
+an exact one-sided 95\% upper confidence bound of 0.583\%, and the bound is below 1\% only if at most
+one prompt is positive. We call every sequence that the verifier receives a read, and the prompt is
+the independent unit throughout.
+
+\textit{Standard layout.} The unchanged verifier scored the local cohort at the standard layout, in
+the four edit conditions and with the three controls of the detection cohort.
+
+\textit{Layout study.} The layout study has 54 layouts per model, fixed before generation by public
+hash rules that never consult the detector, a key, or a score. The marked region of a read is a
+marked continuation or its first $l$ bases. The control read carries the ordinary continuation of
+the same prompt and draw in the same layout, with the same flanks. A flank is natural genomic DNA,
+not model output: it is drawn from the 1{,}608 public source spans of the detection cohort (3{,}072
+bases each, from the 12 RefSeq records that gave the prompts), and a flank longer than one span joins
+pieces from several spans, none of them the read's own. Six series vary one aspect each, except series C, which varies phase and strand.
+Series A truncates the region, with $l$ from 384 to 3{,}072 bases. Three of the seven lengths (576,
+1{,}152, and 2{,}304) fall between window lengths. Series B embeds the same regions in a 6{,}144-base
+read, with a natural left flank of 1{,}536 bases. Series C places a region of 768 or 3{,}072 bases
+after a left flank of $384 + o$ bases, with $o$ from 0 to 5, so that the region starts at each of the
+six token phases, and supplies each read forward or as its reverse complement. Series D surrounds a
+region of 768 or 3{,}072 bases with flanks of 0, 384, 1{,}536, or 4{,}608 bases on each side. Series E
+places a 768-base region at five positions in a 6{,}144-base read. Series F crops the standard read
+to 768, 1{,}536, or 2{,}304 contiguous bases at a hashed start. Two checks were specified before the
+run. Series A at 3{,}072 bases must reproduce the standard-layout decisions exactly, and a series C
+read and its reverse complement must give the same smallest window $P$-value and number of windows. A
+failure of either would be an implementation fault, not a result. No detection rate for marked reads
+had a pass threshold, and the ordinary rate, with the prompt as the unit, was expected at or below 1\% in each layout.
+
+\textit{Detector comparison.} On the first 256 prompts, five settings were scored by four detectors,
+all with the same window statistic and the same 0.01 sequence-level target, each corrected for the
+windows it searches. The five settings are the standard layout, the standard layout after one
+insertion, and series B at 768, 1{,}152, and 3{,}072 bases. The aligned oracle is told the strand,
+the start of the generated region, and its length, and scores that one window; after the insertion
+it is told the original start and length, not the edit. The phase-only search scores the whole read
+from each of the six phases on both strands, 12 windows. The verifier is unchanged. The fine-grid
+search scores every start on both strands and every length $384 + 96j$ that fits the read. It stands
+in for a search over all contiguous spans, which we did not run. These detectors are analysis
+baselines. No verifier setting changed, and the baselines are used for no other result. We summarize
+the margin of a read by its corrected strength, $-\log_{10}$ of the sequence-level $P$-value, which
+is at least 2 exactly when the read is positive at $\alpha = 0.01$. Cost is the median
+single-thread time of one detection call, measured on 32 prompts.
+
+\textit{Calibration across keys.} The verifier ran unchanged under 64 keys that were never used in
+generation, each derived from its index by hashing a public label. Three sources of reads were
+scored, 512 ordinary and 512 marked reads per model at the standard layout (first draw) and the 1{,}608
+natural source spans, each searched with its own number of windows. We counted decisions at the 0.01
+level and the fraction of decisions with a sequence-level $P$-value at or below 0.01, 0.05, 0.10,
+0.25, and 0.50. The rule was set in advance: the $P$-value is supported as valid for a source if
+every observed fraction is at or below its nominal level, and a fraction whose exact one-sided 95\%
+lower bound exceeds its nominal level is evidence against validity. Decisions on one read under
+different keys share the read, and decisions under one key share the key, so the exact intervals
+treat dependent decisions as independent. We also report the fraction of reads positive under at
+least one key.
+
+\textit{Entropy.} One teacher-forced pass of the generating model over each continuation recorded the
+Shannon entropy of the 4{,}096-token distribution at every generated position, averaged per
+sequence. We report the Spearman correlation of a marked sequence's mean entropy with its strength
+at the standard layout and with the fraction of its mark bits equal to 1 in the full continuation
+window. Intervals are 95\% percentile intervals from a bootstrap over prompts with 10{,}000
+replicates. A positive correlation was expected before the measurement.
 
 \section{Results}
 \label{sec:results}
@@ -611,6 +694,212 @@ rates and edit types, 0.15\% of ordinary Carbon sequences and 0.13\% of ordinary
 positive. The largest value in any single cell was 0.29\%, for GENERator in the mixed series at
 1\%.
 
+\subsection{Detection in the local cohort}
+\label{sec:local-cohort}
+
+At the standard layout, the local cohort gave the same pattern as the detection cohort
+(Supplementary Table~\ref{tab:local-standard}). The verifier found all 1{,}024 marked reads, with
+both draws detected for all 512 prompts, in every edit condition in both models. The median strength
+of unedited marked reads was 791.5 in Carbon and 797.4 in GENERator, close to the 792.9 and 799.7
+of the detection cohort. One inserted or deleted base again lowered it by close to half, to
+437.4--444.3 in Carbon and 437.5--450.9 in GENERator.
+
+Ordinary reads were positive in 3, 2, 2, and 2 prompts in Carbon (unedited, substitution, insertion,
+deletion) and in none, none, none, and one prompt in GENERator. The wrong-key control was positive
+in one or two prompts in every condition in both models. At 512 prompts, the one-sided 95\% upper
+bound is 0.583\% for no positive prompt, 0.923\% for one, 1.224\% for two, and 1.507\% for three.
+Every control with two or more positive prompts therefore has a bound above 1\%. This cohort has about a third as many prompts as the detection cohort, whose 1{,}544
+prompts remain the evidence for the false-positive bound.
+
+\subsection{Detection across layouts}
+\label{sec:layouts}
+
+Detection did not fail in any of the 54 layouts in either model. At least 1{,}023 of the 1{,}024
+marked reads were detected in every layout (Table~\ref{tab:layout}; Supplementary
+Table~\ref{tab:layout-all}). Both checks specified before the run passed in both models. Series A at
+3{,}072 bases reproduced all 2{,}048 standard-layout decisions without a mismatch, and all 24{,}576
+forward and reverse-complement pairs in series C gave the same smallest window $P$-value and number
+of windows.
+
+\begin{table*}[tp]
+\centering
+\caption{Detection across layouts in the local cohort, for representative layouts. For each model,
+\textit{Reads} are marked reads detected (of 1{,}024, from 512 prompts with two draws),
+\textit{Prompts} are prompts with both draws detected (of 512), \textit{Strength} is the median
+strength of the best window before the correction for the search, and \textit{Ordinary} is the
+number of ordinary reads flagged (of 1{,}024). In series A the region follows the prompt, in series
+B it lies between natural flanks in a 6{,}144-base read, and in series D the region length is given
+before a plus sign and the flank on each side after it; in series F the read is a random crop of
+the standard read. Lengths are in bases. Regions of 576 and 1{,}152 bases fall between window
+lengths. Supplementary Table~\ref{tab:layout-all} lists all 54 layouts.}
+\label{tab:layout}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\input{tables/v5_layout_main}
+\end{table*}
+
+The misses are few. In Carbon, one marked read was
+missed, in one layout: a 384-base region between natural flanks. In GENERator, one marked read was
+missed in each of the 28 layouts whose region or crop is 768 bases or shorter. Every GENERator read
+was detected at 1{,}152 bases and longer. In both models the lowest rate in any layout was 1{,}023
+of 1{,}024 reads, which is 511 of 512 prompts with both draws detected.
+
+Median strength tracked the length of the marked region and little else. At 384 bases it was 94.9
+in Carbon and 94.0 in GENERator, and at 3{,}072 bases 791.5 and 797.4, about eight times as large
+for eight times the length. For regions of the four window lengths, embedding the region between
+natural flanks (series B), moving it (series E), lengthening the flanks to 4{,}608 bases on each
+side (series D), starting it at another token phase, or reverse-complementing the read (series C)
+left the median strength within 0.5 of the series A value. At 768 bases it ranged from 194.4 to
+194.8 in both models, and at 3{,}072 bases it was 791.5 in Carbon and 797.4 in GENERator in every
+layout. Regions whose length falls between two window lengths were detected with a median strength
+close to that of the next shorter window length. At 1{,}152 bases it was 216.5 in Carbon and 216.1 in
+GENERator, against 194.6 and 194.8 at 768 bases, and the lengths of 576 and 2{,}304 bases showed the same pattern (Supplementary Table~\ref{tab:layout-all}). Between natural flanks the
+medians at these lengths were higher: in Carbon, 223.4 against 216.5 at 1{,}152 bases and 446.7
+against 408.7 at 2{,}304 bases. Random crops of 768, 1{,}536, and 2{,}304
+bases were detected in every read except one GENERator read at 768 bases.
+
+The ordinary rate was expected to stay at or below 1\% in every layout. At read level it did. The
+largest count was 6 of 1{,}024 reads (0.586\%) in GENERator, for a 384-base region, and 5 of 1{,}024
+(0.488\%) in Carbon. At prompt level, counting a prompt as positive if either draw is, one layout did not meet the
+expectation: the 384-base region in GENERator, with 6 of 512 prompts (1.172\%) and a one-sided
+95\% upper bound of 2.30\%. Its marked rate carries that caveat. In Carbon the largest prompt-level rate was 5 of 512
+(0.977\%). With 512 prompts the upper bound exceeds 1\% in every layout with two or more positive prompts,
+which is most Carbon layouts and a minority of GENERator layouts
+(Supplementary Table~\ref{tab:layout-all}). In those layouts these controls do not show a rate
+below 1\%.
+
+Detection was at its ceiling in every layout, so these data locate no boundary at which it fails
+within the tested range. They show that strength falls with the length of the region, not that
+detection does. Regions shorter than 384 bases, which is 64 tokens, were not tested, and the flanks
+come from the same 12 RefSeq records as the prompts.
+
+\subsection{Comparison with narrower and denser detectors}
+\label{sec:detector-comparison}
+
+Where the layout is aligned, the verifier detected as many marked reads as an aligned oracle, and
+after an insertion it recovered detection that the oracle lost (Table~\ref{tab:detectors}). The
+comparison is descriptive. We call no detector better where the exact 95\% intervals of the rates
+overlap. At the standard layout, all four detectors detected all 512 marked reads in both models.
+They did the same for a 3{,}072-base region in a 6{,}144-base read, and the oracle, the verifier, and
+the fine grid did so at 768 and 1{,}152 bases.
+
+\begin{table*}[tp]
+\centering
+\caption{Four detectors on five settings in the local cohort, 256 prompts and 512 reads per model.
+\textit{Windows} is the number of windows searched per read. \textit{Marked} and \textit{Ordinary}
+are the marked reads detected and the ordinary reads flagged, both of 512. \textit{Strength} is the
+median corrected strength of marked reads, $-\log_{10}$ of the sequence-level $P$-value, and a read
+is positive at 2 or more. \textit{ms} is the median single-thread time per read on the local
+machine; it is not comparable with the timing on a different processor in
+Supplementary Section~\ref{supp:cost}. Supplementary Table~\ref{tab:detectors-prompts} gives the
+prompt-level counts and bounds.}
+\label{tab:detectors}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\input{tables/v5_detectors_main}
+\end{table*}
+
+The search recovers detection after an insertion. The oracle, told the original start and length,
+detected 486 of 512 marked reads in Carbon (230 of 256 prompts with both draws) and 483 of 512 in
+GENERator (227 of 256) after one inserted base. The verifier, the phase-only search, and the fine
+grid detected all 512 in both models. These are the only intervals that do not overlap in the
+comparison: the oracle against each of the three searches, after the insertion, in both models. The
+oracle's median corrected strength fell from 791.5 to 197.2 in Carbon and from 798.3 to 202.5 in
+GENERator, whereas the verifier's fell from 787.3 to 451.2 and from 794.1 to 460.9.
+
+For short regions in long reads, the search over starts and lengths gave a higher median corrected
+strength than the phase-only search. This comparison is descriptive. For a 768-base
+region in a 6{,}144-base read, the phase-only search, which scores the whole read, had a median
+corrected strength of 22.2 in Carbon and 22.9 in GENERator, against 189.6 and 190.7 for the
+verifier, and it missed one read in each model (511 of 512). At 1{,}152 bases the phase-only
+strengths were 51.8 and 52.9 against 219.4 for the verifier, and the phase-only search missed one
+Carbon read. At 3{,}072 bases they were 381.5 and 385.0 against 786.9 and 793.7.
+
+The search buys no detections where the layout is aligned. There the verifier's median corrected
+strength (787.3 in Carbon, 794.1 in GENERator) was below the oracle's (791.5 and 798.3), the cost of
+the larger correction. A denser search raised the margin without adding detections. At 1{,}152 bases
+the fine grid reached 289.2 in Carbon and 290.3 in GENERator, against 219.4 for the verifier, and
+after the insertion 591.8 and 596.3, against 451.2 and 460.9. It took about five times as long per
+read at the standard layout (224.1 against 45.1 ms in Carbon, 224.6 against 44.4 ms in GENERator) and
+about eight times as long in the 6{,}144-base reads (741.9 against 96.7 ms and 746.2 against 97.0 ms
+at 1{,}152 bases). Single-thread time per read ranged from 0.48 to 5.04 ms for the oracle, 27.3 to
+55.3 ms for the phase-only search, 41.5 to 97.0 ms for the verifier, and 221.8 to 746.2 ms for the
+fine grid. The fine grid stands in for a search over all contiguous spans, which was not run.
+
+The baselines flagged more ordinary reads than the verifier, which corrects for more windows. At read level, the phase-only search flagged 6 of 512 ordinary reads
+at the standard layout in both models and 7 of 512 at 1{,}152 bases in GENERator. The oracle flagged
+up to 5 of 512 and the phase-only search up to 7, whereas the verifier flagged at most 2 and the fine
+grid at most 1. Counting a prompt as positive if either draw is, the oracle and the phase-only search
+exceeded 1\% in several settings (3 to 7 of 256 prompts; Supplementary
+Table~\ref{tab:detectors-prompts}), and the verifier and the fine grid did not. At 256 prompts no control, including the verifier's,
+has a one-sided 95\% upper bound below 1\%.
+
+\subsection{Calibration across keys}
+\label{sec:null-keys}
+
+Under 64 keys that were never used in generation, the corrected decision was positive in at most
+0.140\% of decisions in every source, and no calibration fraction exceeded its nominal level
+(Table~\ref{tab:null}; Supplementary Table~\ref{tab:calibration}). Ordinary output was positive in
+37 of 32{,}768 decisions in Carbon and 36 in GENERator, marked output scored with unused keys in 46
+(Carbon) and 42 (GENERator), and natural genomic spans in 132 of 102{,}912. The positive rate of a single key ranged from 0
+to 0.781\% for ordinary output in both models, to 0.586\% (Carbon) and 0.781\% (GENERator) for marked
+output, and to 0.435\% for natural spans, and no key reached 1\%. At the other four levels, the
+observed fractions ranged from 0.525 to 0.638\% at the 5\% level, 0.983 to 1.147\% at 10\%, 2.521
+to 2.719\% at 25\%, and 4.587 to 4.782\% at 50\%, about a tenth of the nominal level at each. By the
+rule set before the run, the $P$-value is supported as valid for these sources, and it is
+conservative: no one-sided lower bound exceeded its nominal level.
+
+\begin{table*}[tp]
+\centering
+\caption{Calibration of the sequence-level decision under 64 keys never used in generation, in the
+local cohort. \textit{Positive / decisions} counts decisions with a corrected $P$-value of at most
+0.01 (512 reads times 64 keys for model output, 1{,}608 spans times 64 keys for natural spans).
+\textit{Per-key rate} is the range of the positive rate over keys. The last column counts reads
+positive under at least one key. The decisions share reads and keys, so the counts are not
+independent. Supplementary Table~\ref{tab:calibration} gives the fractions at five nominal levels.}
+\label{tab:null}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\input{tables/v5_null_main}
+\end{table*}
+
+The decisions on one read under different keys share that read, and the decisions under one key
+share the key, so the pooled intervals treat dependent decisions as independent. The read-level view
+is therefore the more cautious summary. Of 512 ordinary reads, 36 were positive under at least one
+of the 64 keys in each model (7.03\%), as were 45 of 512 marked reads in Carbon, 40 in GENERator,
+and 127 of 1{,}608 natural spans (7.90\%). Those fractions are close to 64 times the per-decision
+rate. The result describes these sources, one derivation of the keys, and one sequence length (3{,}456-base
+reads and 3{,}072-base spans). It says nothing about secret-key security.
+
+\subsection{Entropy and strength}
+\label{sec:entropy}
+
+Marked sequences with a higher mean entropy had a higher strength in both models
+(Table~\ref{tab:entropy}). The Spearman correlation of a sequence's mean entropy with its strength
+was 0.663 in Carbon and 0.581 in GENERator, and with the fraction of its mark bits equal to 1 it was
+0.653 and 0.580. Every bootstrap interval excludes zero. This is
+a correlation, not a causal attribution. Mean entropy was similar for marked and ordinary
+continuations and between the models: 7.595 and 7.598 nats in Carbon, and 7.563 and 7.563 in
+GENERator, against 8.318 for a uniform distribution over the 4{,}096 tokens. Each model had a tail of
+low-entropy sequences. The lowest mean entropy of a marked sequence was 4.473 in Carbon and 1.074 in
+GENERator. The correlation was measured in the local cohort, which does not include the weakest
+sequences of the development cohort, so it does not explain them.
+
+\begin{table}[tp]
+\centering
+\caption{Spearman correlation of the mean entropy of a marked sequence with its strength and with
+the fraction of its mark bits equal to 1, in the local cohort (1{,}024 sequences from 512 prompts per
+model). Brackets give 95\% intervals from a bootstrap over prompts with 10{,}000 replicates.}
+\label{tab:entropy}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.08}
+\input{tables/v5_entropy_main}
+\end{table}
+
 \section{Discussion}
 
 A verifier that knows neither the strand, the start of the generated region, nor the token phase
@@ -619,7 +908,10 @@ The verifier is assembled from existing parts: the SynthID detection statistic, 
 contiguous windows of the kind used for text \cite{kirchenbauer2024reliability}, and a Bonferroni
 correction. What is specific to DNA is the search space, which adds strands and token phases to
 start positions and lengths, and the single correction that covers it. This shared watermarking
-and detection procedure is the methodological contribution.
+and detection procedure is the methodological contribution. The local comparison measures what the
+search buys and what it does not (Section~\ref{sec:detector-comparison}). It recovers detection that
+an aligned oracle loses after an insertion, and its median corrected strength was higher than that of a phase-only search for short regions
+in long reads. Where the layout is aligned, it adds no detections to the oracle's.
 
 The verifier tolerates random edits because it does not need an intact window. A simple argument
 predicts failure much earlier: at a 1\% rate, stretches free of insertions and deletions average
@@ -634,14 +926,20 @@ Running the same sampler and verifier in two models shows that the implementatio
 them. The two models agreed in detection, had nearly identical typical strength, and showed no
 measurable quality loss, although they share much of their training data.
 
-The margin seen here should not be assumed for shorter generated regions or longer sequences. A
-shorter region supplies fewer mark bits, and a longer sequence adds windows to the correction. A
-region whose length falls between two window lengths is covered only in part by the shorter
-window, or shares the longer one with unmarked bases that dilute the count. The margin also varies
-between sequences. The weakest marked sequences lay well below the median (Supplementary
-Section~\ref{supp:weakest}), and we did not measure how strength depends on the model's per-token
-entropy. The shortest detectable continuation, and the trade-off between detection power and
-distortion across tournament depths, remain to be measured in both models.
+Shorter regions lower the margin, and the local layout study measured by how much
+(Section~\ref{sec:layouts}). Strength fell in proportion to the region length, from 797.4 at 3{,}072
+bases to 94.0 at 384 bases in GENERator (791.5 and 94.9 in Carbon), while at least 1{,}023 of 1{,}024
+marked reads were detected in every layout. A region whose length falls between two window lengths had a median strength close to that of
+the next shorter window length
+(216.1 at 1{,}152 bases against 194.8 at 768 bases in GENERator). Flanks of up to 4{,}608 natural
+bases on each side add windows to the correction, and they left the median strength, which is not corrected for the search, at the window lengths
+unchanged. The margin also varies between sequences. The weakest marked sequences lay well
+below the median (Supplementary Section~\ref{supp:weakest}). In the local cohort, mean entropy
+correlated with strength (0.581 in GENERator, 0.663 in Carbon), but that is a correlation in a
+different cohort from the weakest sequences, and not a causal attribution
+(Section~\ref{sec:entropy}). The shortest detectable region, which lies below the 384 bases tested,
+and the trade-off between detection power and distortion across tournament depths remain to be
+measured in both models.
 
 The search addresses a synchronization problem that coding theory treats directly.
 Synchronization strings add indexing information to recover from insertions and deletions
@@ -652,11 +950,15 @@ which a sampling watermark does not have \cite{davey2001reliable}. Our verifier 
 code to the sequence. It enumerates the offsets, pays for the search through its correction, and
 carries none of the error-correction guarantees of those codes. Two measurements indicate where a
 different verifier could gain. The correction is about 19 times more severe than the effective
-number of tests (Supplementary Section~\ref{supp:bonferroni}). The decision also rests on the
-single strongest window, and one insertion or deletion removes about 45\% of the median strength
-(Section~\ref{sec:single-edits}). A threshold calibrated to the dependence between windows, or a
-score that combines windows on both sides of a phase shift, could address these. We evaluated
-neither. Synonymous-codon watermarks for
+number of tests (Supplementary Section~\ref{supp:bonferroni}), and across 64 keys the observed
+fractions were about a tenth of their nominal levels (Section~\ref{sec:null-keys}). The decision also
+rests on the single strongest window, and one insertion or deletion removes about 45\% of the median
+strength (Section~\ref{sec:single-edits}). A threshold calibrated to the dependence between windows,
+or a score that combines windows on both sides of a phase shift, could address these, and we
+evaluated neither. The fine-grid search of the local comparison changes only how densely the same
+statistic is searched. It raised the median corrected strength after an insertion from 451.2 to 591.8
+in Carbon and from 460.9 to 596.3 in GENERator, at about five times the cost, and it added no
+detections. Synonymous-codon watermarks for
 coding sequences \cite{zhang2025securing} serve a complementary goal, and combining them with
 generation-time marks would need its own evaluation.
 
@@ -666,8 +968,10 @@ generation-time marks would need its own evaluation.
 This evaluation covers two models, one watermark construction, and one verifier, and it gives no
 general proof of watermark robustness, biological safety, or secret-key security. Both models use
 six-base tokens; single-base or variable-length tokens would pose different alignment problems.
-Both cohorts come from the same 16 chromosome records or a subset of them, which limits
-extrapolation to other genomic sources, and longer sequences would increase the search correction. The
+The three cohorts come from the same 16 chromosome records or a subset of them, and the natural
+flanks of the layout study come from the same 12 records as the prompts. This limits extrapolation to
+other genomic sources. Longer sequences would increase the search correction, and the layout study
+went to flanks of 4{,}608 bases on each side. The
 models are not independent, because Carbon's training corpus is built mainly on GENERator-v2's
 pre-training data, and their agreement does not make them equivalent in any respect.
 
@@ -676,29 +980,33 @@ the same cohort, such as a biased-logit scheme adapted to six-base tokens or ano
 distribution-preserving scheme. That comparison would
 confound the construction with the verifier that is our contribution, and the property comparison
 in Section~\ref{sec:background} does not substitute for measured performance on a shared cohort.
-Nor did we compare the full search with narrower detectors at the same false-positive target: a
-detector told the token phase and the generation boundary, a search over the six phases alone, or
-a span search adapted from text watermarking \cite{kirchenbauer2024reliability}. The detection
-power that each part of the search adds, and whether it repays its share of the correction and of
-the search cost (Supplementary Section~\ref{supp:cost}), is therefore unmeasured.
+The comparison of detectors (Section~\ref{sec:detector-comparison}) covers an aligned oracle, a
+phase-only search, and a denser fine-grid search, in five settings with 256 prompts per model. The
+fine-grid search stands in for a span search adapted from text watermarking
+\cite{kirchenbauer2024reliability}, which we did not run. The detection power that each part of the
+search adds, and whether it repays its share of the correction and of the search cost
+(Supplementary Section~\ref{supp:cost}), is therefore measured only in those settings. The
+baselines are analysis tools, and no verifier setting changed.
 
-All test sequences share one layout. The generated region is always the last 3{,}072 bases of a
-3{,}456-base sequence, on the forward strand, a multiple of six bases from the first base, and
-exactly as long as the longest window. We did not place a generated region between two unmarked
-flanks, crop it, supply the reverse complement, or vary its length, its start, or the length of
-the surrounding sequence, and no region length between two window lengths was tested. The search
-covers these cases by construction. Its implementation tests confirm, on a synthetic marked region
-that is not model output, detection between two unmarked flanks at start offsets that are not
-multiples of six, and an identical result for the reverse complement. Detection rates for these
-cases on model output are unmeasured. The insertion and deletion experiments shift the phase of
-the tokens downstream of each edit, but they do not vary the region's placement or length. How
-detection depends on the length of the generated region, the length of the flanks, and the
-region's position therefore remains open, as does the shortest region the verifier can detect.
+The development and detection cohorts share one layout. The generated region is always the last
+3{,}072 bases of a 3{,}456-base sequence, on the forward strand, a multiple of six bases from the first
+base, and exactly as long as the longest window. The local cohort varied the layout
+(Section~\ref{sec:layouts}): region lengths from 384 to 3{,}072 bases, including three lengths between
+window lengths, natural flanks of up to 4{,}608 bases on each side, six token phases, both strands, five
+placements, and three random crops. Detection was at its ceiling in every layout, at least 1{,}023 of
+1{,}024 marked reads, so the study locates no boundary at which detection fails. Regions shorter than
+384 bases, which is 64 tokens, were not tested, and we did not measure the shortest region the
+verifier can detect. The flanks are natural genomic DNA from the 12 records that gave the prompts.
+Layouts were not combined with the edit-rate series, and the insertion in the detector comparison is
+one edit at the standard layout. Each layout rests on 512 prompts from one local machine.
 
 The sampler and quality results come from one execution per model on the development cohort. The
 detection cohort was generated and scored in a separate computing environment with new keyed
 functions, but by the same authors with the same code, so it is not an independent replication.
-For Carbon, the protocol document retained with the development-cohort detection result does not
+The local cohort is a further execution of the same kind, with 512 prompts on one machine in
+bfloat16, and it is not an independent replication either. Its entropy analysis used a separate teacher-forced pass and not distributions recorded during
+sampling. A check on a few sequences per model found the two to agree up to bfloat16 rounding; it
+is described with the run and is not part of the evidence. For Carbon, the protocol document retained with the development-cohort detection result does not
 match the hash recorded in that result, and the original document could not be recovered, so the
 cause of the mismatch is unknown. The run took its settings from the defaults of the detector
 code and recorded only a hash of the document. An audit
@@ -712,23 +1020,34 @@ hash matches the protocol document for both models.
 The false-positive evidence is narrow. With 192 prompts, the development cohort could not show a
 rate below 1\% (Supplementary Table~\ref{tab:detection}). In the detection cohort, every bound for
 ordinary sequences lies below 1\%, but the largest, 0.850\%, does so narrowly, and the wrong-key bound
-for Carbon after a deletion exceeds that level at 1.015\%. These rates apply to the sequence length and
+for Carbon after a deletion exceeds that level at 1.015\%. In the local cohort a control needs at
+most one positive prompt for its bound to fall below 1\% at 512 prompts, and several controls with
+two or more positive prompts have bounds above that level (Section~\ref{sec:local-cohort}; Supplementary Table~\ref{tab:local-standard}). One GENERator
+layout, the 384-base region, had a prompt-level ordinary rate above 1\%
+(Section~\ref{sec:layouts}), and the aligned oracle and the phase-only search exceeded 1\% at
+prompt level in several settings (Section~\ref{sec:detector-comparison}). These rates apply to the sequence length and
 sequence sources tested here; elsewhere, false-positive control rests on the Bonferroni correction
 alone.
 
 That correction is valid only if each window $P$-value is valid, which requires mark bits rebuilt
 without the correct key to behave as independent fair bits. The aligned-detector diagnostic
-(Supplementary Section~\ref{supp:aligned}) checks this for GENERator with the token phase known,
-not for the full search. We checked the full search only through its realized rates on ordinary
-sequences and wrong-key controls (Section~\ref{sec:second-cohort}; Figure~\ref{fig:editrate}c).
-Those sequences are model output following RefSeq prompts, at essentially one sequence length,
-scored with the two published keys under one domain label per model and cohort. We did not calibrate the sequence-level $P$-value across many
-independent keys or on genomic DNA that no model generated.
+(Supplementary Section~\ref{supp:aligned}) checks this for GENERator with the token phase known. In
+the detection cohort we checked the full search through its realized rates on ordinary sequences and
+wrong-key controls (Section~\ref{sec:second-cohort}; Figure~\ref{fig:editrate}c), scored with the two
+published keys under one domain label per model and cohort. In the local cohort we checked it under 64
+keys never used in generation, on ordinary output, marked output, and 1{,}608 natural genomic spans
+(Section~\ref{sec:null-keys}), and no fraction exceeded its nominal level. That evidence is bounded.
+The 64 keys come from one derivation and one domain label. The model-output reads are at the
+standard layout and the natural spans are 3{,}072 bases, so calibration at other sequence lengths
+is unmeasured. The natural spans come from the same 12 records as the prompts, not from other
+genomes. Pooled decisions share reads and keys, so the pooled intervals treat dependent decisions as
+independent.
 
 Every edit was placed at random, without reference to the detector, and the edit-rate series scored
 no wrong-key controls. Each insertion or deletion spanned at most five bases at a randomly drawn
-position. We did not test clustered edits, longer insertions or deletions, recombination of marked
-and unmarked segments, or cropping, and the results are not broken down by edit position. We did
+position. We did not test clustered edits, longer insertions or deletions, or recombination of marked and
+unmarked segments, and the results are not broken down by edit position. Random cropping and
+embedding in natural flanks were tested in the layout study, but not combined with edits. We did
 not test an adaptive editor who inspects the detector, the key, or
 any score and places edits where they do the most damage.
 
@@ -755,9 +1074,11 @@ recover it from DNA by searching strands, start positions, and window lengths un
 correction. In the detection cohort, the verifier found every marked sequence in both models, unedited
 and after one edited base, and the one-sided 95\% upper confidence bound on the false-positive rate
 for ordinary sequences was at most 0.850\%. Detection survived random edits up to a 2\% per-base rate
-and failed for most sequences at 10\%. Broader conclusions require independent replication, wider
-sequence coverage, other region lengths and placements, tests against adaptive editing, and
-biological validation.
+and failed for most sequences at 10\%. A local cohort of 512 prompts, generated on a different
+machine by the same authors, detected at least 1{,}023 of 1{,}024 marked reads in each of 54 layouts
+per model, and no calibration fraction exceeded its nominal level under 64 unused keys. Broader
+conclusions require independent replication, regions shorter than 384 bases, other genomic sources,
+tests against adaptive editing, and biological validation.
 
 \section*{AI use statement}
 
@@ -783,9 +1104,10 @@ specified statistical model, not a certificate of biological origin or safe use.
 \section*{Reproducibility statement}
 
 Section~\ref{sec:methods} specifies the canonical token policy, the tournament update, the
-detector search and its correction, prompt construction, and the statistical comparisons, and the
-Supplementary information gives the window-score selection, the search cost, and the computing
-environment. The figures and tables report both models separately under the same evaluation
+detector search and its correction, prompt construction, and the statistical comparisons.
+Section~\ref{sec:local-methods} specifies the local cohort: its layouts, the baseline detectors, the
+unused keys, and the entropy pass. The Supplementary information gives the window-score selection,
+the search cost, and the computing environments, including the local machine. The figures and tables report both models separately under the same evaluation
 design. Section~\ref{sec:limitations} records the execution scope, the absence of an independent
 replication, and the Carbon protocol-document discrepancy together with its audit. The code,
 protocol documents, and evidence ledger needed to reproduce the analysis are available as
@@ -798,7 +1120,9 @@ analysis and figure scripts, the protocol documents, and the evidence ledger to 
 in this paper resolves are maintained in the
 \href{https://github.com/Georgakopoulos-Soares-lab/genomic-sampling-watermarks}{project GitHub
 repository}. The repository includes the detection results for both models in the detection
-cohort and the GENERator results for the development cohort. The Carbon development-cohort result
+cohort, the GENERator results for the development cohort, and the protocol, execution record, and
+compact result files of the local cohort for both models. The per-read trial files and generated
+sequences of the local cohort are available from the authors on request. The Carbon development-cohort result
 files, generated sequences, and other underlying files not in the repository are available from
 the authors on request. The sampler's implementation tests, including the comparison with the
 SynthID-Text reference implementation at the cited commit, are part of the repository's test
@@ -898,6 +1222,16 @@ Development-cohort generation ran on GPUs. Model scoring ran on CPU for Carbon a
 GENERator. The detection cohort was generated on NVIDIA A100 GPUs in a separate computing
 environment. Detection ran on x86-64 CPUs for both cohorts.
 
+The local cohort was generated, and its entropy pass run, on one Apple M5 Pro machine with 18 CPU
+cores and 48 GiB of unified memory, in bfloat16 on the PyTorch 2.13.0 MPS backend with Python 3.12.
+The model revisions were those of the other cohorts, loaded from a local cache without network
+access. Three generation processes per model shared the device, and generation produced 193.1 bases
+per summed process-second in GENERator and 88.2 in Carbon. Detection, calibration, and the
+single-thread timing ran on the same machine's CPU, with 12 worker processes except for timing, which
+used one process. The verifier took a median 44.4 ms per read in GENERator and 45.1 ms in Carbon at
+the standard layout (Table~\ref{tab:detectors}), against 95.6 ms on the AMD EPYC processor above, so
+the two timings are not comparable across processors.
+
 \subsection{Development-cohort detection}
 \label{supp:development}
 
@@ -957,7 +1291,8 @@ tokens. Only 54.6\% of its mark bits were 1, against a median of 74\% in both mo
 of the shortfall comes from weak signal in the tokens that remained. The tournament can raise the
 fraction of 1s only where the model spreads probability across several tokens, which is consistent
 with a low-entropy, repetitive stretch carrying little signal. We did not measure per-token entropy
-to confirm this. We therefore find no evidence that typical detection strength differs between the
+for this sequence. In the local cohort, which does not include it, mean entropy and strength were
+positively correlated (Section~\ref{sec:entropy}). We therefore find no evidence that typical detection strength differs between the
 models.
 
 \subsection{Aligned-detector diagnostic in GENERator}
@@ -967,8 +1302,8 @@ For GENERator, a separate diagnostic checked the analytic null with a detector g
 token phase. Across the four evaluated lengths, 2, 6, 6, and 4 ordinary prompts were positive,
 against about five expected at each length ($P = 0.25$--$0.87$). This result is compatible with
 the analytic null, but it does not replace the full-search correction used for the
-position-independent decision, and it is not a calibration of the full search
-(Section~\ref{sec:limitations}).
+position-independent decision, and it is not a calibration of the full search,
+which Section~\ref{sec:null-keys} addresses across 64 keys in the local cohort.
 
 \subsection{Strength and window length by edit}
 \label{supp:window}
@@ -1037,5 +1372,90 @@ substituted sequences, whereas shorter windows are more frequent after an insert
 \textbf{a,b} show Carbon and panels \textbf{c,d} show GENERator.}
 \label{fig:primary-edits}
 \end{figure*}
+
+\subsection{Local cohort: standard layout}
+\label{supp:local-standard}
+
+Table~\ref{tab:local-standard} gives the standard-layout results of the local cohort in the format
+of Table~\ref{tab:second}. The two tables are not pooled.
+
+\begin{table*}[tp]
+\centering
+\caption{Detection at the standard layout in the local cohort, for each model across 512 prompts
+with two draws each. \textit{Correct key} counts marked reads detected (1{,}024 per model and
+condition), and every marked prompt had both draws detected (512 of 512). \textit{Strength} is the
+median strength of marked reads. \textit{Ordinary} and \textit{Wrong key} count positive prompts
+(a prompt is positive if either draw is); the value in parentheses is the exact one-sided 95\%
+upper confidence bound on the prompt-level rate, in percent. Each edit changes exactly one base.}
+\label{tab:local-standard}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\input{tables/v5_s0}
+\end{table*}
+
+\subsection{Layout study: all layouts}
+\label{supp:layout-all}
+
+Table~\ref{tab:layout-all} lists every layout of the layout study for both models.
+
+\begin{table*}[tp]
+\centering
+\caption{All 54 layouts of the layout study, local cohort. \textit{Reads} are marked reads detected
+(of 1{,}024), \textit{Prompts} are prompts with both draws detected (of 512), and \textit{Strength} is
+the median strength of the best window before the correction for the search. \textit{Ord.\ reads}
+are ordinary reads flagged (of 1{,}024), and \textit{Ord.\ prompts} are prompts positive on either
+draw (of 512), with the exact one-sided 95\% upper confidence bound on that prompt rate in
+parentheses, in percent. Series A: the region follows the prompt, length in bases. B: the region
+between natural flanks in a 6{,}144-base read. C: a region of 768 or 3{,}072 bases after a left flank
+of $384 + o$ bases, with phase $o$, supplied forward (fwd) or as its reverse complement (rev). D: region length
+plus the flank on each side. E: a 768-base region starting at the given base of a 6{,}144-base
+read. F: a random crop of the standard read of the given length.}
+\label{tab:layout-all}
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.0}
+\input{tables/v5_layout_all}
+\end{table*}
+
+\subsection{Detector comparison: prompt-level counts}
+\label{supp:detector-prompts}
+
+Table~\ref{tab:detectors-prompts} gives the prompt-level counts of the detector comparison. A prompt
+is positive for a marked read when both draws are detected, and positive for an ordinary read when
+either draw is, so the prompt-level control rate is a union over two reads.
+
+\begin{table*}[tp]
+\centering
+\caption{Prompt-level counts for the detector comparison in the local cohort, 256 prompts per model.
+\textit{Marked prompts} are prompts with both draws detected (of 256). \textit{Ordinary prompts} are
+prompts with a positive ordinary read on either draw, with the exact one-sided 95\% upper confidence
+bound in parentheses, in percent.}
+\label{tab:detectors-prompts}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\input{tables/v5_detectors_prompts}
+\end{table*}
+
+\subsection{Calibration across keys: all levels}
+\label{supp:calibration}
+
+Table~\ref{tab:calibration} gives the fraction of decisions whose sequence-level $P$-value is at or
+below each nominal level, with the count in parentheses, for 32{,}768 decisions per model and kind of
+output and 102{,}912 for natural spans. No fraction exceeds its nominal level, and no one-sided 95\%
+lower bound exceeds its nominal level.
+
+\begin{table*}[tp]
+\centering
+\caption{Calibration of the sequence-level $P$-value under 64 keys never used in generation, local
+cohort. Entries are the percentage of decisions with a corrected $P$-value at or below the nominal
+level, with the count in parentheses. The decisions share reads and keys.}
+\label{tab:calibration}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\input{tables/v5_null_calibration}
+\end{table*}
 
 \end{document}

@@ -1,0 +1,6257 @@
+{
+  "cells": [
+    {
+      "cell": "A_l0384",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 772.0,
+          "median_region_overlap_bases": 181.0,
+          "median_region_overlap_fraction_of_window": 0.4713541666666667,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.6016070744860755,
+            "median": 2.0639725438843524,
+            "minimum": 0.8403702668988895
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 1017,
+            "768": 7
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 540,
+            "reverse_complement": 484
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 772.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 124.4245779662203,
+            "median": 94.90562531746704,
+            "minimum": 6.495009341882487
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 1024,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        768
+      ],
+      "region_bases": 384,
+      "series": "A"
+    },
+    {
+      "cell": "A_l0576",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 1540.0,
+          "median_region_overlap_bases": 327.0,
+          "median_region_overlap_fraction_of_window": 0.697265625,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.6016070744860755,
+            "median": 2.2992867594776456,
+            "minimum": 1.0113594690646692
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 903,
+            "768": 121
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 528,
+            "reverse_complement": 496
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 1540.0,
+          "median_region_overlap_bases": 576.0,
+          "median_region_overlap_fraction_of_window": 0.75,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 134.90566433156133,
+            "median": 106.82731729321549,
+            "minimum": 8.68307683972965
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 259,
+            "768": 765
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        960
+      ],
+      "region_bases": 576,
+      "series": "A"
+    },
+    {
+      "cell": "A_l0768",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 2308.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 0.8723958333333334,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.020422882686691728,
+            "exact_two_sided_95_interval": [
+              0.003178260799806264,
+              0.02264162068722705
+            ],
+            "positives": 5,
+            "rate": 0.009765625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0015872794120190272,
+              0.01135779336167256
+            ],
+            "positives": 5,
+            "rate": 0.0048828125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.6016070744860755,
+            "median": 2.4749222981360166,
+            "minimum": 1.2024454659690462
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 850,
+            "768": 174
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 504,
+            "reverse_complement": 520
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 2308.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1152
+      ],
+      "region_bases": 768,
+      "series": "A"
+    },
+    {
+      "cell": "A_l1152",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.020422882686691728,
+            "exact_two_sided_95_interval": [
+              0.003178260799806264,
+              0.02264162068722705
+            ],
+            "positives": 5,
+            "rate": 0.009765625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0015872794120190272,
+              0.01135779336167256
+            ],
+            "positives": 5,
+            "rate": 0.0048828125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.028442371374076,
+            "median": 2.6643747106047044,
+            "minimum": 1.4141402418457143
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 0,
+            "384": 812,
+            "768": 211
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 520,
+            "reverse_complement": 504
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 1152.0,
+          "median_region_overlap_fraction_of_window": 0.75,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 270.0760369201753,
+            "median": 216.46649166966137,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 889,
+            "3072": 0,
+            "384": 0,
+            "768": 135
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1536
+      ],
+      "region_bases": 1152,
+      "series": "A"
+    },
+    {
+      "cell": "A_l1536",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 6150.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.082459835935961,
+            "median": 2.8244645707104636,
+            "minimum": 1.4141402418457143
+          },
+          "strongest_window_length_counts": {
+            "1536": 39,
+            "3072": 0,
+            "384": 766,
+            "768": 219
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 514,
+            "reverse_complement": 510
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 6150.0,
+          "median_region_overlap_bases": 1536.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 446.2304444179727,
+            "median": 394.08468009858416,
+            "minimum": 18.90900819763335
+          },
+          "strongest_window_length_counts": {
+            "1536": 1024,
+            "3072": 0,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1920
+      ],
+      "region_bases": 1536,
+      "series": "A"
+    },
+    {
+      "cell": "A_l2304",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 10758.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.082459835935961,
+            "median": 3.0617068121735405,
+            "minimum": 1.7967903737263655
+          },
+          "strongest_window_length_counts": {
+            "1536": 68,
+            "3072": 0,
+            "384": 736,
+            "768": 220
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 522,
+            "reverse_complement": 502
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 10758.0,
+          "median_region_overlap_bases": 1536.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 462.9594007247357,
+            "median": 408.7349386696465,
+            "minimum": 202.63140889088967
+          },
+          "strongest_window_length_counts": {
+            "1536": 1023,
+            "3072": 0,
+            "384": 0,
+            "768": 1
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        2688
+      ],
+      "region_bases": 2304,
+      "series": "A"
+    },
+    {
+      "cell": "A_l3072",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 16136.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.082459835935961,
+            "median": 3.20915370537052,
+            "minimum": 1.9832374583074663
+          },
+          "strongest_window_length_counts": {
+            "1536": 75,
+            "3072": 16,
+            "384": 701,
+            "768": 232
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 530,
+            "reverse_complement": 494
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 16136.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3456
+      ],
+      "region_bases": 3072,
+      "series": "A"
+    },
+    {
+      "cell": "B_l0384",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.4668477241916005,
+            "median": 3.516318961881345,
+            "minimum": 2.176969215097627
+          },
+          "strongest_window_length_counts": {
+            "1536": 85,
+            "3072": 35,
+            "384": 684,
+            "768": 220
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 520,
+            "reverse_complement": 504
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9891663430552455,
+              0.9999505523788546
+            ],
+            "positives": 511,
+            "rate": 0.998046875,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9945710722629371,
+              0.9999752758837863
+            ],
+            "positives": 1023,
+            "rate": 0.9990234375,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 124.4245779662203,
+            "median": 94.90562531746704,
+            "minimum": 6.495009341882487
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 1024,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 384,
+      "series": "B"
+    },
+    {
+      "cell": "B_l0576",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.817645676200528,
+            "median": 3.5033139931728625,
+            "minimum": 2.0639725438843524
+          },
+          "strongest_window_length_counts": {
+            "1536": 88,
+            "3072": 39,
+            "384": 654,
+            "768": 243
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 472,
+            "reverse_complement": 552
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 576.0,
+          "median_region_overlap_fraction_of_window": 0.75,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 143.53636284796815,
+            "median": 110.76275019866519,
+            "minimum": 10.250562637934241
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 90,
+            "768": 934
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 576,
+      "series": "B"
+    },
+    {
+      "cell": "B_l0768",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.003595940406834479
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.550234004055829,
+            "median": 3.5033139931728625,
+            "minimum": 2.258316694220794
+          },
+          "strongest_window_length_counts": {
+            "1536": 100,
+            "3072": 40,
+            "384": 638,
+            "768": 246
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 529,
+            "reverse_complement": 495
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.38360157622412,
+            "minimum": 12.96350285455007
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 768,
+      "series": "B"
+    },
+    {
+      "cell": "B_l1152",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.009231554007099546,
+            "exact_two_sided_95_interval": [
+              4.944762114539532e-05,
+              0.010833656944754487
+            ],
+            "positives": 1,
+            "rate": 0.001953125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              2.4724116213658934e-05,
+              0.00542892773706297
+            ],
+            "positives": 1,
+            "rate": 0.0009765625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.70915227100037,
+            "median": 3.579137127744449,
+            "minimum": 2.234788707794199
+          },
+          "strongest_window_length_counts": {
+            "1536": 95,
+            "3072": 40,
+            "384": 677,
+            "768": 212
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 505,
+            "reverse_complement": 519
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 1152.0,
+          "median_region_overlap_fraction_of_window": 0.75,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 268.9769818152237,
+            "median": 223.35438795917952,
+            "minimum": 12.22763247521833
+          },
+          "strongest_window_length_counts": {
+            "1536": 968,
+            "3072": 0,
+            "384": 0,
+            "768": 56
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 1152,
+      "series": "B"
+    },
+    {
+      "cell": "B_l1536",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.003595940406834479
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.550234004055829,
+            "median": 3.5033139931728625,
+            "minimum": 2.1738239169257816
+          },
+          "strongest_window_length_counts": {
+            "1536": 106,
+            "3072": 30,
+            "384": 646,
+            "768": 242
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 504,
+            "reverse_complement": 520
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 1536.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 446.2304444179727,
+            "median": 394.08468009858416,
+            "minimum": 19.45997386645908
+          },
+          "strongest_window_length_counts": {
+            "1536": 1024,
+            "3072": 0,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 1536,
+      "series": "B"
+    },
+    {
+      "cell": "B_l2304",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 65.5,
+          "median_region_overlap_fraction_of_window": 0.0888671875,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.009231554007099546,
+            "exact_two_sided_95_interval": [
+              4.944762114539532e-05,
+              0.010833656944754487
+            ],
+            "positives": 1,
+            "rate": 0.001953125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              2.4724116213658934e-05,
+              0.00542892773706297
+            ],
+            "positives": 1,
+            "rate": 0.0009765625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.6016070744860755,
+            "median": 3.5756297351365616,
+            "minimum": 2.177657089504633
+          },
+          "strongest_window_length_counts": {
+            "1536": 86,
+            "3072": 32,
+            "384": 680,
+            "768": 226
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 526,
+            "reverse_complement": 498
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 2304.0,
+          "median_region_overlap_fraction_of_window": 0.75,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 512.7419501100102,
+            "median": 446.7315054685673,
+            "minimum": 203.09541525292983
+          },
+          "strongest_window_length_counts": {
+            "1536": 37,
+            "3072": 986,
+            "384": 0,
+            "768": 1
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 2304,
+      "series": "B"
+    },
+    {
+      "cell": "B_l3072",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 0.7395833333333333,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.009231554007099546,
+            "exact_two_sided_95_interval": [
+              4.944762114539532e-05,
+              0.010833656944754487
+            ],
+            "positives": 1,
+            "rate": 0.001953125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              2.4724116213658934e-05,
+              0.00542892773706297
+            ],
+            "positives": 1,
+            "rate": 0.0009765625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.157054182740283,
+            "median": 3.516318961881345,
+            "minimum": 2.293491764026101
+          },
+          "strongest_window_length_counts": {
+            "1536": 96,
+            "3072": 36,
+            "384": 653,
+            "768": 239
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 522,
+            "reverse_complement": 502
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 381.0715275477367
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 3072,
+      "series": "B"
+    },
+    {
+      "cell": "C_l0768_o0_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 335.0,
+          "median_region_overlap_fraction_of_window": 0.7102864583333334,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.3301874969553955,
+            "median": 2.6643747106047044,
+            "minimum": 1.3701305626522935
+          },
+          "strongest_window_length_counts": {
+            "1536": 3,
+            "3072": 0,
+            "384": 827,
+            "768": 194
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 507,
+            "reverse_complement": 517
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.38360157622412,
+            "minimum": 13.17794340918863
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1536
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o0_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 334.0,
+          "median_region_overlap_fraction_of_window": 0.7063802083333333,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.3301874969553955,
+            "median": 2.6643747106047044,
+            "minimum": 1.3701305626522935
+          },
+          "strongest_window_length_counts": {
+            "1536": 3,
+            "3072": 0,
+            "384": 827,
+            "768": 194
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 533,
+            "reverse_complement": 491
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.38360157622412,
+            "minimum": 13.17794340918863
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1536
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o1_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3852.0,
+          "median_region_overlap_bases": 345.5,
+          "median_region_overlap_fraction_of_window": 0.7180989583333333,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.3301874969553955,
+            "median": 2.639245106397489,
+            "minimum": 1.2431206997745408
+          },
+          "strongest_window_length_counts": {
+            "1536": 3,
+            "3072": 0,
+            "384": 813,
+            "768": 208
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 510,
+            "reverse_complement": 514
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3852.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.38360157622412,
+            "minimum": 12.435553816884617
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 3,
+            "768": 1021
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1537
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o1_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3852.0,
+          "median_region_overlap_bases": 348.0,
+          "median_region_overlap_fraction_of_window": 0.720703125,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.3301874969553955,
+            "median": 2.639245106397489,
+            "minimum": 1.2431206997745408
+          },
+          "strongest_window_length_counts": {
+            "1536": 3,
+            "3072": 0,
+            "384": 813,
+            "768": 208
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 532,
+            "reverse_complement": 492
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3852.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.38360157622412,
+            "minimum": 12.435553816884617
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 3,
+            "768": 1021
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1537
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o2_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3858.0,
+          "median_region_overlap_bases": 348.0,
+          "median_region_overlap_fraction_of_window": 0.7161458333333334,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.1142291895212395,
+            "median": 2.6003295463732905,
+            "minimum": 1.4141402418457143
+          },
+          "strongest_window_length_counts": {
+            "1536": 5,
+            "3072": 0,
+            "384": 794,
+            "768": 225
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 530,
+            "reverse_complement": 494
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3858.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 12.22763247521833
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1538
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o2_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3858.0,
+          "median_region_overlap_bases": 348.0,
+          "median_region_overlap_fraction_of_window": 0.7154947916666667,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.1142291895212395,
+            "median": 2.6003295463732905,
+            "minimum": 1.4141402418457143
+          },
+          "strongest_window_length_counts": {
+            "1536": 5,
+            "3072": 0,
+            "384": 794,
+            "768": 225
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 516,
+            "reverse_complement": 508
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3858.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 12.22763247521833
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1538
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o3_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3864.0,
+          "median_region_overlap_bases": 354.5,
+          "median_region_overlap_fraction_of_window": 0.6979166666666666,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 5.976205979490676,
+            "median": 2.6643747106047044,
+            "minimum": 1.2431206997745408
+          },
+          "strongest_window_length_counts": {
+            "1536": 5,
+            "3072": 0,
+            "384": 774,
+            "768": 245
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 501,
+            "reverse_complement": 523
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3864.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.83664936768398,
+            "minimum": 12.645336518782807
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1539
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o3_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3864.0,
+          "median_region_overlap_bases": 354.5,
+          "median_region_overlap_fraction_of_window": 0.6979166666666666,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 5.976205979490676,
+            "median": 2.6643747106047044,
+            "minimum": 1.2431206997745408
+          },
+          "strongest_window_length_counts": {
+            "1536": 5,
+            "3072": 0,
+            "384": 774,
+            "768": 245
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 542,
+            "reverse_complement": 482
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3864.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.83664936768398,
+            "minimum": 12.645336518782807
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1539
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o4_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3870.0,
+          "median_region_overlap_bases": 340.5,
+          "median_region_overlap_fraction_of_window": 0.6953125,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.020422882686691728,
+            "exact_two_sided_95_interval": [
+              0.003178260799806264,
+              0.02264162068722705
+            ],
+            "positives": 5,
+            "rate": 0.009765625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0015872794120190272,
+              0.01135779336167256
+            ],
+            "positives": 5,
+            "rate": 0.0048828125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.078077861860461,
+            "median": 2.6643747106047044,
+            "minimum": 1.3701305626522935
+          },
+          "strongest_window_length_counts": {
+            "1536": 5,
+            "3072": 0,
+            "384": 804,
+            "768": 215
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 512,
+            "reverse_complement": 512
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3870.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 12.124369492981193
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1540
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o4_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3870.0,
+          "median_region_overlap_bases": 340.5,
+          "median_region_overlap_fraction_of_window": 0.6927083333333334,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.020422882686691728,
+            "exact_two_sided_95_interval": [
+              0.003178260799806264,
+              0.02264162068722705
+            ],
+            "positives": 5,
+            "rate": 0.009765625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0015872794120190272,
+              0.01135779336167256
+            ],
+            "positives": 5,
+            "rate": 0.0048828125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.078077861860461,
+            "median": 2.6643747106047044,
+            "minimum": 1.3701305626522935
+          },
+          "strongest_window_length_counts": {
+            "1536": 5,
+            "3072": 0,
+            "384": 804,
+            "768": 215
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 537,
+            "reverse_complement": 487
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3870.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 12.124369492981193
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1540
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o5_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3876.0,
+          "median_region_overlap_bases": 351.5,
+          "median_region_overlap_fraction_of_window": 0.7083333333333334,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.3301874969553955,
+            "median": 2.6643747106047044,
+            "minimum": 1.3269596935468315
+          },
+          "strongest_window_length_counts": {
+            "1536": 13,
+            "3072": 0,
+            "384": 805,
+            "768": 206
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 489,
+            "reverse_complement": 535
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3876.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1541
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l0768_o5_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3876.0,
+          "median_region_overlap_bases": 351.0,
+          "median_region_overlap_fraction_of_window": 0.7083333333333334,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.3301874969553955,
+            "median": 2.6643747106047044,
+            "minimum": 1.3269596935468315
+          },
+          "strongest_window_length_counts": {
+            "1536": 13,
+            "3072": 0,
+            "384": 805,
+            "768": 206
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 553,
+            "reverse_complement": 471
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3876.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1541
+      ],
+      "region_bases": 768,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o0_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.210447310379114,
+            "minimum": 1.799786156606897
+          },
+          "strongest_window_length_counts": {
+            "1536": 74,
+            "3072": 24,
+            "384": 694,
+            "768": 232
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 532,
+            "reverse_complement": 492
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3840
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o0_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.210447310379114,
+            "minimum": 1.799786156606897
+          },
+          "strongest_window_length_counts": {
+            "1536": 74,
+            "3072": 24,
+            "384": 694,
+            "768": 232
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 515,
+            "reverse_complement": 509
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3840
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o1_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19216.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.2466810594220727,
+            "minimum": 1.954484413919037
+          },
+          "strongest_window_length_counts": {
+            "1536": 71,
+            "3072": 23,
+            "384": 707,
+            "768": 223
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 552,
+            "reverse_complement": 472
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19216.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3841
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o1_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19216.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.2466810594220727,
+            "minimum": 1.954484413919037
+          },
+          "strongest_window_length_counts": {
+            "1536": 71,
+            "3072": 23,
+            "384": 707,
+            "768": 223
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 495,
+            "reverse_complement": 529
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19216.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3841
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o2_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19224.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.259365829159643,
+            "minimum": 1.9010503675186383
+          },
+          "strongest_window_length_counts": {
+            "1536": 78,
+            "3072": 19,
+            "384": 700,
+            "768": 227
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 538,
+            "reverse_complement": 486
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19224.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3842
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o2_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19224.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.259365829159643,
+            "minimum": 1.9010503675186383
+          },
+          "strongest_window_length_counts": {
+            "1536": 78,
+            "3072": 19,
+            "384": 700,
+            "768": 227
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 508,
+            "reverse_complement": 516
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19224.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3842
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o3_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19232.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.2703462229859763,
+            "minimum": 1.799786156606897
+          },
+          "strongest_window_length_counts": {
+            "1536": 76,
+            "3072": 31,
+            "384": 683,
+            "768": 234
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 527,
+            "reverse_complement": 497
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19232.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3843
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o3_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19232.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.2703462229859763,
+            "minimum": 1.799786156606897
+          },
+          "strongest_window_length_counts": {
+            "1536": 76,
+            "3072": 31,
+            "384": 683,
+            "768": 234
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 516,
+            "reverse_complement": 508
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19232.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3843
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o4_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19240.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.2364753571419174,
+            "minimum": 2.008791032324221
+          },
+          "strongest_window_length_counts": {
+            "1536": 66,
+            "3072": 19,
+            "384": 711,
+            "768": 228
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 521,
+            "reverse_complement": 503
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19240.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 381.0715275477367
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3844
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o4_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19240.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.2364753571419174,
+            "minimum": 2.008791032324221
+          },
+          "strongest_window_length_counts": {
+            "1536": 66,
+            "3072": 19,
+            "384": 711,
+            "768": 228
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 522,
+            "reverse_complement": 502
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19240.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 381.0715275477367
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3844
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o5_fw",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19248.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.259365829159643,
+            "minimum": 1.799786156606897
+          },
+          "strongest_window_length_counts": {
+            "1536": 75,
+            "3072": 24,
+            "384": 702,
+            "768": 223
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 525,
+            "reverse_complement": 499
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19248.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 381.0715275477367
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3845
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "C_l3072_o5_rc",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19248.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.259365829159643,
+            "minimum": 1.799786156606897
+          },
+          "strongest_window_length_counts": {
+            "1536": 75,
+            "3072": 24,
+            "384": 702,
+            "768": 223
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 520,
+            "reverse_complement": 504
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19248.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 381.0715275477367
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "reverse_complement": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3845
+      ],
+      "region_bases": 3072,
+      "series": "C"
+    },
+    {
+      "cell": "D_l0768_f0000",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 772.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 5.976205979490676,
+            "median": 2.0639725438843524,
+            "minimum": 0.8729877241511154
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 1011,
+            "768": 13
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 513,
+            "reverse_complement": 511
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 772.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.38360157622412,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        768
+      ],
+      "region_bases": 768,
+      "series": "D"
+    },
+    {
+      "cell": "D_l0768_f0384",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 349.5,
+          "median_region_overlap_fraction_of_window": 0.7161458333333334,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 5.976205979490676,
+            "median": 2.6003295463732905,
+            "minimum": 1.4141402418457143
+          },
+          "strongest_window_length_counts": {
+            "1536": 3,
+            "3072": 0,
+            "384": 804,
+            "768": 217
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 544,
+            "reverse_complement": 480
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3846.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.38360157622412,
+            "minimum": 12.856981602468153
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1536
+      ],
+      "region_bases": 768,
+      "series": "D"
+    },
+    {
+      "cell": "D_l0768_f1536",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.392138123786117,
+            "median": 3.2813266168123096,
+            "minimum": 1.954484413919037
+          },
+          "strongest_window_length_counts": {
+            "1536": 82,
+            "3072": 13,
+            "384": 696,
+            "768": 233
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 498,
+            "reverse_complement": 526
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.83664936768398,
+            "minimum": 12.750926199367534
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 3,
+            "768": 1021
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3840
+      ],
+      "region_bases": 768,
+      "series": "D"
+    },
+    {
+      "cell": "D_l0768_f4608",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 68360.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.009231554007099546,
+            "exact_two_sided_95_interval": [
+              4.944762114539532e-05,
+              0.010833656944754487
+            ],
+            "positives": 1,
+            "rate": 0.001953125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              2.4724116213658934e-05,
+              0.00542892773706297
+            ],
+            "positives": 1,
+            "rate": 0.0009765625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.148822475053326,
+            "median": 3.8121065094650697,
+            "minimum": 2.537179334730995
+          },
+          "strongest_window_length_counts": {
+            "1536": 117,
+            "3072": 47,
+            "384": 643,
+            "768": 217
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 559,
+            "reverse_complement": 465
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 68360.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 12.435553816884617
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        9984
+      ],
+      "region_bases": 768,
+      "series": "D"
+    },
+    {
+      "cell": "D_l3072_f0000",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 13064.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.137889928289541,
+            "minimum": 1.799786156606897
+          },
+          "strongest_window_length_counts": {
+            "1536": 73,
+            "3072": 2,
+            "384": 728,
+            "768": 221
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 528,
+            "reverse_complement": 496
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 13064.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 380.62723905640456
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3072
+      ],
+      "region_bases": 3072,
+      "series": "D"
+    },
+    {
+      "cell": "D_l3072_f0384",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.2092937696998907,
+            "minimum": 2.008791032324221
+          },
+          "strongest_window_length_counts": {
+            "1536": 76,
+            "3072": 15,
+            "384": 698,
+            "768": 235
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 527,
+            "reverse_complement": 497
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 19208.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 381.0715275477367
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        3840
+      ],
+      "region_bases": 3072,
+      "series": "D"
+    },
+    {
+      "cell": "D_l3072_f1536",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 0.712890625,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.003595940406834479
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.500555622574783,
+            "median": 3.5033139931728625,
+            "minimum": 2.234788707794199
+          },
+          "strongest_window_length_counts": {
+            "1536": 90,
+            "3072": 29,
+            "384": 667,
+            "768": 238
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 517,
+            "reverse_complement": 507
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 381.0715275477367
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 3072,
+      "series": "D"
+    },
+    {
+      "cell": "D_l3072_f4608",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 86792.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.009231554007099546,
+            "exact_two_sided_95_interval": [
+              4.944762114539532e-05,
+              0.010833656944754487
+            ],
+            "positives": 1,
+            "rate": 0.001953125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              2.4724116213658934e-05,
+              0.00542892773706297
+            ],
+            "positives": 1,
+            "rate": 0.0009765625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.148822475053326,
+            "median": 3.9631717195679115,
+            "minimum": 2.6003295463732905
+          },
+          "strongest_window_length_counts": {
+            "1536": 100,
+            "3072": 55,
+            "384": 651,
+            "768": 218
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 537,
+            "reverse_complement": 487
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 86792.0,
+          "median_region_overlap_bases": 3072.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 888.4085367050785,
+            "median": 791.519979993372,
+            "minimum": 383.74346035663604
+          },
+          "strongest_window_length_counts": {
+            "1536": 1,
+            "3072": 1023,
+            "384": 0,
+            "768": 0
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        12288
+      ],
+      "region_bases": 3072,
+      "series": "D"
+    },
+    {
+      "cell": "E_s0000",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.009231554007099546,
+            "exact_two_sided_95_interval": [
+              4.944762114539532e-05,
+              0.010833656944754487
+            ],
+            "positives": 1,
+            "rate": 0.001953125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              2.4724116213658934e-05,
+              0.00542892773706297
+            ],
+            "positives": 1,
+            "rate": 0.0009765625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.70915227100037,
+            "median": 3.5033139931728625,
+            "minimum": 2.340684543199432
+          },
+          "strongest_window_length_counts": {
+            "1536": 89,
+            "3072": 21,
+            "384": 661,
+            "768": 253
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 509,
+            "reverse_complement": 515
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 768,
+      "series": "E"
+    },
+    {
+      "cell": "E_s1344",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.70915227100037,
+            "median": 3.5033139931728625,
+            "minimum": 2.293491764026101
+          },
+          "strongest_window_length_counts": {
+            "1536": 108,
+            "3072": 44,
+            "384": 631,
+            "768": 241
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 515,
+            "reverse_complement": 509
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 12.021571463940717
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 768,
+      "series": "E"
+    },
+    {
+      "cell": "E_s2688",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.012244988396149322,
+            "exact_two_sided_95_interval": [
+              0.0004734155742531006,
+              0.014038905114244559
+            ],
+            "positives": 2,
+            "rate": 0.00390625,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.00023662008095334314,
+              0.007037382926178632
+            ],
+            "positives": 2,
+            "rate": 0.001953125,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.70915227100037,
+            "median": 3.5033139931728625,
+            "minimum": 2.35246362071813
+          },
+          "strongest_window_length_counts": {
+            "1536": 98,
+            "3072": 30,
+            "384": 652,
+            "768": 244
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 534,
+            "reverse_complement": 490
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 12.021571463940717
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 768,
+      "series": "E"
+    },
+    {
+      "cell": "E_s4032",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.017788140281132275,
+            "exact_two_sided_95_interval": [
+              0.0021326268405938743,
+              0.019881459971452173
+            ],
+            "positives": 4,
+            "rate": 0.0078125,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0010653159297164638,
+              0.009971105504009316
+            ],
+            "positives": 4,
+            "rate": 0.00390625,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 7.148822475053326,
+            "median": 3.5033139931728625,
+            "minimum": 2.234788707794199
+          },
+          "strongest_window_length_counts": {
+            "1536": 97,
+            "3072": 23,
+            "384": 679,
+            "768": 225
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 538,
+            "reverse_complement": 486
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 768,
+      "series": "E"
+    },
+    {
+      "cell": "E_s5376",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 0.0,
+          "median_region_overlap_fraction_of_window": 0.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.003595940406834479
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.550234004055829,
+            "median": 3.4982875217351315,
+            "minimum": 2.293491764026101
+          },
+          "strongest_window_length_counts": {
+            "1536": 95,
+            "3072": 30,
+            "384": 663,
+            "768": 236
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 519,
+            "reverse_complement": 505
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 37640.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 236.61596476860015,
+            "median": 194.61012547195406,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 4,
+            "768": 1020
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        6144
+      ],
+      "region_bases": 768,
+      "series": "E"
+    },
+    {
+      "cell": "F_c0768",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 772.0,
+          "median_region_bases_retained": 768.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.078077861860461,
+            "median": 2.1200312061020794,
+            "minimum": 0.7471783424001341
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 1014,
+            "768": 10
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 514,
+            "reverse_complement": 510
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 772.0,
+          "median_region_bases_retained": 768.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 224.61655010896573,
+            "median": 105.1855091754874,
+            "minimum": 49.688973385988085
+          },
+          "strongest_window_length_counts": {
+            "1536": 0,
+            "3072": 0,
+            "384": 860,
+            "768": 164
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        768
+      ],
+      "region_bases": 3072,
+      "series": "F"
+    },
+    {
+      "cell": "F_c1536",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 3846.0,
+          "median_region_bases_retained": 1536.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.078077861860461,
+            "median": 2.6003295463732905,
+            "minimum": 1.1625948164306743
+          },
+          "strongest_window_length_counts": {
+            "1536": 2,
+            "3072": 0,
+            "384": 835,
+            "768": 187
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 513,
+            "reverse_complement": 511
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 3846.0,
+          "median_region_bases_retained": 1536.0,
+          "median_region_overlap_bases": 768.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 437.5191266218574,
+            "median": 212.50479722496624,
+            "minimum": 11.919238258003036
+          },
+          "strongest_window_length_counts": {
+            "1536": 191,
+            "3072": 0,
+            "384": 0,
+            "768": 833
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        1536
+      ],
+      "region_bases": 3072,
+      "series": "F"
+    },
+    {
+      "cell": "F_c2304",
+      "families": {
+        "ordinary_corresponding_key": {
+          "control_rate_above_target": false,
+          "median_hypotheses_searched": 8454.0,
+          "median_region_bases_retained": 2304.0,
+          "median_region_overlap_bases": 384.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_one_sided_95_upper_bound": 0.015073687702340494,
+            "exact_two_sided_95_interval": [
+              0.0012099778257548665,
+              0.01702737511683891
+            ],
+            "positives": 3,
+            "rate": 0.005859375,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_one_sided_95_upper_bound": 0.005833955600556271,
+            "exact_two_sided_95_interval": [
+              0.0,
+              0.007178950026259453
+            ],
+            "positives": 0,
+            "rate": 0.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.0006045799737264702,
+              0.008537709281629106
+            ],
+            "positives": 3,
+            "rate": 0.0029296875,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 6.389358320224827,
+            "median": 2.9295389264513294,
+            "minimum": 1.7292547570135608
+          },
+          "strongest_window_length_counts": {
+            "1536": 55,
+            "3072": 0,
+            "384": 764,
+            "768": 205
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 536,
+            "reverse_complement": 488
+          }
+        },
+        "watermarked_correct_key": {
+          "median_hypotheses_searched": 8454.0,
+          "median_region_bases_retained": 2304.0,
+          "median_region_overlap_bases": 1536.0,
+          "median_region_overlap_fraction_of_window": 1.0,
+          "prompt_any_draw": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "prompt_both_draws": {
+            "exact_two_sided_95_interval": [
+              0.9928210499737405,
+              1.0
+            ],
+            "positives": 512,
+            "rate": 1.0,
+            "trials": 512
+          },
+          "reads": 1024,
+          "sequence_level": {
+            "exact_two_sided_95_interval": [
+              0.9964040595931655,
+              1.0
+            ],
+            "positives": 1024,
+            "rate": 1.0,
+            "trials": 1024,
+            "unit_note": "reads; two draws per prompt are not independent, interval is descriptive"
+          },
+          "strength": {
+            "maximum": 462.9594007247357,
+            "median": 407.81029690199756,
+            "minimum": 197.56766188204475
+          },
+          "strongest_window_length_counts": {
+            "1536": 1023,
+            "3072": 0,
+            "384": 0,
+            "768": 1
+          },
+          "strongest_window_orientation_counts": {
+            "forward": 1024
+          }
+        }
+      },
+      "read_bases": [
+        2304
+      ],
+      "region_bases": 3072,
+      "series": "F"
+    }
+  ],
+  "cells_run": [
+    "A_l0384",
+    "A_l0576",
+    "A_l0768",
+    "A_l1152",
+    "A_l1536",
+    "A_l2304",
+    "A_l3072",
+    "B_l0384",
+    "B_l0576",
+    "B_l0768",
+    "B_l1152",
+    "B_l1536",
+    "B_l2304",
+    "B_l3072",
+    "C_l0768_o0_fw",
+    "C_l0768_o0_rc",
+    "C_l0768_o1_fw",
+    "C_l0768_o1_rc",
+    "C_l0768_o2_fw",
+    "C_l0768_o2_rc",
+    "C_l0768_o3_fw",
+    "C_l0768_o3_rc",
+    "C_l0768_o4_fw",
+    "C_l0768_o4_rc",
+    "C_l0768_o5_fw",
+    "C_l0768_o5_rc",
+    "C_l3072_o0_fw",
+    "C_l3072_o0_rc",
+    "C_l3072_o1_fw",
+    "C_l3072_o1_rc",
+    "C_l3072_o2_fw",
+    "C_l3072_o2_rc",
+    "C_l3072_o3_fw",
+    "C_l3072_o3_rc",
+    "C_l3072_o4_fw",
+    "C_l3072_o4_rc",
+    "C_l3072_o5_fw",
+    "C_l3072_o5_rc",
+    "D_l0768_f0000",
+    "D_l0768_f0384",
+    "D_l0768_f1536",
+    "D_l0768_f4608",
+    "D_l3072_f0000",
+    "D_l3072_f0384",
+    "D_l3072_f1536",
+    "D_l3072_f4608",
+    "E_s0000",
+    "E_s1344",
+    "E_s2688",
+    "E_s4032",
+    "E_s5376",
+    "F_c0768",
+    "F_c1536",
+    "F_c2304"
+  ],
+  "classification": "layout_result_pending_evidence_admission",
+  "cost": {
+    "detector_seconds_by_cell": {
+      "A_l0384": 11.848111837956822,
+      "A_l0576": 17.91195366010652,
+      "A_l0768": 23.70596646302147,
+      "A_l1152": 35.43750882174936,
+      "A_l1536": 53.49942392419325,
+      "A_l2304": 87.31020525068743,
+      "A_l3072": 132.73361938862945,
+      "B_l0384": 361.98462039398146,
+      "B_l0576": 345.03018224294647,
+      "B_l0768": 346.6697086695349,
+      "B_l1152": 334.21638877652003,
+      "B_l1536": 344.5736729897326,
+      "B_l2304": 343.7156270950509,
+      "B_l3072": 342.27909009490395,
+      "C_l0768_o0_fw": 35.75754520500777,
+      "C_l0768_o0_rc": 35.25196090512327,
+      "C_l0768_o1_fw": 35.296349251817446,
+      "C_l0768_o1_rc": 35.16540756379254,
+      "C_l0768_o2_fw": 35.40923516952898,
+      "C_l0768_o2_rc": 35.208283962943824,
+      "C_l0768_o3_fw": 36.270828474051086,
+      "C_l0768_o3_rc": 36.10598917704192,
+      "C_l0768_o4_fw": 36.048978050326696,
+      "C_l0768_o4_rc": 35.64393193507567,
+      "C_l0768_o5_fw": 36.45545424267766,
+      "C_l0768_o5_rc": 35.987779680785025,
+      "C_l3072_o0_fw": 155.6925146637659,
+      "C_l3072_o0_rc": 155.1161272484751,
+      "C_l3072_o1_fw": 155.53045784047572,
+      "C_l3072_o1_rc": 155.63482014578767,
+      "C_l3072_o2_fw": 153.92879226413788,
+      "C_l3072_o2_rc": 153.75682328167022,
+      "C_l3072_o3_fw": 156.34246935436386,
+      "C_l3072_o3_rc": 156.50824294571066,
+      "C_l3072_o4_fw": 154.61744660590193,
+      "C_l3072_o4_rc": 154.65878556887037,
+      "C_l3072_o5_fw": 153.91858490023878,
+      "C_l3072_o5_rc": 154.21976678958163,
+      "D_l0768_f0000": 11.736922514246544,
+      "D_l0768_f0384": 35.42944622255163,
+      "D_l0768_f1536": 166.00803219087538,
+      "D_l0768_f4608": 661.9565963745117,
+      "D_l3072_f0000": 104.52940826717531,
+      "D_l3072_f0384": 154.45180766147678,
+      "D_l3072_f1536": 342.2366098216735,
+      "D_l3072_f4608": 868.485074113938,
+      "E_s0000": 350.6917770371074,
+      "E_s1344": 358.2144428731117,
+      "E_s2688": 349.38912626585807,
+      "E_s4032": 346.4600056191557,
+      "E_s5376": 358.7402130329574,
+      "F_c0768": 11.89569517885684,
+      "F_c1536": 35.315816379123135,
+      "F_c2304": 68.17120900721056
+    },
+    "detector_seconds_per_read_by_cell": {
+      "A_l0384": 0.005785210858377354,
+      "A_l0576": 0.008746071123098886,
+      "A_l0768": 0.011575178937022201,
+      "A_l1152": 0.017303471104369805,
+      "A_l1536": 0.026122765587984986,
+      "A_l2304": 0.04263193615756222,
+      "A_l3072": 0.06481133759210422,
+      "B_l0384": 0.17675030292674876,
+      "B_l0576": 0.1684717686733137,
+      "B_l0768": 0.16927231868629633,
+      "B_l1152": 0.16319159608228517,
+      "B_l1536": 0.16824886376451786,
+      "B_l2304": 0.1678298960425053,
+      "B_l3072": 0.16712846196040232,
+      "C_l0768_o0_fw": 0.0174597388696327,
+      "C_l0768_o0_rc": 0.01721287153570472,
+      "C_l0768_o1_fw": 0.017234545533113987,
+      "C_l0768_o1_rc": 0.017170609162008077,
+      "C_l0768_o2_fw": 0.017289665610121574,
+      "C_l0768_o2_rc": 0.017191544903781164,
+      "C_l0768_o3_fw": 0.017710365465845257,
+      "C_l0768_o3_rc": 0.0176298775278525,
+      "C_l0768_o4_fw": 0.017602040063636082,
+      "C_l0768_o4_rc": 0.017404263640173667,
+      "C_l0768_o5_fw": 0.01780051476693245,
+      "C_l0768_o5_rc": 0.017572158047258313,
+      "C_l3072_o0_fw": 0.07602173567566695,
+      "C_l3072_o0_rc": 0.07574029650804448,
+      "C_l3072_o1_fw": 0.07594260636741978,
+      "C_l3072_o1_rc": 0.07599356452431039,
+      "C_l3072_o2_fw": 0.07516054309772358,
+      "C_l3072_o2_rc": 0.07507657386800304,
+      "C_l3072_o3_fw": 0.07633909636443548,
+      "C_l3072_o3_rc": 0.07642004050083528,
+      "C_l3072_o4_fw": 0.07549680010053805,
+      "C_l3072_o4_rc": 0.07551698514104999,
+      "C_l3072_o5_fw": 0.07515555903331972,
+      "C_l3072_o5_rc": 0.0753026205027254,
+      "D_l0768_f0000": 0.005730919196409445,
+      "D_l0768_f0384": 0.01729953428835529,
+      "D_l0768_f1536": 0.08105860946820087,
+      "D_l0768_f4608": 0.32322099432349205,
+      "D_l3072_f0000": 0.051039750130456696,
+      "D_l3072_f0384": 0.07541592170970546,
+      "D_l3072_f1536": 0.167107719639489,
+      "D_l3072_f4608": 0.4240649775946963,
+      "E_s0000": 0.1712362192564001,
+      "E_s1344": 0.17490939593413657,
+      "E_s2688": 0.170600159309501,
+      "E_s4032": 0.16916992461872837,
+      "E_s5376": 0.17516611964499873,
+      "F_c0768": 0.005808444911551192,
+      "F_c1536": 0.017244050966368718,
+      "F_c2304": 0.03328672314805203
+    },
+    "finalization_wall_seconds": 783.8146826659795,
+    "worker_runtime_seconds_sum": 9301.691869502916
+  },
+  "detector_config": {
+    "orientations": [
+      "forward",
+      "reverse_complement"
+    ],
+    "settings_tuned": false,
+    "target_sequence_false_positive_rate": 0.01,
+    "window_base_lengths": [
+      384,
+      768,
+      1536,
+      3072
+    ]
+  },
+  "detector_id": "synthid-position-independent-detector-v1",
+  "draws_per_prompt": 2,
+  "evaluated_case_ids_first_last": [
+    "ath_chr02_s97",
+    "spom_chr02_s89"
+  ],
+  "evaluated_prompts": 512,
+  "experiment_id": "synthid_v5_s1_layout",
+  "families": [
+    "watermarked_correct_key",
+    "ordinary_corresponding_key"
+  ],
+  "flags": [
+    "Fixture keys are public reproducibility material, not deployment secrets.",
+    "Layouts are chosen by public hash streams, never by a detector, key or score.",
+    "The control read has the ordinary continuation of the same prompt and draw with the same flanks; its region overlap is measured against the same region.",
+    "Statistical detection only; no biological function or secret-key claim follows.",
+    "Rates above target in a control cell are reported as observed."
+  ],
+  "model": {
+    "cohort_id": "ncbi_refseq_eukaryote_windows_fpr_v2_1608",
+    "experiment_label": "carbon-synthid-local-v5",
+    "generation_experiment_id": "carbon_synthid_v5_local_generation",
+    "model_id": "HuggingFaceBio/Carbon-500M",
+    "policy_id": "C_tok",
+    "revision": "9796b752108258c1d365089f842e62e6c0547704"
+  },
+  "ordinary_cells_above_target": [],
+  "protocol": {
+    "id": "synthid_v5_review_studies_protocol_2026_11_12",
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/docs/research/synthid_v5_review_studies_protocol_2026_11_12.md",
+    "sha256": "49509bc664a5dadfcdddce486a45d4be708da6eae1921424482f6b0cd19de317"
+  },
+  "provenance": {
+    "code": {
+      "scripts/run_carbon_synthid_position_independent.py": "9556b9c3bd14a1fa9892427965a5fa2e9cfad9a4ab23e4262785234175560e02",
+      "scripts/run_synthid_v5_layout.py": "502cb5100b6fddb9ae3a30c37985cfcc17f670ee868087c0b299208d3b515123",
+      "src/genomic_watermarks/dna.py": "2deec679760f8bdfcb3cd7f9bb8a6456e9bdcf9745a38719ca5102d18d3ff4c7",
+      "src/genomic_watermarks/large_validation.py": "9b0d7ee95575de350f6db573ca1a245eaaa59ad6e261903dff2e2960171264c2",
+      "src/genomic_watermarks/pilot.py": "28930af5169e6318e0a3b312d104315329ca5e3e115af7e514bf93321af4859b",
+      "src/genomic_watermarks/review_layouts.py": "f74e36264f795a7558df6e777a886e068a43617b70872b078d29d14df7a3b86f",
+      "src/genomic_watermarks/synthid.py": "a50fa22c451548e901c75d59b0e6583d9e9015fd6e414cf379d57c7258933082",
+      "src/genomic_watermarks/synthid_boundary.py": "d9193912afa4257a05f0595138be8e3fffd0b223649a281eff81ff0202626270",
+      "src/genomic_watermarks/synthid_position_independent.py": "db7a0116281d8c07b46b7c6c6196907526578480a22eb2ab6c55a9260f78c901"
+    },
+    "cohort": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/data/processed/ncbi_refseq_eukaryote_windows_fpr_v2_1608/prompts.jsonl",
+      "sha256": "cb19e90662fcb25f774b0840e2e696132e2dc9c54439d97597bd186d4948f775"
+    },
+    "command": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/.venv/bin/python /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/scripts/run_synthid_v5_layout.py --generation-root /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged --experiment-label carbon-synthid-local-v5 --policy-id C_tok --generation-experiment-id carbon_synthid_v5_local_generation --evaluated-prompts 512 --s0-trials /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/position_independent/trials.jsonl --output-dir /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/studies/s1_layout --workers 12",
+    "cpu_count": 18,
+    "cpu_model": "Apple M5 Pro",
+    "generation_files": [
+      {
+        "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/generation/draw_00_sequences.jsonl",
+        "sha256": "4c2f832beb7432fb83fe6607eb9b9f2c4663e742b216a3568e065b8e0b7c7983"
+      },
+      {
+        "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/generation/draw_01_sequences.jsonl",
+        "sha256": "babd06b52aac8ead8a9db65b941585059c396f3a66918bd2180042c33aacb682"
+      }
+    ],
+    "natural_pool": {
+      "directory": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/data/raw/ncbi_refseq_eukaryote_windows_fpr_v2_1608",
+      "manifest": {
+        "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/studies/s1_layout/natural_pool_manifest.tsv",
+        "sha256": "7397b07f2f5f25e5b530095537cc87bc4cd101c072c842e192cf3430a2a9fbbd"
+      },
+      "spans": 1608
+    },
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "python": "3.12.16",
+    "run_identity_sha256": "6937afdb16f9b8f1abd9dd28a35b0f54bc1fb5848f93e5a1474b7715a62913de",
+    "s0_trials": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/merged/position_independent/trials.jsonl",
+      "sha256": "2f8d42e6e918771bc763954a36985fda950459e9995475a60f094debaed6fc8c"
+    },
+    "workers": 12
+  },
+  "results_withheld": false,
+  "s0_check_skipped": false,
+  "schema_version": 1,
+  "study": "S1 layout",
+  "total_decisions": 110592,
+  "trials_artifact": {
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/carbon/studies/s1_layout/trials.jsonl.gz",
+    "sha256": "7396c26dd6cb76095865f85e171c9e29d4081991bdf983333bf0c54b845e5b27"
+  },
+  "valid": true,
+  "validity_checks": {
+    "check_1_reference_layout_reproduces_s0_unedited": {
+      "compared": 2048,
+      "expected": 2048,
+      "fields": [
+        "detected",
+        "hypotheses_searched",
+        "best_hypothesis.g_ones",
+        "best_hypothesis.g_total"
+      ],
+      "max_abs_log_p_difference": 0.0,
+      "mismatch_examples": [],
+      "mismatches": 0,
+      "missing_in_s0": 0,
+      "note": "decisions compare integer window counts; the log P difference is reported, not compared",
+      "status": "pass"
+    },
+    "check_2_series_c_strand_pairs_identical": {
+      "fields": [
+        "minimum_local_log_p_value",
+        "hypotheses_searched"
+      ],
+      "mismatch_examples": [],
+      "mismatches": 0,
+      "pairs": 24576,
+      "status": "pass",
+      "unpaired": 0
+    }
+  },
+  "validity_failures": [],
+  "watermark_scope": "synthid-tournament-v1 only"
+}

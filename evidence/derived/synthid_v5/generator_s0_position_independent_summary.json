@@ -1,0 +1,673 @@
+{
+  "calibration": "none; analytic exact-binomial local tests plus one global Bonferroni correction",
+  "calibration_rerun": false,
+  "classification": "validation_result_pending_evidence_admission",
+  "conditions": [
+    "clean",
+    "substitution_1nt",
+    "insertion_1nt",
+    "deletion_1nt"
+  ],
+  "detector_id": "synthid-position-independent-detector-v1",
+  "draws_per_prompt": 2,
+  "evaluation_prompts": 512,
+  "expected_hypotheses_by_observed_bases": {
+    "3455": 16128,
+    "3456": 16136,
+    "3457": 16144
+  },
+  "experiment_id": "generator_synthid_v5_local_position_independent",
+  "families": [
+    "watermarked_correct_key",
+    "ordinary_corresponding_key",
+    "watermarked_wrong_key"
+  ],
+  "finalization_runtime_seconds": 124.29709112498676,
+  "flags": [
+    "Fixture keys are public reproducibility material, not deployment secrets.",
+    "Single edits are one nucleotide event, not a one-percent edit rate.",
+    "This detector-only run does not re-evaluate model quality or biological function.",
+    "Prompt-correlated draws provide 512 independent prompt clusters."
+  ],
+  "generation_rerun": false,
+  "model_id": "GenerTeam/GENERator-v2-eukaryote-1.2b-base",
+  "orientations": [
+    "forward",
+    "reverse_complement"
+  ],
+  "policy_id": "G_tok",
+  "provenance": {
+    "analysis_seed": 2718,
+    "bootstrap_replicates": 20000,
+    "boundary_core": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/src/genomic_watermarks/synthid_boundary.py",
+      "sha256": "d9193912afa4257a05f0595138be8e3fffd0b223649a281eff81ff0202626270"
+    },
+    "cohort": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/data/processed/ncbi_refseq_eukaryote_windows_fpr_v2_1608/prompts.jsonl",
+      "sha256": "cb19e90662fcb25f774b0840e2e696132e2dc9c54439d97597bd186d4948f775"
+    },
+    "command": "scripts/run_generator_synthid_position_independent.py",
+    "detector": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/src/genomic_watermarks/synthid_position_independent.py",
+      "sha256": "db7a0116281d8c07b46b7c6c6196907526578480a22eb2ab6c55a9260f78c901"
+    },
+    "generation": [
+      {
+        "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/generation/draw_00_sequences.jsonl",
+        "sha256": "e919cec722ae4e06be44c2a3f52da89139b8678e40c5581ad3903263546137f0"
+      },
+      {
+        "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/generation/draw_01_sequences.jsonl",
+        "sha256": "bb8811e49f0fb8e46e0fd947a96deed1996fd50c11cfee42f5a6f2d5fc74f076"
+      }
+    ],
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "prompt_split": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/detection/prompt_split.json",
+      "sha256": "43cf800b204a55daf2ee3422bbeb2633cc8111ad785a130d21adcfbe9001991c"
+    },
+    "protocol": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/docs/research/synthid_v5_review_studies_protocol_2026_11_12.md",
+      "sha256": "49509bc664a5dadfcdddce486a45d4be708da6eae1921424482f6b0cd19de317"
+    },
+    "python": "3.12.16",
+    "runner": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/scripts/run_generator_synthid_position_independent.py",
+      "sha256": "88d3e41a88fce41a1d4196954bf33da0e5f711384d262155f47d50163d47e1bc"
+    },
+    "synthid_core": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/src/genomic_watermarks/synthid.py",
+      "sha256": "a50fa22c451548e901c75d59b0e6583d9e9015fd6e414cf379d57c7258933082"
+    },
+    "validator": {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/scripts/validate_generator_synthid_position_independent.py",
+      "sha256": "c5fb393f542b0e81c34faf437f85f5a6ec33b8d12173f179b07fe5ec9bb265a7"
+    },
+    "workers": 12
+  },
+  "rates": [
+    {
+      "best_statistic": {
+        "maximum": 62.664846123105946,
+        "median": 59.27887072503739,
+        "minimum": 11.408904368023041
+      },
+      "condition": "clean",
+      "detections": 1024,
+      "family": "watermarked_correct_key",
+      "prompt_any_draw": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        1.0,
+        1.0
+      ],
+      "prompt_clusters": 512,
+      "rate": 1.0,
+      "sequence_log_p_value": {
+        "maximum": -58.781757530078984,
+        "median": -1826.4296359967493,
+        "minimum": -2052.694149399116
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 1024
+      },
+      "winning_window_base_length_counts": {
+        "3072": 1024
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.808326112068523,
+        "median": 3.2135465953413695,
+        "minimum": 2.3098821518760553
+      },
+      "condition": "clean",
+      "detections": 0,
+      "family": "ordinary_corresponding_key",
+      "prompt_any_draw": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.0,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -4.306483399142973
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 509,
+        "reverse_complement": 515
+      },
+      "winning_window_base_length_counts": {
+        "1536": 80,
+        "3072": 11,
+        "384": 709,
+        "768": 224
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.9968879203849355,
+        "median": 3.205550741379015,
+        "minimum": 2.215601247717849
+      },
+      "condition": "clean",
+      "detections": 2,
+      "family": "watermarked_wrong_key",
+      "prompt_any_draw": {
+        "detections": 2,
+        "exact_95_interval": [
+          0.0004734155742531006,
+          0.014038905114244559
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0048828125
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.001953125,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -5.266503609841635
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 519,
+        "reverse_complement": 505
+      },
+      "winning_window_base_length_counts": {
+        "1536": 71,
+        "3072": 11,
+        "384": 713,
+        "768": 229
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 62.13021842867407,
+        "median": 58.679439673704685,
+        "minimum": 11.095617480461701
+      },
+      "condition": "substitution_1nt",
+      "detections": 1024,
+      "family": "watermarked_correct_key",
+      "prompt_any_draw": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        1.0,
+        1.0
+      ],
+      "prompt_clusters": 512,
+      "rate": 1.0,
+      "sequence_log_p_value": {
+        "maximum": -55.216382678976906,
+        "median": -1787.9402926786036,
+        "minimum": -2015.956081496434
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 1024
+      },
+      "winning_window_base_length_counts": {
+        "3072": 1024
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.808326112068523,
+        "median": 3.2135465953413695,
+        "minimum": 2.3098821518760553
+      },
+      "condition": "substitution_1nt",
+      "detections": 0,
+      "family": "ordinary_corresponding_key",
+      "prompt_any_draw": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.0,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -4.306483399142973
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 510,
+        "reverse_complement": 514
+      },
+      "winning_window_base_length_counts": {
+        "1536": 85,
+        "3072": 12,
+        "384": 707,
+        "768": 220
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.9968879203849355,
+        "median": 3.2135465953413695,
+        "minimum": 2.215601247717849
+      },
+      "condition": "substitution_1nt",
+      "detections": 2,
+      "family": "watermarked_wrong_key",
+      "prompt_any_draw": {
+        "detections": 2,
+        "exact_95_interval": [
+          0.0004734155742531006,
+          0.014038905114244559
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0048828125
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.001953125,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -5.266503609841635
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 511,
+        "reverse_complement": 513
+      },
+      "winning_window_base_length_counts": {
+        "1536": 79,
+        "3072": 10,
+        "384": 716,
+        "768": 219
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 61.044762200585104,
+        "median": 44.852023394989345,
+        "minimum": 9.869471345845461
+      },
+      "condition": "insertion_1nt",
+      "detections": 1024,
+      "family": "watermarked_correct_key",
+      "prompt_any_draw": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        1.0,
+        1.0
+      ],
+      "prompt_clusters": 512,
+      "rate": 1.0,
+      "sequence_log_p_value": {
+        "maximum": -42.21201856832956,
+        "median": -1028.4673625441917,
+        "minimum": -1942.54103913464
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 1024
+      },
+      "winning_window_base_length_counts": {
+        "1536": 444,
+        "3072": 580
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.808326112068523,
+        "median": 3.2135465953413695,
+        "minimum": 2.3098821518760553
+      },
+      "condition": "insertion_1nt",
+      "detections": 0,
+      "family": "ordinary_corresponding_key",
+      "prompt_any_draw": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.0,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -4.305987736183631
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 505,
+        "reverse_complement": 519
+      },
+      "winning_window_base_length_counts": {
+        "1536": 93,
+        "3072": 8,
+        "384": 698,
+        "768": 225
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.9968879203849355,
+        "median": 3.2135465953413695,
+        "minimum": 2.262741699796952
+      },
+      "condition": "insertion_1nt",
+      "detections": 2,
+      "family": "watermarked_wrong_key",
+      "prompt_any_draw": {
+        "detections": 2,
+        "exact_95_interval": [
+          0.0004734155742531006,
+          0.014038905114244559
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0048828125
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.001953125,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -5.266007946882294
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 521,
+        "reverse_complement": 503
+      },
+      "winning_window_base_length_counts": {
+        "1536": 81,
+        "3072": 13,
+        "384": 705,
+        "768": 225
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 60.51013450615323,
+        "median": 44.066282692566745,
+        "minimum": 10.493855745309316
+      },
+      "condition": "deletion_1nt",
+      "detections": 1024,
+      "family": "watermarked_correct_key",
+      "prompt_any_draw": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 512,
+        "exact_95_interval": [
+          0.9928210499737405,
+          1.0
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        1.0,
+        1.0
+      ],
+      "prompt_clusters": 512,
+      "rate": 1.0,
+      "sequence_log_p_value": {
+        "maximum": -48.64291918132899,
+        "median": -997.766781696291,
+        "minimum": -1906.9568334805176
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 1024
+      },
+      "winning_window_base_length_counts": {
+        "1536": 465,
+        "3072": 559
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.902607016226729,
+        "median": 3.2135465953413695,
+        "minimum": 2.3570226039551585
+      },
+      "condition": "deletion_1nt",
+      "detections": 1,
+      "family": "ordinary_corresponding_key",
+      "prompt_any_draw": {
+        "detections": 1,
+        "exact_95_interval": [
+          4.944762114539532e-05,
+          0.010833656944754487
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0029296875
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.0009765625,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -4.7826367127232245
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 526,
+        "reverse_complement": 498
+      },
+      "winning_window_base_length_counts": {
+        "1536": 83,
+        "3072": 13,
+        "384": 712,
+        "768": 216
+      }
+    },
+    {
+      "best_statistic": {
+        "maximum": 4.9968879203849355,
+        "median": 3.205550741379015,
+        "minimum": 2.262599133454638
+      },
+      "condition": "deletion_1nt",
+      "detections": 1,
+      "family": "watermarked_wrong_key",
+      "prompt_any_draw": {
+        "detections": 1,
+        "exact_95_interval": [
+          4.944762114539532e-05,
+          0.010833656944754487
+        ],
+        "trials": 512
+      },
+      "prompt_both_draws": {
+        "detections": 0,
+        "exact_95_interval": [
+          0.0,
+          0.007178950026259453
+        ],
+        "trials": 512
+      },
+      "prompt_cluster_bootstrap_95_interval": [
+        0.0,
+        0.0029296875
+      ],
+      "prompt_clusters": 512,
+      "rate": 0.0009765625,
+      "sequence_log_p_value": {
+        "maximum": 0.0,
+        "median": 0.0,
+        "minimum": -5.266999518604589
+      },
+      "trials": 1024,
+      "winning_orientation_counts": {
+        "forward": 512,
+        "reverse_complement": 512
+      },
+      "winning_window_base_length_counts": {
+        "1536": 77,
+        "3072": 14,
+        "384": 717,
+        "768": 216
+      }
+    }
+  ],
+  "report_artifact": {
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/position_independent/report.md",
+    "sha256": "51f0f86036316a814ba3fc94dda44b69dd2b64d5e34265e86b5c6982486cac04"
+  },
+  "revision": "c41b0018da9ee13b9e96ee54647de8da381ccd72",
+  "schema_version": 1,
+  "target_sequence_false_positive_rate": 0.01,
+  "total_decisions": 12288,
+  "trials_artifact": {
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/position_independent/trials.jsonl",
+    "sha256": "962bacd9fec2a6a9e1857b5e6b4c527575ca976cd6eb63f98a536d1f6920a6e5"
+  },
+  "watermark_scope": "synthid-tournament-v1 only",
+  "window_base_lengths": [
+    384,
+    768,
+    1536,
+    3072
+  ],
+  "worker_runtime_seconds_sum": 1089.5041822570784
+}
