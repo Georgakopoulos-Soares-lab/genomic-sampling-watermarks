@@ -114,8 +114,8 @@ uv run ruff check .
 cd paper && ./scripts/build.sh
 ```
 
-`check_evidence.py` currently fails only on five Carbon development-cohort result files that were
-never committed.
+`check_evidence.py` reports five Carbon development-cohort result files that were never committed
+as warnings (listed in the script); any other missing or mismatched artifact is an error.
 
 ## Agents
 

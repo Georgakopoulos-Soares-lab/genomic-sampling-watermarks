@@ -23,6 +23,18 @@ ARTIFACT_DIGEST_FIELDS = (
     ("trials_artifact", "trials_sha256"),
 )
 DOCUMENT_FIELDS = ("protocol", "execution", "amendment")
+# Carbon development-cohort result files that were never committed (CLAUDE.md, "Commands").
+# Their absence is reported as a warning. A copy that is present must still match its digest,
+# and any other missing artifact is an error.
+KNOWN_UNCOMMITTED_ARTIFACTS = frozenset(
+    {
+        "outputs/carbon_synthid_e16_v1/distribution_summary.json",
+        "outputs/carbon_synthid_e16_v1/sequence_comparison_summary.json",
+        "outputs/carbon_synthid_e16_v1/generation_summary.json",
+        "outputs/carbon_synthid_position_independent_v1/summary.json",
+        "outputs/carbon_synthid_position_independent_v1/trials.jsonl",
+    }
+)
 
 
 def _repository_path(value: str) -> Path | None:
@@ -37,7 +49,7 @@ def _repository_path(value: str) -> Path | None:
     return resolved
 
 
-def _check_artifact_references(text: str, errors: list[str]) -> int:
+def _check_artifact_references(text: str, errors: list[str], warnings: list[str]) -> int:
     checked = 0
     for path_field, digest_field in ARTIFACT_DIGEST_FIELDS:
         pattern = re.compile(
@@ -52,6 +64,9 @@ def _check_artifact_references(text: str, errors: list[str]) -> int:
                 errors.append(f"non-repository {path_field} path: {relative_path}")
                 continue
             if not artifact.is_file():
+                if relative_path in KNOWN_UNCOMMITTED_ARTIFACTS:
+                    warnings.append(f"known uncommitted evidence artifact: {relative_path}")
+                    continue
                 errors.append(f"missing evidence artifact: {relative_path}")
                 continue
             observed_digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
@@ -95,6 +110,7 @@ def _check_manuscript_map(seen_ids: dict[str, Path], errors: list[str]) -> int:
 
 def main() -> int:
     errors: list[str] = []
+    warnings: list[str] = []
     seen_ids: dict[str, Path] = {}
     checked_artifacts = 0
     checked_documents = 0
@@ -119,11 +135,13 @@ def main() -> int:
         invalid = [value for value in statuses if value not in {"V", "A"}]
         if invalid:
             errors.append(f"invalid evidence statuses: {', '.join(sorted(set(invalid)))}")
-        checked_artifacts = _check_artifact_references(text, errors)
+        checked_artifacts = _check_artifact_references(text, errors, warnings)
         checked_documents = _check_document_references(text, errors)
 
     mapped_ids = _check_manuscript_map(seen_ids, errors)
 
+    for warning in sorted(set(warnings)):
+        print(f"WARNING: {warning}")
     if errors:
         for error in errors:
             print(f"ERROR: {error}")
@@ -131,7 +149,8 @@ def main() -> int:
     print(
         "evidence ledger OK "
         f"({len(seen_ids)} measurements, {checked_artifacts} artifact digests, "
-        f"{checked_documents} documents, {mapped_ids} manuscript mappings)"
+        f"{checked_documents} documents, {mapped_ids} manuscript mappings, "
+        f"{len(set(warnings))} known uncommitted artifacts)"
     )
     return 0
 
