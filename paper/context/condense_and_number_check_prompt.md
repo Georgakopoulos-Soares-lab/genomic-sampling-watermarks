@@ -19,7 +19,7 @@ as a stream of terms and numbers. Your job has three parts, in this order:
 
 ## Read first
 
-`paper/AGENTS.md`; the "Writing boundaries" section of `paper/context/evidence_map.md`;
+`paper/CLAUDE.md`; the "Writing boundaries" section of `paper/context/evidence_map.md`;
 `evidence/measurements.yaml`; then `main.tex` end to end.
 
 ## What must not change

@@ -1,10 +1,10 @@
-# Paper agent instructions
+# Paper instructions
 
 ## Ground truth
 
 The manuscript is downstream of code and evidence. Read, in order:
 
-1. `../PROJECT.md`
+1. `../CLAUDE.md`
 2. `../evidence/README.md`
 3. `context/evidence_map.md`
 

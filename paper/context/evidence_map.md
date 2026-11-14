@@ -245,3 +245,61 @@ not that it is resolved.
 The 2026-09-11 editorial revision removes references to pinned model revisions and a prescribed
 replication machine from the manuscript at the user's request. Exact revisions and execution
 environments remain in the evidence trail; future runs must document their actual environment.
+
+## ICLR review integration (2026-11-12)
+
+The 2026-11-12 pass (`paper/reviews/2026-11-12_iclr_review_integration.md`) added scope and
+limitation sentences to the manuscript and no new number or identifier. Three added statements
+rest on repository documents and implementation tests, not on ledger measurements:
+
+- the implementation-test sentence in Limitations (flanked synthetic region, reverse complement):
+  `tests/test_synthid_position_independent.py`;
+- the cause and configuration of the Carbon protocol mismatch:
+  `docs/research/carbon_provenance_discrepancy_audit_2026_09_21.md`;
+- the matching protocol hash in the second cohort:
+  `docs/research/synthid_v2_fpr_direct_a100_execution_2026_09_21.md`.
+
+The manuscript must keep saying that region length, flank length, placement, strand, and initial
+phase were not varied, that no narrower detector was compared, and that the full search was not
+calibrated across many keys or on DNA that no model generated.
+
+**Amendment 2026-11-13.** The local cohort (`synthid.v5.*`, below) now measures layout, a
+detector comparison, calibration across 64 keys, and entropy, and the manuscript says so. The
+paragraph above no longer describes the manuscript. The implementation-test sentence in Limitations
+was removed, because measured layouts replace it. The manuscript must now keep saying what the new
+measurements leave open: regions shorter than 384 bases were not tested; detection was at its
+ceiling in every layout, so no failure boundary was located within the tested range; the flanks and
+the natural spans come from the same 12 RefSeq records as the prompts; the local cohort is one
+machine, the same authors, and 512 prompts; the fine-grid search stands in for an all-spans search
+that was not run; no other watermark scheme was compared; no score-aware or detector-guided edit was
+tested; no clustered edit or recombination beyond the edit-rate series was tested; calibration holds
+for 64 keys from one derivation, the standard layout, and 3,072-base spans, with pooled decisions
+that share reads and keys; and no biological or secret-key claim was made. A control row with two or
+more positive prompts at 512 prompts has a bound above 1% and is reported as observed.
+
+## Local review studies (synthid.v5)
+
+The ICLR 2027 review studies S0 to S4 ran on a locally regenerated 512-prompt cohort per model
+(Apple M5 Pro). Protocol: `docs/research/synthid_v5_review_studies_protocol_2026_11_12.md`;
+execution record: `docs/research/synthid_v5_review_studies_execution_2026_11_13.md`; compact results and
+the derived tables: `evidence/derived/synthid_v5/`. This is a repeat of the detection cohort's design by the
+same authors on different hardware, not an independent replication, and it is not pooled with the
+detection cohort. The manuscript cites these results as the local cohort (Methods Section 3.9;
+Results Sections 4.6 to 4.10; Supplementary Tables S3 to S6). Tables 2 to 5 and S3 to S6 are written
+by `paper/scripts/make_v5_tables.py` from `evidence/derived/synthid_v5/synthid_v5_derived_2026_11_13.json`
+into `paper/manuscript/source/tables/`; no cell is typed by hand. Control rates above 1% are reported
+as observed. The S4 sampling-path cross-check has no identifier, is not evidence, and is not cited in
+the manuscript; the Limitations section says the entropy pass is separate from sampling.
+
+| Result group | Content | Evidence identifiers | Manuscript location |
+|---|---|---|---|
+| Cohort identity and generation cost | Locally regenerated 512-prompt cohort; digests; generation throughput | `synthid.v5.cohort.identity`, `synthid.v5.carbon.generation.throughput`, `synthid.v5.generator.generation.throughput` | Methods 3.9 (cohort, prompts, new keyed functions); Supplementary S4 (environment; 193.1 and 88.2 bases per summed process-second) |
+| S0, Carbon: reference layout, 12 family-by-condition rates and strength | Correct-key, ordinary, and wrong-key prompt-level rates with exact bounds; median correct-key strength | `synthid.v5.carbon.detector.clean.correct_key_rate`, `synthid.v5.carbon.detector.clean.ordinary_rate`, `synthid.v5.carbon.detector.clean.wrong_key_rate`, `synthid.v5.carbon.detector.substitution_1nt.correct_key_rate`, `synthid.v5.carbon.detector.substitution_1nt.ordinary_rate`, `synthid.v5.carbon.detector.substitution_1nt.wrong_key_rate`, `synthid.v5.carbon.detector.insertion_1nt.correct_key_rate`, `synthid.v5.carbon.detector.insertion_1nt.ordinary_rate`, `synthid.v5.carbon.detector.insertion_1nt.wrong_key_rate`, `synthid.v5.carbon.detector.deletion_1nt.correct_key_rate`, `synthid.v5.carbon.detector.deletion_1nt.ordinary_rate`, `synthid.v5.carbon.detector.deletion_1nt.wrong_key_rate`, `synthid.v5.carbon.detector.correct_key_strength_by_condition` | Results 4.6 (all four conditions, strength, bounds); Supplementary Table S3 |
+| S0, GENERator: reference layout, 12 family-by-condition rates and strength | Same, GENERator | `synthid.v5.generator.detector.clean.correct_key_rate`, `synthid.v5.generator.detector.clean.ordinary_rate`, `synthid.v5.generator.detector.clean.wrong_key_rate`, `synthid.v5.generator.detector.substitution_1nt.correct_key_rate`, `synthid.v5.generator.detector.substitution_1nt.ordinary_rate`, `synthid.v5.generator.detector.substitution_1nt.wrong_key_rate`, `synthid.v5.generator.detector.insertion_1nt.correct_key_rate`, `synthid.v5.generator.detector.insertion_1nt.ordinary_rate`, `synthid.v5.generator.detector.insertion_1nt.wrong_key_rate`, `synthid.v5.generator.detector.deletion_1nt.correct_key_rate`, `synthid.v5.generator.detector.deletion_1nt.ordinary_rate`, `synthid.v5.generator.detector.deletion_1nt.wrong_key_rate`, `synthid.v5.generator.detector.correct_key_strength_by_condition` | Results 4.6; Supplementary Table S3 |
+| S1 layout, Carbon | Validity checks; 54 cells by series (marked and ordinary); ordinary and marked summaries | `synthid.v5.carbon.s1.validity_checks`, `synthid.v5.carbon.s1.series_a.marked_detection`, `synthid.v5.carbon.s1.series_a.ordinary_control`, `synthid.v5.carbon.s1.series_b.marked_detection`, `synthid.v5.carbon.s1.series_b.ordinary_control`, `synthid.v5.carbon.s1.series_c.marked_detection`, `synthid.v5.carbon.s1.series_c.ordinary_control`, `synthid.v5.carbon.s1.series_d.marked_detection`, `synthid.v5.carbon.s1.series_d.ordinary_control`, `synthid.v5.carbon.s1.series_e.marked_detection`, `synthid.v5.carbon.s1.series_e.ordinary_control`, `synthid.v5.carbon.s1.series_f.marked_detection`, `synthid.v5.carbon.s1.series_f.ordinary_control`, `synthid.v5.carbon.s1.ordinary_read_rate_maximum`, `synthid.v5.carbon.s1.ordinary_any_draw_prompt_cells_above_0_01`, `synthid.v5.carbon.s1.marked_minimum_read_rate` | validity_checks: Results 4.7 paragraph 1. series_a, series_b, series_d, series_f marked_detection and ordinary_control: Table 2 (representative layouts) and Supplementary Table S4 (all 54). series_c and series_e: Supplementary Table S4 and Results 4.7 strength paragraph. ordinary_read_rate_maximum, ordinary_any_draw_prompt_cells_above_0_01: Results 4.7 control paragraph. marked_minimum_read_rate: Abstract, Introduction, Results 4.7, Discussion (margin paragraph), Limitations (layout paragraph), Conclusion |
+| S1 layout, GENERator | Same, GENERator | `synthid.v5.generator.s1.validity_checks`, `synthid.v5.generator.s1.series_a.marked_detection`, `synthid.v5.generator.s1.series_a.ordinary_control`, `synthid.v5.generator.s1.series_b.marked_detection`, `synthid.v5.generator.s1.series_b.ordinary_control`, `synthid.v5.generator.s1.series_c.marked_detection`, `synthid.v5.generator.s1.series_c.ordinary_control`, `synthid.v5.generator.s1.series_d.marked_detection`, `synthid.v5.generator.s1.series_d.ordinary_control`, `synthid.v5.generator.s1.series_e.marked_detection`, `synthid.v5.generator.s1.series_e.ordinary_control`, `synthid.v5.generator.s1.series_f.marked_detection`, `synthid.v5.generator.s1.series_f.ordinary_control`, `synthid.v5.generator.s1.ordinary_read_rate_maximum`, `synthid.v5.generator.s1.ordinary_any_draw_prompt_cells_above_0_01`, `synthid.v5.generator.s1.marked_minimum_read_rate` | As for Carbon; the 28 layouts with one missed read: Results 4.7 misses paragraph (derived from the `cells_with_a_missed_read` list of `synthid.v5.generator.s1.marked_minimum_read_rate`) |
+| S2 detector comparison, Carbon | Detection, ordinary control, strength, windows searched, single-process timing | `synthid.v5.carbon.s2.marked_detection`, `synthid.v5.carbon.s2.ordinary_control`, `synthid.v5.carbon.s2.median_corrected_strength`, `synthid.v5.carbon.s2.windows_searched`, `synthid.v5.carbon.s2.single_process_median_ms_per_read` | marked_detection, ordinary_control, windows_searched, single_process_median_ms_per_read, median_corrected_strength: Table 3 and Results 4.8; prompt-level counts and bounds: Supplementary Table S5; strengths after the insertion: Discussion (synchronization paragraph) |
+| S2 detector comparison, GENERator | Same, GENERator | `synthid.v5.generator.s2.marked_detection`, `synthid.v5.generator.s2.ordinary_control`, `synthid.v5.generator.s2.median_corrected_strength`, `synthid.v5.generator.s2.windows_searched`, `synthid.v5.generator.s2.single_process_median_ms_per_read` | As for Carbon |
+| S3 null calibration, model output | Ordinary and marked-with-independent-key reads, 64 keys, both models | `synthid.v5.carbon.s3.ordinary_model_output.pooled_rate`, `synthid.v5.carbon.s3.ordinary_model_output.per_key_rate`, `synthid.v5.carbon.s3.ordinary_model_output.reads_positive_under_any_key`, `synthid.v5.carbon.s3.ordinary_model_output.calibration`, `synthid.v5.generator.s3.ordinary_model_output.pooled_rate`, `synthid.v5.generator.s3.ordinary_model_output.per_key_rate`, `synthid.v5.generator.s3.ordinary_model_output.reads_positive_under_any_key`, `synthid.v5.generator.s3.ordinary_model_output.calibration`, `synthid.v5.carbon.s3.marked_independent_key.pooled_rate`, `synthid.v5.carbon.s3.marked_independent_key.per_key_rate`, `synthid.v5.carbon.s3.marked_independent_key.reads_positive_under_any_key`, `synthid.v5.carbon.s3.marked_independent_key.calibration`, `synthid.v5.generator.s3.marked_independent_key.pooled_rate`, `synthid.v5.generator.s3.marked_independent_key.per_key_rate`, `synthid.v5.generator.s3.marked_independent_key.reads_positive_under_any_key`, `synthid.v5.generator.s3.marked_independent_key.calibration` | pooled_rate, per_key_rate, reads_positive_under_any_key: Table 4 and Results 4.9; calibration: Results 4.9 and Supplementary Table S6; Abstract, Discussion (synchronization paragraph, about a tenth of nominal), Limitations (null-validity paragraph), Conclusion |
+| S3 null calibration, natural DNA | 1,608 public source spans, 64 keys | `synthid.v5.shared.s3.natural_dna.pooled_rate`, `synthid.v5.shared.s3.natural_dna.per_key_rate`, `synthid.v5.shared.s3.natural_dna.reads_positive_under_any_key`, `synthid.v5.shared.s3.natural_dna.calibration` | As for model output |
+| S4 entropy and strength | Mean entropy; Spearman correlations with strength and with mark-bit fraction | `synthid.v5.carbon.s4.mean_entropy`, `synthid.v5.carbon.s4.spearman_entropy_vs_strength`, `synthid.v5.carbon.s4.spearman_entropy_vs_mark_bits`, `synthid.v5.generator.s4.mean_entropy`, `synthid.v5.generator.s4.spearman_entropy_vs_strength`, `synthid.v5.generator.s4.spearman_entropy_vs_mark_bits` | mean_entropy: Results 4.10; spearman_entropy_vs_strength and spearman_entropy_vs_mark_bits: Table 5, Results 4.10, Discussion (margin paragraph), Supplementary S6 (weakest sequence) |

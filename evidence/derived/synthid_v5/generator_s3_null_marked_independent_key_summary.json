@@ -1,0 +1,802 @@
+{
+  "calibration_table": [
+    {
+      "count": 42,
+      "decisions": 32768,
+      "exact_one_sided_95_lower_bound": 0.0009748092284815124,
+      "exact_two_sided_95_interval": [
+        0.0009239155261237449,
+        0.0017321472300575263
+      ],
+      "exceeds_nominal": false,
+      "fraction": 0.00128173828125,
+      "nominal_level": 0.01
+    },
+    {
+      "count": 209,
+      "decisions": 32768,
+      "exact_one_sided_95_lower_bound": 0.005672168332281035,
+      "exact_two_sided_95_interval": [
+        0.005544954717140315,
+        0.0073006169935838075
+      ],
+      "exceeds_nominal": false,
+      "fraction": 0.006378173828125,
+      "nominal_level": 0.05
+    },
+    {
+      "count": 376,
+      "decisions": 32768,
+      "exact_one_sided_95_lower_bound": 0.010523792127648054,
+      "exact_two_sided_95_interval": [
+        0.010349663840654527,
+        0.012687355289978927
+      ],
+      "exceeds_nominal": false,
+      "fraction": 0.011474609375,
+      "nominal_level": 0.1
+    },
+    {
+      "count": 891,
+      "decisions": 32768,
+      "exact_one_sided_95_lower_bound": 0.02572913438159543,
+      "exact_two_sided_95_interval": [
+        0.025456947812835428,
+        0.029009852340263136
+      ],
+      "exceeds_nominal": false,
+      "fraction": 0.027191162109375,
+      "nominal_level": 0.25
+    },
+    {
+      "count": 1565,
+      "decisions": 32768,
+      "exact_one_sided_95_lower_bound": 0.04583665943002581,
+      "exact_two_sided_95_interval": [
+        0.045475899886959575,
+        0.0501247044216667
+      ],
+      "exceeds_nominal": false,
+      "fraction": 0.047760009765625,
+      "nominal_level": 0.5
+    }
+  ],
+  "classification": "review_study_result_pending_evidence_admission",
+  "code_sha256": {
+    "scripts/run_carbon_synthid_position_independent.py": "9556b9c3bd14a1fa9892427965a5fa2e9cfad9a4ab23e4262785234175560e02",
+    "scripts/run_synthid_v5_null_calibration.py": "af3f081e373da5ed56951dd8aa863d921373ce828713ed5448d6c4744395487f",
+    "src/genomic_watermarks/dna.py": "2deec679760f8bdfcb3cd7f9bb8a6456e9bdcf9745a38719ca5102d18d3ff4c7",
+    "src/genomic_watermarks/large_validation.py": "9b0d7ee95575de350f6db573ca1a245eaaa59ad6e261903dff2e2960171264c2",
+    "src/genomic_watermarks/pilot.py": "28930af5169e6318e0a3b312d104315329ca5e3e115af7e514bf93321af4859b",
+    "src/genomic_watermarks/synthid.py": "a50fa22c451548e901c75d59b0e6583d9e9015fd6e414cf379d57c7258933082",
+    "src/genomic_watermarks/synthid_boundary.py": "d9193912afa4257a05f0595138be8e3fffd0b223649a281eff81ff0202626270",
+    "src/genomic_watermarks/synthid_position_independent.py": "db7a0116281d8c07b46b7c6c6196907526578480a22eb2ab6c55a9260f78c901",
+    "src/genomic_watermarks/watermark.py": "96f881bb9486753af6a38e1a1875f97cee116caa51892b7825ae5bfdef552853"
+  },
+  "cohort_id": "ncbi_refseq_eukaryote_windows_fpr_v2_1608",
+  "decision_note": "Decisions on one read under different keys share the read; the read-level summary is reported beside the pooled count.",
+  "decisions": 32768,
+  "detector_id": "synthid-position-independent-detector-v1",
+  "evaluated_prompts": 512,
+  "exact_one_sided_95_upper_bound_at_0_01": 0.0016575234720795048,
+  "exact_two_sided_95_interval_at_0_01": [
+    0.0009239155261237449,
+    0.0017321472300575263
+  ],
+  "expected_windows_by_read_bases": {
+    "3072": 13064,
+    "3456": 16136
+  },
+  "experiment_id": "synthid.v5.s3_null_calibration",
+  "experiment_label": "generator-synthid-local-v5",
+  "family": "marked_independent_key",
+  "finalization_wall_seconds": 273.2754232920124,
+  "flags": [
+    "Null keys are public fixtures; no secret-key claim follows from this study.",
+    "Rows hold key indices only; key bytes are never written."
+  ],
+  "hypotheses_searched_counts": {
+    "16136": 32768
+  },
+  "inputs": [
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/data/processed/ncbi_refseq_eukaryote_windows_fpr_v2_1608/prompts.jsonl",
+      "role": "cohort_prompts",
+      "sha256": "cb19e90662fcb25f774b0840e2e696132e2dc9c54439d97597bd186d4948f775"
+    },
+    {
+      "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged/generation/draw_00_sequences.jsonl",
+      "role": "draw0_sequences",
+      "sha256": "e919cec722ae4e06be44c2a3f52da89139b8678e40c5581ad3903263546137f0"
+    }
+  ],
+  "key_bytes_recorded": false,
+  "keys": 64,
+  "model": "generator",
+  "null_domain": "synthid-review-v5/null",
+  "null_key_derivation": "SHA-256 of 'synthid-review-v5/null-key/<i>' (UTF-8), i in 0..63",
+  "partial_run": false,
+  "per_key": [
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 0,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 1,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 2,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 3,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 4,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 5,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 6,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 7,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 8,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 9,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 10,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 11,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 12,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 13,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 14,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0012099778257548665,
+        0.01702737511683891
+      ],
+      "key_index": 15,
+      "positives": 3,
+      "rate": 0.005859375,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 16,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 17,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0021326268405938743,
+        0.019881459971452173
+      ],
+      "key_index": 18,
+      "positives": 4,
+      "rate": 0.0078125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 19,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 20,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0004734155742531006,
+        0.014038905114244559
+      ],
+      "key_index": 21,
+      "positives": 2,
+      "rate": 0.00390625,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 22,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 23,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0012099778257548665,
+        0.01702737511683891
+      ],
+      "key_index": 24,
+      "positives": 3,
+      "rate": 0.005859375,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 25,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 26,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 27,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 28,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 29,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 30,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 31,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 32,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 33,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 34,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 35,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 36,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0004734155742531006,
+        0.014038905114244559
+      ],
+      "key_index": 37,
+      "positives": 2,
+      "rate": 0.00390625,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 38,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 39,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 40,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 41,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 42,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 43,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 44,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 45,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 46,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 47,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 48,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 49,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 50,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 51,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 52,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 53,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 54,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 55,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 56,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0004734155742531006,
+        0.014038905114244559
+      ],
+      "key_index": 57,
+      "positives": 2,
+      "rate": 0.00390625,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        4.944762114539532e-05,
+        0.010833656944754487
+      ],
+      "key_index": 58,
+      "positives": 1,
+      "rate": 0.001953125,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 59,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 60,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 61,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 62,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    },
+    {
+      "exact_95_interval": [
+        0.0,
+        0.007178950026259453
+      ],
+      "key_index": 63,
+      "positives": 0,
+      "rate": 0.0,
+      "reads": 512
+    }
+  ],
+  "per_key_rate_max": 0.0078125,
+  "per_key_rate_median": 0.0009765625,
+  "per_key_rate_min": 0.0,
+  "policy_id": "G_tok",
+  "pooled_bounds_note": "Pooled read x key exact intervals and bounds, including the calibration table, treat the decisions as independent trials although decisions share reads and keys. The pooled lower bound is therefore anti-conservative as evidence against validity; read the read-level summary (reads_positive_under_at_least_one_key) and the per-key rates beside it.",
+  "positives_at_0_01": 42,
+  "protocol": {
+    "id": "synthid_v5_review_studies_protocol_2026_11_12",
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/docs/research/synthid_v5_review_studies_protocol_2026_11_12.md",
+    "section": "7 S3 null calibration",
+    "sha256": "49509bc664a5dadfcdddce486a45d4be708da6eae1921424482f6b0cd19de317"
+  },
+  "provenance": {
+    "command": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/.venv/bin/python /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/scripts/run_synthid_v5_null_calibration.py --family marked_independent_key --model generator --generation-root /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/merged --experiment-label generator-synthid-local-v5 --generation-experiment-id generator_synthid_v5_local_generation --n-eval 512 --output-dir /Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/studies/s3_null_marked_independent_key --workers 12",
+    "cpu_model": "Apple M5 Pro",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "python": "3.12.16",
+    "workers": 12
+  },
+  "rate_at_0_01": 0.00128173828125,
+  "read_bases_counts": {
+    "3456": 32768
+  },
+  "reads": 512,
+  "reads_positive_under_at_least_one_key": {
+    "count": 40,
+    "exact_two_sided_95_interval": [
+      0.05639779599588583,
+      0.10486635710025519
+    ],
+    "fraction": 0.078125,
+    "reads": 512
+  },
+  "schema_version": 1,
+  "target_sequence_false_positive_rate": 0.01,
+  "trials_artifact": {
+    "path": "/Users/galano/Developer/patternforge/utexas/genomic-sampling-watermarks/outputs/synthid_v5_local/generator/studies/s3_null_marked_independent_key/trials.jsonl.gz",
+    "sha256": "b20ead259eedc3b3dbb0546dfe3c83baa9332578a47c4d24679416e299a9a96c"
+  },
+  "window_count_note": "A 3,072-base span searches 13,064 windows; a 3,456-base read (384-base prompt plus 3,072-base continuation) searches 16,136. Each sequence-level P-value uses its own count; both counts are asserted on every decision.",
+  "worker_runtime_seconds_sum": 3245.5649667283287
+}
